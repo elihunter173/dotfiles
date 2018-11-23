@@ -33,7 +33,7 @@ fi
 
 ## MY CUSTOM SETTINGS ##
 setxkbmap -option caps:swapescape # Swap caps lock and escape
-
+## ##
 
 twm &
 xclock -geometry 50x50-1+1 &

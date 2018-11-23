@@ -1,2 +1,0 @@
-# Swaps capslock and escape key
-setxkbmap -option caps:swapescape

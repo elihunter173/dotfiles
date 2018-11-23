@@ -2,21 +2,10 @@
 
 - link:
     ~/.profile: profile
-    ~/.bashrc: bashrc
     ~/.gitconfig: gitconfig
     ~/.tmux.conf: tmux.conf
-    ~/.vimrc: vimrc
     ~/.zshrc: zshrc
-    ~/.Xmodmap: Xmodmap
     ~/.xinitrc: xinitrc
     ~/.config/i3:
         path: config/i3/
         create: true
-    ~/.config/openbox:
-        path: config/openbox/
-        create: true
-    ~/.config/tint2:
-        path: config/tint2/
-        create: true
-
-
