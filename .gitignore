@@ -1,0 +1,5 @@
+# temporary vim files
+*.swp
+
+# temporary emacs files
+*~
