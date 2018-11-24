@@ -1,11 +1,17 @@
 - clean: ['~']
 
 - link:
-    ~/.profile: profile
-    ~/.gitconfig: gitconfig
-    ~/.tmux.conf: tmux.conf
-    ~/.zshrc: zshrc
     ~/.xinitrc: xinitrc
+    ~/.zshrc: config/zsh/zshrc
+    ~/.zshrc.d:
+        path: config/zsh/zshrc.d/
+        create: true
+    ~/.config/nvim:
+        path: config/nvim/
+        create: true
+    ~/.profile: profile
+    ~/.tmux.conf: tmux.conf
+    ~/.gitconfig: gitconfig
     ~/.config/i3:
         path: config/i3/
         create: true

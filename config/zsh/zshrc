@@ -1,5 +1,5 @@
-for script in ~/.zshrc.d/*.zsh; do
-    . $script
+for script in ~/.zshrc.d/*.sh; do
+    source $script
 done
 
 # If you come from bash you might have to change your $PATH.
