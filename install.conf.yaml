@@ -18,6 +18,7 @@
         create: true
     ~/.profile: profile
     ~/.tmux.conf: tmux.conf
+    ~/.tmux.theme: tmux.theme
     ~/.gitconfig: gitconfig
     ~/.config/i3:
         path: config/i3/
