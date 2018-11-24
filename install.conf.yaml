@@ -6,8 +6,15 @@
     ~/.zshrc.d:
         path: zshrc.d/
         create: true
-    ~/.config/nvim:
-        path: config/nvim/
+    ~/.config/nvim/init.vim:
+        path: config/nvim/init.vim
+        create: true
+    ~/.config/nvim/config:
+        path: config/nvim/config/
+        create: true
+    ~/.emacs: emacs
+    ~/.emacs.d:
+        path: emacs.d/
         create: true
     ~/.profile: profile
     ~/.tmux.conf: tmux.conf
