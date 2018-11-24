@@ -2,9 +2,9 @@
 
 - link:
     ~/.xinitrc: xinitrc
-    ~/.zshrc: config/zsh/zshrc
+    ~/.zshrc: zshrc
     ~/.zshrc.d:
-        path: config/zsh/zshrc.d/
+        path: zshrc.d/
         create: true
     ~/.config/nvim:
         path: config/nvim/
