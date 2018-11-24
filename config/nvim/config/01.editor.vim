@@ -10,3 +10,4 @@ augroup END
 
 set clipboard+=unnamedplus " make neovim use X clipboard
 
+autocmd BufWritePre * %s/\s\+$//e " trim trailing whitespace on write. `e` disables error messages if none found
