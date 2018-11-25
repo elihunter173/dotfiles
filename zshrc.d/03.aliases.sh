@@ -8,5 +8,5 @@ alias l.='ls -d .*'
 vim --version >/dev/null 2>&1 || alias vim='nvim'
 
 # enable 'Light Vim'
-alias lvim=`nvim -u ~/.lvimrc'
+alias lvim='nvim -u ~/.lvimrc'
 
