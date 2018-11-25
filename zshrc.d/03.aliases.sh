@@ -3,3 +3,5 @@
 
 # Sets vim to start neovim if vim isn't installed. Neovim is better anyway ;)
 vim --version >/dev/null 2>&1 || alias vim='nvim'
+
+alias l.='ls -d .*'

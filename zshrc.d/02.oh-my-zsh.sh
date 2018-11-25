@@ -10,15 +10,23 @@ ZSH_THEME="af-magic"
 # custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # add wisely, too many plugins slow down shell startup
 plugins=(
+  # autocompletion
   git
+  pip
   tmux
-  archlinux
+
+  # workflow
+  sudo
+
+  # colors
   colored-man-pages
   colorize
 )
 
 # load the oh-my-zsh shell script
 source $ZSH/oh-my-zsh.sh
+
+
 
 ## This is the pre-set up oh-my-zsh ##
 
