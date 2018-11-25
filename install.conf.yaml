@@ -12,6 +12,7 @@
     ~/.config/nvim/config:
         path: config/nvim/config/
         create: true
+    ~/.lvimrc: lvimrc
     ~/.emacs: emacs
     ~/.emacs.d:
         path: emacs.d/

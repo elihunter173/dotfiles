@@ -1,0 +1,8 @@
+" This is Eli W. Hunter's lvim or 'Light Vim' configuration.
+"
+" Light Vim is just Neovim with this as its config file. It is meant to be a
+" much simpler and lighter weight config that my normal one.
+"
+
+set number " enable absolute numbers
+
