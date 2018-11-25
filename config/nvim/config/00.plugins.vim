@@ -17,7 +17,20 @@ if dein#load_state('/home/eli/.cache/dein')
   " Add or remove your plugins here like this:
   "call dein#add('Shougo/neosnippet.vim')
   "call dein#add('Shougo/neosnippet-snippets')
-  
+  call dein#add('tpope/vim-surround') " enable vim-surround
+
+  " enable deoplete
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+  let g:deoplete#enable_at_startup = 1
+
+  " enble neosnippet with neosnippets
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
+
   " Required:
   call dein#end()
   call dein#save_state()
