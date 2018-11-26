@@ -10,7 +10,6 @@
         path: config/nvim/
         create: true
     ~/.lvimrc: lvimrc
-    ~/.emacs: emacs
     ~/.emacs.d:
         path: emacs.d/
         create: true
