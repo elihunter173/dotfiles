@@ -6,11 +6,8 @@
     ~/.zshrc.d:
         path: zshrc.d/
         create: true
-    ~/.config/nvim/init.vim:
-        path: config/nvim/init.vim
-        create: true
-    ~/.config/nvim/config:
-        path: config/nvim/config/
+    ~/.config/nvim:
+        path: config/nvim/
         create: true
     ~/.lvimrc: lvimrc
     ~/.emacs: emacs
