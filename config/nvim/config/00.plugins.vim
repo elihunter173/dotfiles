@@ -15,7 +15,11 @@ if dein#load_state('/home/eli/.cache/dein')
   call dein#add('/home/eli/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " call dein#add('wsdjeg/dein-ui.vim') " add a ui to dein. Currently doesn't
-  " work for raw vim.
+  " work for non-SpaceVim installs.
+
+  " Read more about these before enabling them!
+  "call dein#add('wellle/targets.vim') " create more text objects
+  "call dein#add('bkad/CamelCaseMotion') " enable CamelCase text ojects
 
   call dein#add('tpope/vim-surround') " enable vim-surround
   call dein#add('tpope/vim-repeat') " enable vim.repeat (installed for vim-surround)
