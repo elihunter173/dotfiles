@@ -1,4 +1,4 @@
-" This is the required dein header
+" This is the required dein skeleton
 if &compatible
   set nocompatible               " Be iMproved
 endif
@@ -14,10 +14,11 @@ if dein#load_state('/home/eli/.cache/dein')
   " Required:
   call dein#add('/home/eli/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-  " Add or remove your plugins here like this:
-  "call dein#add('Shougo/neosnippet.vim')
-  "call dein#add('Shougo/neosnippet-snippets')
+  " call dein#add('wsdjeg/dein-ui.vim') " add a ui to dein. Currently doesn't
+  " work for raw vim.
+
   call dein#add('tpope/vim-surround') " enable vim-surround
+  call dein#add('tpope/vim-repeat') " enable vim.repeat (installed for vim-surround)
 
   " enable deoplete
   call dein#add('Shougo/deoplete.nvim')
@@ -27,7 +28,7 @@ if dein#load_state('/home/eli/.cache/dein')
   endif
   let g:deoplete#enable_at_startup = 1
 
-  " enble neosnippet with neosnippets
+  " enable neosnippet with neosnippets
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
 
@@ -44,3 +45,4 @@ syntax enable
 "if dein#check_install()
 "  call dein#install()
 "endif
+
