@@ -10,7 +10,7 @@ ZSH_THEME="af-magic"
 # custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # add wisely, too many plugins slow down shell startup
 plugins=(
-  # autocompletion
+  # autocompletion & aliases
   git
   pip
   tmux
