@@ -13,5 +13,6 @@
 " minimums.
 "
 
-set number " enable absolute numbers
-
+for file in split(glob('/home/eli/.config/nvim/core/*.vim'), '\n')
+    exec 'source' file
+endfor

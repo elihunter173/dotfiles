@@ -6,3 +6,6 @@ cmap w!! w !sudo tee > /dev/null %
 
 " disable highlighting (run :noh) when escape pressed twice in normal mode
 nmap <Esc><Esc> :noh<CR>
+
+" make `Y` `y$` consistent with `D`, `C`, etc.
+nmap Y y$
