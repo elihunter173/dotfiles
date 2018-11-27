@@ -13,6 +13,13 @@
     ~/.emacs.d:
         path: emacs.d/
         create: true
+    ~/.spacemacs: spacemacs
+    ~/.spacemacs.d:
+        path: spacemacs.d/
+        create: true
+    ~/.config/systemd:
+        path: config/systemd/
+        create: true
     ~/.profile: profile
     ~/.tmux.conf: tmux.conf
     ~/.tmux.theme: tmux.theme
