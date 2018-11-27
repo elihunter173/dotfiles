@@ -55,7 +55,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages
+   '(
+     all-the-icons
+     atom-one-dark-theme
+     nlinum-relative
+   )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -310,7 +315,17 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; enable atom-one-dark theme
+  (load-theme 'atom-one-dark t)
 
+  ;; enable whitespace rendering:
+  (whitespace-toggle-options 'l) ; disable long line color-changing (facing)
+  (whitespace-toggle-options 'N) ; disable new line rendering
+  (global-whitespace-mode) ; enable whitespace rendering
+
+  ;; enable relative line numbers
+  (setq nlinum-relative-redisplay-delay 0) ; disable the delay for line numbers to display
+  (nlinum-relative-on) ; turn on relative line numbers
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -326,7 +341,7 @@ you should place your code here."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (pretty-mode mmm-mode markdown-toc dash s markdown-mode gh-md atom-one-dark-theme which-key use-package pcre2el macrostep hydra helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx flx helm-descbinds helm-ag exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish bind-map bind-key auto-compile packed ace-window ace-jump-helm-line helm avy helm-core popup async))))
+    (nlinum-relative nlinum memoize all-the-icons neotree pretty-mode mmm-mode markdown-toc dash s markdown-mode gh-md atom-one-dark-theme which-key use-package pcre2el macrostep hydra helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx flx helm-descbinds helm-ag exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish bind-map bind-key auto-compile packed ace-window ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
