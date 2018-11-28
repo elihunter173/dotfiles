@@ -21,10 +21,15 @@ if dein#load_state('/home/eli/.cache/dein')
   "call dein#add('wellle/targets.vim') " create more text objects
   "call dein#add('bkad/CamelCaseMotion') " enable CamelCase text ojects
 
+  """ DISPLAY:
+  call dein#add('joshdick/onedark.vim') " switch to onedark theme
+  call dein#add('sheerun/vim-polyglot') " enable vim-polyglot for broader language support
+
+  """ WORKFLOW:
   call dein#add('tpope/vim-surround') " enable vim-surround
   call dein#add('tpope/vim-repeat') " enable vim.repeat (installed for vim-surround)
 
-  " enable deoplete
+  " enable deoplete, an autocompletion plugin
   call dein#add('Shougo/deoplete.nvim')
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
@@ -32,9 +37,12 @@ if dein#load_state('/home/eli/.cache/dein')
   endif
   let g:deoplete#enable_at_startup = 1
 
-  " enable neosnippet with neosnippets
+  " enable neosnippet, a snippet enabler
   call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('Shougo/neosnippet-snippets') " enable the neosnippets library
+
+  " enable denite, Helm for vim
+  call dein#add('Shougo/denite.nvim')
 
   " Required:
   call dein#end()
