@@ -6,20 +6,13 @@
     ~/.zshrc.d:
         path: zshrc.d/
         create: true
+    ~/.config/kitty:
+        path: config/kitty/
+        create: true
     ~/.config/nvim:
         path: config/nvim/
         create: true
     ~/.lvimrc: lvimrc
-    ~/.emacs.d:
-        path: emacs.d/
-        create: true
-    ~/.spacemacs: spacemacs
-    ~/.spacemacs.d:
-        path: spacemacs.d/
-        create: true
-    ~/.config/systemd:
-        path: config/systemd/
-        create: true
     ~/.profile: profile
     ~/.tmux.conf: tmux.conf
     ~/.tmux.theme: tmux.theme
