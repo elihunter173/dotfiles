@@ -26,8 +26,11 @@ if dein#load_state('/home/eli/.cache/dein')
   call dein#add('sheerun/vim-polyglot') " enable vim-polyglot for broader language support
 
   """ WORKFLOW:
-  call dein#add('tpope/vim-surround') " enable vim-surround
-  call dein#add('tpope/vim-repeat') " enable vim.repeat (installed for vim-surround)
+  " load vim-surround whenever one of its keys are pressed. this improves
+  " loading time
+  call dein#add('tpope/vim-surround', {'on_map' : {'n' : ['cs', 'ds', 'ys']}})
+  call dein#add('tpope/vim-repeat') " enable vim.repeat upon startup
+
 
   " enable deoplete, an autocompletion plugin
   call dein#add('Shougo/deoplete.nvim')
