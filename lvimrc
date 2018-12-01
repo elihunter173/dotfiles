@@ -13,6 +13,11 @@
 " minimums.
 "
 
-for file in split(glob('/home/eli/.config/nvim/core/*.vim'), '\n')
-    exec 'source' file
-endfor
+set number " enable absolute line numbers
+
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab " make <Tab> insert 4 spaces
+
+set clipboard+=unnamedplus " make neovim use X clipboard
+
+" make `Y` `y$` consistent with `D`, `C`, etc.
+nmap Y y$
