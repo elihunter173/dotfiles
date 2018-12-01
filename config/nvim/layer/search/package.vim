@@ -1,1 +1,1 @@
-Plug 'Shougo/denite.nvim' " denite is Helm for vim
+Plug 'Shougo/denite.nvim', { 'on': 'Denite' } " denite is Helm for vim
