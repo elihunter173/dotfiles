@@ -15,10 +15,9 @@ let s:path = expand('<sfile>:p:h')
 " Install vim-plug if it isn't installed and then reload the config
 " files once vim is done loading.
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  let s:install_dir = ~/.local/share/nvim/site/autoload/plug.vim
-  silent !curl -fLo s:install_dir --create-dirs
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | exec 'source' s:path . '/init.vim'
+  autocmd VimEnter * PlugInstall | echom "Plugins installed! Please restart Neovim for changes to take affect."
 endif
 
 let layers = split(globpath(s:path . '/layer', "*" ), "\n")
