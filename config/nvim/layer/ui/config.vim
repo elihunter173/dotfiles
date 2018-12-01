@@ -5,3 +5,5 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber " disable relative line numbers for non-focused buffers or when in insert mode
 augroup END
 
+set listchars=space:·,eol:$,tab:>-,trail:~,extends:>,precedes:< " define hidden characters
+set list " show hidden characters
