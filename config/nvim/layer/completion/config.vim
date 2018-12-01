@@ -1,6 +1,5 @@
-" enable deoplete when InsertEnter
-let g:deoplete#enable_at_startup = 0
-autocmd InsertEnter * call deoplete#enable() " Only enable deoplete when insert mode is entered to decrease startup time
+" enable deoplete as soon as it's loaded
+let g:deoplete#enable_at_startup = 1
 
 " decrease amount of time for deoplete to activate
 let g:deoplete#auto_complete_delay = 5  " Default is 50
