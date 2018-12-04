@@ -17,10 +17,10 @@ let s:path = expand('<sfile>:p:h')
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  autocmd VimEnter * PlugInstall --sync | source s:path . '/init.vim'
 endif
 
-let layers = split(globpath(s:path . '/layer', "*" ), "\n")
+let layers = split(globpath(s:path . '/layers', "*" ), "\n")
 
 " Add each layer's after dir to the runtime path
 for l in layers
@@ -32,21 +32,10 @@ endfor
 
 " Install plugins
 call plug#begin('~/.local/share/nvim/plugged')
-for l in layers
-  let s:package = l . '/package.vim'
-  if filereadable(s:package)
-    exec "source" s:package
-  endif
-endfor
+runtime! layers/**/package.vim
 call plug#end()
 
-" Load the config of each layer
-for l in layers
-  let s:config = l . '/config.vim'
-  if filereadable(s:config)
-    exec "source" s:config
-  endif
-endfor
+runtime! layers/**/config.vim " Load the config of each layer
 
 " NOTES:
 "
