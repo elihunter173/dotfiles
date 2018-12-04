@@ -11,8 +11,8 @@ nmap <Esc><Esc> :noh<CR>
 nmap Y y$
 
 " Buffer Hotkeys
-map <M-Left> :previous<CR>
-map <M-Right> :next<CR>
+map <M-h> :previous<CR>
+map <M-l> :next<CR>
 map <M-1> :buffer 1<CR>
 map <M-2> :buffer 2<CR>
 map <M-3> :buffer 3<CR>
