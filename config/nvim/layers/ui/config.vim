@@ -7,3 +7,6 @@ augroup END
 
 set listchars=space:·,eol:$,tab:>-,trail:~,extends:>,precedes:< " define hidden characters
 set list " show hidden characters
+
+set cursorline " turn on cursor line highlighting
+set cursorcolumn " turn on cursor column highlighting
