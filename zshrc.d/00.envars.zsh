@@ -11,6 +11,7 @@ export PATH=$PATH:$HOME/ardupilot/Tools/autotest # For ardupilot
 export PATH=$PATH:$(ruby -e 'print Gem.user_dir')/bin # For RubyGem executables
 
 arc='/home/eli/src/git/ARC'
+TRASH='~/.local/share/Trash'
 
 # This was added automatically by oh-my-zsh
 
