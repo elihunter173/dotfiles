@@ -48,6 +48,5 @@ runtime! layers/**/config.vim " Load the config of each layer
 " Otherwise, use any valid git URL.
 "
 
-
 " enable ftplugins for everything
 filetype plugin indent on

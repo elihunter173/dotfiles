@@ -1,1 +1,1 @@
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'majutsushi/tagbar' ", { 'for': ['java', 'python'] }
