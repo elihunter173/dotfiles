@@ -3,4 +3,5 @@
 
 " set S to search buffers and switch
 nmap S :Denite buffer<CR>
+" set ctrl+o to searching files recursively
 nmap <C-o> :Denite file/rec<CR>
