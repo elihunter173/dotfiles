@@ -1,4 +1,4 @@
-" enable java language server. THIS IS CURRENTLY VERY SLOW
+" enable java language server
 let g:LanguageClient_serverCommands = {
     \ 'java': ['/usr/bin/jdtls'],
     \ }
