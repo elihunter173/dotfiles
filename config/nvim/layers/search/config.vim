@@ -2,6 +2,8 @@
 " buffer's location
 
 " set S to search buffers and switch
-nmap S :Denite buffer<CR>
-" set ctrl+o to searching files recursively
-nmap <C-o> :Denite file/rec<CR>
+nmap S :Buffers
+" set <leader>o to searching files recursively
+nmap <leader>o :Files
+nmap <leader>T :Tags
+nmap <leader>t :BTags
