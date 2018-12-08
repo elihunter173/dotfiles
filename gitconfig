@@ -1,5 +1,0 @@
-[user]
-	email = hunter.eli.w@gmail.com
-	name = Eli W. Hunter
-[core]
-	editor = nvim -u ~/.lvimrc
