@@ -4,6 +4,9 @@ Eli W. Hunter's dotfiles for all major applications. Managed by [Dotbot](https:/
 
 ## Features
 
+* Only somewhat outdated documentation!
+* Pretty colors from onedark everywhere
+
 ### Terminal
 
 * (Oh My) Zsh
