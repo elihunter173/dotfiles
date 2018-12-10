@@ -201,3 +201,10 @@ mode "resize" {
 ## ##
 
 ### ###
+
+## Visual Config ##
+
+# disable widow borders and titles
+for_window [class="^.*"] border pixel 0
+
+## ##
