@@ -13,6 +13,10 @@ export PATH=$PATH:$(ruby -e 'print Gem.user_dir')/bin # For RubyGem executables
 arc=/home/eli/src/git/ARC
 TRASH=~/.local/share/Trash
 
+SPACESHIP_TIME_SHOW=true
+SPACESHIP_DIR_TRUNC=0
+SPACESHIP_DIR_TRUNC_REPO=false
+
 # This was added automatically by oh-my-zsh
 
 # export MANPATH="/usr/local/man:$MANPATH"

@@ -3,7 +3,7 @@ export ZSH="/home/eli/.oh-my-zsh"
 
 # set oh-my-zsh theme
 # see https://github.com/robbyrussell/oh-my-zsh/wiki/Themes for more themes
-ZSH_THEME="af-magic"
+ZSH_THEME="spaceship"
 
 # controls which plugins are loaded
 # standard plugins can be found in ~/.oh-my-zsh/plugins/*
