@@ -1,7 +1,8 @@
 - clean: ['~']
 
 - link:
-    ~/.xinitrc: xinitrc
+    ~/.profile: profile
+    ~/.xprofile: xprofile
     ~/.zshrc: zshrc
     ~/.zshrc.d:
         path: zshrc.d/
@@ -13,7 +14,6 @@
         path: config/nvim/
         create: true
     ~/.lvimrc: lvimrc
-    ~/.profile: profile
     ~/.tmux.conf: tmux.conf
     ~/.tmux.theme: tmux.theme
     ~/.gitconfig: gitconfig
