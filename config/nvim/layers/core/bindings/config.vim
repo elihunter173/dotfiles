@@ -18,6 +18,8 @@ nnoremap Y y$
 
 " make easier return to last buffer keystroke
 noremap <C-r> <C-^>
+" remap undo
+noremap U <C-r>
 "
 " disable highlighting (run :noh) when escape pressed twice in normal mode
 nmap <Esc><Esc> :noh<CR>
