@@ -15,7 +15,14 @@
 
 set number " enable absolute line numbers
 
-set clipboard+=unnamedplus " make neovim use X clipboard
-
 " make `Y` `y$` consistent with `D`, `C`, etc.
 nmap Y y$
+
+" make command mode a single key and avoid shift typos
+nnoremap <CR> :
+
+" remap undo
+noremap U <C-r>
+
+" get me out of here!
+nnoremap z :wq!<CR>
