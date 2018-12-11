@@ -23,3 +23,6 @@
     ~/.config/systemd:
         path: config/systemd/
         create: true
+    ~/.config/neofetch:
+        path: config/neofetch/
+        create: true

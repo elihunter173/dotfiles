@@ -206,5 +206,6 @@ mode "resize" {
 
 # disable widow borders and titles
 for_window [class="^.*"] border pixel 0
+# TODO: enable compton
 
 ## ##
