@@ -9,11 +9,10 @@ Eli W. Hunter's dotfiles for all major applications. Managed by [Dotbot](https:/
 
 ### Terminal
 
-* (Oh My) Zsh
+* (Oh My) Zsh!
 * Auto-completion
 * Syntax highlighting
 * Easier `sudo`!
-* A [prompt for astronauts](https://github.com/denysdovhan/spaceship-prompt)
 
 ### Vim
 
