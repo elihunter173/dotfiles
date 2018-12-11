@@ -18,3 +18,6 @@
 
 syntax on
 colorscheme onedark
+
+" set transparent background
+highlight Normal guibg=NONE ctermbg=NONE
