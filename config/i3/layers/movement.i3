@@ -1,21 +1,56 @@
 # change focus
-bindsym $primary_action+$left focus left
-bindsym $primary_action+$down focus down
-bindsym $primary_action+$up focus up
-bindsym $primary_action+$right focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 # alternatively, arrow keys
-bindsym $primary_action+Left focus left
-bindsym $primary_action+Down focus down
-bindsym $primary_action+Up focus up
-bindsym $primary_action+Right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
 # move focused window
-bindsym $secondary_action+$left move left
-bindsym $secondary_action+$down move down
-bindsym $secondary_action+$up move up
-bindsym $secondary_action+$right move right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 # alternatively, arrow keys
-bindsym $secondary_action+Left move left
-bindsym $secondary_action+Down move down
-bindsym $secondary_action+Up move up
-bindsym $secondary_action+Right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# use mouse+$primary_action to drag floating windows to their wanted position
+floating_modifier $mod
+
+bindsym $mod+m mode "movement"
+mode "movement" {
+    # change focus
+    bindsym $left focus left
+    bindsym $down focus down
+    bindsym $up focus up
+    bindsym $right focus right
+    # alternatively, arrow keys
+    bindsym Left focus left
+    bindsym Down focus down
+    bindsym Up focus up
+    bindsym Right focus right
+
+    # move focused window
+    bindsym Shift+$left move left
+    bindsym Shift+$down move down
+    bindsym Shift+$up move up
+    bindsym Shift+$right move right
+    # alternatively, arrow keys
+    bindsym Shift+Left move left
+    bindsym Shift+Down move down
+    bindsym Shift+Up move up
+    bindsym Shift+Right move right
+
+    # focus the parent container
+    bindsym p focus parent
+    # Focus the child container
+    bindsym c focus child
+
+    bindsym Escape mode "default"
+}
