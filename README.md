@@ -21,3 +21,7 @@ Eli W. Hunter's dotfiles for all major applications. Managed by [Dotbot](https:/
   * Enhanced status bar with [airline](https://github.com/vim-airline/vim-airline)
   * Fast buffer, file, tag searching with [fzf](https://github.com/junegunn/fzf.vim)
   * Small, quality-of-life keybindings
+
+## Misc. Notes
+
+* Default umask `027` for moderate security.
