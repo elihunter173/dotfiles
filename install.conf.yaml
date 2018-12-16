@@ -3,26 +3,26 @@
 - link:
     ~/.profile: profile
     ~/.xprofile: xprofile
-    ~/.zshrc: zshrc
+    ~/.zshrc: zsh/zshrc
     ~/.zshrc.d:
-        path: zshrc.d/
+        path: zsh/zshrc.d/
         create: true
     ~/.config/kitty:
-        path: config/kitty/
+        path: kitty/
         create: true
     ~/.config/nvim:
-        path: config/nvim/
+        path: nvim/
         create: true
     ~/.lvimrc: lvimrc
     ~/.tmux.conf: tmux.conf
     ~/.tmux.theme: tmux.theme
     ~/.gitconfig: gitconfig
     ~/.config/i3:
-        path: config/i3/
+        path: i3/
         create: true
     ~/.config/systemd:
-        path: config/systemd/
-        create: true
+        path: systemd/
+        reate: true
     ~/.config/neofetch:
-        path: config/neofetch/
+        path: neofetch/
         create: true
