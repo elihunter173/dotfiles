@@ -5,8 +5,9 @@
 # installed. This just makes it a bit prettier.
 bindsym $mod+Return exec --no-startup-id i3-dmenu-desktop
 
-bindsym $mod+a mode "launch apps"
-mode "launch apps" {
+# key string "launch"
+bindsym $mod+p mode "launch"
+mode "launch" {
     bindsym t exec kitty; mode "default"
     bindsym f exec firefox; mode "default"
     bindsym e exec code; mode "default"

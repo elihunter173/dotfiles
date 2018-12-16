@@ -1,5 +1,3 @@
-# This file contains all of the core envars and keybindings required by all other scripts
-
 # always recompile config upon restart
 exec_always "~/.config/i3/process-config.sh"
 
