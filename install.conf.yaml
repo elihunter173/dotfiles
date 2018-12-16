@@ -1,4 +1,4 @@
-- clean: ['~']
+- clean: ['~', '~/.config']
 
 - link:
     ~/.profile: profile
@@ -14,8 +14,8 @@
         path: nvim/
         create: true
     ~/.lvimrc: lvimrc
-    ~/.tmux.conf: tmux.conf
-    ~/.tmux.theme: tmux.theme
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmux.theme: tmux/tmux.theme
     ~/.gitconfig: gitconfig
     ~/.config/i3:
         path: i3/
