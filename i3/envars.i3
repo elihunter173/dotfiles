@@ -1,5 +1,3 @@
-# always recompile config upon restart
-exec_always "~/.config/i3/process-config.sh"
 
 # MOD KEY
 set $mod Mod4

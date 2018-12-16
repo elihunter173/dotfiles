@@ -8,9 +8,9 @@ bindsym $mod+Return exec --no-startup-id i3-dmenu-desktop
 # key string "launch"
 bindsym $mod+p mode "launch"
 mode "launch" {
-    bindsym t exec kitty; mode "default"
-    bindsym f exec firefox; mode "default"
-    bindsym e exec code; mode "default"
+    bindsym t mode "default"; exec kitty
+    bindsym f mode "default"; exec firefox
+    bindsym e mode "default"; exec code
 
     bindsym Escape mode "default"
 }
