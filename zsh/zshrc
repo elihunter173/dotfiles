@@ -1,6 +1,18 @@
-# segment .zshrc.
-# numbers are used to control load order.
-for script in ~/.zshrc.d/*.zsh; do
-    source $script
+# load envars used by rest of config
+source ~/.zshrc.d/envars.zsh
+
+source /usr/share/zsh/share/antigen.zsh # enable antigen package manager
+antigen use oh-my-zsh # load oh-my-zsh library
+# load antigen themes/bundles from each layer and then apply them all
+for package in ~/.zshrc.d/**/package.zsh; do
+    source $package
+done
+antigen apply
+
+# load config files from each layer
+for config in ~/.zshrc.d/layers/**/config.zsh; do
+    source $config
 done
 
+# do final loading and applying of settings
+autoload -Uz compinit; compinit
