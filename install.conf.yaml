@@ -20,6 +20,10 @@
     ~/.config/i3:
         path: i3/
         create: true
+    ~/.config/compton.conf: compton.conf
+    ~/.config/polybar:
+        path: polybar/
+        create: true
     ~/.config/systemd:
         path: systemd/
         reate: true
