@@ -3,16 +3,17 @@ bindsym $mod+q kill
 # middle button and modifier over any part of the window kills the window
 bindsym --whole-window $mod+button2 kill
 
-# change window orientation (l is taken by movement)
+# change window layout (l is taken by movement)
+# this is a key string
 bindsym $mod+o mode "layout"
 mode "layout" {
     # workspace layout
-    bindsym $mod+r layout toggle split
-    bindsym $mod+e layout stacking
-    bindsym $mod+t layout tabbed
+    bindsym r mode "default"; layout toggle split
+    bindsym e mode "default"; layout stacking
+    bindsym t mode "default"; layout tabbed
     # horizontal and vertical split
-    bindsym $mod+h split h
-    bindsym $mod+v split v
+    bindsym h mode "default"; split h
+    bindsym v mode "default"; split v
 
     bindsym Escape mode "default"
 }
