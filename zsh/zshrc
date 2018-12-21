@@ -15,4 +15,5 @@ for config in ~/.zshrc.d/layers/**/config.zsh; do
 done
 
 # do final loading and applying of settings
-autoload -Uz compinit; compinit
+autoload -Uz compinit
+compinit
