@@ -8,4 +8,5 @@ augroup END
 set listchars=space:·,eol:$,tab:>-,trail:·,extends:>,precedes:< " define hidden characters
 set list " show hidden characters
 
-
+set cursorline
+set cursorcolumn

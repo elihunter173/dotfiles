@@ -1,1 +1,1 @@
-Plug 'joshdick/onedark.vim'
+Plug 'chriskempson/base16-vim'
