@@ -3,7 +3,7 @@
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed. This just makes it a bit prettier.
-bindsym $mod+Return exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+Return exec rofi -theme base16-onedark -show run
 
 # key string "launch"
 bindsym $mod+p mode "launch"
