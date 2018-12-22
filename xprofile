@@ -1,1 +1,5 @@
-setxkbmap -option caps:swapescape # Swap caps lock and escape
+# Load Xresources
+xrdb ~/.Xresources
+
+# Swap caps lock and escape
+setxkbmap -option caps:swapescape

@@ -3,6 +3,7 @@
 - link:
     ~/.profile: profile
     ~/.xprofile: xprofile
+    ~/.Xresources: Xresources
     ~/.zshrc: zsh/zshrc
     ~/.zshrc.d:
         path: zsh/zshrc.d/
