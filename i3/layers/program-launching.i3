@@ -10,6 +10,7 @@ bindsym $mod+p mode "launch"
 mode "launch" {
     bindsym t mode "default"; exec kitty
     bindsym f mode "default"; exec firefox
+    bindsym Shift+f mode "default"; exec firefox --private-window
     bindsym r mode "default"; exec kitty ranger
     bindsym e mode "default"; exec code
 
