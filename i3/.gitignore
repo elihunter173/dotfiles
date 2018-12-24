@@ -1,2 +1,5 @@
-# ignore compiled config
+# compiled config
 config
+
+# brightness file
+.brightness
