@@ -17,24 +17,52 @@ change_line() {
     sed -i "${2}s/.*/${3}/" $1
 }
 
+# Set up information about the brightness file.
 brightness_file="$HOME/.config/i3/.brightness"
 brightness_line=2
 status_line=1
 
+# Updates the brightness in the brightness file.
+# ARGS:
+#     $1 The new brightness.
+update_brightness() {
+    change_line $brightness_file $brightness_line $1
+}
+
+# Updates the screen status in the brightness file.
+# ARGS:
+#     $1 The new screen status.
+update_status() {
+    change_line $brightness_file $status_line $1
+}
+
+# Read the brightness file.
 brightness=$(select_line $brightness_file $brightness_line)
 screen_status=$(select_line $brightness_file $status_line)
 
+default_brightness=30
+
+# Update the brightness file
 if [ $screen_status = "on" ]; then
-    change_line $brightness_file $brightness_line $(xbacklight -get)
-    change_line $brightness_file $status_line "off"
-    xbacklight -set 0 # Turn off the screen
+    update_brightness $(xbacklight -get)
+    update_status "off"
 elif [ $screen_status = "off" ]; then
-    change_line $brightness_file $status_line "on"
-    xbacklight -set $brightness # Reset the screen brightness
+    update_status "on"
 else
-    default_brightness=50
     printf "\n\n" >$brightness_file
-    change_line $brightness_file $brightness_line $default_brightness
-    change_line $brightness_file $status_line "on"
+    update_brightness $default_brightness
+    update_status "on"
+fi
+
+# Read the brightness file.
+brightness=$(select_line $brightness_file $brightness_line)
+screen_status=$(select_line $brightness_file $status_line)
+
+# Update the screen to match the brightness file.
+if [ $screen_status = "on" ]; then
+    xbacklight -set $brightness
+elif [ $screen_status = "off" ]; then
+    xbacklight -set 0
+else
     xbacklight -set $default_brightness
 fi

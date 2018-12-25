@@ -6,7 +6,8 @@ A lean, mouse-hating, vim-loving i3 config.
 
 Keybindings are arranged in terms of modes or key-strings, following the philosophy of vim.
 
+XF86 Keyboard Symbols (the special keys) are found [here](http://wiki.linuxquestions.org/wiki/XF86_keyboard_symbols).
+
 *NOTE: Unfinished*
 
-### System Mode <kbd>MOD-s</kbd>
-
+### System Control Mode <kbd>MOD-s</kbd>
