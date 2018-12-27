@@ -6,8 +6,9 @@
 bindsym $mod+Return exec rofi -theme base16-onedark -show run
 
 # key string "launch"
-bindsym $mod+p mode "launch"
-mode "launch" {
+set $launch "Launch Program"
+bindsym $mod+p mode $launch
+mode $launch {
     bindsym t mode "default"; exec kitty
     bindsym f mode "default"; exec firefox
     bindsym Shift+f mode "default"; exec firefox --private-window

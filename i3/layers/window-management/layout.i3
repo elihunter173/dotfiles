@@ -3,10 +3,14 @@ bindsym $mod+q kill
 # middle button and modifier over any part of the window kills the window
 bindsym --whole-window $mod+button2 kill
 
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
 # change window layout (l is taken by movement)
 # this is a key string
-bindsym $mod+o mode "layout"
-mode "layout" {
+set $layout "Layout"
+bindsym $mod+o mode $layout
+mode $layout {
     # workspace layout
     bindsym r mode "default"; layout toggle split
     bindsym e mode "default"; layout stacking
@@ -18,8 +22,9 @@ mode "layout" {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
-mode "resize" {
+set $resize "Resize"
+bindsym $mod+r mode $resize
+mode $resize {
     bindsym $left       resize shrink width 10 px or 10 ppt
     bindsym $down       resize grow height 10 px or 10 ppt
     bindsym $up         resize shrink height 10 px or 10 ppt
