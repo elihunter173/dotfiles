@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Sets the volume for the currently running audio sink using pactl.
+# author: Eli W. Hunter with inspiration from u/cheesy-burrito at
+#         (https://www.reddit.com/r/i3wm/comments/a0mgqn/how_can_i_make_my_volume_keys_work_for_both_the/)
+
+if [ $# != 1 ]; then
+    echo "USAGE: pactl-volume VOLUME_SETTING"
+    echo "       Where VOLUME_SETTING is a valid argument for pactl set-sink-volume"
+    echo "       (i.e. a percent or +- a percent) or VOLUME_SETTING is an M to toggle the"
+    echo "       sinks mute."
+    exit
+fi
+
+SINK=$(pactl list short sinks | grep RUNNING | cut -f 1)
+
+# Assume sink 0 if nothing is running
+if [ "$SINK" == "" ]; then
+    SINK="0"
+fi
+
+if [ "$1" != "M" ]; then
+    pactl set-sink-volume $SINK $1
+else
+    pactl set-sink-mute $SINK toggle
+fi

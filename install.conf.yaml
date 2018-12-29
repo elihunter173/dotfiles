@@ -1,14 +1,36 @@
 - clean: ['~', '~/.config']
 
 - link:
+    # System Config
+    ~/.config/systemd:
+        path: systemd/
+        create: true
+
+    # X Config
     ~/.profile: profile
     ~/.xprofile: xprofile
     ~/.Xresources: Xresources
+
+    # Window Manager Config
+    ~/.config/i3:
+        path: i3/
+        create: true
     ~/.fehbg: fehbg
+    ~/.config/compton.conf: compton.conf
+    ~/.config/rofi:
+        path: rofi/
+        create: true
+    ~/.config/polybar:
+        path: polybar/
+        create: true
+
+    # Shell Config
     ~/.zshrc: zsh/zshrc
     ~/.zshrc.d:
         path: zsh/zshrc.d/
         create: true
+
+    # App Config
     ~/.config/kitty:
         path: kitty/
         create: true
@@ -21,20 +43,12 @@
         create: true
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.theme: tmux/tmux.theme
-    ~/.gitconfig: gitconfig
-    ~/.config/i3:
-        path: i3/
-        create: true
-    ~/.config/compton.conf: compton.conf
-    ~/.config/rofi:
-        path: rofi/
-        create: true
-    ~/.config/polybar:
-        path: polybar/
-        create: true
-    ~/.config/systemd:
-        path: systemd/
-        create: true
     ~/.config/neofetch:
         path: neofetch/
         create: true
+
+    # Misc
+    ~/.scripts:
+        path: scripts/
+        create: true
+    ~/.gitconfig: gitconfig
