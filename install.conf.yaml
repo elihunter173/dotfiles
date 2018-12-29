@@ -4,6 +4,7 @@
     ~/.profile: profile
     ~/.xprofile: xprofile
     ~/.Xresources: Xresources
+    ~/.fehbg: fehbg
     ~/.zshrc: zsh/zshrc
     ~/.zshrc.d:
         path: zsh/zshrc.d/
