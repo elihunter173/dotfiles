@@ -4,8 +4,5 @@
 # enable listing all dot files
 alias l.='ls -d .*'
 
-# set vim to neovim if vim isn't installed. it's bettery anyway ;)
+# set vim to neovim if vim isn't installed. it's better anyway ;)
 vim --version >/dev/null 2>&1 || alias vim='nvim'
-
-# enable 'Light Vim'
-alias lvim='nvim -u ~/.lvimrc'
