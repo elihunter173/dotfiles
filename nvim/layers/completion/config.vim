@@ -1,3 +1,8 @@
+" When in command mode, tab completion first fills the longest match and shows
+" the wildmenu. After the first one, it cycles through all possible matches.
+set wildmenu
+set wildmode=longest:full,full
+
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
@@ -5,6 +10,7 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['/usr/bin/pyls'],
     \ }
 
+" I really don't like Language Client
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
