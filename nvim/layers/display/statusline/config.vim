@@ -1,16 +1,14 @@
 " TODO: Figure out colors
 
-set statusline=
 " Left
-set statusline+=%{StatuslineGit()}
-set statusline+=%#Bold#\ %f       " filepath
-set statusline+=%#String#\ %m   " modified tag
-set statusline+=%#ErrorMsg#\ %r " readonly tag
-set statusline+=%(%h\ %w%) " Add filepath with modified and readonly flag
+set statusline+=\ %{StatuslineGit()}
+set statusline+=\ \|
+set statusline+=\ %f\ %m%r%h%w " filepath with modification, readonly, preview, and window tags
 
-set statusline+=%=
+set statusline+=%= " the middle spacing
 " Right
-set statusline+=%#Bold#%(%l/%L:%v%) " file position info
+set statusline+=%l/%L:%v " file position info
+set statusline+=\ " whitespace buffer
 
 " This is taken from https://shapeshed.com/vim-statuslines/
 " Finds the git object (branch) associated with the current head and then
@@ -19,8 +17,10 @@ function! GitBranch()
     return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
 
-" I'm not quite sure yet
+" Returns the branchname only if it exists
 function! StatuslineGit()
     let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+    " condition option1:option2
+    " shorthand for if condition is true, option1, else option2
+    return strlen(l:branchname) > 0? l:branchname:''
 endfunction
