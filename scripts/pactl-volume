@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # Sets the volume for the currently running audio sink using pactl.
 # author: Eli W. Hunter with inspiration from u/cheesy-burrito at

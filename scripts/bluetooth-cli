@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # Displays a numbered list of all known devices and connects to the one
 # specified by the user
@@ -24,4 +24,5 @@ echo
 
 # find the device's MAC address from the specified line number
 DEVICE_ADDRESS=$(bluetoothctl devices | awk -v n=$LINE 'NR==n {print $2}')
+bluetoothctl power on >/dev/null # just in case
 bluetoothctl connect $DEVICE_ADDRESS

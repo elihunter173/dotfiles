@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # NOTE: Some of the functions in this script would make sense as other scripts.
 #       However, since this file is currently the only one that uses them, they
