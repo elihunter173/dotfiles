@@ -45,6 +45,9 @@
     ~/.config/neofetch:
         path: neofetch/
         create: true
+    ~/.config/zathura:
+        path: zathura/
+        create: true
 
     # Misc
     ~/.scripts:
