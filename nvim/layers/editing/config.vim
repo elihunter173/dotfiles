@@ -1,6 +1,3 @@
-"
-"
-
 " Make <Tab> insert 4 spaces.
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
@@ -52,3 +49,6 @@ nnoremap U <C-r>
 
 " Disable highlighting (run :noh) when escape pressed twice in normal mode
 nmap <Esc><Esc> :noh<CR>
+
+" Tabularize settings
+nnoremap <leader>t :Tabularize<Space>/
