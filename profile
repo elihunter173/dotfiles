@@ -6,3 +6,6 @@ EDITOR=/usr/bin/nvim
 
 # set the umask to be more secure
 umask 027
+
+# for gpg
+export GPG_TTY=$(tty)

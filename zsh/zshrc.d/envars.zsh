@@ -5,8 +5,6 @@ else
   export EDITOR='nvim'
 fi
 
-GPG_TTY=$(tty) # For KDEWallet
-
 # my custom scripts
 export PATH=$PATH:$HOME/.scripts
 # For ardupilot
