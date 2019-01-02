@@ -20,16 +20,6 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source s:path . '/init.vim'
 endif
 
-let layers = split(globpath(s:path . '/layers', "*" ), "\n")
-
-" Add each layer's after dir to the runtime path
-for l in layers
-  let s:after = l . '/after'
-  if !empty(glob(s:after))
-     exec "set runtimepath+=" . s:after
-  endif
-endfor
-
 " Install plugins
 call plug#begin('~/.local/share/nvim/plugged')
 runtime! layers/**/package.vim
