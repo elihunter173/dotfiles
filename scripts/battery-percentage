@@ -1,5 +1,0 @@
-#!/bin/env bash
-
-# Prints the percentage of every battery connected to the machine using acpi.
-
-acpi -b | grep -o "[[:digit:]]\{1,3\}%" | paste -s -d ' '
