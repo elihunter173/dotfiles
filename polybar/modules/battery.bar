@@ -1,0 +1,38 @@
+; This is the custom script battery-combined-udev
+; https://github.com/x70b1/polybar-scripts/tree/master/polybar-scripts/battery-combined-udev
+[module/battery]
+type = custom/script
+
+; Available tokens:
+;   %counter%
+; Command to be executed (using "/usr/bin/env sh -c [command]")
+exec = ~/.config/polybar/scripts/battery-combined-udev.sh
+
+; Will the script output continous content?
+; Default: false
+tail = true
+
+; Available tags:
+;   <output> - deprecated
+;   <label> (default)
+format = <label>
+format-foreground = ${colors.base00}
+format-background = ${colors.base0A}
+format-padding = 1
+
+; Available tokens:
+;   %output%
+; Default: %output%
+label = %output%
+
+; Available tokens:
+;   %counter%
+;   %pid%
+;
+; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c [command]"
+click-left = echo left %counter%
+click-middle = echo middle %counter%
+click-right = echo right %counter%
+double-click-left = echo double left %counter%
+double-click-middle = echo double middle %counter%
+double-click-right = echo double right %counter%

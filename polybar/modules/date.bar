@@ -1,0 +1,26 @@
+[module/date]
+type = internal/date
+
+; Seconds to sleep between updates
+interval = 10
+
+; Available tokens:
+;   %date%
+;   %time%
+; Default: %date%
+label = %time% on %date%
+label-foreground = ${colors.base00}
+label-background = ${colors.base09}
+label-padding = 1
+
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %a %b %d, %Y
+
+; Optional time format
+time = %H:%M
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+date-alt =
+time-alt =

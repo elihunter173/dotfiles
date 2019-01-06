@@ -1,0 +1,93 @@
+[module/i3]
+type = internal/i3
+
+; Sort the workspaces by index instead of the default
+; sorting that groups the workspaces by output
+; Default: false
+index-sort = false
+
+; This will split the workspace name on ':'
+; Default: false
+strip-wsnumbers = true
+
+; Available tags:
+;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+;   <label-mode> (default)
+format = <label-state><label-mode>
+format-spacing = 2
+
+; Available tokens:
+;   %mode%
+; Default: %mode%
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-foreground = ${colors.base00}
+label-mode-background = ${colors.base0E}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-focused = %name% %icon%
+label-focused-foreground = ${colors.base00}
+label-focused-background = ${colors.base0B}
+label-focused-padding = 2
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-unfocused = %index% %icon%
+label-unfocused-foreground = ${colors.base05}
+label-unfocused-background = ${colors.base00}
+label-unfocused-padding = 1
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-visible = %name%
+label-visible-foreground = ${colors.base05}
+label-visible-background = ${colors.base02}
+label-visible-padding = 1
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-urgent = %name%
+label-urgent-foreground = ${colors.base05}
+label-urgent-background = ${colors.base0F}
+label-urgent-padding = 1
+
+; Separator in between workspaces
+label-separator =
+label-separator-padding =
+label-separator-foreground =
+
+; Use fuzzy (partial) matching on labels when assigning
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces
+; containing 'code' in the label
+; Default: false
+fuzzy-match = true
+
+; ws-icon-[0-9]+ = label;icon
+; NOTE: The label needs to match the name of the i3 workspace
+ws-icon-0 = web;
+ws-icon-1 = dev;
+ws-icon-2 = terminal;
+; ws-icon-2 = term;
+ws-icon-3 = storage;
+ws-icon-4 = music;
+ws-icon-default = 
+; NOTE: You cannot skip icons, e.g. to get a ws-icon-6
+; you must also define a ws-icon-5.

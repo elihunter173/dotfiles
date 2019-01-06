@@ -1,0 +1,20 @@
+[module/xwindow]
+type = internal/xwindow
+
+; Available tags:
+;   <label> (default)
+format = <label>
+format-foreground = ${colors.base00}
+format-background = ${colors.base0D}
+format-padding = 2
+
+; Available tokens:
+;   %title%
+; Default: %title%
+label = %title%
+label-maxlen = 50
+
+; Used instead of label when there is no window title
+; Available tokens:
+;   None
+label-empty = Window
