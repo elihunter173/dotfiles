@@ -3,3 +3,5 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
 Plug 'godlygeek/tabular'
+
+Plug 'svermeulen/vim-subversive'

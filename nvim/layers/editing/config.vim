@@ -13,6 +13,9 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" Disable autocomments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 " Leader mappings from the gods (https://www.reddit.com/r/vim/comments/9zy5xg/leader_mapping_from_the_gods/)
 " semicolon is now map leader
 let mapleader = ";"
@@ -21,11 +24,10 @@ noremap . ;
 " Repeat last command is now space, always easy to reach.
 noremap <Space> .
 
-" Unmap useless keys
-nmap s <Nop>
-
-" Make S simply delete the current line
-nnoremap S 0d$
+" s for substitute. This overwrites the default keys
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
 " Make saving and quitting easier and faster.
 " I execute :wq as :w and :q separately so that all post-write autocommands
