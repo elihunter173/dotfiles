@@ -1,8 +1,11 @@
 # `command -v` prints out the version of `command`. This can be used to check if something exists.
 # /dev/null is a standard dumping ground for stdout. 2>&1 reroutes stderr to stdout.
 
-# enable listing all dot files
+# Enable listing all dot files
 alias l.='ls -d .*'
 
-# set vim to neovim if vim isn't installed. it's better anyway ;)
+# Enable easy, fuzzy directory hopping
+alias o='cd $(find . -type d | fzf)'
+
+# Set vim to neovim if vim isn't installed. it's better anyway ;)
 vim --version >/dev/null 2>&1 || alias vim='nvim'
