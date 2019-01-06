@@ -1,7 +1,7 @@
 # define names for workspaces
 set $ws_1  "1:web"
 set $ws_2  "2:dev"
-set $ws_3  "3:terminal"
+set $ws_3  "3:test"
 set $ws_4  "4"
 set $ws_5  "5"
 set $ws_6  "6"
