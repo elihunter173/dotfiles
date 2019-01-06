@@ -1,0 +1,100 @@
+[settings/network]
+
+; Available tokens:
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = <ramp-signal> <label-connected>
+format-connected-foreground = ${colors.base00}
+format-connected-background = ${colors.base0C}
+format-connected-padding = 2
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected = <label-disconnected>
+format-disconnected-foreground = ${colors.base00}
+format-disconnected-background = ${colors.base0C}
+format-disconnected-padding = 2
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+format-packetloss =  <label-connected>
+format-packetloss-foreground = ${colors.base00}
+format-packetloss-background = ${colors.base0C}
+format-packetloss-padding = 2
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %linkspeed% [wired]
+; Default: (none)
+;label-packetloss = %essid%
+;label-packetloss-foreground = #eefafafa
+
+[module/wireless-network]
+type = internal/network
+interface = wlp4s0
+
+; Inherit the global network settings
+inherit = settings/network
+
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: %ifname% %local_ip%
+label-connected =  %essid%
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+; Default: (none)
+label-disconnected = 
+
+; Only applies if <ramp-signal> is used
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-5 = 
+
+[module/wired-network]
+type = internal/network
+interface = enp0s31f6
+
+; Inherit the global network settings
+inherit = settings/network
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: %ifname% %local_ip%
+label-connected = %local_ip%
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+; Default: (none)
+label-disconnected =
+
+; Only applies if <ramp-signal> is used
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-5 = 
