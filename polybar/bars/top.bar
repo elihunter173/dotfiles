@@ -1,12 +1,16 @@
 [bar/top]
 monitor = eDP1
-# Borders take care of the spacing
-width = 100%
+
+width = 1900
 height = 27
-offset-x = 7
-;offset-y = 1%
+offset-x = 10
+offset-y = 10
 radius = 0.0
 fixed-center = true
+
+; Tell the Window Manager not to configure the window.
+; Use this to detach the bar if your WM is locking its size/position.
+override-redirect = true
 
 background = ${colors.base00}
 foreground = ${colors.base05}
