@@ -11,6 +11,8 @@ fixed-center = true
 ; Tell the Window Manager not to configure the window.
 ; Use this to detach the bar if your WM is locking its size/position.
 override-redirect = true
+; Tells i3 to display over the bar in fullscreen.
+wm-restack = i3
 
 background = ${colors.base00}
 foreground = ${colors.base05}
