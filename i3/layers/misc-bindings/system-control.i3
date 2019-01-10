@@ -1,5 +1,5 @@
 set $system "System Control"
-bindsym $mod+s mode $system
+bindsym $mod+c mode $system
 mode $system {
     # i3 Control
     bindsym Ctrl+c mode "default"; exec --no-startup-id "~/.config/i3/process-config.sh"; reload

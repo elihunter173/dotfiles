@@ -6,21 +6,13 @@ bindsym --whole-window $mod+button2 kill
 # Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change window layout (l is taken by movement)
-# this is a key string
-set $layout "Layout"
-bindsym $mod+o mode $layout
-mode $layout {
-    # workspace layout
-    bindsym r mode "default"; layout toggle split
-    bindsym e mode "default"; layout stacking
-    bindsym t mode "default"; layout tabbed
-    # horizontal and vertical split
-    bindsym h mode "default"; split h
-    bindsym v mode "default"; split v
+# workspace layout
+bindsym $mod+e mode "default"; layout toggle split
+bindsym $mod+t mode "default"; layout tabbed
 
-    bindsym Escape mode "default"
-}
+# horizontal and vertical split
+bindsym $mod+s mode "default"; split h
+bindsym $mod+v mode "default"; split v
 
 set $resize "Resize"
 bindsym $mod+r mode $resize
