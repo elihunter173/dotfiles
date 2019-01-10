@@ -24,10 +24,8 @@ noremap . ;
 " Repeat last command is now space, always easy to reach.
 noremap <Space> .
 
-" s for substitute. This overwrites the default keys
-nmap s <plug>(SubversiveSubstitute)
-nmap ss <plug>(SubversiveSubstituteLine)
-nmap S <plug>(SubversiveSubstituteToEndOfLine)
+" Enable mouse support for all modes
+set mouse=a
 
 " Make saving and quitting easier and faster.
 " I execute :wq as :w and :q separately so that all post-write autocommands
@@ -36,8 +34,14 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>W :w!<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>Q :q!<CR>
+nnoremap <leader>c :bd<CR>
 nnoremap <leader>z :w<CR>:q<CR>
 nnoremap <leader>Z :w!<CR>q!<CR>
+
+" s for substitute. This overwrites the default keys
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
 " Move a line of text using META+[jk]
 nnoremap <M-j> :m+1<CR>
@@ -50,7 +54,7 @@ nnoremap Y y$
 nnoremap U <C-r>
 
 " Disable highlighting (run :noh) when escape pressed twice in normal mode
-nmap <Esc><Esc> :noh<CR>
+nmap <Esc><Esc> :nohlsearch<CR>
 
 " Tabularize settings
 nnoremap <leader>t :Tabularize<Space>/
