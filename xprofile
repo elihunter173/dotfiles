@@ -5,4 +5,4 @@ xrdb ~/.Xresources
 setxkbmap -option caps:swapescape
 
 # Enable numlock
-numlockx &
+numlockx on
