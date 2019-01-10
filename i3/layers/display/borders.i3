@@ -11,7 +11,3 @@ client.urgent           $base0F $base0F $base00 $base0F   $base0F
 client.placeholder      #000000 $base00 $base05 #000000   $base00
 
 client.background       $base00
-
-
-# Be smart about edge borders (only show when multiple windows in workspace)
-hide_edge_borders smart
