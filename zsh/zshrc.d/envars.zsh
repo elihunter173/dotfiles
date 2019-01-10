@@ -5,6 +5,8 @@ else
   export EDITOR='nvim'
 fi
 
+MONITOR='eDP1'
+
 # my custom scripts
 export PATH=$PATH:$HOME/.scripts
 # For ardupilot

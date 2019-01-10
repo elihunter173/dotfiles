@@ -1,5 +1,5 @@
 [bar/top]
-monitor = eDP1
+monitor = ${env:MONITOR:eDP1}
 
 width = 1900
 height = 27
