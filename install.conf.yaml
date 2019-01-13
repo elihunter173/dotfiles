@@ -1,3 +1,6 @@
+# My gitconfig is not linked here to prevent people from accidentally
+# committing as me
+
 - clean: ['~', '~/.config']
 
 - link:
@@ -53,4 +56,3 @@
     ~/.scripts:
         path: scripts/
         create: true
-    ~/.gitconfig: gitconfig

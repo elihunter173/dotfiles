@@ -1,0 +1,8 @@
+[user]
+	signingkey = 0B27457F32CB6DC6
+	name = Eli W. Hunter
+	email = hunter.eli.w@gmail.com
+[commit]
+	gpgsign = true
+[core]
+	editor = nvim

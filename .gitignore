@@ -3,6 +3,3 @@
 
 # temporary emacs files
 *~
-
-# my personal gitconfig (to prevent others from committing under my name)
-gitconfig
