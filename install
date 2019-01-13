@@ -13,3 +13,22 @@ git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+
+## CUSTOM ##
+HEADER_COLOR="\u001b[35m"
+COMMAND_COLOR="\u001b[36m"
+NORMAL_COLOR="\u001b[0m"
+
+printf "$HEADER_COLOR"
+printf "\n==>Running custom install hooks.\n"
+printf "$NORMAL_COLOR"
+
+# Execute all process-config scripts
+printf "$COMMAND_COLOR"
+printf "\nFlattening config files...\n"
+printf "$NORMAL_COLOR"
+find "${0%/*}" -type f -name 'process-config.sh' -exec {} \;
+
+printf "$HEADER_COLOR"
+printf "\n==>Finished running custom install hooks.\n"
+printf "$NORMAL_COLOR"
