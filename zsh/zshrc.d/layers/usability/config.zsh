@@ -7,5 +7,7 @@ alias l.='ls -d .*'
 # Enable easy, fuzzy directory hopping
 alias o='cd $(find . -type d | fzf)'
 
+alias gitconfig_patch="$HOME/src/github/gitconfig-patcher/gitconfig-patcher.sh $HOME/.dotfiles/ncsu_gitconfig"
+
 # Set vim to neovim if vim isn't installed. it's better anyway ;)
 vim --version >/dev/null 2>&1 || alias vim='nvim'
