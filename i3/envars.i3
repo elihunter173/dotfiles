@@ -1,6 +1,9 @@
 # MOD KEY
 set $mod Mod4
 
+# use mouse+$primary_action to drag floating windows to their wanted position
+floating_modifier $mod
+
 # MISC KEYS
 # set the standard direction keys when arrow keys are not used (vim keys!)
 set $up k
