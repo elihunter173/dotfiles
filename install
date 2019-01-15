@@ -24,7 +24,7 @@ printf "\nStarting custom install hooks\n\n"
 printf "$NORMAL_COLOR"
 
 # Execute all process-config scripts
-find "${0%/*}" -type f -name 'process-config.sh' -exec {} \;
+find . -type f -name 'process-config.sh' -exec {} \;
 printf "$COMMAND_COLOR"
 printf "All config files flattened\n"
 printf "$NORMAL_COLOR"
