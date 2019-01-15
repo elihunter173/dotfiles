@@ -24,19 +24,18 @@ noremap . ;
 " Repeat last command is now space, always easy to reach.
 noremap <Space> .
 
+" Easier quick macro recording (shift would be ideal but isn't working right now)
+nnoremap <C-Space> @q
+
 " Enable mouse support for all modes
 set mouse=a
 
-" Make saving and quitting easier and faster.
-" I execute :wq as :w and :q separately so that all post-write autocommands
-" execute properly.
+" Make saving and quitting easier and faster. (z to prevent conflict with macros)
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :w!<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>Q :q!<CR>
+nnoremap <leader>z :q<CR>
+nnoremap <leader>Z :q!<CR>
 nnoremap <leader>c :bd<CR>
-nnoremap <leader>z :w<CR>:q<CR>
-nnoremap <leader>Z :w!<CR>q!<CR>
 
 " s for substitute. This overwrites the default keys
 nmap s <plug>(SubversiveSubstitute)
