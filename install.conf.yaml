@@ -8,12 +8,12 @@
     ~/.config/systemd:
         path: systemd/
         create: true
+    ~/.profile: profile
 
     # X Config
-    ~/.profile: profile
-    ~/.xprofile: xprofile
-    ~/.Xresources: Xresources
-    ~/.xscreensaver: xscreensaver
+    ~/.xprofile: xorg/xprofile
+    ~/.Xresources: xorg/Xresources
+    ~/.xscreensaver: xorg/xscreensaver
 
     # Window Manager Config
     ~/.config/i3:
