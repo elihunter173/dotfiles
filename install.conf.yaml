@@ -13,6 +13,7 @@
     ~/.profile: profile
     ~/.xprofile: xprofile
     ~/.Xresources: Xresources
+    ~/.xscreensaver: xscreensaver
 
     # Window Manager Config
     ~/.config/i3:
@@ -48,8 +49,21 @@
     ~/.config/neofetch:
         path: neofetch/
         create: true
+    ~/.config/yay:
+        path: yay/
+        create: true
     ~/.config/zathura:
         path: zathura/
+        create: true
+    # App-managed App Config
+    ~/.config/htop:
+        path: app-managed/htop/
+        create: true
+    ~/.config/ckb-next:
+        path: app-managed/ckb-next/
+        create: true
+    ~/.config/Kvantum:
+        path: app-managed/Kvantum/
         create: true
 
     # Misc
