@@ -3,3 +3,6 @@
 
 # temporary emacs files
 *~
+
+# git config files
+gitconfigs/
