@@ -54,6 +54,3 @@ nnoremap U <C-r>
 
 " Disable highlighting (run :noh) when escape pressed twice in normal mode
 nmap <Esc><Esc> :nohlsearch<CR>
-
-" Tabularize settings
-nnoremap <leader>t :Tabularize<Space>/
