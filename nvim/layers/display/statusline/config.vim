@@ -1,9 +1,15 @@
-" TODO: Figure out colors
+" Manually enable/disable extensions
+" let g:airline_extensions = []
 
-" Left
-set statusline=%(\ %{fugitive#head()}\ \|%) " git head position
-set statusline+=%(\ %f\ %m%r%h%w\ %) " filepath with modification, readonly, preview, and window tags
+" Enable powerline fonts
+let g:airline_powerline_fonts = 1
 
-set statusline+=%= " the middle spacing
-" Right
-set statusline+=%(\ %l/%L:%v\ %) " file position info
+" Enable base16 (dynamically retrieves colors from base16 color scheme) theme
+let g:airline_theme='base16_vim'
+" let g:airline_base16_improved_contrast = 1
+
+" Improve the contrast for the inactive statusline.
+let g:airline_base16_improved_contrast = 1
+
+" Don't Show the mode in command line
+set noshowmode
