@@ -13,7 +13,6 @@
     # X Config
     ~/.xprofile: xorg/xprofile
     ~/.Xresources: xorg/Xresources
-    ~/.xscreensaver: xorg/xscreensaver
 
     # Window Manager Config
     ~/.config/i3:

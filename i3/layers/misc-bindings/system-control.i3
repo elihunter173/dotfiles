@@ -1,3 +1,8 @@
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 2 # increase screen brightness"
+bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 2 # decrease screen brightness"
+bindsym XF86Display exec --no-startup-id "~/.scripts/xbacklight-toggle"
+
 set $system "System Control"
 bindsym $mod+c mode $system
 mode $system {
@@ -10,9 +15,11 @@ mode $system {
     bindsym r mode "default"; exec --no-startup-id "systemctl reboot"
     bindsym h mode "default"; exec --no-startup-id "systemctl hibernate"
     bindsym s mode "default"; exec --no-startup-id "systemctl suspend-then-hibernate"
+    bindsym l mode "default"; exec --no-startup-id "dm-tool lock"
 
     # User Control
-    bindsym l mode "default"; exit
+    bindsym e mode "default"; exit
 
     bindsym Escape mode "default"
+
 }
