@@ -6,3 +6,6 @@
 
 # git config files
 gitconfigs/
+
+# Exuberant Ctags
+tags
