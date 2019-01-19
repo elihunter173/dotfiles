@@ -17,3 +17,6 @@ let g:vim_markdown_toc_autofit = 1
 
 " Easy table formatting
 nnoremap <leader>t :TableFormat<CR>
+
+" Easy TOC openning
+nnoremap <F3> :Tocv<CR>

@@ -4,8 +4,8 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 " Use X clipboard.
 set clipboard=unnamedplus
 
-" Enable spell checking by default
-set spell spelllang=en_us
+" Toggle spell checking with F1
+map <F12> :setlocal spell! spelllang=en_us<CR>
 
 " No annoying sound on errors
 set noerrorbells
@@ -13,7 +13,7 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Disable autocomments
+" Disable autocomments for all things
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Leader mappings from the gods (https://www.reddit.com/r/vim/comments/9zy5xg/leader_mapping_from_the_gods/)

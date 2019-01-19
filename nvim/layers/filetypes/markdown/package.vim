@@ -1,3 +1,2 @@
-" Required for TableFormat
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular' " Required for TableFormat
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
