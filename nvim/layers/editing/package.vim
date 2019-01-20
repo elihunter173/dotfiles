@@ -5,3 +5,5 @@ Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 
 Plug 'svermeulen/vim-subversive'
+
+Plug 'wellle/targets.vim'
