@@ -6,5 +6,5 @@ noremap . ;
 " Repeat last command is now space, always easy to reach.
 noremap <Space> .
 
-" enable ftplugins for everything
+" Enable ftplugins for everything
 filetype plugin indent on

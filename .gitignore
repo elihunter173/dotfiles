@@ -7,5 +7,5 @@
 # git config files
 gitconfigs/
 
-# Exuberant Ctags
-tags
+# C tags file
+/tags
