@@ -8,16 +8,11 @@
 " no vi compatibility
 set nocompatible
 
-" This finds the absolute path (:p) of the folder (:h) in which this script
-" resides in with the script (s:) scope.
-let s:path = expand('<sfile>:p:h')
-
-" Install vim-plug if it isn't installed and then reload the config
-" files once vim is done loading.
+" Install vim-plug if it isn't installed and then restart vim
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source s:path . '/init.vim'
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | qa
 endif
 
 " Install plugins
@@ -36,4 +31,3 @@ runtime! layers/**/config.vim " Load the config of each layer
 " Make sure you use single quotes
 " Shorthand notation for GitHub repos (`user/repo`).
 " Otherwise, use any valid git URL.
-"
