@@ -29,15 +29,16 @@ nnoremap <C-Space> @q
 " Remap undo
 nnoremap U <C-r>
 
-" Move a line of text using META+[jk]
-nnoremap <M-j> :m+1<CR>
-nnoremap <M-k> :m-2<CR>
-
 " Toggle spell checking with F1
 map <F12> :setlocal spell! spelllang=en_us<CR>
 
 " Make `Y` `y$` consistent with `D`, `C`, etc.
 nnoremap Y y$
+
+" Make 0 reference first non-whitespace character instead of first character
+" Make _ reference first character instead of first non-whitespace character
+nnoremap 0 _
+nnoremap _ 0
 
 " Disable highlighting (run :noh) when escape pressed twice in normal mode
 nmap <Esc><Esc> :nohlsearch<CR>
