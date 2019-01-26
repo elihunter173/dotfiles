@@ -8,8 +8,8 @@ export MAIN_MONITOR='eDP1'
 export RIGHT_MONITOR='HDMI2'
 export LEFT_MONITOR='HDMI1'
 
-# set the umask to be more secure
-umask 027
-
 # for gpg
 export GPG_TTY=$(tty)
+
+# For python-pip
+# export PATH="$PATH:/home/eli/.local/bin"

@@ -39,10 +39,6 @@ free to tear out entire layers and swap them out for others as you wish!
 
 * TBD
 
-### Misc.
-
-* Default umask `027` for moderate security.
-
 ## Setup Notes
 
 * Edit `/etc/default/tlp` to set power settings
