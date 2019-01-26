@@ -21,5 +21,6 @@ nnoremap <leader>t :TableFormat<CR>
 " Easy TOC openning
 nnoremap <F3> :Tocv<CR>
 
+" Easy MarkdownPreview buttons
 nnoremap <F4> :MarkdownPreview<CR>
 nnoremap <F5> :MarkdownPreviewStop<CR>
