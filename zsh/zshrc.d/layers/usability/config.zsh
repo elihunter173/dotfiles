@@ -4,6 +4,9 @@
 # Enable listing all dot files
 alias l.='ls -d .*'
 
+# Easy commit signing
+alias gc='git commit -v -S'
+
 # Enable easy, fuzzy directory hopping
 alias o='cd $(find . -type d | fzf)'
 

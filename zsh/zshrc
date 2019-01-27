@@ -1,14 +1,13 @@
-# load envars used by rest of config
+# Load envars used by rest of config
 source ~/.zshrc.d/envars.zsh
 
-# ANTIGEN
-# enable antigen package manager
+# Enable antigen package manager
 source /usr/share/zsh/share/antigen.zsh
 
-# load oh-my-zsh library
+# Load oh-my-zsh library
 antigen use oh-my-zsh
 
-# load antigen themes/bundles from each layer and then apply them all
+# Load antigen themes/bundles from each layer and then apply them all
 for package in ~/.zshrc.d/**/package.zsh; do
     source $package
 done
