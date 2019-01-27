@@ -30,9 +30,6 @@ fi
 source ~/.zsh_plugins.sh
 
 # Better history searching keys
-# Up and down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
 # Ctrl P and Ctrl N
 bindkey '^P' history-substring-search-up
 bindkey '^N' history-substring-search-down
