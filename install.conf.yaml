@@ -29,6 +29,7 @@
 
     # Shell Config
     ~/.zshrc: zsh/zshrc
+    ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
     ~/.zshrc.d:
         path: zsh/zshrc.d/
         create: true

@@ -1,3 +1,3 @@
-# load specific command completions
+# Load specific command completions
 antigen bundle git
 antigen bundle pip

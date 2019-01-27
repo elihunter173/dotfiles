@@ -1,0 +1,9 @@
+# Add more completions
+zsh-users/zsh-completions
+
+# Pretty syntax highlighting
+zsh-users/zsh-syntax-highlighting
+# Grayed out auto suggestions
+zsh-users/zsh-autosuggestions
+# Pressing up searches for most recent partial match
+zsh-users/zsh-history-substring-search

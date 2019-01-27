@@ -1,23 +1,76 @@
-# Load envars used by rest of config
-source ~/.zshrc.d/envars.zsh
+# Path to your oh-my-zsh installation.
+export ZSH="/home/eli/.config/oh-my-zsh"
 
-# Enable antigen package manager
-source /usr/share/zsh/share/antigen.zsh
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="bira"
 
-# Load oh-my-zsh library
-antigen use oh-my-zsh
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# Load antigen themes/bundles from each layer and then apply them all
-for package in ~/.zshrc.d/**/package.zsh; do
-    source $package
-done
-antigen apply
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
 
-# load config files from each layer
-for config in ~/.zshrc.d/layers/**/config.zsh; do
-    source $config
-done
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-# do final loading and applying of settings
-autoload -Uz compinit
-compinit
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+source $ZSH/oh-my-zsh.sh
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+source ~/.bookmarks.zsh
+source ~/.aliases.zsh
+
+# My custom scripts
+export PATH=$PATH:$HOME/.scripts
+
+# Install antibody if it's not already installed
+if [[ -d "/usr/local/bin/antibody" ]]; then
+    curl -sL git.io/antibody | sh -s
+fi
+
+# Run this command to create the static plugin install file
+# antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+# Load the static antibody plugin install file
+source ~/.zsh_plugins.sh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
