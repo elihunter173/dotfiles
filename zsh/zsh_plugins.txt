@@ -1,9 +1,28 @@
 # Add more completions
 zsh-users/zsh-completions
+# Better history completion
+zsh-users/zsh-history-substring-search
+
+# Command specific autocompletions
+robbyrussell/oh-my-zsh path:plugins/git
+robbyrussell/oh-my-zsh path:plugins/pip
+
+# Better vi
+# robbyrussell/oh-my-zsh path:plugins/vi-mode
+
+# Lazy, easy extraction
+robbyrussell/oh-my-zsh path:plugins/extract
+# All new terminals automatically go to the last working directory (lwd does the same)
+robbyrussell/oh-my-zsh path:plugins/last-working-dir
 
 # Pretty syntax highlighting
 zsh-users/zsh-syntax-highlighting
 # Grayed out auto suggestions
 zsh-users/zsh-autosuggestions
-# Pressing up searches for most recent partial match
-zsh-users/zsh-history-substring-search
+
+# Nice Pure prompt
+mafredri/zsh-async
+sindresorhus/pure
+
+# Better vi mode
+JakobGM/dotfiles path:autoload/vim.zsh

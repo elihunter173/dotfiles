@@ -24,10 +24,15 @@ printf "\nStarting custom install hooks\n\n"
 printf "$NORMAL_COLOR"
 
 # Execute all process-config scripts
-find . -type f -name 'process-config.sh' -exec {} \;
-printf "$COMMAND_COLOR"
-printf "All config files flattened\n"
-printf "$NORMAL_COLOR"
+for script in $(find . -type f -name 'process-config.sh'); do
+    parent_dir_name=${script%/*}
+    parent_dir_name=${parent_dir_name#*/}
+    printf "$COMMAND_COLOR"
+    printf "Processing ${parent_dir_name} config\n"
+    printf "$NORMAL_COLOR"
+    $script
+    echo
+done
 
 printf "$HEADER_COLOR"
 printf "\n==> All custom install hooks executed successfully\n"

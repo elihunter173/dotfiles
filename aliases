@@ -1,0 +1,4 @@
+help man
+rmm /bin/rm
+rm ~/.scripts/safe-rm.sh
+gc git commit -v -S
