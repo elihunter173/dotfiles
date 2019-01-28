@@ -3,23 +3,31 @@
 # This library of functions is created to be sourced by each shell to provide
 # useful utilities. Aliases, or something similar, are recommending to make
 # these easier to use
+#
+# AUTHORS:
+#     Eli W. Hunter
 
 
 # Acts as a wrapper around fuzzy finding directories for the purpose of changing
 # to them by piping the results of find into fzf and then echoing what was found
 # by fzf.
 #
-# USAGE:
-#     _easy_open [DIR]
-#
-# DIR = A valid path to a directory
-#     If not specified, defaults to the current directory.
-#
-# AUTHORS:
-#     * Eli W. Hunter
+# ARGS:
+#     $1: A valid path to a directory If not specified, defaults to the current
+#     directory.
 function _easy_open() {
     # Sets dir to the first argument or the current directory if unspecified.
-    DIR=${1:-.}
-
+    local DIR=${1:-.}
     cd $(find "$DIR" -type d | fzf)
+}
+
+# Counts the number of instances of the given word in the given file, using word
+# regex.
+#
+# ARGS:
+#     $1: The word to counted in the given file.
+#     $2: The file to count the number of instances of the given word in
+function _count_word_instances() {
+    local count=$(egrep -w "$1" < "$2" -o | wc -l)
+    echo "$count"
 }
