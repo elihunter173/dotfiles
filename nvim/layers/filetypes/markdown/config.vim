@@ -1,8 +1,11 @@
 " Make Markdown indent by 2 by default
 let g:vim_markdown_new_list_item_indent = 2
 
-" Disable markdown concealing (it's gross)
+" Disable markdown concealing because it's laggy
 let g:vim_markdown_conceal = 0
+
+" Disable folding in markdown completely
+let g:vim_markdown_folding_disabled = 1
 
 " Enable LaTeX syntax highlighting
 let g:vim_markdown_math = 1
