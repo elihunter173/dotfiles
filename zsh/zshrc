@@ -17,6 +17,7 @@ fi
 
 source ~/.bookmarks.zsh
 source ~/.aliases.zsh
+source ~/.functions
 
 # My custom scripts
 export PATH=$PATH:$HOME/.scripts

@@ -14,6 +14,8 @@ robbyrussell/oh-my-zsh path:plugins/pip
 robbyrussell/oh-my-zsh path:plugins/extract
 # All new terminals automatically go to the last working directory (lwd does the same)
 robbyrussell/oh-my-zsh path:plugins/last-working-dir
+# Make man pages colorful
+robbyrussell/oh-my-zsh path:plugins/colored-man-pages
 
 # Pretty syntax highlighting
 zsh-users/zsh-syntax-highlighting

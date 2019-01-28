@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+# This library of functions is created to be sourced by each shell to provide
+# useful utilities. Aliases, or something similar, are recommending to make
+# these easier to use
+
+
+# Acts as a wrapper around fuzzy finding directories for the purpose of changing
+# to them by piping the results of find into fzf and then echoing what was found
+# by fzf.
+#
+# USAGE:
+#     _easy_open [DIR]
+#
+# DIR = A valid path to a directory
+#     If not specified, defaults to the current directory.
+#
+# AUTHORS:
+#     * Eli W. Hunter
+function _easy_open() {
+    # Sets dir to the first argument or the current directory if unspecified.
+    DIR=${1:-.}
+
+    cd $(find "$DIR" -type d | fzf)
+}

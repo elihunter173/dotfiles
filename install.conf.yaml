@@ -30,6 +30,7 @@
     # Shell Config
     ~/.bookmarks: bookmarks
     ~/.aliases: aliases
+    ~/.functions: functions
     ~/.zshrc: zsh/zshrc
     ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
 
