@@ -43,7 +43,7 @@ font-1 = "Material Icons:size=13;3"
 ;   modules-right = ipc clock
 modules-left = i3
 modules-center =
-modules-right = wired-network wireless-network battery date
+modules-right = pulseaudio wired-network wireless-network battery date
 
 ; The separator will be inserted between the output of each module
 separator =

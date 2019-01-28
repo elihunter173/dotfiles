@@ -74,24 +74,3 @@ format-background = #ff4279
 format-foreground = #ffcddc
 format-underline = #ff63a5
 format-overline = #ff63a5
-
-[module/volume]
-type = internal/volume
-speaker-mixer = Speaker
-headphone-mixer = Headphone
-headphone-id = 9
-
-format-volume-padding = 2
-format-volume-background = #fff85a
-format-volume-foreground = #43433a
-format-volume-underline = #fffb8f
-format-volume-overline = #fffb8f
-
-format-muted-padding = 2
-format-muted-background = #77ffffff
-format-muted-foreground = #666666
-
-label-volume = volume %percentage%
-label-volume-font = 3
-label-muted = sound muted
-label-muted-font = 3

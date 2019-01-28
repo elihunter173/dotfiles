@@ -1,6 +1,3 @@
-; This section is preservered for functionality while the modules are converted
-; to use the base 16 color scheme
-[colors]
 [colors]
 ; Base16 Snazzy
 ; Author: Chawye Hsu (https://github.com/h404bi) based on Hyper Snazzy Theme (https://github.com/sindresorhus/hyper-snazzy)
