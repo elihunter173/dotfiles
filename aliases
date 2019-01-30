@@ -3,3 +3,4 @@ rmm /bin/rm
 rm ~/.scripts/safe-rm.sh
 gc git commit -v -S
 o _easy_open
+l. ls -ld .*
