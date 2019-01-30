@@ -15,7 +15,7 @@ fi
 
 # display a numbered list of all known devices from bluetoothctl
 echo "All known bluetooth devices"
-bluetoothctl devices | awk '{print NR ") " $3}'
+bluetoothctl devices | awk '{$1 = ""; $2 = ""; print NR ")" $0}'
 
 # print prompt and get the line number of the desired device
 echo -n "Device to connect to: "
