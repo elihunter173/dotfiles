@@ -1,9 +1,9 @@
 # This is from https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
 # Pulse Audio controls
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "~/.scripts/pactl-volume.sh +1%"
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "~/.scripts/pactl-volume.sh -1%"
-bindsym XF86AudioRaiseVolume exec --no-startup-id "~/.scripts/pactl-volume.sh +5%"
-bindsym XF86AudioLowerVolume exec --no-startup-id "~/.scripts/pactl-volume.sh -5%"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "~/.scripts/pactl-volume.sh +1%"
+bindsym XF86AudioLowerVolume exec --no-startup-id "~/.scripts/pactl-volume.sh -1%"
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "~/.scripts/pactl-volume.sh +5%"
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "~/.scripts/pactl-volume.sh -5%"
 bindsym XF86AudioMute exec --no-startup-id "~/.scripts/pactl-volume.sh M"
 
 # Media player controls

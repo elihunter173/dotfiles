@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --bg-fill '/home/eli/Pictures/romain_trystram/unknown_city1.jpg'
+feh --bg-fill '/home/eli/Pictures/romain_trystram/unknown_city1.jpg' 
