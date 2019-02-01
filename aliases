@@ -17,6 +17,7 @@ gl git pull
 gp git push
 gpd git push --dry-run
 gst git status
+grm git rm
 gd git diff
 gf git fetch
 gr git reset
@@ -40,3 +41,6 @@ gstd git stash drop
 gstl git stash list
 gstp git stash pop
 gsts git stash show --text
+
+# Git config patcher
+gitconfig_patch ~/src/github/gitconfig-patcher/gitconfig-patcher.sh ~/.dotfiles/gitconfigs/main

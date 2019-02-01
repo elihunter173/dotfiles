@@ -1,4 +1,4 @@
-export PATH="$PATH:$HOME/.local/bin'" # Add local binary file to PATH
+export PATH="$PATH:$HOME/.local/bin" # Add local binary file to PATH
 export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin" # Add rubygems to PATH
 
 export GEM_HOME=$HOME/.gem # Allows the user to install rubygems
