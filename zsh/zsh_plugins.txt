@@ -6,11 +6,10 @@ zsh-users/zsh-history-substring-search
 # Command specific autocompletions
 robbyrussell/oh-my-zsh path:plugins/pip
 
-# Better vi
-# robbyrussell/oh-my-zsh path:plugins/vi-mode
-
 # Lazy, easy extraction
 robbyrussell/oh-my-zsh path:plugins/extract
+# Easy sudo with double escape
+robbyrussell/oh-my-zsh path:plugins/sudo
 # All new terminals automatically go to the last working directory (lwd does the same)
 robbyrussell/oh-my-zsh path:plugins/last-working-dir
 # Make man pages colorful
@@ -24,6 +23,3 @@ zsh-users/zsh-autosuggestions
 # Nice Pure prompt
 mafredri/zsh-async
 sindresorhus/pure
-
-# Better vi mode
-JakobGM/dotfiles path:autoload/vim.zsh

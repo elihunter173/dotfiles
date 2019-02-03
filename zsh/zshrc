@@ -34,9 +34,6 @@ source ~/.zsh_plugins.sh
 # Ctrl P and Ctrl N
 bindkey '^P' history-substring-search-up
 bindkey '^N' history-substring-search-down
-# Vi mode keys
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
 
 # Load pure prompt
 autoload -U promptinit; promptinit
