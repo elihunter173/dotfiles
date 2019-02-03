@@ -55,7 +55,9 @@ fi
 case "$file_type" in
     markdown)
         pandoc "$file" -o "${basename}.pdf" \
-            -V geometry:margin=1in
+            --from markdown \
+            --pdf-engine=xelatex \
+            --template eisvogel --listings
         ;;
     *)
         echo "Unknown filetype. Terminating..."
