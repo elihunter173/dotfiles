@@ -52,6 +52,9 @@
     ~/.config/zathura:
         path: zathura/
         create: true
+    ~/.pandoc:
+        path: pandoc/
+        create: true
     # App-managed App Config
     ~/.config/htop:
         path: app-managed/htop/
