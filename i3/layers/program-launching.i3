@@ -1,6 +1,6 @@
-bindsym $mod+Return exec rofi -theme base16-onedark -show drun
-bindsym $mod+Shift+Return exec rofi -theme base16-onedark -show run
-bindsym $mod+w exec rofi -theme base16-onedark -show window
+bindsym $mod+Return exec rofi -show drun
+bindsym $mod+Shift+Return exec rofi -show run
+bindsym $mod+w exec rofi -show window
 
 # key string "launch"
 set $launch "Launch Program"
