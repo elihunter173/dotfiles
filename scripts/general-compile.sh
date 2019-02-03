@@ -53,8 +53,10 @@ fi
 
 # Process the file
 case "$file_type" in
-    markdown) pandoc "$file" -o "${basename}.pdf" ;;
-
+    markdown)
+        pandoc "$file" -o "${basename}.pdf" \
+            -V geometry:margin=1in
+        ;;
     *)
         echo "Unknown filetype. Terminating..."
         exit 3
