@@ -5,9 +5,6 @@
 
 - link:
     # System Config
-    ~/.config/systemd:
-        path: systemd/
-        create: true
     ~/.profile: profile
 
     # X Config
@@ -33,6 +30,9 @@
     ~/.functions: functions
     ~/.zshrc: zsh/zshrc
     ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
+    ~/.config/oh-my-zsh:
+        path: zsh/oh-my-zsh/
+        create: true
 
     # App Config
     ~/.config/kitty:
@@ -48,9 +48,6 @@
     ~/.tmux.theme: tmux/tmux.theme
     ~/.config/neofetch:
         path: neofetch/
-        create: true
-    ~/.config/yay:
-        path: yay/
         create: true
     ~/.config/zathura:
         path: zathura/
