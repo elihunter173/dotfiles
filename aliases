@@ -13,6 +13,7 @@ gc! git commit -v -S --amend
 gca git commit -v -S -a
 gca! git commit -v -S -a --amend
 gaa git add --all --verbose
+gcl git clone --recurse-submodules
 gl git pull
 gp git push
 gpd git push --dry-run
