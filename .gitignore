@@ -1,11 +1,11 @@
-# temporary vim files
+# Temporary vim files
 *.swp
 
-# temporary emacs files
+# Temporary emacs files
 *~
 
-# git config files
+# Git Config files
 gitconfigs/
 
-# C tags file
+# C Tags file
 /tags
