@@ -70,3 +70,4 @@
     ~/.scripts:
         path: scripts/
         create: true
+    ~/.gitconfig: gitconfigs/personal

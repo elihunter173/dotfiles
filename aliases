@@ -44,4 +44,4 @@ gstp git stash pop
 gsts git stash show --text
 
 # Git config patcher
-gitconfig_patch ~/src/github/gitconfig-patcher/gitconfig-patcher.sh ~/.dotfiles/gitconfigs/main
+gitconfig_patch ~/src/github/gitconfig-patcher/gitconfig-patcher.sh ~/.dotfiles/gitconfigs/ncsu
