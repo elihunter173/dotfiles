@@ -1,7 +1,5 @@
 # Add more completions
 zsh-users/zsh-completions
-# Better history completion
-zsh-users/zsh-history-substring-search
 
 # Command specific autocompletions
 robbyrussell/oh-my-zsh path:plugins/pip

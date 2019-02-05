@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+# Install antibody if it's not already installed
+if [[ -d "/usr/local/bin/antibody" ]]; then
+    curl -sL git.io/antibody | sh -s
+fi
+
 echo "Bundling all plugins"
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
