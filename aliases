@@ -27,6 +27,7 @@ grhh git reset HEAD --hard
 
 # Branching Git
 gb git branch
+gbd git branch -d
 gco git checkout
 gcb git checkout -b
 gcm git checkout master
