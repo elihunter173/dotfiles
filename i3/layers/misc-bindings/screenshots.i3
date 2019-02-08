@@ -1,3 +1,3 @@
 # bind printscreen to taking a screenshot and putting it in the clipoard
-bindsym Print exec maim -s | xclip -selection clipboard -t image/png
-bindsym Shift+Print exec maim | xclip -selection clipboard -t image/png
+bindsym Print exec --no-startup-id "maim -s > ~/Pictures/screenshots/$(date --iso-8601=seconds).png"
+bindsym Shift+Print exec --no-startup-id "maim > ~/Pictures/screenshots/$(date --iso-8601=seconds).png"
