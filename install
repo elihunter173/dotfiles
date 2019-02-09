@@ -24,16 +24,16 @@ printf "\nStarting custom install hooks\n\n"
 printf "$NORMAL_COLOR"
 
 # Execute all process-config scripts
-for script in $(find . -type f -name 'process-config.sh'); do
-    parent_dir_name=${script%/*}
-    parent_dir_name=${parent_dir_name#*/}
-    printf "$COMMAND_COLOR"
-    printf "Processing ${parent_dir_name} config\n"
-    printf "$NORMAL_COLOR"
-    $script
-    echo
+for program in $(ls | grep --invert-match 'deprecated'); do
+    for script in $(find "$program" -name 'process-config.sh'); do
+        printf "$COMMAND_COLOR"
+        printf "Processing ${program} config\n"
+        printf "$NORMAL_COLOR"
+        $script
+        echo
+    done
 done
 
 printf "$HEADER_COLOR"
-printf "\n==> All custom install hooks executed successfully\n"
+printf "==> All custom install hooks executed successfully\n"
 printf "$NORMAL_COLOR"
