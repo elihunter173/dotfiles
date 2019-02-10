@@ -209,38 +209,38 @@ key_bindings:
 colors:
   # Default colors
   primary:
-    background: '#111b21'
-    foreground: '#cbd2d4'
+    background: '#010117'
+    foreground: '#cae3e6'
 
   # Cursor colors
   #
   # Colors which should be used to draw the terminal cursor. If these are unset,
   # the cursor color will be the inverse of the cell color.
   cursor:
-   text: '#111b21'
-   cursor: '#cbd2d4'
+   text: '#010117'
+   cursor: '#cae3e6'
 
   # Normal colors
   normal:
-    black:   '#111b21'
-    red:     '#5E6063'
-    green:   '#A06257'
-    yellow:  '#B79763'
-    blue:    '#4B699C'
-    magenta: '#758382'
-    cyan:    '#6BA9C3'
-    white:   '#cbd2d4'
+    black:   '#010117'
+    red:     '#d65b79'
+    green:   '#1d9675'
+    yellow:  '#731aa1'
+    blue:    '#3c43b4'
+    magenta: '#c622a5'
+    cyan:    '#72cdd3'
+    white:   '#cae3e6'
 
   # Bright colors
   bright:
-    black:   '#8e9394'
-    red:     '#5E6063'
-    green:   '#A06257'
-    yellow:  '#B79763'
-    blue:    '#4B699C'
-    magenta: '#758382'
-    cyan:    '#6BA9C3'
-    white:   '#cbd2d4'
+    black:   '#789ba0'
+    red:     '#d65b79'
+    green:   '#1d9675'
+    yellow:  '#731aa1'
+    blue:    '#3c43b4'
+    magenta: '#c622a5'
+    cyan:    '#72cdd3'
+    white:   '#cae3e6'
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 # Any items in the `env` entry below will be added as

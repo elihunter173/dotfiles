@@ -6,10 +6,10 @@ bindsym $mod+w exec rofi -show window
 set $launch "Launch Program"
 bindsym $mod+p mode $launch
 mode $launch {
-    bindsym t mode "default"; exec kitty
-    bindsym b mode "default"; exec firefox
-    bindsym Shift+b mode "default"; exec firefox --private-window
-    bindsym r mode "default"; exec kitty ranger
+    bindsym t mode "default"; exec --no-startup-id alacritty
+    bindsym b mode "default"; exec --no-startup-id firefox
+    bindsym Shift+b mode "default"; exec --no-startup-id firefox --private-window
+    bindsym r mode "default"; exec --no-startup-id alacritty -e ranger
 
     bindsym Escape mode "default"
 }

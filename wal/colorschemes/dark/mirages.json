@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/eli/Pictures/romain_trystram/mirages_cover.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#010117",
+        "foreground": "#cae3e6",
+        "cursor": "#cae3e6"
+    },
+    "colors": {
+        "color0": "#010117",
+        "color1": "#d64c73",
+        "color2": "#1d9675",
+        "color3": "#731aa1",
+        "color4": "#3c44bc",
+        "color5": "#c622ba",
+        "color6": "#30e6e5",
+        "color7": "#cae3e6",
+        "color8": "#789ba0",
+        "color9": "#d64c73",
+        "color10": "#1d9675",
+        "color11": "#731aa1",
+        "color12": "#3c44bc",
+        "color13": "#c622ba",
+        "color14": "#30e6e5",
+        "color15": "#cae3e6"
+    }
+}

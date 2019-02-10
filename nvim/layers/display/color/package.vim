@@ -1,1 +1,1 @@
-Plug 'chriskempson/base16-vim'
+Plug 'dylanaraps/wal.vim'
