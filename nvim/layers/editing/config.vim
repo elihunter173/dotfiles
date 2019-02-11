@@ -16,6 +16,11 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" Use indent based folding (it works well enough and doesn't lag)
+set foldmethod=indent
+" Unfold everything when entering a file
+autocmd BufRead * normal zR
+
 " Make saving and quitting easier and faster. (z to prevent conflict with macros)
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :w!<CR>
@@ -23,8 +28,10 @@ nnoremap <leader>z :q<CR>
 nnoremap <leader>Z :q!<CR>
 nnoremap <leader>c :bd<CR>
 
-" Easier quick macro recording (shift would be ideal but isn't working right now)
+" Easier quick macro use (shift would be ideal but isn't working right now)
 nnoremap <C-Space> @q
+" Easier quick command repeating
+nnoremap <M-Space> @:
 
 " Remap undo
 nnoremap U <C-r>
