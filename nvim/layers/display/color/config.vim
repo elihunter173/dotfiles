@@ -1,4 +1,4 @@
-colorscheme wal
+" Allow GUI style colors in
+set termguicolors
 
-" Make NonText (invisible) characters visible (I don't like what wal.vim does)
-highlight! link NonText Comment
+colorscheme base16-snazzy
