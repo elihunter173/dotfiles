@@ -37,3 +37,5 @@ done
 printf "$HEADER_COLOR"
 printf "==> All custom install hooks executed successfully\n"
 printf "$NORMAL_COLOR"
+
+printf "\nDon't forget to run etc/export.sh!\n"
