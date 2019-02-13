@@ -58,3 +58,14 @@ nmap SS <plug>(SubversiveSubstituteLine)
 
 " Custom vim-sandwich recipes
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+
+" Goyo settings
+nnoremap <F3> :Goyo<CR>
+
+" Default: 80
+" Really 100. The gutter is 5 characters wide
+let g:goyo_width = 105
+" Default: 85%
+" let g:goyo_width = 85%
+" Default: 0
+" let g:goyo_linenr = 0

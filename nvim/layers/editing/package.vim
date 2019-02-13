@@ -13,3 +13,6 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 
 " Enable easy replacement of text objects and motions with main register
 Plug 'svermeulen/vim-subversive'
+
+" Make writing peaceful
+Plug 'junegunn/goyo.vim'
