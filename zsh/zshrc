@@ -21,6 +21,8 @@ autoload -U promptinit; promptinit
 
 # Load completions
 autoload -U compinit; compinit
+# Completions for kitty
+kitty + complete setup zsh | source /dev/stdin
 
 # My custom scripts
 export PATH=$PATH:$HOME/.scripts
