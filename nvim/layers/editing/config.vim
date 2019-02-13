@@ -61,15 +61,11 @@ let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
 " Goyo settings
 function! s:goyo_enter()
-  set noshowmode
-  set noshowcmd
   " Go into typewriter mode
   set scrolloff=999
 endfunction
 
 function! s:goyo_leave()
-  set showmode
-  set showcmd
   " Default scrolloff
   set scrolloff=4
 endfunction
