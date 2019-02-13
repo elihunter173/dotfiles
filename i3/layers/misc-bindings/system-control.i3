@@ -1,6 +1,8 @@
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 3"
-bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 3"
+bindsym Shift+XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 10"
+bindsym Shift+XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 10"
+bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 1"
+bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
 bindsym XF86Display exec --no-startup-id "~/.scripts/xbacklight-toggle.sh"
 
 set $system "System Control"
