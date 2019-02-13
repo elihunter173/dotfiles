@@ -1,4 +1,5 @@
 TRASH ~/.local/share/Trash/files
 arc ~/src/gerrit/ARC
 notes ~/Documents/notes
-csc ~/Documents/notes/2019-Spring/CSC-216
+csc_notes ~/Documents/notes/2019-Spring/CSC-216
+csc_src ~/src/ncsu.github/CSC-216
