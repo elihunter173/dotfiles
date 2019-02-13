@@ -60,12 +60,28 @@ nmap SS <plug>(SubversiveSubstituteLine)
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
 " Goyo settings
+function! s:goyo_enter()
+  set noshowmode
+  set noshowcmd
+  " Go into typewriter mode
+  set scrolloff=999
+endfunction
+
+function! s:goyo_leave()
+  set showmode
+  set showcmd
+  " Default scrolloff
+  set scrolloff=4
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 nnoremap <F3> :Goyo<CR>
 
 " Default: 80
-" Really 100. The gutter is 5 characters wide
-let g:goyo_width = 105
+let g:goyo_width = 100
 " Default: 85%
-" let g:goyo_width = 85%
+" let g:goyo_height = 85%
 " Default: 0
 " let g:goyo_linenr = 0
