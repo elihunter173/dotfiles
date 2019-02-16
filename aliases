@@ -1,5 +1,12 @@
 help man
 o _easy_open
+
+# Override shell defaults
+time /usr/bin/time # /usr/bin/time is standard across shells and more feature rich
+
+# Better defaults
+grep grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1
+ngrep /usr/bin/grep # Have a way to use default grep
 l. ls -ld .*
 
 # Safe remove
@@ -21,9 +28,11 @@ gst git status
 grm git rm
 gd git diff
 gf git fetch
-gr git reset
 grh git reset HEAD
 grhh git reset HEAD --hard
+
+# Git remotes
+gr git remote
 
 # Branching Git
 gb git branch
