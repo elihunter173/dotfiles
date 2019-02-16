@@ -1,5 +1,5 @@
 # borders is displayed here, just invisible for some reason
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 1
 # default_border pixel 2
 # Don't show borders when there is only one container
 smart_borders on

@@ -1,18 +1,20 @@
 [bar/top]
-monitor = ${env:MONITOR:eDP1}
+monitor = ${env:MAIN_MONITOR:eDP1}
 
-width = 1900
-height = 27
+width = 1920
+height = 25
 offset-x = 10
 offset-y = 10
 radius = 0.0
 fixed-center = true
 
-; Tell the Window Manager not to configure the window.
-; Use this to detach the bar if your WM is locking its size/position.
-override-redirect = true
+; False = Your WM will configure the window.
+; True = Your WM will not to configure the window. This to detaches the bar if your WM is locking
+; its size/position.
+override-redirect = false
+
 ; Tells i3 to display over the bar in fullscreen.
-wm-restack = i3
+; wm-restack = i3
 
 background = ${colors.base00}
 foreground = ${colors.base05}
