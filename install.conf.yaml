@@ -44,9 +44,9 @@
     ~/.config/nvim:
         path: nvim/
         create: true
-    ~/.config/wal:
-        path: wal/
-        create: true
+    # ~/.config/wal:
+    #     path: wal/
+    #     create: true
     ~/.config/ranger:
         path: ranger/
         create: true
