@@ -2,6 +2,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/eli/.config/oh-my-zsh"
 
+ZSH_THEME="bira"
+
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
 
@@ -17,7 +19,7 @@ source ~/.functions
 source ~/.zsh_plugins.sh
 
 # Load pure prompt
-autoload -U promptinit; promptinit
+# autoload -U promptinit; promptinit
 
 # Load completions
 autoload -U compinit; compinit

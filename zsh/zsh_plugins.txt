@@ -19,5 +19,5 @@ zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions
 
 # Nice Pure prompt
-mafredri/zsh-async
-sindresorhus/pure
+# mafredri/zsh-async
+# sindresorhus/pure
