@@ -72,4 +72,3 @@ set -g message-command-fg black
 # Mode
 set -g mode-bg colour39
 set -g mode-fg colour232
-
