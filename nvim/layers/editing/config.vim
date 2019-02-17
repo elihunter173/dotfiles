@@ -77,7 +77,7 @@ nnoremap <F3> :Goyo<CR>
 
 " Default: 80
 let g:goyo_width = 100
-" Default: 85%
-" let g:goyo_height = 85%
+" Default: 85 (implicit percent)
+let g:goyo_height = 90
 " Default: 0
 " let g:goyo_linenr = 0
