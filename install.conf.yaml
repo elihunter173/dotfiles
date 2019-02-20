@@ -38,15 +38,9 @@
     ~/.config/kitty:
         path: kitty/
         create: true
-    # ~/.config/alacritty:
-    #     path: alacritty/
-    #     create: true
     ~/.config/nvim:
         path: nvim/
         create: true
-    # ~/.config/wal:
-    #     path: wal/
-    #     create: true
     ~/.config/ranger:
         path: ranger/
         create: true
@@ -64,9 +58,6 @@
     # App-managed App Config
     ~/.config/htop:
         path: app-managed/htop/
-        create: true
-    ~/.config/ckb-next:
-        path: app-managed/ckb-next/
         create: true
     ~/.config/Kvantum:
         path: app-managed/Kvantum/
