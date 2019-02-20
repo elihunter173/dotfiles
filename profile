@@ -12,3 +12,14 @@ export LEFT_MONITOR='HDMI1'
 
 # for gpg
 export GPG_TTY=$(tty)
+
+# Turn off annoying bell
+xset -b b off
+
+# Display Power Management Settings
+#         standby suspend off
+xset dpms 600     900     1800
+
+# Screen Saver Settings
+#      timeout cycle
+xset s 300     0
