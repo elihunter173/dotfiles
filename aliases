@@ -4,9 +4,9 @@ o _easy_open
 # Override shell defaults
 time /usr/bin/time # /usr/bin/time is standard across shells and more feature rich
 
-# Better defaults
-grep grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1
-ngrep /usr/bin/grep # Have a way to use default grep
+# New/Better Defaults
+# Pretty grep
+grepp grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1
 l. ls -ld .*
 
 # Safe remove
@@ -26,6 +26,7 @@ gp git push
 gpd git push --dry-run
 gst git status
 grm git rm
+glog git log
 gd git diff
 gf git fetch
 grh git reset HEAD
