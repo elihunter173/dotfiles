@@ -31,3 +31,13 @@ function _count_word_instances() {
     local count=$(egrep -w "$1" < "$2" -o | wc -l)
     echo "$count"
 }
+
+# Converts all tildes in the given arguments into $HOME.
+#
+# This relies on sed
+#
+# ARGS:
+#     $@: Any argument that may contain a tilde.
+function _convert_tildes() {
+    echo $(echo "$@" | sed -e 's/~/$HOME/')
+}
