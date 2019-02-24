@@ -17,36 +17,39 @@ bindsym $mod+v mode "default"; split v
 set $resize "Resize"
 bindsym $mod+r mode $resize
 mode $resize {
-    bindsym $left       resize shrink width 10 px or 10 ppt
-    bindsym $down       resize grow height 10 px or 10 ppt
-    bindsym $up         resize shrink height 10 px or 10 ppt
-    bindsym $right      resize grow width 10 px or 10 ppt
+    # TODO: Switch numbers to variables
+    bindsym $left       resize shrink width 10 px or 5 ppt
+    bindsym $down       resize grow height 10 px or 5 ppt
+    bindsym $up         resize shrink height 10 px or 5 ppt
+    bindsym $right      resize grow width 10 px or 5 ppt
     # arrow key alternatives
-    bindsym Left        resize shrink width 10 px or 10 ppt
-    bindsym Down        resize grow height 10 px or 10 ppt
-    bindsym Up          resize shrink height 10 px or 10 ppt
-    bindsym Right       resize grow width 10 px or 10 ppt
+    bindsym Left        resize shrink width 10 px or 5 ppt
+    bindsym Down        resize grow height 10 px or 5 ppt
+    bindsym Up          resize shrink height 10 px or 5 ppt
+    bindsym Right       resize grow width 10 px or 5 ppt
 
     bindsym Escape mode "default"
 }
 
-# change focus
+# Change focus
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
-# alternatively, arrow keys
+bindsym $mod+comma focus parent
+bindsym $mod+period focus child
+# Alternatively, arrow keys
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
+# Move focused window
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-# alternatively, arrow keys
+# Alternatively, arrow keys
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up

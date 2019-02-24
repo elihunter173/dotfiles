@@ -16,11 +16,6 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Use indent based folding (it works well enough and doesn't lag)
-set foldmethod=indent
-" Unfold everything when entering a file
-autocmd BufRead * normal zR
-
 " Make saving and quitting easier and faster. (z to prevent conflict with macros)
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :w!<CR>
@@ -50,34 +45,5 @@ nnoremap _ 0
 " Disable highlighting (run :noh) when escape pressed twice in normal mode
 nmap <Esc><Esc> :nohlsearch<CR>
 
-" s for substitute. This overwrites the default keys
-" Only capital S is used to prevent conflict with vim-sandwich
-nmap S <plug>(SubversiveSubstitute)
-nmap SS <plug>(SubversiveSubstituteLine)
-" nmap S <plug>(SubversiveSubstituteToEndOfLine)
-
 " Custom vim-sandwich recipes
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-
-" Goyo settings
-function! s:goyo_enter()
-  " Go into typewriter mode
-  set scrolloff=999
-endfunction
-
-function! s:goyo_leave()
-  " Default scrolloff
-  set scrolloff=4
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-nnoremap <F3> :Goyo<CR>
-
-" Default: 80
-let g:goyo_width = 100
-" Default: 85 (implicit percent)
-let g:goyo_height = 90
-" Default: 0
-" let g:goyo_linenr = 0

@@ -41,7 +41,7 @@ create_alias() {
     fi
     local ALIAS="alias '${1}'"
     shift
-    local ALIAS="${ALIAS}='$@'"
+    local ALIAS="${ALIAS}=\"$@\""
     echo "$ALIAS"
 }
 
