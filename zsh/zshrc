@@ -2,8 +2,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/eli/.config/oh-my-zsh"
 
-ZSH_THEME="bira"
-
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
 
@@ -18,17 +16,23 @@ source ~/.functions
 # Source my plugins
 source ~/.zsh_plugins.sh
 
-# Load pure prompt
-# autoload -U promptinit; promptinit
-
 # Load completions
 autoload -U compinit; compinit
 # Completions for kitty
 kitty + complete setup zsh | source /dev/stdin
 
+# Chose prompt
+# autoload -U promptinit; promptinit
+# prompt pure
+
 # My custom scripts
 export PATH=$PATH:$HOME/.scripts
 
+## KEYBINDINGS ##
+# Vim keys
+bindkey -v
+# Reduce delay on <Esc> to 1 (not 0 so pure prompt can update)
+export KEYTIMEOUT=1
 # Easier history searching
 bindkey '^N' down-line-or-beginning-search
 bindkey '^P' up-line-or-beginning-search

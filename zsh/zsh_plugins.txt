@@ -6,8 +6,6 @@ robbyrussell/oh-my-zsh path:plugins/pip
 
 # Lazy, easy extraction
 robbyrussell/oh-my-zsh path:plugins/extract
-# Easy sudo with double escape
-robbyrussell/oh-my-zsh path:plugins/sudo
 # All new terminals automatically go to the last working directory (lwd does the same)
 robbyrussell/oh-my-zsh path:plugins/last-working-dir
 # Make man pages colorful
@@ -19,5 +17,5 @@ zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions
 
 # Nice Pure prompt
-# mafredri/zsh-async
-# sindresorhus/pure
+mafredri/zsh-async
+sindresorhus/pure
