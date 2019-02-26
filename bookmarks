@@ -1,5 +1,10 @@
+# Misc
 TRASH ~/.local/share/Trash/files
+
+# Programming
 arc ~/src/arc
+
+# Notes
 notes ~/Documents/notes
 csc_notes ~/Documents/notes/2019-Spring/CSC-216
 csc_src ~/src/school/CSC-216
