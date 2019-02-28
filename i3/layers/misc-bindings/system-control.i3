@@ -3,7 +3,7 @@ bindsym Shift+XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 10"
 bindsym Shift+XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 10"
 bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 1"
 bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
-bindsym XF86Display exec --no-startup-id "~/.scripts/xbacklight-toggle.sh"
+bindsym XF86Display exec --no-startup-id "xset dpms force off"
 
 set $system "System Control"
 bindsym $mod+c mode $system
