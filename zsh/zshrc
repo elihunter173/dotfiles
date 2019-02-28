@@ -33,6 +33,8 @@ export PATH=$PATH:$HOME/.scripts
 bindkey -v
 # Reduce delay on <Esc> to 1 (not 0 so pure prompt can update)
 export KEYTIMEOUT=1
+# Ctrl-B deletes word
+bindkey '^B' backward-kill-word
 # Easier history searching
 bindkey '^N' down-line-or-beginning-search
 bindkey '^P' up-line-or-beginning-search
