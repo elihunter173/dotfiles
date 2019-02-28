@@ -67,16 +67,16 @@ bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Right move workspace to output right
 
 # define names for workspaces
-set $ws_1  "1:web"
-set $ws_2  "2:dev"
-set $ws_3  "3:test"
+set $ws_1  "1"
+set $ws_2  "2"
+set $ws_3  "3"
 set $ws_4  "4"
 set $ws_5  "5"
 set $ws_6  "6"
 set $ws_7  "7"
 set $ws_8  "8"
-set $ws_9  "9:storage"
-set $ws_10 "10:music"
+set $ws_9  "9"
+set $ws_10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws_1
