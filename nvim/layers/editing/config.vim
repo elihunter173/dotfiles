@@ -24,9 +24,13 @@ nnoremap <leader>Z :q!<CR>
 nnoremap <leader>c :bd<CR>
 
 " Easier quick macro use (shift would be ideal but isn't working right now)
-nnoremap <C-Space> @q
+nnoremap <C-Space> @@
 " Easier quick command repeating
 nnoremap <M-Space> @:
+
+" Remove useless keybindings
+nnoremap s <NOP>
+nnoremap S <NOP>
 
 " Remap undo
 nnoremap U <C-r>
