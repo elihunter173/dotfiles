@@ -1,3 +1,4 @@
+# vim: foldmethod=marker
 # My gitconfig is not linked here to prevent people from accidentally
 # committing as me
 
@@ -34,12 +35,20 @@
         path: zsh/oh-my-zsh/
         create: true
 
+    # Vim Config
+    ~/.local/share/vim:
+        path: vim/share/
+        create: true
+    ~/.config/nvim/spell:
+        path: vim/spell/
+        create: true
+    ~/.config/nvim/init.vim:
+        path: vim/init.vim
+        create: true
+
     # App Config
     ~/.config/kitty:
         path: kitty/
-        create: true
-    ~/.config/nvim:
-        path: nvim/
         create: true
     ~/.config/ranger:
         path: ranger/
@@ -55,6 +64,7 @@
     ~/.pandoc:
         path: pandoc/
         create: true
+
     # App-managed App Config
     ~/.config/htop:
         path: app-managed/htop/

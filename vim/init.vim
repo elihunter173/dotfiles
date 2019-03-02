@@ -1,12 +1,6 @@
-" This is Eli W. Hunter's Neovim init.vim.
+" Eli W. Hunter's Neovim init.vim.
 "
 " Author: Eli W. Hunter
-"
-" Inspiration: https://afnan.io/2018-04-12/my-neovim-development-setup/
-"              https://github.com/jeaye/vimrc/blob/master/vimrc
-
-" no vi compatibility
-set nocompatible
 
 " Install vim-plug if it isn't installed and then restart vim
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
@@ -17,10 +11,12 @@ endif
 
 " Install plugins
 call plug#begin('~/.local/share/nvim/plugged')
-runtime! layers/**/package.vim
+source ~/.local/share/vim/package.vim
+source ~/.local/share/vim/package.nvim
 call plug#end()
 
-runtime! layers/**/config.vim " Load the config of each layer
+source ~/.local/share/vim/config.vim
+source ~/.local/share/vim/config.nvim
 
 " NOTES:
 "
