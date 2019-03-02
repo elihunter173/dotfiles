@@ -30,7 +30,7 @@
     ~/.functions: functions
     ~/.zshrc: zsh/zshrc
     ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
-    ~/.config/oh-my-zsh:
+    ~/.oh-my-zsh:
         path: zsh/oh-my-zsh/
         create: true
 
