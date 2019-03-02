@@ -1,0 +1,2 @@
+# Ignore netrw (vim's File Brower) history
+.netrwhist
