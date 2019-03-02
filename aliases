@@ -7,7 +7,7 @@ time /usr/bin/time # /usr/bin/time is standard across shells and more feature ri
 # New/Better Defaults
 # Pretty grep
 grepp grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1
-l. ls -ld .*
+l. ls -ld '.*'
 
 # Safe remove
 rmm /bin/rm

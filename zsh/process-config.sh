@@ -3,14 +3,19 @@
 # Processes the necessary files for my zsh config.
 # Author: Eli W. Hunter
 
-# Import my common functions (for converting tildes)
-source "$HOME/.functions"
+# Converts all tildes in the given arguments into $HOME.
+#
+# ARGS:
+#     $@: Any argument that may contain a tilde.
+function convert_tildes() {
+    echo $(echo "$@" | sed -e 's/~/$HOME/')
+}
 
 # Removes all comments from the given arguments. The arguments are assumed to
 # be consecutive in a single line.
 #
 # Args:
-#    $1: The string that is to have all comments removed.
+#    $*: The string that is to have all comments removed.
 remove_comments() {
     echo $(echo "$*" | sed -e 's/#.*//g')
 }
@@ -25,7 +30,7 @@ create_bookmark() {
     if [[ "$#" -lt 2 ]]; then
         return 1
     fi
-    local BOOKMARK="export ${1}=\"$(_convert_tildes ${2})\""
+    local BOOKMARK="export ${1}=\"$(convert_tildes ${2})\""
     echo "$BOOKMARK"
 }
 
@@ -39,10 +44,10 @@ create_alias() {
     if [[ "$#" -lt 2 ]]; then
         return 1
     fi
-    local ALIAS="alias '${1}'"
-    shift
-    local ALIAS="${ALIAS}=\"$@\""
-    echo "$ALIAS"
+    local ALIAS="alias '${1}'"; shift
+    # Strip ' from value
+    local VALUE=$(echo "$@" | sed -e "s/'//g")
+    echo "$ALIAS=\"$VALUE\""
 }
 
 # Install antibody if it's not already installed
