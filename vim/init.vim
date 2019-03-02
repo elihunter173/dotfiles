@@ -11,11 +11,11 @@ endif
 
 " Install plugins
 call plug#begin('~/.local/share/nvim/plugged')
-source ~/.local/share/vim/package.vim
+source ~/.local/share/vim/common-package.vim
 source ~/.local/share/vim/package.nvim
 call plug#end()
 
-source ~/.local/share/vim/config.vim
+source ~/.local/share/vim/common-config.vim
 source ~/.local/share/vim/config.nvim
 
 " NOTES:
