@@ -1,6 +1,10 @@
-# vim: foldmethod=marker
 # My gitconfig is not linked here to prevent people from accidentally
 # committing as me
+
+- defaults:
+    link:
+      relink: true
+      create: true
 
 - clean: ['~', '~/.config']
 
@@ -13,17 +17,11 @@
     ~/.Xresources: xorg/Xresources
 
     # Window Manager Config
-    ~/.config/i3:
-        path: i3/
-        create: true
+    ~/.config/i3: i3/
     ~/.fehbg: fehbg
     ~/.config/compton.conf: compton.conf
-    ~/.config/rofi:
-        path: rofi/
-        create: true
-    ~/.config/polybar:
-        path: polybar/
-        create: true
+    ~/.config/rofi: rofi/
+    ~/.config/polybar: polybar/
 
     # Shell Config
     ~/.bookmarks: bookmarks
@@ -31,50 +29,29 @@
     ~/.functions: functions
     ~/.zshrc: zsh/zshrc
     ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
-    ~/.oh-my-zsh:
-        path: zsh/oh-my-zsh/
-        create: true
+    ~/.oh-my-zsh: zsh/oh-my-zsh/
 
     # Vim Config
-    ~/.local/share/vim:
-        path: vim/share/
-        create: true
-    ~/.config/nvim/spell:
-        path: vim/spell/
-        create: true
-    ~/.config/nvim/init.vim:
-        path: vim/init.vim
-        create: true
+    ~/.local/share/vim: vim/share/
+    ~/.config/nvim/spell: vim/spell/
+    ~/.config/nvim/init.vim: vim/init.vim
 
     # App Config
-    ~/.config/kitty:
-        path: kitty/
-        create: true
-    ~/.config/ranger:
-        path: ranger/
-        create: true
+    ~/.config/kitty: kitty/
+    ~/.config/ranger: ranger/
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.theme: tmux/tmux.theme
-    ~/.config/neofetch:
-        path: neofetch/
-        create: true
-    ~/.config/zathura:
-        path: zathura/
-        create: true
-    ~/.pandoc:
-        path: pandoc/
-        create: true
+    ~/.config/neofetch: neofetch/
+    ~/.config/zathura: zathura/
+    ~/.pandoc: pandoc/
 
     # App-managed App Config
-    ~/.config/htop:
-        path: app-managed/htop/
-        create: true
-    ~/.config/Kvantum:
-        path: app-managed/Kvantum/
-        create: true
+    ~/.config/htop: app-managed/htop/
+    ~/.config/Kvantum: app-managed/Kvantum/
 
     # Misc
-    ~/.scripts:
-        path: scripts/
-        create: true
+    ~/.scripts: scripts/
     ~/.gitconfig: gitconfigs/personal
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
