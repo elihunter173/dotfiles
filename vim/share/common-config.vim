@@ -6,11 +6,9 @@ set nocompatible
 " Enable ftplugins for everything
 filetype plugin indent on
 
-" No annoying sound on errors
+" No annoying sound or blink on errors
 set noerrorbells
 set novisualbell
-set t_vb=
-set tm=500
 
 " Enable mouse support for all modes
 set mouse=a
@@ -108,6 +106,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Easier splits
+nnoremap <C-s> <C-w>s
+nnoremap <C-v> <C-w>v
+
 " Turn off search highlighting easily
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
@@ -130,17 +132,6 @@ autocmd BufNewFile,BufRead *.i3 set filetype=i3config
 autocmd BufNewFile,BufRead *.bar set filetype=dosini
 
 " Plugin Settings {{{1
-
-" Airline {{{2
-" Don't Show the mode in command line
-set noshowmode
-
-" Enable powerline fonts
-let g:airline_powerline_fonts = 1
-" Enable base16 (dynamically retrieves colors from base16 color scheme) theme
-let g:airline_theme='base16'
-" let g:airline_base16_improved_contrast = 1
-let g:airline_base16_monotone = 1
 
 " Vim Sandwich {{{2
 " Custom vim-sandwich recipes

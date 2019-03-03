@@ -27,9 +27,6 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Display
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
-" (Excessively) nice statusline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 
 " Markdown
 " Requires godlygeek/taular for TableFormat
