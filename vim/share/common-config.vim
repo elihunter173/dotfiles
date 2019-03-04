@@ -47,8 +47,10 @@ set number relativenumber
 
 " number of lines to pad cursor by when scrolling
 set scrolloff=4
-" Allow GUI style colors in terminal
-set termguicolors
+" Allow GUI style colors in terminal if supported
+if exists('+termguicolors')
+    set termguicolors
+endif
 
 " Choose colorscheme
 colorscheme base16-solarized-dark
