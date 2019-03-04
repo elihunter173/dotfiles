@@ -38,6 +38,7 @@
 
     # App Config
     ~/.config/kitty: kitty/
+    ~/.config/dunst: dunst/
     ~/.config/ranger: ranger/
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.theme: tmux/tmux.theme
