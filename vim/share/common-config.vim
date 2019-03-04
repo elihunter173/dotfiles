@@ -42,8 +42,9 @@ set lazyredraw
 set listchars=tab:>-,trail:·,extends:>,precedes:<
 set list
 
-" Enable relative line numbers with absolute line number
+" Enable line numbers and ruler
 set number relativenumber
+set ruler
 
 " number of lines to pad cursor by when scrolling
 set scrolloff=4
