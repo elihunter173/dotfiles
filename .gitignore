@@ -4,8 +4,5 @@
 # Temporary emacs files
 *~
 
-# Git Config files
-gitconfigs/
-
 # C Tags file
 /tags
