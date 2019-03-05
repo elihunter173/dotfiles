@@ -1,8 +1,8 @@
 # borders is displayed here, just invisible for some reason
 for_window [class="^.*"] border pixel 1
 # default_border pixel 2
-# Don't show borders when there is only one container
-smart_borders on
+# Don't show borders when there is only one container. This doesn't work for all verisons of i3
+# smart_borders on
 
 # Colors
 # class                 border  backgr. text    indicator child_border
