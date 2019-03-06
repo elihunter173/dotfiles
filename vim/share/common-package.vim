@@ -5,6 +5,8 @@ Plug 'wellle/targets.vim'
 Plug 'machakann/vim-sandwich'
 " Syntax highlighting for almost every language
 Plug 'sheerun/vim-polyglot'
+" Lightweight git wrapper
+Plug 'tpope/vim-fugitive'
 " Automatically detect indentation
 Plug 'tpope/vim-sleuth'
 " Easier commenting for any language
