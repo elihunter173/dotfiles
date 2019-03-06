@@ -1,4 +1,4 @@
-" vim: foldmethod=marker
+" vim: foldmethod=marker foldlevel=0
 " Basic Settings {{{1
 " No vi compatibility
 set nocompatible
@@ -28,14 +28,15 @@ set wildmode=longest:full,full
 " Allows switching unsaved buffers (instead of abandoning them, hide them)
 set hidden
 
-" Make <Tab> insert 4 spaces.
-" set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
-
 " Use X clipboard.
 set clipboard=unnamedplus
 
 " Don't redraw during macros (for performance)
 set lazyredraw
+
+" Set to indent folding with default of no folds
+set foldmethod=indent
+set foldlevel=999
 
 " Display {{{1
 " Show hidden characters
@@ -55,6 +56,9 @@ endif
 
 " Choose colorscheme
 colorscheme base16-solarized-dark
+" Swap default statusline focus and no-focus colors
+highlight StatusLine ctermfg=8 ctermbg=10 guifg=#657b83 guibg=#073642
+highlight StatusLineNC ctermfg=12 ctermbg=11 guifg=#839496 guibg=#586e75
 
 " Keybindings {{{1
 " Leader mappings from the gods (https://www.reddit.com/r/vim/comments/9zy5xg/leader_mapping_from_the_gods/)
@@ -79,10 +83,6 @@ nnoremap Y y$
 " Make 'c' go to the black hole register
 nnoremap c "_c
 nnoremap C "_C
-" Make 'x' be 'd' but going to the black hole register
-" You have to do xd for dd which isn't ideal, but it is better than having dual bindings
-nnoremap x "_d
-nnoremap X "_D
 
 " Make saving and quitting easier and faster. (z to prevent conflict with macros)
 nnoremap <leader>w :w<CR>
@@ -116,18 +116,18 @@ nnoremap <C-v> <C-w>v
 " Turn off search highlighting easily
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
-" Easier swapping between buffers and files
+" Easier swapping between files
 nnoremap <leader>o :edit<Space>
+" Easier tag jumping
+nnoremap <leader>t :tag<Space>
 
 " Toggle spell checking with F1
 nnoremap <F12> :setlocal spell! spelllang=en_us<CR>
 
-" Easy Netrw activation
-nnoremap <F1> :Vexplore<CR>
 " Easy tagbar activation and toggling
-nnoremap <F2> :TagbarToggle<CR>
+nnoremap <F1> :TagbarToggle<CR>
 " A nice keybinding to toggle the undotree
-nnoremap <F3> :UndotreeToggle<CR>
+nnoremap <F2> :UndotreeToggle<CR>
 
 " Custom Extensions {{{1
 autocmd BufNewFile,BufRead *.nvim set filetype=vim
