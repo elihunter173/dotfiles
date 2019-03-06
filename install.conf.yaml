@@ -52,7 +52,8 @@
 
     # Misc
     ~/.scripts: scripts/
-    ~/.gitconfig: gitconfigs/personal
+    ~/.gitconfig: git/gitconfigs/personal
+    ~/.git_template: git/template
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

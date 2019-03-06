@@ -1,0 +1,7 @@
+#!/bin/sh
+# A simple invoker for the ctags generator
+# This is only done on rebase (not git commit --amend) because post-commit
+# handles that
+case "$1" in
+  rebase) exec .git/hooks/post-merge ;;
+esac
