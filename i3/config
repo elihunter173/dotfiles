@@ -1,0 +1,265 @@
+# vim: foldmethod=marker foldlevel=0 ft=i3config
+# Enviromental Variables {{{1
+
+# Mod key
+set $mod Mod4
+
+# Use mouse+$primary_action to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Set the standard direction keys when arrow keys are not used
+set $up k
+set $down j
+set $left h
+set $right l
+
+# Display {{{1
+
+# Colors {{{2
+## Base16 Snazzy
+# Author: Chawye Hsu (https://github.com/h404bi) based on Hyper Snazzy Theme (https://github.com/sindresorhus/hyper-snazzy)
+set $base00 #1e1f29
+set $base01 #34353e
+set $base02 #4a4b53
+set $base03 #78787e
+set $base04 #a5a5a9
+set $base05 #eff0eb
+set $base06 #f1f1f0
+set $base07 #f1f1f0
+set $base08 #ff5c57
+set $base09 #ff9f43
+set $base0A #f3f99d
+set $base0B #5af78e
+set $base0C #9aedfe
+set $base0D #57c7ff
+set $base0E #ff6ac1
+set $base0F #b2643c
+
+# Window Decorations {{{2
+# Borders is displayed here, just invisible for some reason
+for_window [class="^.*"] border pixel 1
+# default_border pixel 2
+# Don't show borders when there is only one container. This doesn't work for all verisons of i3
+smart_borders on
+
+# Colors
+# class                 border  backgr. text    indicator child_border
+client.focused          $base00 $base00 $base05 $base0B   $base05
+client.focused_inactive $base0D $base0D $base00 $base04   $base04
+client.unfocused        $base01 $base01 $base04 $base00   $base04
+client.urgent           $base0F $base0F $base00 $base0F   $base04
+client.placeholder      #000000 $base00 $base05 #000000   $base04
+
+client.background       $base00
+
+# Set gaps
+# gaps inner 10
+# gaps outer 0
+# gaps top 37
+# Set background
+
+# Set wallpaper
+exec --no-startup-id ~/.fehbg
+
+# Set font
+font pango:Noto Sans 8
+
+# Start up compton compositor
+exec --no-startup-id compton -b
+
+# Unclutter removes the mouse cursor after it hasn't been used for awhile.
+exec --no-startup-id unclutter &
+
+# Start polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+bindsym $mod+Return exec rofi -show drun
+bindsym $mod+Shift+Return exec rofi -show run
+bindsym $mod+w exec rofi -show window
+
+# Keybindings {{{1
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Workspace layout
+bindsym $mod+e mode "default"; layout toggle split
+bindsym $mod+t mode "default"; layout tabbed
+
+# Horizontal and vertical split
+bindsym $mod+s mode "default"; split h
+bindsym $mod+v mode "default"; split v
+
+# Kill focused window
+bindsym $mod+q kill
+# Middle button and modifier over any part of the window kills the window
+bindsym --whole-window $mod+button2 kill
+
+# This is from https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
+# Screen brightness controls
+bindsym Shift+XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 10"
+bindsym Shift+XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 10"
+bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 1"
+bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
+bindsym XF86Display exec --no-startup-id "xset dpms force off"
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id "~/.scripts/pactl-volume.sh +1%"
+bindsym XF86AudioLowerVolume exec --no-startup-id "~/.scripts/pactl-volume.sh -1%"
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "~/.scripts/pactl-volume.sh +5%"
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "~/.scripts/pactl-volume.sh -5%"
+bindsym XF86AudioMute exec --no-startup-id "~/.scripts/pactl-volume.sh M"
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Screenshots
+bindsym Print exec --no-startup-id "mkdir /tmp/screenshots; maim -s > /tmp/screenshots/$(date --iso-8601=seconds).png"
+bindsym Shift+Print exec --no-startup-id "mkdir /tmp/screenshots; maim > /tmp/screenshots/$(date --iso-8601=seconds).png"
+
+# Window Management {{{2
+# Change focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+comma focus parent
+bindsym $mod+period focus child
+# Alternatively, arrow keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+# Alternatively, arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# move current workspace to next output
+bindsym $mod+Ctrl+$left move workspace to output left
+bindsym $mod+Ctrl+$down move workspace to output down
+bindsym $mod+Ctrl+$up move workspace to output up
+bindsym $mod+Ctrl+$right move workspace to output right
+# alternatively, arrow keys
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Down move workspace to output down
+bindsym $mod+Ctrl+Up move workspace to output up
+bindsym $mod+Ctrl+Right move workspace to output right
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command (awkwardly) cycles
+# through them.
+bindsym $mod+Shift+minus move scratchpad
+# move the currently focused window to the scratchpad
+bindsym $mod+minus scratchpad show
+
+# Workspace Creation {{{2
+# define names for workspaces
+set $ws_1  "1"
+set $ws_2  "2"
+set $ws_3  "3"
+set $ws_4  "4"
+set $ws_5  "5"
+set $ws_6  "6"
+set $ws_7  "7"
+set $ws_8  "8"
+set $ws_9  "9"
+set $ws_10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws_1
+bindsym $mod+2 workspace $ws_2
+bindsym $mod+3 workspace $ws_3
+bindsym $mod+4 workspace $ws_4
+bindsym $mod+5 workspace $ws_5
+bindsym $mod+6 workspace $ws_6
+bindsym $mod+7 workspace $ws_7
+bindsym $mod+8 workspace $ws_8
+bindsym $mod+9 workspace $ws_9
+bindsym $mod+0 workspace $ws_10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws_1
+bindsym $mod+Shift+2 move container to workspace $ws_2
+bindsym $mod+Shift+3 move container to workspace $ws_3
+bindsym $mod+Shift+4 move container to workspace $ws_4
+bindsym $mod+Shift+5 move container to workspace $ws_5
+bindsym $mod+Shift+6 move container to workspace $ws_6
+bindsym $mod+Shift+7 move container to workspace $ws_7
+bindsym $mod+Shift+8 move container to workspace $ws_8
+bindsym $mod+Shift+9 move container to workspace $ws_9
+bindsym $mod+Shift+0 move container to workspace $ws_10
+
+# Control Modes {{{1
+
+# Program Launching Mode {{{2
+# key string "launch"
+set $launch "Launch Program"
+bindsym $mod+p mode $launch
+mode $launch {
+    # Productivity
+    bindsym t mode "default"; exec --no-startup-id kitty
+    bindsym r mode "default"; exec --no-startup-id kitty ranger
+
+    # Web Browsing
+    bindsym b mode "default"; exec --no-startup-id firefox
+    bindsym Shift+b mode "default"; exec --no-startup-id firefox --private-window
+
+    # Entertainment
+    bindsym m mode "default"; exec --no-startup-id firefox --new-window https://open.spotify.com/browse/featured
+
+    bindsym Escape mode "default"
+}
+
+# System Control Mode {{{2
+set $system "System Control"
+bindsym $mod+c mode $system
+mode $system {
+    # i3 Control
+    bindsym Ctrl+c mode "default"; exec --no-startup-id "~/.config/i3/process-config.sh"; reload
+    bindsym Ctrl+r restart
+
+    # Power Control
+    bindsym p mode "default"; exec --no-startup-id "systemctl poweroff"
+    bindsym r mode "default"; exec --no-startup-id "systemctl reboot"
+    bindsym h mode "default"; exec --no-startup-id "systemctl hibernate"
+    bindsym s mode "default"; exec --no-startup-id "systemctl suspend-then-hibernate"
+    bindsym l mode "default"; exec --no-startup-id "dm-tool lock"
+
+    # User Control
+    bindsym e mode "default"; exit
+
+    bindsym Escape mode "default"
+}
+
+# Reize Mode {{{2
+set $resize "Resize"
+bindsym $mod+r mode $resize
+mode $resize {
+    # TODO: Switch numbers to variables
+    bindsym $left       resize shrink width 10 px or 5 ppt
+    bindsym $down       resize grow height 10 px or 5 ppt
+    bindsym $up         resize shrink height 10 px or 5 ppt
+    bindsym $right      resize grow width 10 px or 5 ppt
+    # arrow key alternatives
+    bindsym Left        resize shrink width 10 px or 5 ppt
+    bindsym Down        resize grow height 10 px or 5 ppt
+    bindsym Up          resize shrink height 10 px or 5 ppt
+    bindsym Right       resize grow width 10 px or 5 ppt
+
+    bindsym Escape mode "default"
+}
