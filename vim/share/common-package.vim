@@ -15,8 +15,6 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 " Easy text alignment
 Plug 'godlygeek/tabular'
-" Easy vim motion using dynamic markers
-Plug 'easymotion/vim-easymotion'
 
 " Visualization tools
 " Netrw enhancements
