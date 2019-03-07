@@ -16,47 +16,40 @@ set $right l
 # Display {{{1
 
 # Colors {{{2
-## Base16 Snazzy
-# Author: Chawye Hsu (https://github.com/h404bi) based on Hyper Snazzy Theme (https://github.com/sindresorhus/hyper-snazzy)
-set $base00 #1e1f29
-set $base01 #34353e
-set $base02 #4a4b53
-set $base03 #78787e
-set $base04 #a5a5a9
-set $base05 #eff0eb
-set $base06 #f1f1f0
-set $base07 #f1f1f0
-set $base08 #ff5c57
-set $base09 #ff9f43
-set $base0A #f3f99d
-set $base0B #5af78e
-set $base0C #9aedfe
-set $base0D #57c7ff
-set $base0E #ff6ac1
-set $base0F #b2643c
+## Base16 Solarized Dark
+# Author: Ethan Schoonover (modified by aramisgithub)
+set $base00 #002b36
+set $base01 #073642
+set $base02 #586e75
+set $base03 #657b83
+set $base04 #839496
+set $base05 #93a1a1
+set $base06 #eee8d5
+set $base07 #fdf6e3
+set $base08 #dc322f
+set $base09 #cb4b16
+set $base0A #b58900
+set $base0B #859900
+set $base0C #2aa198
+set $base0D #268bd2
+set $base0E #6c71c4
+set $base0F #d33682
 
 # Window Decorations {{{2
-# Borders is displayed here, just invisible for some reason
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 # default_border pixel 2
 # Don't show borders when there is only one container. This doesn't work for all verisons of i3
-smart_borders on
+# smart_borders on
 
 # Colors
 # class                 border  backgr. text    indicator child_border
-client.focused          $base00 $base00 $base05 $base0B   $base05
-client.focused_inactive $base0D $base0D $base00 $base04   $base04
-client.unfocused        $base01 $base01 $base04 $base00   $base04
-client.urgent           $base0F $base0F $base00 $base0F   $base04
+client.focused          $base00 $base00 $base05 $base0B   $base00
+client.focused_inactive $base0D $base0D $base00 $base04   $base03
+client.unfocused        $base01 $base01 $base04 $base00   $base03
+client.urgent           $base0F $base0F $base00 $base0F   $base03
 client.placeholder      #000000 $base00 $base05 #000000   $base04
 
 client.background       $base00
-
-# Set gaps
-# gaps inner 10
-# gaps outer 0
-# gaps top 37
-# Set background
 
 # Set wallpaper
 exec --no-startup-id ~/.fehbg
