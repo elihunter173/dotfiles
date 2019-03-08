@@ -13,6 +13,7 @@
     ~/.profile: profile
 
     # X Config
+    ~/.xinitrc: xorg/xinitrc
     ~/.xprofile: xorg/xprofile
     ~/.Xresources: xorg/Xresources
 
