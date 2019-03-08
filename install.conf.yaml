@@ -35,6 +35,7 @@
     ~/.local/share/vim: vim/share/
     ~/.config/nvim/spell: vim/spell/
     ~/.config/nvim/init.vim: vim/init.vim
+    ~/.vimrc: vim/vimrc
 
     # App Config
     ~/.config/kitty: kitty/

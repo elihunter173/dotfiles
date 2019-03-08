@@ -1,10 +1,10 @@
-" Vim
+" Neovim
 "
 " Author: Eli W. Hunter
 
-" Install vim-plug if it isn't installed and then restart nvim
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+" Install vim-plug if it isn't installed and then restart vim
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | qa
 endif
@@ -12,8 +12,8 @@ endif
 " Install plugins
 call plug#begin('~/.local/share/nvim/plugged')
 source ~/.local/share/vim/common-package.vim
-source ~/.local/share/vim/package.nvim
+source ~/.local/share/vim/package.vim
 call plug#end()
 
 source ~/.local/share/vim/common-config.vim
-source ~/.local/share/vim/config.nvim
+source ~/.local/share/vim/config.vim
