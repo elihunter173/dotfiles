@@ -17,7 +17,7 @@ if [[ "$CLIENT" = 'i3' ]]; then
         unclutter &
     fi
     if command -v compton; then
-        compton &
+        compton -b
     fi
 
     exec i3
