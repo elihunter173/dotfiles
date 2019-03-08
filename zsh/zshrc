@@ -2,7 +2,8 @@
 # Zplugin {{{1
 # Load zplugin module
 module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )
-zmodload zdharma/zplugin
+# Sometimes this throws errors but it still works, so I just ignore them
+zmodload zdharma/zplugin 2> /dev/null
 source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
 
 # Install plugins
