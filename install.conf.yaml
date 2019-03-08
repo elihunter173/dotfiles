@@ -20,7 +20,6 @@
 
     # Window Manager Config
     ~/.config/i3: i3/
-    ~/.fehbg: fehbg
     ~/.config/compton.conf: compton.conf
     ~/.config/rofi: rofi/
     ~/.config/polybar: polybar/
@@ -56,6 +55,7 @@
     ~/.scripts: scripts/
     ~/.gitconfig: git/gitconfigs/personal
     ~/.git_template: git/template
+    ~/Pictures/wallpaper: wallpaper
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

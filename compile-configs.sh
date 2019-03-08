@@ -25,6 +25,12 @@ for program in $(ls | grep --invert-match 'deprecated'); do
     done
 done
 
+printf "$COMMAND_COLOR"
+printf "Setting wallpaper\n"
+printf "$NORMAL_COLOR"
+feh --bg-fill "${HOME}/Pictures/wallpaper"
+echo
+
 printf "$HEADER_COLOR"
 printf "==> All custom install hooks executed successfully\n"
 printf "$NORMAL_COLOR"
