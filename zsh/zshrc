@@ -1,33 +1,56 @@
-# BEGIN Oh-my-zsh settings
+# vim: foldmethod=marker foldlevel=0
+# Zplugin {{{1
+# Load zplugin module
+module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )
+zmodload zdharma/zplugin
+source "${HOME}/.zplugin/bin/zplugin.zsh"
+
+# Install plugins
+# Add more completions
+zplugin light zsh-users/zsh-completions
+
+# Command specific autocompletions
+zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
+
+# Lazy, easy extraction
+zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
+# All new terminals automatically go to the last working directory (lwd does the same)
+zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
+# Make man pages colorful
+zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+
+# Grayed out auto suggestions
+zplugin light zsh-users/zsh-autosuggestions
+
+# Pure prompt
+zplugin light mafredri/zsh-async
+zplugin light sindresorhus/pure
+
+# Oh-my-zsh {{{1
 export ZSH="$HOME/.oh-my-zsh"
 
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
 
 source $ZSH/oh-my-zsh.sh
-# END Oh-my-zsh settings
 
+# General {{{1
 # Source broad configuration files
 source ~/.bookmarks.zsh
 source ~/.aliases.zsh
 source ~/.functions
 
-# Source my plugins
-source ~/.zsh_plugins.sh
+# Load pure prompt
+prompt_pure_setup "$@"
 
 # Load completions
 autoload -U compinit; compinit
 # Completions for kitty
-kitty + complete setup zsh | source /dev/stdin
+if command -v; then
+    kitty + complete setup zsh | source /dev/stdin
+fi
 
-# Chose prompt
-# autoload -U promptinit; promptinit
-# prompt pure
-
-# My custom scripts
-export PATH=$PATH:$HOME/.scripts
-
-## KEYBINDINGS ##
+# Keybindings {{{1
 # Vim keys
 bindkey -v
 # Reduce delay on <Esc> to 1 (not 0 so pure prompt can update)
@@ -35,3 +58,7 @@ export KEYTIMEOUT=1
 # Easier history searching
 bindkey '^N' down-line-or-beginning-search
 bindkey '^P' up-line-or-beginning-search
+
+# Misc {{{1
+# Syntax highlighting (this must be done last)
+zplugin light zsh-users/zsh-syntax-highlighting

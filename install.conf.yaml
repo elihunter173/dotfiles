@@ -29,7 +29,6 @@
     ~/.aliases: aliases
     ~/.functions: functions
     ~/.zshrc: zsh/zshrc
-    ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
     ~/.oh-my-zsh: zsh/oh-my-zsh/
 
     # Vim Config

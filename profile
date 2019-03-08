@@ -29,6 +29,9 @@ if command -v ruby; then
     export GEM_HOME=$HOME/.gem
 fi
 
+# My custom scripts
+export PATH=$PATH:$HOME/.scripts
+
 # Standard Monitors (used by WMs and Xorg)
 export MAIN_MONITOR='eDP1'
 export RIGHT_MONITOR='HDMI2'
