@@ -1,3 +1,6 @@
+# Machine-specific envars
+/envars
+
 # Temporary vim files
 *.swp
 

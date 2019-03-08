@@ -11,6 +11,7 @@
 - link:
     # System Config
     ~/.profile: profile
+    ~/.envars: envars
 
     # X Config
     ~/.xinitrc: xorg/xinitrc

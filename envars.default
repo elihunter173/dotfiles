@@ -1,0 +1,10 @@
+# vim: filetype=sh
+
+# A collection of required config for each machine I set up
+#
+# Required Variables:
+#     XORG_CLIENT: The Xorg client that will be executed in ~/.xinitrc
+#     EDITOR: The text editor used for this machine. (vim or nvim normally)
+
+export EDITOR=
+export XORG_CLIENT=

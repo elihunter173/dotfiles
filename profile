@@ -1,10 +1,6 @@
 # vim: filetype=sh
-# My main machines use Neovim
-if [[ $(hostname) = 'augustus' ]]; then
-    export EDITOR=/usr/bin/nvim
-else
-    export EDITOR=/usr/bin/vim
-fi
+# Source this machine's special config
+source "${HOME}/.envars"
 
 # The path to my source code folder
 export SRC="${HOME}/src"
