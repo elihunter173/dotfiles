@@ -3,7 +3,7 @@
 # Load zplugin module
 module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )
 zmodload zdharma/zplugin
-source "${HOME}/.zplugin/bin/zplugin.zsh"
+source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
 
 # Install plugins
 # Add more completions
