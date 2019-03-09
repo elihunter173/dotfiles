@@ -15,6 +15,21 @@ set $right l
 
 # Display {{{1
 
+# Set wallpaper
+exec_always --no-startup-id ~/.fehbg
+
+# Set font
+font pango:Noto Sans 8
+
+# Start up compton compositor
+exec_always --no-startup-id compton -b
+
+# Unclutter removes the mouse cursor after it hasn't been used for awhile.
+exec_always --no-startup-id unclutter &
+
+# Start polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
 # Colors {{{2
 ## Base16 Solarized Dark
 # Author: Ethan Schoonover (modified by aramisgithub)
@@ -51,24 +66,6 @@ client.placeholder      #000000 $base00 $base05 #000000   $base04
 
 client.background       $base00
 
-# Set wallpaper
-exec --no-startup-id ~/.fehbg
-
-# Set font
-font pango:Noto Sans 8
-
-# Start up compton compositor
-exec --no-startup-id compton -b
-
-# Unclutter removes the mouse cursor after it hasn't been used for awhile.
-exec --no-startup-id unclutter &
-
-# Start polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-bindsym $mod+Return exec rofi -show drun
-bindsym $mod+Shift+Return exec rofi -show run
-bindsym $mod+w exec rofi -show window
-
 # Keybindings {{{1
 
 # Enter fullscreen mode for the focused container
@@ -81,6 +78,11 @@ bindsym $mod+t mode "default"; layout tabbed
 # Horizontal and vertical split
 bindsym $mod+s mode "default"; split h
 bindsym $mod+v mode "default"; split v
+
+# Rofi
+bindsym $mod+Return exec rofi -show drun
+bindsym $mod+Shift+Return exec rofi -show run
+bindsym $mod+w exec rofi -show window
 
 # Kill focused window
 bindsym $mod+q kill
@@ -239,7 +241,7 @@ mode $system {
     bindsym Escape mode "default"
 }
 
-# Reize Mode {{{2
+# Resize Mode {{{2
 set $resize "Resize"
 bindsym $mod+r mode $resize
 mode $resize {
