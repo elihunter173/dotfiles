@@ -91,8 +91,8 @@ bindsym --whole-window $mod+button2 kill
 
 # This is from https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
 # Screen brightness controls
-bindsym Shift+XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 10"
-bindsym Shift+XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 10"
+bindsym Shift+XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 5"
+bindsym Shift+XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 5"
 bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 1"
 bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
 bindsym XF86Display exec --no-startup-id "xset dpms force off"

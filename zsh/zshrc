@@ -15,17 +15,11 @@ zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
 
 # Lazy, easy extraction
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
-# All new terminals automatically go to the last working directory (lwd does the same)
-zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
 # Make man pages colorful
 zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 # Grayed out auto suggestions
 zplugin light zsh-users/zsh-autosuggestions
-
-# Pure prompt
-zplugin light mafredri/zsh-async
-zplugin light sindresorhus/pure
 
 # Oh-my-zsh {{{1
 export ZSH="$HOME/.oh-my-zsh"
@@ -40,9 +34,6 @@ source $ZSH/oh-my-zsh.sh
 source ~/.bookmarks.zsh
 source ~/.aliases.zsh
 source ~/.functions
-
-# Load pure prompt
-prompt_pure_setup "$@"
 
 # Load completions
 autoload -U compinit; compinit
@@ -61,5 +52,15 @@ bindkey '^N' down-line-or-beginning-search
 bindkey '^P' up-line-or-beginning-search
 
 # Misc {{{1
+# Pure prompt
+zplugin light mafredri/zsh-async
+zplugin light sindresorhus/pure
+
+# Load pure prompt
+prompt_pure_setup "$@"
+
+# All new terminals automatically go to the last working directory (lwd does the same)
+zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
+
 # Syntax highlighting (this must be done last)
 zplugin light zsh-users/zsh-syntax-highlighting
