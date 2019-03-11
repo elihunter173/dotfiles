@@ -131,8 +131,6 @@ nnoremap <F2> :UndotreeToggle<CR>
 
 " Custom Extensions {{{1
 autocmd BufNewFile,BufRead *.nvim set filetype=vim
-autocmd BufNewFile,BufRead *.i3 set filetype=i3config
-autocmd BufNewFile,BufRead *.bar set filetype=dosini
 
 " Plugin Settings {{{1
 
