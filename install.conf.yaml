@@ -48,7 +48,6 @@
     ~/.pandoc: pandoc/
 
     # App-managed App Config
-    ~/.config/htop: app-managed/htop/
     ~/.config/Kvantum: app-managed/Kvantum/
 
     # Misc
