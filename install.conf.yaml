@@ -38,7 +38,7 @@
     ~/.vimrc: vim/vimrc
 
     # App Config
-    ~/.config/kitty: kitty/
+    ~/.urxvt/ext: xorg/urxvt-ext/
     ~/.config/dunst: dunst/
     ~/.config/ranger: ranger/
     ~/.tmux.conf: tmux/tmux.conf

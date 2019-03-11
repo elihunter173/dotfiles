@@ -2,58 +2,62 @@
 ! Cursor (from /etc/share/icons) {{{1
 Xcursor.theme: Bibata_Oil
 
-! Colors {{{1
-! Base16 Solarized Dark
-! Scheme: Ethan Schoonover (http://ethanschoonover.com/solarized)
+! Xft {{{1
+! Improve font rendering (for URxvt)
+Xft*dpi: 24
+Xft*antialias: True
+Xft*hinting: Full
 
-#define base00 #002b36
-#define base01 #073642
-#define base02 #586e75
-#define base03 #657b83
-#define base04 #839496
-#define base05 #93a1a1
-#define base06 #eee8d5
-#define base07 #fdf6e3
-#define base08 #dc322f
-#define base09 #cb4b16
-#define base0A #b58900
-#define base0B #859900
-#define base0C #2aa198
-#define base0D #268bd2
-#define base0E #6c71c4
-#define base0F #d33682
+! URxvt {{{1
+! Choose font
+URxvt.font: xft:Iosevka:Regular:size=11
 
-*foreground:   base05
-#ifdef background_opacity
-*background:   [background_opacity]base00
-#else
-*background:   base00
-#endif
-*cursorColor:  base05
+! Enable cursor blinking (stops after vim)
+URxvt.cursorBlink: true
 
-*color0:       base00
-*color1:       base08
-*color2:       base0B
-*color3:       base0A
-*color4:       base0D
-*color5:       base0E
-*color6:       base0C
-*color7:       base05
+! Save a ridiculous amount of history
+URxvt.saveLines: 65535
 
-*color8:       base03
-*color9:       base08
-*color10:      base0B
-*color11:      base0A
-*color12:      base0D
-*color13:      base0E
-*color14:      base0C
-*color15:      base07
+! Disable scrollBar
+URxvt.scrollBar: false
 
-! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
-! use 'shell' template to set these if necessary
-*color16:      base09
-*color17:      base0F
-*color18:      base01
-*color19:      base02
-*color20:      base04
-*color21:      base06
+! Fix scrolling
+! Do not scroll with output
+URxvt*scrollTtyOutput: false
+! Scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+! Scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! Disable the annoying Ctrl-Shift feature
+URxvt.iso14755: False
+
+! Make copy and paste standard keybindings
+! Disable default keybinding
+URxvt.keysym.C-M-c:    builtin-string:
+URxvt.keysym.C-M-v:    builtin-string:
+! Bind Ctrl-Shift-c & Ctrl-Shift-v to copy and paste
+! I dont know why, but I needed to use hex keysym values to get it to work
+URxvt.keysym.C-S-0x43: eval:selection_to_clipboard
+URxvt.keysym.C-S-0x56: eval:paste_clipboard
+! Spacing
+URxvt*letterSpace: 1
+URxvt.lineSpace: 0
+
+! Extensions {{{2
+URxvt.perl-ext-common: default,resize-font,vtwheel,matcher
+
+! resize-font
+URxvt.keysym.C-plus: perl:resize-font:bigger
+URxvt.keysym.C-minus: perl:resize-font:smaller
+URxvt.keysym.C-equal: perl:resize-font:reset
+URxvt.keysym.C-question: perl:resize-font:show
+
+! vtwheel
+! Make pagers scroll with wheel
+URxvt.secondaryWheel: 1
+
+! matcher (pre-installed)
+! Make urls openable with Ctrl-left click
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: C-1

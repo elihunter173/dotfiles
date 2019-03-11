@@ -52,16 +52,17 @@ set scrolloff=4
 
 " Allow GUI style colors in terminal if supported
 if exists('+termguicolors')
-    set termguicolors
+    " set termguicolors
 endif
 
-" Access colors present in 256 colorspace (this must be done before colorscheme)
-let base16colorspace=256
-" Choose colorscheme
-colorscheme base16-solarized-dark
+" Set base16 background
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 " Swap default statusline focus and no-focus colors
-highlight StatusLine ctermfg=8 ctermbg=10 guifg=#657b83 guibg=#073642
-highlight StatusLineNC ctermfg=12 ctermbg=11 guifg=#839496 guibg=#586e75
+call Base16hi("StatusLine", g:base16_gui05, g:base16_gui01, g:base16_cterm05, g:base16_cterm01)
+call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
 
 " Keybindings {{{1
 " Leader mappings from the gods (https://www.reddit.com/r/vim/comments/9zy5xg/leader_mapping_from_the_gods/)
