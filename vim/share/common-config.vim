@@ -49,11 +49,14 @@ set ruler
 
 " number of lines to pad cursor by when scrolling
 set scrolloff=4
+
 " Allow GUI style colors in terminal if supported
 if exists('+termguicolors')
     set termguicolors
 endif
 
+" Access colors present in 256 colorspace (this must be done before colorscheme)
+let base16colorspace=256
 " Choose colorscheme
 colorscheme base16-solarized-dark
 " Swap default statusline focus and no-focus colors
