@@ -4,5 +4,8 @@
 # Temporary vim files
 *.swp
 
-# Temporary emacs files
+# Temporary files
 *~
+
+# Compiled zsh files
+*.zwc
