@@ -207,8 +207,7 @@ set $launch "Launch Program"
 bindsym $mod+p mode $launch
 mode $launch {
     # Productivity
-    bindsym t mode "default"; exec --no-startup-id kitty
-    bindsym r mode "default"; exec --no-startup-id kitty ranger
+    bindsym t mode "default"; exec --no-startup-id urxvt
 
     # Web Browsing
     bindsym b mode "default"; exec --no-startup-id firefox
