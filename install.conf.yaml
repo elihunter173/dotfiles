@@ -40,7 +40,6 @@
     # App Config
     ~/.urxvt/ext: xorg/urxvt-ext/
     ~/.config/dunst: dunst/
-    ~/.config/ranger: ranger/
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.theme: tmux/tmux.theme
     ~/.config/neofetch: neofetch/
@@ -51,7 +50,6 @@
     ~/.config/Kvantum: app-managed/Kvantum/
 
     # Misc
-    ~/.scripts: scripts/
     ~/.gitconfig: git/gitconfigs/personal
     ~/.git_template: git/template
     ~/Pictures/wallpaper: wallpaper
