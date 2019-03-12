@@ -11,7 +11,7 @@ l. ls -ld '.*'
 
 # Safe remove
 rmm /bin/rm
-rm ~/.scripts/safe-rm.sh
+rm safe-rm
 
 # Basic Git
 ga git add --verbose
