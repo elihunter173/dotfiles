@@ -1,10 +1,13 @@
+; vim: filetype=dosini
+
+include-file = ~/.config/polybar/colors.ini
+include-file = ~/.config/polybar/modules.ini
+
 [bar/top]
 monitor = ${env:MAIN_MONITOR:eDP1}
 
 width = 1920
-height = 25
-offset-x = 10
-offset-y = 10
+height = 24
 radius = 0.0
 fixed-center = true
 
@@ -16,42 +19,27 @@ override-redirect = false
 ; Tells i3 to display over the bar in fullscreen.
 ; wm-restack = i3
 
-background = ${colors.base00}
+background = ${colors.base01}
 foreground = ${colors.base05}
 
 ; Number of spaces to add at the beginning/end of the bar
 ; Individual side values can be defined using:
 ;   padding-{left,right}
-padding = 0
+padding = 1
 
 ; Number of spaces to add before/after each module
-; Individual side values can be defined using:
-;   module-margin-{left,right}
-module-margin = 2
+module-margin = 1
 
 ; Fonts are defined using <font-name>;<vertical-offset>
 ; Font names are specified using a fontconfig pattern.
-;   font-0 = NotoSans-Regular:size=8;2
-;   font-1 = MaterialIcons:size=10
-;   font-2 = Termsynu:size=8;-1
-;   font-3 = FontAwesome:size=10
-; See the Fonts wiki page for more details
-font-0 = "DejaVu Sans:size=9.5;2.5"
-font-1 = "Material Icons:size=13;3"
+font-0 = "Iosevka:size=10:style=Semibold;2.0"
+font-1 = "Material Icons:size=13;4.5"
+font-2 = "Typicons:size=15;3.0"
 
 ; Modules are added to one of the available blocks
-;   modules-left = cpu ram
-;   modules-center = xwindow xbacklight
-;   modules-right = ipc clock
 modules-left = i3
-modules-center =
-modules-right = backlight pulseaudio wired-network wireless-network battery0 battery1 date
-
-; The separator will be inserted between the output of each module
-separator =
-
-; Opacity value between 0.0 and 1.0 used on fade in/out
-dim-value = 1.0
+modules-center = xwindow
+modules-right = backlight pulseaudio wired-network wireless-network battery0 battery1 time date
 
 ; Position of the system tray window
 ; If empty or undefined, tray support will be disabled
@@ -62,6 +50,5 @@ dim-value = 1.0
 ;   center
 ;   right
 ;   none
-tray-position = right
-tray-padding = 1
-; Pad the sides of each tray icon
+tray-position = none
+tray-padding = 0
