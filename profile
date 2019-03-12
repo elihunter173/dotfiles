@@ -4,6 +4,8 @@ source "${HOME}/.envars"
 
 # The path to my source code folder
 export SRC="${HOME}/src"
+# The path to my executable folders
+export PATH="$PATH:$HOME/bin"
 
 # Tells GNUPG the terminal to use for everything
 export GPG_TTY=$(tty)
@@ -15,7 +17,7 @@ if command -v go; then
     export PATH=$PATH:$(go env GOPATH)/bin
 fi
 
-# Add local binary files (used by python)
+# Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
 
 if command -v ruby; then
