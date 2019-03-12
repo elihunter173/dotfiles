@@ -98,11 +98,11 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
 bindsym XF86Display exec --no-startup-id "xset dpms force off"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id "~/.scripts/pactl-volume.sh +1%"
-bindsym XF86AudioLowerVolume exec --no-startup-id "~/.scripts/pactl-volume.sh -1%"
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "~/.scripts/pactl-volume.sh +5%"
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "~/.scripts/pactl-volume.sh -5%"
-bindsym XF86AudioMute exec --no-startup-id "~/.scripts/pactl-volume.sh M"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl-volume +1%"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl-volume -1%"
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "pactl-volume +5%"
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "pactl-volume -5%"
+bindsym XF86AudioMute exec --no-startup-id "pactl-volume M"
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
