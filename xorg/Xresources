@@ -4,16 +4,13 @@ Xcursor.theme: Bibata_Oil
 
 ! Xft {{{1
 ! Improve font rendering (for URxvt)
-Xft*dpi: 24
+Xft*dpi: 96
 Xft*antialias: True
 Xft*hinting: Full
 
 ! URxvt {{{1
 ! Choose font
 URxvt.font: xft:Iosevka:Regular:size=11
-
-! Enable cursor blinking (stops after vim)
-URxvt.cursorBlink: true
 
 ! Save a ridiculous amount of history
 URxvt.saveLines: 65535
