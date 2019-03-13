@@ -42,9 +42,11 @@ for program in $(ls | grep --invert-match 'deprecated'); do
     done
 done
 
-print_command "Setting wallpaper"
-feh --bg-fill "${HOME}/Pictures/wallpaper"
-echo
+if command -v feh &> /dev/null; then
+    print_command "Setting wallpaper"
+    feh --bg-fill "${HOME}/Pictures/wallpaper"
+    echo
+fi
 
 print_header "All custom install hooks executed successfully"
 
