@@ -1,4 +1,8 @@
 # vim: foldmethod=marker foldlevel=0
+
+# Source ~/.profile even if not running interactively
+[[ -e "$HOME/.profile" ]] && source "$HOME/.profile"
+
 # Set up zplugin
 # Load zplugin module
 module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )

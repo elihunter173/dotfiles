@@ -1,0 +1,2 @@
+# Source ~/.profile even if not running interactively
+[[ -e "$HOME/.profile" ]] && source "$HOME/.profile"
