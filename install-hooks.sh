@@ -42,7 +42,7 @@ for program in $(ls | grep --invert-match 'deprecated'); do
     done
 done
 
-if command -v feh &> /dev/null; then
+if command -v feh > /dev/null; then
     print_command "Setting wallpaper"
     feh --bg-fill "${HOME}/Pictures/wallpaper"
     echo

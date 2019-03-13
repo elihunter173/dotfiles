@@ -12,13 +12,15 @@ fi
 CLIENT="i3"
 
 if [[ "$CLIENT" = 'i3' ]]; then
+    if command -v i3 > /dev/null; then
+        echo "i3 IS NOT INSTALLED" >&2
+    fi
+
     # Nice programs only if present
-    if command -v unclutter; then
-        unclutter &
-    fi
-    if command -v compton; then
-        compton -b
-    fi
+    command -v unclutter > /dev/null && (unclutter &) \
+        || echo "unclutter not installed" >&2
+    command -v compton > /dev/null && compton -b \
+        || echo "compton not installed" >&2
 
     exec i3
 fi

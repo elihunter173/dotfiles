@@ -42,7 +42,7 @@ source ~/.functions
 # Load completions
 autoload -U compinit; compinit
 # Completions for kitty
-if command -v; then
+if command -v kitty > /dev/null; then
     kitty + complete setup zsh | source /dev/stdin
 fi
 

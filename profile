@@ -10,7 +10,7 @@ export PATH="$PATH:$HOME/bin"
 # Tells GNUPG the terminal to use for everything
 export GPG_TTY=$(tty)
 
-if command -v go &> /dev/null; then
+if command -v go > /dev/null; then
     # Make ~ my GOPATH (e.g. ~/src and ~/bin)
     export GOPATH="$HOME"
     # Add my GOPATH bin to PATH for Go programs
@@ -20,7 +20,7 @@ fi
 # Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
 
-if command -v ruby &> /dev/null; then
+if command -v ruby > /dev/null; then
     # Add Ruby Gems to PATH for Ruby programs/gems
     export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
     # Allows the user to install rubygems
@@ -33,7 +33,7 @@ export RIGHT_MONITOR='HDMI2'
 export LEFT_MONITOR='HDMI1'
 
 # Turn off annoying bell
-if command -v xset &> /dev/null; then
+if command -v xset > /dev/null; then
     xset -b b off
 
     # Display Power Management Settings
