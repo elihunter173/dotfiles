@@ -1,8 +1,5 @@
 # vim: foldmethod=marker foldlevel=0
 
-# Source ~/.profile even if not running interactively
-[[ -e "$HOME/.profile" ]] && source "$HOME/.profile"
-
 # Set up zplugin
 # Load zplugin module
 module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )
@@ -12,6 +9,9 @@ source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
 
 # Base16-Shell Colors (this is done early to prevent flashing)
 zplugin light chriskempson/base16-shell
+
+# Source ~/.profile even if not running interactively
+[[ -e "$HOME/.profile" ]] && source "$HOME/.profile"
 
 # Add more completions
 zplugin light zsh-users/zsh-completions
