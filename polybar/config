@@ -22,6 +22,12 @@ override-redirect = false
 background = ${colors.base01}
 foreground = ${colors.base05}
 
+; Under-/overline pixel size and argb color
+; Individual values can be defined using:
+;   {overline,underline}-size
+;   {overline,underline}-color
+line-size = 2
+
 ; Number of spaces to add at the beginning/end of the bar
 ; Individual side values can be defined using:
 ;   padding-{left,right}
