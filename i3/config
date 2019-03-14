@@ -162,7 +162,7 @@ bindsym $mod+Shift+minus move scratchpad
 # move the currently focused window to the scratchpad
 bindsym $mod+minus scratchpad show
 
-# Workspace Creation {{{2
+# Workspaces {{{1
 # define names for workspaces
 set $ws_1  "1"
 set $ws_2  "2"
