@@ -102,10 +102,7 @@ nnoremap <M-Space> @:
 
 " Remap undo
 nnoremap U <C-r>
-
-" Simplify the return the last buffer keystroke
-" N.B. <C-r> must be reassigned as well or else this doesn't work as intended
-nnoremap <C-r> <C-^>
+nnoremap <C-r> <NOP>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
@@ -113,7 +110,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Easier splits
+" Workaround visual block
+nnoremap <M-v> <C-v>
+" Easier split creation
 nnoremap <C-s> <C-w>s
 nnoremap <C-v> <C-w>v
 
@@ -124,6 +123,9 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 nnoremap <leader>o :edit<Space>
 " Easier tag jumping
 nnoremap <leader>t :tag<Space>
+
+" Easier interactive git (fugitive)
+nnoremap <leader>g :G<CR>
 
 " Toggle spell checking with F1
 nnoremap <F12> :setlocal spell! spelllang=en_us<CR>
