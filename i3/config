@@ -98,11 +98,11 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
 bindsym XF86Display exec --no-startup-id "xset dpms force off"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl-volume +1%"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pactl-volume -1%"
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "pactl-volume +5%"
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "pactl-volume -5%"
-bindsym XF86AudioMute exec --no-startup-id "pactl-volume M"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pamixer --increase 1"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pamixer --decrease 1"
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "pamixer --increase 5"
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "pamixer --decrease 5"
+bindsym XF86AudioMute exec --no-startup-id "pamixer --toggle-mute"
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
@@ -242,18 +242,31 @@ mode $system {
 
 # Resize Mode {{{2
 set $resize "Resize"
+set $small_resize 15 px
+set $large_resize 60 px
 bindsym $mod+r mode $resize
 mode $resize {
-    # TODO: Switch numbers to variables
-    bindsym $left       resize shrink width 10 px or 5 ppt
-    bindsym $down       resize grow height 10 px or 5 ppt
-    bindsym $up         resize shrink height 10 px or 5 ppt
-    bindsym $right      resize grow width 10 px or 5 ppt
-    # arrow key alternatives
-    bindsym Left        resize shrink width 10 px or 5 ppt
-    bindsym Down        resize grow height 10 px or 5 ppt
-    bindsym Up          resize shrink height 10 px or 5 ppt
-    bindsym Right       resize grow width 10 px or 5 ppt
+    # Small resize
+    bindsym Shift+$left       resize shrink width $large_resize
+    bindsym Shift+$down       resize grow height $large_resize
+    bindsym Shift+$up         resize shrink height $large_resize
+    bindsym Shift+$right      resize grow width $large_resize
+    # Arrow key alternatives
+    bindsym Shift+Left        resize shrink width $large_resize
+    bindsym Shift+Down        resize grow height $large_resize
+    bindsym Shift+Up          resize shrink height $large_resize
+    bindsym Shift+Right       resize grow width $large_resize
+
+    # Small resize
+    bindsym $left       resize shrink width $small_resize
+    bindsym $down       resize grow height $small_resize
+    bindsym $up         resize shrink height $small_resize
+    bindsym $right      resize grow width $small_resize
+    # Arrow key alternatives
+    bindsym Left        resize shrink width $small_resize
+    bindsym Down        resize grow height $small_resize
+    bindsym Up          resize shrink height $small_resize
+    bindsym Right       resize grow width $small_resize
 
     bindsym Escape mode "default"
 }
