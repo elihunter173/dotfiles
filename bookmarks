@@ -2,7 +2,7 @@
 TRASH ~/.local/share/Trash/files
 
 # Programming
-arc ~/src/arc
+ARC $SRC/arc
 
 # Notes
 notes ~/Documents/notes
