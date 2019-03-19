@@ -9,14 +9,14 @@ set -e
 PATH="/usr/local/bin:$PATH"
 
 # The directory to put ctags in
-dir="`git rev-parse --git-dir`"
+dir=$(git rev-parse --git-dir)
 
 # Remove any tags file that has this process ID
 trap 'rm -f "$dir/$$.tags"' EXIT
 
 # Create the tag file
 git ls-files | \
-  ctags --tag-relative -L - -f"$dir/$$.tags" --languages=-javascript,sql
+  ctags --tag-relative=yes -L - -f"$dir/$$.tags"
 
 # Make the tag file specific to this process ID the general tag file
 mv "$dir/$$.tags" "$dir/tags"
