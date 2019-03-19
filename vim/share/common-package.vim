@@ -13,8 +13,14 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 " Auto-closing for brackets, parens, and quotes
 Plug 'jiangmiao/auto-pairs'
+" C Tag management
+Plug 'ludovicchabant/vim-gutentags'
 " Easy text alignment
 Plug 'godlygeek/tabular'
+
+" Advanced language features
+" Linting
+Plug 'w0rp/ale'
 
 " Visualization tools
 " Netrw enhancements
@@ -31,4 +37,3 @@ Plug 'chriskempson/base16-vim'
 " Markdown
 " Requires godlygeek/taular for TableFormat
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'w0rp/ale'

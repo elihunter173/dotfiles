@@ -140,6 +140,10 @@ autocmd BufNewFile,BufRead *.nvim set filetype=vim
 
 " Plugin Settings {{{1
 
+" Gutentags {{{2
+" Hide gutentags tag files in this cache to prevent polluting tagspace
+let g:gutentags_cache_dir = '~/.cache/vim-gutentags'
+
 " Vim Sandwich {{{2
 " Custom vim-sandwich recipes
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
