@@ -52,7 +52,6 @@
 
     # Misc
     ~/.gitconfig: git/gitconfigs/personal
-    ~/.git_template: git/template
     ~/Pictures/wallpaper: wallpaper
 
 - shell:
