@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-# A simple invoker for the ctags generator
-.git/hooks/ctags >/dev/null 2>&1 &
