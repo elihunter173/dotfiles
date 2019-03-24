@@ -32,8 +32,7 @@ export MAIN_MONITOR='eDP1'
 export RIGHT_MONITOR='HDMI2'
 export LEFT_MONITOR='HDMI1'
 
-# Turn off annoying bell
-if command -v xset > /dev/null; then
+if [ -n "$DISPLAY" ]; then
     xset -b b off
 
     # Display Power Management Settings
