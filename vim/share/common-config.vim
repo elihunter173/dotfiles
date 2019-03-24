@@ -40,7 +40,7 @@ set foldlevel=999
 
 " Display {{{1
 " Show hidden characters
-set listchars=tab:>-,trail:·,extends:>,precedes:<
+set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
 
 " Enable line numbers and ruler
@@ -51,9 +51,9 @@ set ruler
 set scrolloff=4
 
 " Allow GUI style colors in terminal if supported
-if exists('+termguicolors')
-    " set termguicolors
-endif
+" if exists('+termguicolors')
+"     set termguicolors
+" endif
 
 " Set base16 background
 if filereadable(expand("~/.vimrc_background"))
@@ -109,12 +109,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-" Workaround visual block
-nnoremap <M-v> <C-v>
-" Easier split creation
-nnoremap <C-s> <C-w>s
-nnoremap <C-v> <C-w>v
 
 " Turn off search highlighting easily
 nnoremap <ESC><ESC> :nohlsearch<CR>
