@@ -15,22 +15,7 @@ set $right l
 
 # Display {{{1
 
-# Set wallpaper
-exec_always --no-startup-id ~/.fehbg
-
-# Set font
-font pango:Noto Sans 8
-
-# Start up compton compositor
-exec_always --no-startup-id compton -b
-
-# Unclutter removes the mouse cursor after it hasn't been used for awhile.
-exec_always --no-startup-id unclutter &
-
-# Start polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
-# Colors {{{2
+# Colors {{{
 ## Base16 Solarized Dark
 # Author: Ethan Schoonover (modified by aramisgithub)
 set $base00 #002b36
@@ -49,20 +34,31 @@ set $base0C #2aa198
 set $base0D #268bd2
 set $base0E #6c71c4
 set $base0F #d33682
+# }}}
 
-# Window Decorations {{{2
-for_window [class="^.*"] border pixel 2
-# default_border pixel 2
-# Don't show borders when there is only one container. This doesn't work for all verisons of i3
-# smart_borders on
+# Set wallpaper
+exec_always --no-startup-id ~/.fehbg
 
-# Colors
-# class                 border  backgr. text    indicator child_border
-client.focused          $base00 $base00 $base05 $base0B   $base00
-client.focused_inactive $base0D $base0D $base00 $base04   $base03
-client.unfocused        $base01 $base01 $base04 $base00   $base03
-client.urgent           $base0F $base0F $base00 $base0F   $base03
-client.placeholder      #000000 $base00 $base05 #000000   $base04
+# Set font
+font pango:Noto Sans 8
+
+# Start up compton compositor
+exec_always --no-startup-id compton -b
+
+# Unclutter removes the mouse cursor after it hasn't been used for awhile.
+exec_always --no-startup-id unclutter --timeout 20 -b
+
+# Start polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+default_border pixel 2
+
+# class                 border   backgr.  text     indict.  child_border
+client.focused          $base05  $base05  $base05  $base05  $base05
+client.focused_inactive $base03  $base03  $base05  $base05  $base03
+client.unfocused        $base03  $base03  $base05  $base05  $base03
+client.urgent           $base09  $base09  $base09  $base09  $base03
+client.placeholder      #000000  $base05  $base05  #000000  $base03
 
 client.background       $base00
 
@@ -208,6 +204,7 @@ bindsym $mod+p mode $launch
 mode $launch {
     # Productivity
     bindsym t mode "default"; exec --no-startup-id urxvt
+    bindsym Shift+t mode "default"; exec --no-startup-id urxvt
 
     # Web Browsing
     bindsym b mode "default"; exec --no-startup-id firefox
