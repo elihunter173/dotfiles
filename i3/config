@@ -51,14 +51,15 @@ exec_always --no-startup-id unclutter --timeout 20 -b
 # Start polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-default_border pixel 2
+# Pixel Border
+default_border pixel 3
 
 # class                 border   backgr.  text     indict.  child_border
-client.focused          $base05  $base05  $base05  $base05  $base05
-client.focused_inactive $base03  $base03  $base05  $base05  $base03
-client.unfocused        $base03  $base03  $base05  $base05  $base03
-client.urgent           $base09  $base09  $base09  $base09  $base03
-client.placeholder      #000000  $base05  $base05  #000000  $base03
+client.focused          $base01  $base01  $base05  $base0B  $base05
+client.focused_inactive $base03  $base03  $base05  $base03  $base03
+client.unfocused        $base03  $base03  $base05  $base03  $base03
+client.urgent           $base09  $base00  $base05  $base09  $base03
+client.placeholder      #000000  $base00  $base05  #000000  $base03
 
 client.background       $base00
 
