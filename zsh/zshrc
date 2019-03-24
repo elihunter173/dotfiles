@@ -24,9 +24,6 @@ zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
 # Make man pages colorful
 zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
-# Grayed out auto suggestions
-zplugin light zsh-users/zsh-autosuggestions
-
 # Oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
