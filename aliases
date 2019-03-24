@@ -15,11 +15,9 @@ rm safe-rm
 
 # Basic Git
 ga git add --verbose
-gc git commit -v -S
-gc! git commit -v -S --amend
-gca git commit -v -S -a
-gca! git commit -v -S -a --amend
 gaa git add --all --verbose
+gc git commit -v
+gc! git commit -v --amend
 gcl git clone --recurse-submodules
 gl git pull
 gp git push
@@ -29,7 +27,6 @@ grm git rm
 glog git log
 gd git diff
 gf git fetch
-grh git reset HEAD
 grhh git reset HEAD --hard
 
 # Git remotes
