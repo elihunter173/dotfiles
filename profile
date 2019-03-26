@@ -1,4 +1,10 @@
 # vim: filetype=sh
+# Find out if you are running remotely
+SESSION_TYPE=
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    SESSION_TYPE="remote/ssh"
+fi
+
 # Source this machine's special config
 source "${HOME}/.envars"
 
@@ -27,12 +33,8 @@ if command -v ruby > /dev/null; then
     export GEM_HOME=$HOME/.gem
 fi
 
-# Standard Monitors (used by WMs and Xorg)
-export MAIN_MONITOR='eDP1'
-export RIGHT_MONITOR='HDMI2'
-export LEFT_MONITOR='HDMI1'
-
-if [ -n "$DISPLAY" ]; then
+# If you don't have Xorg or are running over ssh
+if [ -n "$DISPLAY" ] || [ "$SESSION_TYPE" = "remote/ssh" ]; then
     xset -b b off
 
     # Display Power Management Settings
