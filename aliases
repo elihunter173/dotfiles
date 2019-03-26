@@ -24,7 +24,7 @@ gp git push
 gpd git push --dry-run
 gst git status
 grm git rm
-glog git log
+glg git lg
 gd git diff
 gf git fetch
 grhh git reset HEAD --hard
