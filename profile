@@ -33,8 +33,8 @@ if command -v ruby > /dev/null; then
     export GEM_HOME=$HOME/.gem
 fi
 
-# If you don't have Xorg or are running over ssh
-if [ -n "$DISPLAY" ] || [ "$SESSION_TYPE" = "remote/ssh" ]; then
+# If you have Xorg and are running over ssh
+if [ -n "$DISPLAY" ] && [ "$SESSION_TYPE" != "remote/ssh" ]; then
     xset -b b off
 
     # Display Power Management Settings
