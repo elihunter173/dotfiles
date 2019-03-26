@@ -65,13 +65,7 @@ call Base16hi("StatusLine", g:base16_gui05, g:base16_gui01, g:base16_cterm05, g:
 call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
 
 " Keybindings {{{1
-" Leader mappings from the gods (https://www.reddit.com/r/vim/comments/9zy5xg/leader_mapping_from_the_gods/)
-" semicolon is now map leader
-let mapleader = ";"
-" Jump to next match is now . (next to ,)
-noremap . ;
-" Repeat last command is now space, always easy to reach.
-noremap <Space> .
+let mapleader = " "
 
 " Remove useless keybindings
 nnoremap s <NOP>
