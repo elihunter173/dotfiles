@@ -16,6 +16,8 @@ alias l.="ls -ld .*"
 
 alias grepp="grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1"
 
+alias bat="bat --paging never --style=changes,header,numbers"
+
 # Override shell defaults
 alias time="/usr/bin/time "
 
