@@ -39,17 +39,10 @@ gco git checkout
 gcb git checkout -b
 gcm git checkout master
 gm git merge
-gmum git merge upstream/master
 
 # Git stash
-gsta git stash save
-gstaa git stash apply
-gstall git stash --all
-gstc git stash clear
-gstd git stash drop
-gstl git stash list
-gstp git stash pop
-gsts git stash show --text
+gs git stash save
+gsp git stash pop
 
 # Git config patcher
 gitconfig_patch $SRC/github.com/elihunter173/gitconfig-patcher/gitconfig-patcher.sh ~/.dotfiles/git/gitconfigs/ncsu
