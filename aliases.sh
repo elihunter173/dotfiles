@@ -5,7 +5,7 @@ alias o="_easy_open"
 alias e="$EDITOR"
 
 # Make rm safe
-if command -v safe-rm; then
+if command -v safe-rm > /dev/null; then
     alias rmm="/bin/rm"
     alias rm="safe-rm"
 fi
