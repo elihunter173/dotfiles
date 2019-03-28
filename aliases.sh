@@ -10,10 +10,11 @@ if command -v safe-rm; then
     alias rm="safe-rm"
 fi
 
-# Utility args
-alias grepp="grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1"
+# Utilities
 alias la="ls -lAh .*"
 alias l.="ls -ld .*"
+
+alias grepp="grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1"
 
 # Override shell defaults
 alias time="/usr/bin/time "
