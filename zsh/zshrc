@@ -1,5 +1,11 @@
 # vim: foldmethod=marker foldlevel=0
 
+# Install zplugin if it's not already installed
+if [ ! -d "${HOME}/.zplugin" ]; then
+    echo "Installing zplugin"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/mod-install.sh)"
+fi
+
 # Set up zplugin
 # Load zplugin module
 module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )
@@ -32,9 +38,9 @@ source $ZSH/oh-my-zsh.sh
 
 # General
 # Source broad configuration files
-source ~/.bookmarks.zsh
-source ~/.aliases
-source ~/.functions
+source ~/.bookmarks.sh
+source ~/.aliases.sh
+source ~/.functions.sh
 
 # Load completions
 autoload -U compinit; compinit

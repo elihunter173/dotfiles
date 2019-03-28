@@ -25,9 +25,9 @@
     ~/.config/polybar: polybar/
 
     # Shell Config
-    ~/.bookmarks: bookmarks
-    ~/.aliases: aliases
-    ~/.functions: functions
+    ~/.bookmarks.sh: bookmarks.sh
+    ~/.aliases.sh: aliases.sh
+    ~/.functions.sh: functions.sh
     ~/.zshrc: zsh/zshrc
     ~/.bashrc: bash/bashrc
     ~/.oh-my-zsh: zsh/oh-my-zsh/
