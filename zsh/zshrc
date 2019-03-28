@@ -33,7 +33,7 @@ source $ZSH/oh-my-zsh.sh
 # General
 # Source broad configuration files
 source ~/.bookmarks.zsh
-source ~/.aliases.zsh
+source ~/.aliases
 source ~/.functions
 
 # Load completions

@@ -1,48 +1,40 @@
-help man
-o _easy_open
+#!/usr/bin/env sh
+# vim: foldmethod=marker
+# Quick shortcuts
+alias o="_easy_open"
+alias e="$EDITOR"
+
+# Make rm safe
+if command -v safe-rm; then
+    alias rmm="/bin/rm"
+    alias rm="safe-rm"
+fi
+
+# Utility args
+alias grepp="grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1"
+alias la="ls -lAh .*"
+alias l.="ls -ld .*"
 
 # Override shell defaults
-time /usr/bin/time # /usr/bin/time is standard across shells and more feature rich
+alias time="/usr/bin/time "
 
-# New/Better Defaults
-# Pretty grep
-grepp grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1
-l. ls -ld .*
-
-# Safe remove
-rmm /bin/rm
-rm safe-rm
-
-# Basic Git
-ga git add --verbose
-gaa git add --all --verbose
-gc git commit -v
-gc! git commit -v --amend
-gcl git clone --recurse-submodules
-gl git pull
-gp git push
-gpd git push --dry-run
-gst git status
-grm git rm
-glg git lg
-gd git diff
-gf git fetch
-grhh git reset HEAD --hard
-
-# Git remotes
-gr git remote
-
-# Branching Git
-gb git branch
-gbd git branch -d
-gco git checkout
-gcb git checkout -b
-gcm git checkout master
-gm git merge
-
-# Git stash
-gs git stash save
-gsp git stash pop
-
-# Git config patcher
-gitconfig_patch $SRC/github.com/elihunter173/gitconfig-patcher/gitconfig-patcher.sh ~/.dotfiles/git/gitconfigs/ncsu
+# Git
+alias ga="git add --verbose"
+alias gaa="git add --all --verbose"
+alias gc="git commit -v"
+alias gc!="git commit -v --amend"
+alias gcl="git clone --recurse-submodules"
+alias gl="git pull"
+alias gp="git push"
+alias gpd="git push --dry-run"
+alias gst="git status"
+alias grm="git rm"
+alias glg="git lg"
+alias gd="git diff"
+alias gf="git fetch"
+alias gm="git merge"
+alias grhh="git reset HEAD --hard"
+alias gco="git checkout"
+alias gcm="git checkout master"
+alias gs="git stash save"
+alias gsp="git stash pop"
