@@ -33,10 +33,9 @@
     ~/.oh-my-zsh: zsh/oh-my-zsh/
 
     # Vim Config
-    ~/.local/share/vim: vim/share/
+    ~/.vimrc: vim/rc.vim
+    ~/.config/nvim/init.vim: vim/rc.vim
     ~/.config/nvim/spell: vim/spell/
-    ~/.config/nvim/init.vim: vim/init.vim
-    ~/.vimrc: vim/vimrc
 
     # App Config
     ~/.urxvt/ext: xorg/urxvt-ext/

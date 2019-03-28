@@ -1,4 +1,73 @@
-" vim: foldmethod=marker foldlevel=0
+" vim: filetype=vim foldmethod=marker foldlevel=0
+" A Vim agnostic vimrc. This works with both Vim and Neovim.
+"
+" Author: Eli W. Hunter
+
+" vim-plug setup {{{1
+if has('nvim')
+    let s:vim_plug_path = '~/.local/share/nvim/site/autoload/plug.vim'
+    let s:plugins_path = '~/.local/share/nvim/plugged'
+else
+    let s:vim_plug_path = '~/.vim/autoload/plug.vim'
+    let s:plugins_path = '~/.vim/plugged'
+endif
+
+if empty(glob(s:vim_plug_path))
+    silent !curl -fLo s:vim_plug_path --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | qa
+endif
+
+" Install Plugins {{{1
+call plug#begin(s:plugins_path)
+" Editing
+" Additional text objects
+Plug 'wellle/targets.vim'
+" Surrounding text objects with any character
+Plug 'machakann/vim-sandwich'
+" Syntax highlighting for almost every language
+Plug 'sheerun/vim-polyglot'
+" Lightweight git wrapper
+Plug 'tpope/vim-fugitive'
+" Automatically detect indentation
+Plug 'tpope/vim-sleuth'
+" Easier commenting for any language
+Plug 'tpope/vim-commentary'
+" Auto-closing for brackets, parens, and quotes
+Plug 'jiangmiao/auto-pairs'
+" C Tag management
+Plug 'ludovicchabant/vim-gutentags'
+" Easy text alignment
+Plug 'godlygeek/tabular'
+
+" Advanced language features
+" Linting
+Plug 'w0rp/ale'
+
+" Visualization tools
+" Netrw enhancements
+Plug 'tpope/vim-vinegar'
+" C Tags tagbar
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+" Vim undotree visualizer
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+
+" Display
+" Base16 colorschemes
+Plug 'chriskempson/base16-vim'
+
+" Markdown
+" Requires godlygeek/taular for TableFormat
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+
+" Neovim Specific Plugins {{{
+if has('nvim')
+    " Autocomplete
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+endif
+" }}}
+call plug#end()
+
 " Basic Settings {{{1
 " No vi compatibility
 set nocompatible
@@ -34,8 +103,8 @@ set clipboard=unnamedplus
 " Don't redraw during macros (for performance)
 set lazyredraw
 
-" Set to indent folding with default of no folds
-set foldmethod=indent
+" Set to syntax folding with default of no folds
+set foldmethod=syntax
 set foldlevel=999
 
 " Display {{{1
@@ -137,19 +206,16 @@ let g:gutentags_cache_dir = '~/.cache/vim-gutentags'
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
 " Vim Markdown {{{2
-" Make Markdown indent by 2 by default
-let g:vim_markdown_new_list_item_indent = 2
-
-" Disable markdown concealing because it's laggy
-let g:vim_markdown_conceal = 0
-
-" Disable folding in markdown completely
-let g:vim_markdown_folding_disabled = 1
-
 " Enable LaTeX syntax highlighting
 let g:vim_markdown_math = 1
 " Enable YAML Frontmatter syntax highlighting
 let g:vim_markdown_frontmatter = 1
+
+" Make Markdown indent by 2 by default
+let g:vim_markdown_new_list_item_indent = 2
+
+" Disable markdown concealing because I'm not a fan
+let g:vim_markdown_conceal = 0
 
 " ALE {{{2
 " Polybar config uses ini format, and I set up polybar with .bar extension
@@ -165,3 +231,14 @@ let g:ale_sign_column_always = 1
 
 let g:ale_sign_error = '!!'
 let g:ale_sign_warning = '--'
+
+" Vim Specific Settings {{{1
+if has('vim')
+    " Make vim's cursor change shape in different modes (VTE)
+    " (https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes)
+    let &t_SI = "\<Esc>[6 q"
+    let &t_SR = "\<Esc>[4 q"
+    let &t_EI = "\<Esc>[2 q"
+endif
+
+" Neovim Specific Settings {{{1
