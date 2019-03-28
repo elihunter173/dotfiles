@@ -1,67 +1,74 @@
 # vim: foldmethod=marker foldlevel=0
 
-# Install zplugin if it's not already installed
+# Source ~/.profile even if not running interactively
+[[ -e "$HOME/.profile" ]] && source ~/.profile
+
+# My standard shell config files
+source ~/.bookmarks.sh
+source ~/.aliases.sh
+source ~/.functions.sh
+
+# Oh-my-zsh {{{
+# Plugins are handled by zplugin
+export ZSH="$HOME/.oh-my-zsh"
+
+# Install oh-my-zsh if not already installed
+if [ ! -d "$ZSH" ]; then
+    git clone https://github.com/robbyrussell/oh-my-zsh.git "$ZSH"
+fi
+
+source $ZSH/oh-my-zsh.sh
+# }}}
+# zplugin {{{
+# Install zplugin if not already installed
 if [ ! -d "${HOME}/.zplugin" ]; then
     echo "Installing zplugin"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/mod-install.sh)"
 fi
 
-# Set up zplugin
-# Load zplugin module
+# Load zplugin
 module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )
-# Sometimes this throws errors but it still works, so I just ignore them
-zmodload zdharma/zplugin 2> /dev/null
+zmodload zdharma/zplugin 2> /dev/null # ignore random errors
 source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
+# }}}
 
 # Base16-Shell Colors (this is done early to prevent flashing)
 zplugin light chriskempson/base16-shell
 
-# Source ~/.profile even if not running interactively
-[[ -e "$HOME/.profile" ]] && source "$HOME/.profile"
+# Pure Power Prompt
+zplugin light romkatv/powerlevel10k
+if [ ! -f "$HOME/.purepower" ]; then
+    curl -fsSLO https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower \
+        -o "$HOME/.purepower"
+fi
+source ~/.purepower
 
-# Add more completions
+# More completions
 zplugin light zsh-users/zsh-completions
-
-# Command specific autocompletions
 zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
-
-# Easy extraction
-zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
-# Make man pages colorful
-zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
-
-# Oh-my-zsh
-export ZSH="$HOME/.oh-my-zsh"
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
-source $ZSH/oh-my-zsh.sh
-
-# General
-# Source broad configuration files
-source ~/.bookmarks.sh
-source ~/.aliases.sh
-source ~/.functions.sh
 
 # Load completions
 autoload -U compinit; compinit
-# Completions for kitty
+
+# Completions for kitty (must be done after compinit)
 if command -v kitty > /dev/null; then
     kitty + complete setup zsh | source /dev/stdin
 fi
+
+# Easy extraction
+zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
+# Colorful man pages
+zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 # Vim keys
 bindkey -v
 # Reduce delay on <Esc> to 1 (not 0 so pure prompt can update)
 export KEYTIMEOUT=1
-# Easier history searching
-bindkey '^N' down-line-or-beginning-search
-bindkey '^P' up-line-or-beginning-search
 
-# Pure prompt
-zplugin light mafredri/zsh-async
-zplugin light sindresorhus/pure
-# Load prompt
-prompt_pure_setup "$@"
+# Easier history searching
+zplugin light zsh-users/zsh-history-substring-search
+bindkey '^N' history-substring-search-down
+bindkey '^P' history-substring-search-up
 
 # All new terminals automatically go to the last working directory (lwd does the same)
 zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh

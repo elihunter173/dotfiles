@@ -1,9 +1,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
-[submodule "zsh/oh-my-zsh"]
-	path = zsh/oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "xorg/urxvt-ext/urxvt-perls"]
 	path = xorg/urxvt-ext/urxvt-perls
 	url = git@github.com:muennich/urxvt-perls.git

@@ -11,7 +11,8 @@ if command -v safe-rm > /dev/null; then
 fi
 
 # Utilities
-alias la="ls -lAh .*"
+alias ls="ls --color=auto"
+alias la="ls -lAh"
 alias l.="ls -ld .*"
 
 alias grepp="grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} --line-number --with-filename --context=1"
