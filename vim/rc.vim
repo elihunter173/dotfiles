@@ -233,7 +233,7 @@ let g:ale_sign_error = '!!'
 let g:ale_sign_warning = '--'
 
 " Vim Specific Settings {{{1
-if has('vim')
+if !has('nvim')
     " Make vim's cursor change shape in different modes (VTE)
     " (https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes)
     let &t_SI = "\<Esc>[6 q"
@@ -242,3 +242,5 @@ if has('vim')
 endif
 
 " Neovim Specific Settings {{{1
+if has('nvim')
+endif
