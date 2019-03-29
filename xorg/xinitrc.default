@@ -1,0 +1,35 @@
+#!/bin/sh
+# vim: foldmethod=marker
+#
+# Executed by startx (run your window manager from here)
+
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+    for f in /etc/X11/xinit/xinitrc.d/*; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
+# i3 {{{
+if command -v i3 > /dev/null; then
+    echo "i3 IS NOT INSTALLED" >&2
+fi
+
+# Nice programs only if present {{{
+command -v unclutter > /dev/null && (unclutter &) \
+    || echo "unclutter not installed" >&2
+
+command -v compton > /dev/null && compton -b \
+    || echo "compton not installed" >&2
+# }}}
+
+exec i3
+# }}}
+
+# xfce4 {{{
+if command -v xfce-session > /dev/null; then
+    echo "Xfce4 IS NOT INSTALLED" >&2
+fi
+
+exec xfce-session
+# }}}
