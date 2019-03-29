@@ -31,5 +31,5 @@ if command -v xfce-session > /dev/null; then
     echo "Xfce4 IS NOT INSTALLED" >&2
 fi
 
-exec xfce-session
+exec startxfce4
 # }}}
