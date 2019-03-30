@@ -1,12 +1,22 @@
+#!/usr/bin/env sh
 # vim: filetype=sh
+
+# Eli W. Hunter's generic ~/.profile
+
+export TERM=xterm-256color
+
 # Find out if you are running remotely
 SESSION_TYPE=
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     SESSION_TYPE="remote/ssh"
 fi
+export SESSION_TYPE
+
+# Say you are the standard terminal always (for compatability)
+export TERM=xterm-256color
 
 # Source this machine's special config
-source "${HOME}/.envars"
+. "${HOME}/.envars"
 
 # The path to my source code folder
 export SRC="${HOME}/src"
