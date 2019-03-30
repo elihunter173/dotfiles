@@ -7,4 +7,3 @@
 #     EDITOR: The text editor used for this machine. (vim or nvim normally)
 
 export EDITOR=
-export XORG_CLIENT=
