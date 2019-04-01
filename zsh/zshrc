@@ -47,14 +47,6 @@ source ~/.purepower
 zplugin light zsh-users/zsh-completions
 zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
 
-# Load completions
-autoload -U compinit; compinit
-
-# Completions for kitty (must be done after compinit)
-if command -v kitty > /dev/null; then
-    kitty + complete setup zsh | source /dev/stdin
-fi
-
 # Easy extraction
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
 # Colorful man pages
@@ -75,3 +67,7 @@ zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
 
 # Syntax highlighting (this must be done last)
 zplugin light zsh-users/zsh-syntax-highlighting
+source ~/.purepower
+
+# Load completions
+autoload -U compinit; compinit

@@ -40,6 +40,9 @@ Plug 'ludovicchabant/vim-gutentags'
 " Easy text alignment
 Plug 'godlygeek/tabular'
 
+" Nice lightweight statusline
+Plug 'itchyny/lightline.vim'
+
 " Advanced language features
 " Linting
 Plug 'w0rp/ale'
@@ -120,9 +123,9 @@ set ruler
 set scrolloff=4
 
 " Allow GUI style colors in terminal if supported
-" if exists('+termguicolors')
-"     set termguicolors
-" endif
+if exists('+termguicolors')
+    set termguicolors
+endif
 
 " Set base16 background
 if filereadable(expand("~/.vimrc_background"))
@@ -231,6 +234,14 @@ let g:ale_sign_column_always = 1
 
 let g:ale_sign_error = '!!'
 let g:ale_sign_warning = '--'
+
+" Lightline {{{2
+" Don't show mode in command line
+set noshowmode
+
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ }
 
 " Vim Specific Settings {{{1
 if !has('nvim')
