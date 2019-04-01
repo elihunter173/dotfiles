@@ -35,12 +35,13 @@
     ~/.vimrc: vim/rc.vim
     ~/.config/nvim/init.vim: vim/rc.vim
     ~/.config/nvim/spell: vim/spell/
+    ~/.config/nvim/coc-settings.json: vim/coc-settings.json
 
     # App Config
     ~/.urxvt/ext: xorg/urxvt-ext/
     ~/.config/dunst: dunst/
     ~/.tmux.conf: tmux/tmux.conf
-    ~/.tmux.theme: tmux/tmux.theme
+    ~/.config/kitty/kitty.conf: kitty/kitty.conf
     ~/.config/neofetch: neofetch/
     ~/.config/zathura: zathura/
     ~/.pandoc: pandoc/

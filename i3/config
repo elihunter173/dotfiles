@@ -204,8 +204,8 @@ set $launch "Launch Program"
 bindsym $mod+p mode $launch
 mode $launch {
     # Productivity
-    bindsym t mode "default"; exec --no-startup-id urxvt
-    bindsym Shift+t mode "default"; exec --no-startup-id urxvt
+    bindsym t mode "default"; exec --no-startup-id "$TERM_EMU"
+    bindsym Shift+t mode "default"; exec --no-startup-id "$TERM_EMU"
 
     # Web Browsing
     bindsym b mode "default"; exec --no-startup-id firefox
