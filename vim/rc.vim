@@ -60,8 +60,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'chriskempson/base16-vim'
 
 " Markdown
-" Requires godlygeek/taular for TableFormat
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'masukomi/vim-markdown-folding'
 
 " Neovim Specific Plugins {{{
 if has('nvim')
@@ -106,9 +105,11 @@ set clipboard=unnamedplus
 " Don't redraw during macros (for performance)
 set lazyredraw
 
-" Set to syntax folding with default of no folds
-set foldmethod=syntax
+" Default to no folds
 set foldlevel=999
+
+" Add some custom extensions
+autocmd BufNewFile,BufRead *.nvim set filetype=vim
 
 " Display {{{1
 " Show hidden characters
@@ -195,32 +196,21 @@ nnoremap <F1> :TagbarToggle<CR>
 " A nice keybinding to toggle the undotree
 nnoremap <F2> :UndotreeToggle<CR>
 
-" Custom Extensions {{{1
-autocmd BufNewFile,BufRead *.nvim set filetype=vim
 
 " Plugin Settings {{{1
 
-" Gutentags {{{2
+" Gutentags
 " Hide gutentags tag files in this cache to prevent polluting tagspace
 let g:gutentags_cache_dir = '~/.cache/vim-gutentags'
 
-" Vim Sandwich {{{2
+" Vim Sandwich
 " Custom vim-sandwich recipes
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
-" Vim Markdown {{{2
-" Enable LaTeX syntax highlighting
-let g:vim_markdown_math = 1
-" Enable YAML Frontmatter syntax highlighting
-let g:vim_markdown_frontmatter = 1
+" Vim Markdown
+autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 
-" Make Markdown indent by 2 by default
-let g:vim_markdown_new_list_item_indent = 2
-
-" Disable markdown concealing because I'm not a fan
-let g:vim_markdown_conceal = 0
-
-" ALE {{{2
+" ALE
 " Polybar config uses ini format, and I set up polybar with .bar extension
 " Define global fixers
 let g:ale_fixers = {
@@ -235,7 +225,7 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_error = '!!'
 let g:ale_sign_warning = '--'
 
-" Lightline {{{2
+" Lightline
 " Don't show mode in command line
 set noshowmode
 
