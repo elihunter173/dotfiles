@@ -42,6 +42,7 @@
     ~/.config/dunst: dunst/
     ~/.tmux.conf: tmux/tmux.conf
     ~/.config/kitty/kitty.conf: kitty/kitty.conf
+    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
     ~/.config/neofetch: neofetch/
     ~/.config/zathura: zathura/
     ~/.pandoc: pandoc/
