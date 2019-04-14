@@ -32,9 +32,6 @@ zmodload zdharma/zplugin 2> /dev/null # ignore random errors
 source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
 # }}}
 
-# Base16-Shell Colors (this is done early to prevent flashing)
-zplugin light chriskempson/base16-shell
-
 # Pure Power Prompt
 zplugin light romkatv/powerlevel10k
 if [ ! -f "$HOME/.purepower" ]; then
