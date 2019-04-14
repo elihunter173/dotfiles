@@ -2,8 +2,7 @@
 # vim: filetype=sh
 
 # Eli W. Hunter's generic ~/.profile
-
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
 # Find out if you are running remotely
 SESSION_TYPE=
@@ -11,9 +10,6 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     SESSION_TYPE="remote/ssh"
 fi
 export SESSION_TYPE
-
-# Say you are the standard terminal always (for compatability)
-export TERM=xterm-256color
 
 # Source this machine's special config
 . "${HOME}/.envars"
