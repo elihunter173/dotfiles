@@ -39,6 +39,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ludovicchabant/vim-gutentags'
 " Easy text alignment
 Plug 'godlygeek/tabular'
+" Fuzzy Finding
+Plug 'junegunn/fzf.vim'
 
 " Nice lightweight statusline
 Plug 'itchyny/lightline.vim'
@@ -58,9 +60,6 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Display
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
-
-" Markdown
-Plug 'masukomi/vim-markdown-folding'
 
 " Neovim Specific Plugins {{{
 if has('nvim')
@@ -124,9 +123,9 @@ set ruler
 set scrolloff=4
 
 " Allow GUI style colors in terminal if supported
-if exists('+termguicolors')
-    set termguicolors
-endif
+" if exists('+termguicolors')
+"     set termguicolors
+" endif
 
 " Set base16 background
 if filereadable(expand("~/.vimrc_background"))
@@ -134,8 +133,8 @@ if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
 " Swap default statusline focus and no-focus colors
-call Base16hi("StatusLine", g:base16_gui05, g:base16_gui01, g:base16_cterm05, g:base16_cterm01)
-call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
+" call Base16hi("StatusLine", g:base16_gui05, g:base16_gui01, g:base16_cterm05, g:base16_cterm01)
+" call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
 
 " Keybindings {{{1
 let mapleader = " "
