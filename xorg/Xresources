@@ -66,7 +66,7 @@ Xft*hinting: Full
 
 ! URxvt {{{1
 ! Choose font
-URxvt.font: xft:DejaVu Sans Mono:Regular:size=11
+URxvt.font: xft:Hack:Regular:size=11
 
 ! Save a ridiculous amount of history
 URxvt.saveLines: 65535
