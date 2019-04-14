@@ -4,9 +4,7 @@
 [[ -e "$HOME/.profile" ]] && source ~/.profile
 
 # My standard shell config files
-source ~/.bookmarks.sh
-source ~/.aliases.sh
-source ~/.functions.sh
+source ~/.standard.sh
 
 # Oh-my-zsh {{{
 # Plugins are handled by zplugin
@@ -32,6 +30,8 @@ zmodload zdharma/zplugin 2> /dev/null # ignore random errors
 source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
 # }}}
 
+# Fix term for pure power
+export TERM=xterm-256color
 # Pure Power Prompt
 zplugin light romkatv/powerlevel10k
 if [ ! -f "$HOME/.purepower" ]; then
