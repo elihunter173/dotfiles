@@ -46,7 +46,7 @@ font pango:Noto Sans 8
 exec_always --no-startup-id compton -b
 
 # Unclutter removes the mouse cursor after it hasn't been used for awhile.
-exec_always --no-startup-id unclutter --timeout 20 -b
+exec_always --no-startup-id unclutter --timeout 15 -b
 
 # Start polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -230,7 +230,7 @@ mode $system {
     bindsym r mode "default"; exec --no-startup-id "systemctl reboot"
     bindsym h mode "default"; exec --no-startup-id "systemctl hibernate"
     bindsym s mode "default"; exec --no-startup-id "systemctl suspend-then-hibernate"
-    bindsym l mode "default"; exec --no-startup-id "dm-tool lock"
+    bindsym l mode "default"; exit
 
     # User Control
     bindsym e mode "default"; exit

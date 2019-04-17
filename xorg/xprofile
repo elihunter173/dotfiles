@@ -1,8 +1,5 @@
 # Load Xresources
 xrdb ~/.Xresources
 
-# Swap caps lock and escape
-setxkbmap -option caps:swapescape
-
 # Enable numlock
 numlockx on
