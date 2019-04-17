@@ -29,6 +29,9 @@ if command -v go > /dev/null; then
     export PATH=$PATH:$(go env GOPATH)/bin
 fi
 
+# Rust
+export PATH="$PATH:$HOME/.cargo/bin"
+
 # Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
 
