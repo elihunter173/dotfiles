@@ -51,6 +51,7 @@
     # Misc
     ~/.gitconfig: git/gitconfigs/personal
     ~/Pictures/wallpaper: wallpaper
+    ~/.config/libinput-gestures.conf: libinput-gestures.conf
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
