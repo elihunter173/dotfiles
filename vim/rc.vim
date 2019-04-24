@@ -136,6 +136,8 @@ endif
 " call Base16hi("StatusLine", g:base16_gui05, g:base16_gui01, g:base16_cterm05, g:base16_cterm01)
 " call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
 
+" Markdown
+
 " Keybindings {{{1
 let mapleader = " "
 
@@ -181,8 +183,6 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 
 " Easier swapping between files
 nnoremap <leader>o :edit<Space>
-" Easier tag jumping
-nnoremap <leader>t :tag<Space>
 
 " Easier interactive git (fugitive)
 nnoremap <leader>g :G<CR>
@@ -195,6 +195,10 @@ nnoremap <F1> :TagbarToggle<CR>
 " A nice keybinding to toggle the undotree
 nnoremap <F2> :UndotreeToggle<CR>
 
+" FZF Hotkeys
+nnoremap <leader>l :BLines<CR>
+nnoremap <leader>t :BTags<CR>
+nnoremap <leader>T :Tags<CR>
 
 " Plugin Settings {{{1
 
