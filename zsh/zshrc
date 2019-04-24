@@ -30,15 +30,9 @@ zmodload zdharma/zplugin 2> /dev/null # ignore random errors
 source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
 # }}}
 
-# Fix term for pure power
-export TERM=xterm-256color
-# Pure Power Prompt
-zplugin light romkatv/powerlevel10k
-if [ ! -f "$HOME/.purepower" ]; then
-    curl -fsSLO https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower \
-        -o "$HOME/.purepower"
-fi
-source ~/.purepower
+# Pure Prompt
+zplugin ice pick"async.zsh" src"pure.zsh"
+zplugin light sindresorhus/pure
 
 # More completions
 zplugin light zsh-users/zsh-completions
@@ -49,22 +43,18 @@ zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
 # Colorful man pages
 zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
-# Vim keys
-bindkey -v
-# Reduce delay on <Esc> to 1 (not 0 so pure prompt can update)
-export KEYTIMEOUT=1
-
 # Easier history searching
 zplugin light zsh-users/zsh-history-substring-search
-bindkey '^N' history-substring-search-down
-bindkey '^P' history-substring-search-up
+bindkey 'OA' history-substring-search-up
+bindkey 'OB' history-substring-search-down
+bindkey '^P'   history-substring-search-up
+bindkey '^N'   history-substring-search-down
 
 # All new terminals automatically go to the last working directory (lwd does the same)
 zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
 
 # Syntax highlighting (this must be done last)
 zplugin light zsh-users/zsh-syntax-highlighting
-source ~/.purepower
 
 # Load completions
 autoload -U compinit; compinit
