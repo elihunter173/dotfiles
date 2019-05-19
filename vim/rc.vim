@@ -3,7 +3,7 @@
 "
 " Author: Eli W. Hunter
 
-" vim-plug setup {{{1
+" vim-plug setup {{{
 if has('nvim')
     let s:vim_plug_path = '~/.local/share/nvim/site/autoload/plug.vim'
     let s:plugins_path = '~/.local/share/nvim/plugged'
@@ -11,14 +11,15 @@ else
     let s:vim_plug_path = '~/.vim/autoload/plug.vim'
     let s:plugins_path = '~/.vim/plugged'
 endif
+let s:vim_plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 if empty(glob(s:vim_plug_path))
-    silent !curl -fLo s:vim_plug_path --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent execute '!curl -fLo '.s:vim_plug_path.' --create-dirs '.s:vim_plug_url
     autocmd VimEnter * PlugInstall --sync | qa
 endif
+" }}}
 
-" Install Plugins {{{1
+" Install Plugins {{{
 call plug#begin(s:plugins_path)
 " Editing
 " Additional text objects
@@ -37,8 +38,6 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 " C Tag management
 Plug 'ludovicchabant/vim-gutentags'
-" Easy text alignment
-Plug 'godlygeek/tabular'
 " Fuzzy Finding
 Plug 'junegunn/fzf.vim'
 
@@ -61,15 +60,15 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
 
-" Neovim Specific Plugins {{{
+" Neovim Specific Plugins
 if has('nvim')
     " Autocomplete
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 endif
-" }}}
-call plug#end()
 
-" Basic Settings {{{1
+call plug#end()
+"""}
+
 " No vi compatibility
 set nocompatible
 
@@ -107,10 +106,20 @@ set lazyredraw
 " Default to no folds
 set foldlevel=999
 
+" Make filesystem navigation easier
+set autochdir
+
+" I create tabs a lot more than I use gn and gN
+nnoremap gn :tabnew<CR>
+nnoremap gN :tabclose<CR>
+
+if exists('&inccommand')
+  set inccommand=nosplit
+endif
+
 " Add some custom extensions
 autocmd BufNewFile,BufRead *.nvim set filetype=vim
 
-" Display {{{1
 " Show hidden characters
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
@@ -123,9 +132,9 @@ set ruler
 set scrolloff=4
 
 " Allow GUI style colors in terminal if supported
-" if exists('+termguicolors')
-"     set termguicolors
-" endif
+if exists('+termguicolors')
+    set termguicolors
+endif
 
 " Set base16 background
 if filereadable(expand("~/.vimrc_background"))
@@ -136,9 +145,10 @@ endif
 " call Base16hi("StatusLine", g:base16_gui05, g:base16_gui01, g:base16_cterm05, g:base16_cterm01)
 " call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
 
-" Markdown
+" GUI Font settings
+set guifont=Hack:h12
 
-" Keybindings {{{1
+" Keybindings
 let mapleader = " "
 
 " Remove useless keybindings
@@ -157,16 +167,11 @@ nnoremap c "_c
 nnoremap C "_C
 
 " Make saving and quitting easier and faster. (z to prevent conflict with macros)
-nnoremap <leader>w :w<CR>
-nnoremap <leader>W :w!<CR>
-nnoremap <leader>z :q<CR>
-nnoremap <leader>Z :q!<CR>
-nnoremap <leader>c :bd<CR>
-
-" Easier quick macro use (shift would be ideal but isn't working right now)
-nnoremap <C-Space> @@
-" Easier quick command repeating
-nnoremap <M-Space> @:
+nnoremap <leader>w :write<CR>
+nnoremap <leader>W :write!<CR>
+nnoremap <leader>z :quit<CR>
+nnoremap <leader>Z :quit!<CR>
+nnoremap <leader>c :bufdelete<CR>
 
 " Remap undo
 nnoremap U <C-r>
@@ -199,6 +204,18 @@ nnoremap <F2> :UndotreeToggle<CR>
 nnoremap <leader>l :BLines<CR>
 nnoremap <leader>t :BTags<CR>
 nnoremap <leader>T :Tags<CR>
+
+if exists(':terminal')
+  "Easier escape
+  tnoremap <ESC><ESC> <C-\><C-n>
+  " Easy pop-up terminal
+  nnoremap <C-Space> :tabnew<CR>:terminal<CR>i
+  tnoremap <C-Space> <C-\><C-n>:close!<CR>
+  " The above doesn't work with GNvim for some fuck off reason, so this will
+  " have to do
+  nnoremap ` :tabnew<CR>:terminal<CR>i
+  tnoremap ` <C-\><C-n>:close!<CR>
+endif
 
 " Plugin Settings {{{1
 
@@ -236,17 +253,9 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ }
 
-" Vim Specific Settings {{{1
-if !has('nvim')
-    " Make vim's cursor change shape in different modes (VTE)
-    " (https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes)
-    let &t_SI = "\<Esc>[6 q"
-    let &t_SR = "\<Esc>[4 q"
-    let &t_EI = "\<Esc>[2 q"
-endif
-
-" Neovim Specific Settings {{{1
+" Version Specific Settings {{{1
 if has('nvim')
+
   " Coc.nvim setup
   nmap <silent> gd <Plug>(coc-definition)
 
