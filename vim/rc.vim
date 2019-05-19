@@ -63,11 +63,11 @@ Plug 'chriskempson/base16-vim'
 " Neovim Specific Plugins
 if has('nvim')
     " Autocomplete
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 endif
 
 call plug#end()
-"""}
+"""}}}
 
 " No vi compatibility
 set nocompatible
