@@ -137,10 +137,8 @@ if exists('+termguicolors')
 endif
 
 " Set base16 background
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+let base16colorspace=256
+colorscheme base16-solarized-dark
 " Swap default statusline focus and no-focus colors
 " call Base16hi("StatusLine", g:base16_gui05, g:base16_gui01, g:base16_cterm05, g:base16_cterm01)
 " call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
