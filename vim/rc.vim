@@ -144,10 +144,15 @@ colorscheme base16-solarized-dark
 " call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
 
 " GUI Font settings
-set guifont=Hack:h12
+set guifont=Hack:h11
 
 " Keybindings
 let mapleader = " "
+
+" Make paste in insert mode work as expected
+inoremap <C-v> <ESC>pi
+" Make paste in visual mode work as expected
+vnoremap <C-c> y
 
 " Remove useless keybindings
 nnoremap s <NOP>
