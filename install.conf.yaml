@@ -17,7 +17,6 @@
     ~/.xinitrc: xorg/xinitrc
     ~/.xprofile: xorg/xprofile
     ~/.Xresources: xorg/Xresources
-    ~/.Xmodmap: xorg/Xmodmap
 
     # Window Manager Config
     ~/.config/i3: i3/
