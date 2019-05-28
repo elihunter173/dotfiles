@@ -114,7 +114,7 @@ nnoremap gn :tabnew<CR>
 nnoremap gN :tabclose<CR>
 
 if exists('&inccommand')
-  set inccommand=nosplit
+    set inccommand=nosplit
 endif
 
 " Add some custom extensions
@@ -164,55 +164,74 @@ nnoremap Y y$
 nnoremap c "_c
 nnoremap C "_C
 
-" Make saving and quitting easier and faster. (z to prevent conflict with macros)
-nnoremap <leader>w :write<CR>
-nnoremap <leader>W :write!<CR>
-nnoremap <leader>z :quit<CR>
-nnoremap <leader>Z :quit!<CR>
-nnoremap <leader>c :bufdelete<CR>
+" Make saving and quitting easier and faster.
+nnoremap <silent> <leader>w :write<CR>
+nnoremap <silent> <leader>c :quit<CR>
+
+" Buffer navigation
+nnoremap <silent> <Tab> :bnext<CR>
+nnoremap <silent> <S-Tab> :bprevious<CR>
+nnoremap <leader><leader> <C-^>
 
 " Remap undo
 nnoremap U <C-r>
 nnoremap <C-r> <NOP>
 
+" Move to the split in the direction or create a new split
+function! WinMove(key)
+    let t:curwin = winnr()
+    exec "wincmd ".a:key
+    if (t:curwin == winnr())
+        if (match(a:key,'[jk]'))
+            wincmd v
+        else
+            wincmd s
+        endif
+        exec "wincmd ".a:key
+    endif
+endfunction
+
 " Easier window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <silent> <C-h> :call WinMove('h')<CR>
+nnoremap <silent> <C-j> :call WinMove('j')<CR>
+nnoremap <silent> <C-k> :call WinMove('k')<CR>
+nnoremap <silent> <C-l> :call WinMove('l')<CR>
 
 " Turn off search highlighting easily
-nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 
 " Easier swapping between files
-nnoremap <leader>o :edit<Space>
+nnoremap <silent> <leader>o :edit<Space>
 
 " Easier interactive git (fugitive)
-nnoremap <leader>g :G<CR>
+nnoremap <silent> <leader>g :G<CR>
 
 " Toggle spell checking with F1
-nnoremap <F12> :setlocal spell! spelllang=en_us<CR>
+nnoremap <silent> <F12> :setlocal spell! spelllang=en_us<CR>
 
 " Easy tagbar activation and toggling
-nnoremap <F1> :TagbarToggle<CR>
+nnoremap <silent> <F1> :TagbarToggle<CR>
 " A nice keybinding to toggle the undotree
-nnoremap <F2> :UndotreeToggle<CR>
+nnoremap <silent> <F2> :UndotreeToggle<CR>
 
 " FZF Hotkeys
-nnoremap <leader>l :BLines<CR>
-nnoremap <leader>t :BTags<CR>
-nnoremap <leader>T :Tags<CR>
+nnoremap <silent> <leader>l :BLines<CR>
+" r for tags?
+nnoremap <silent> <leader>r :BTags<CR>
+nnoremap <silent> <leader>R :Tags<CR>
 
 if exists(':terminal')
-  "Easier escape
-  tnoremap <ESC><ESC> <C-\><C-n>
-  " Easy pop-up terminal
-  nnoremap <C-Space> :tabnew<CR>:terminal<CR>i
-  tnoremap <C-Space> <C-\><C-n>:close!<CR>
-  " The above doesn't work with GNvim for some fuck off reason, so this will
-  " have to do
-  nnoremap ` :tabnew<CR>:terminal<CR>i
-  tnoremap ` <C-\><C-n>:close!<CR>
+    "Easier escape
+    tnoremap <ESC><ESC> <C-\><C-n>
+
+    " Easier terminal opening
+    nnoremap <silent> <leader>t :terminal<CR>
+
+    " Easier window swapping in terminal
+    tnoremap <silent> <C-h> <C-\><C-n>:call WinMove('h')<CR>
+    tnoremap <silent> <C-j> <C-\><C-n>:call WinMove('j')<CR>
+    tnoremap <silent> <C-k> <C-\><C-n>:call WinMove('k')<CR>
+    tnoremap <silent> <C-l> <C-\><C-n>:call WinMove('l')<CR>
 endif
 
 " Plugin Settings {{{1
@@ -232,8 +251,8 @@ autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 " Polybar config uses ini format, and I set up polybar with .bar extension
 " Define global fixers
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\}
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \}
 " I have simple ale fixers, so I'm okay with this.
 let g:ale_fix_on_save = 1
 
@@ -248,28 +267,28 @@ let g:ale_sign_warning = '--'
 set noshowmode
 
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ }
+            \ 'colorscheme': 'solarized',
+            \ }
 
 " Version Specific Settings {{{1
 if has('nvim')
 
-  " Coc.nvim setup
-  nmap <silent> gd <Plug>(coc-definition)
+    " Coc.nvim setup
+    nmap <silent> gd <Plug>(coc-definition)
 
-  " Remap for rename current word
-  nmap <leader>r <Plug>(coc-rename)
+    " Remap for rename current word
+    nmap <leader>r <Plug>(coc-rename)
 
-  " Use K for show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-  function! s:show_documentation()
-    if &filetype == 'vim'
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
+    " Use K for show documentation in preview window
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+    function! s:show_documentation()
+        if &filetype == 'vim'
+            execute 'h '.expand('<cword>')
+        else
+            call CocAction('doHover')
+        endif
+    endfunction
 
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 endif
