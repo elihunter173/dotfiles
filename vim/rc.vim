@@ -24,6 +24,8 @@ call plug#begin(s:plugins_path)
 " Editing
 " Additional text objects
 Plug 'wellle/targets.vim'
+" PascalCase, snake_case, etc. words (How things should be)
+Plug 'chaoren/vim-wordmotion'
 " Surrounding text objects with any character
 Plug 'machakann/vim-sandwich'
 " Syntax highlighting for almost every language
