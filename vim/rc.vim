@@ -67,7 +67,7 @@ Plug 'w0rp/ale'
 " Neovim Specific Plugins
 if has('nvim')
     " Autocomplete
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
 call plug#end()
