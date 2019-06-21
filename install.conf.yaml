@@ -45,12 +45,8 @@
     ~/.config/zathura: zathura/
     ~/.pandoc: pandoc/
 
-    # App-managed App Config
-    ~/.config/Kvantum: app-managed/Kvantum/
-
     # Misc
     ~/.gitconfig: git/gitconfigs/personal
-    ~/Pictures/wallpaper: wallpaper
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
 
 - shell:

@@ -16,7 +16,7 @@ if command -v i3 > /dev/null; then
 fi
 
 # Nice programs only if present {{{
-command -v unclutter > /dev/null && (unclutter &) \
+command -v unclutter > /dev/null && (unclutter --timeout 15 -b) \
     || echo "unclutter not installed" >&2
 
 command -v compton > /dev/null && compton -b \
