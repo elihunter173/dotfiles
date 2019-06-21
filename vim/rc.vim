@@ -2,6 +2,7 @@
 " A Vim agnostic vimrc. This works with both Vim and Neovim.
 "
 " Author: Eli W. Hunter
+"
 
 " vim-plug setup {{{
 if has('nvim')
@@ -45,10 +46,8 @@ Plug 'junegunn/fzf.vim'
 
 " Nice lightweight statusline
 Plug 'itchyny/lightline.vim'
-
-" Advanced language features
-" Linting
-Plug 'w0rp/ale'
+" Nice start screen for GUIs
+Plug 'mhinz/vim-startify'
 
 " Visualization tools
 " Netrw enhancements
@@ -61,6 +60,9 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Display
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
+
+" Linting
+Plug 'w0rp/ale'
 
 " Neovim Specific Plugins
 if has('nvim')
@@ -289,4 +291,5 @@ if has('nvim')
 
     " Highlight symbol under cursor on CursorHold
     autocmd CursorHold * silent call CocActionAsync('highlight')
+
 endif
