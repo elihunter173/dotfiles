@@ -108,9 +108,6 @@ set lazyredraw
 " Default to no folds
 set foldlevel=999
 
-" Make filesystem navigation easier
-set autochdir
-
 " I create tabs a lot more than I use gn and gN
 nnoremap gn :tabnew<CR>
 nnoremap gN :tabclose<CR>
@@ -151,9 +148,12 @@ set guifont=Hack:h11
 " Keybindings
 let mapleader = " "
 
-" Make paste in insert mode work as expected
-inoremap <C-v> <ESC>pi
-" Make paste in visual mode work as expected
+" Make save work as you'd expect
+nnoremap <silent> <C-s> :w<CR>
+inoremap <silent> <C-s> :w<CR>
+" Make paste in work as expected
+inoremap <C-v> <ESC>pli
+" Make copy in visual mode work as expected
 vnoremap <C-c> y
 
 " Remove useless keybindings
@@ -173,7 +173,7 @@ nnoremap C "_C
 
 " Make saving and quitting easier and faster.
 nnoremap <silent> <leader>w :write<CR>
-nnoremap <silent> <leader>c :quit<CR>
+nnoremap <silent> <leader>c :close<CR>
 
 " Buffer navigation
 nnoremap <silent> <Tab> :bnext<CR>
@@ -184,25 +184,16 @@ nnoremap <leader><leader> <C-^>
 nnoremap U <C-r>
 nnoremap <C-r> <NOP>
 
-" Move to the split in the direction or create a new split
-function! WinMove(key)
-    let t:curwin = winnr()
-    exec "wincmd ".a:key
-    if (t:curwin == winnr())
-        if (match(a:key,'[jk]'))
-            wincmd v
-        else
-            wincmd s
-        endif
-        exec "wincmd ".a:key
-    endif
-endfunction
-
 " Easier window navigation
-nnoremap <silent> <C-h> :call WinMove('h')<CR>
-nnoremap <silent> <C-j> :call WinMove('j')<CR>
-nnoremap <silent> <C-k> :call WinMove('k')<CR>
-nnoremap <silent> <C-l> :call WinMove('l')<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+" Easier window resizing
+nnoremap <M-h> <C-w><
+nnoremap <M-l> <C-w>>
+nnoremap <M-j> <C-w>+
+nnoremap <M-k> <C-w>-
 
 " Turn off search highlighting easily
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
@@ -211,7 +202,7 @@ nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 nnoremap <silent> <leader>o :edit<Space>
 
 " Easier interactive git (fugitive)
-nnoremap <silent> <leader>g :G<CR>
+nnoremap <silent> <leader>g :Gstatus<CR>
 
 " Toggle spell checking with F1
 nnoremap <silent> <F12> :setlocal spell! spelllang=en_us<CR>
@@ -223,9 +214,9 @@ nnoremap <silent> <F2> :UndotreeToggle<CR>
 
 " FZF Hotkeys
 nnoremap <silent> <leader>l :BLines<CR>
-" r for tags?
-nnoremap <silent> <leader>r :BTags<CR>
-nnoremap <silent> <leader>R :Tags<CR>
+" f for find
+nnoremap <silent> <leader>f :BTags<CR>
+nnoremap <silent> <leader>F :Tags<CR>
 
 if exists(':terminal')
     "Easier escape
