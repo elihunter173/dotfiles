@@ -175,6 +175,7 @@ nnoremap C "_C
 
 " Make saving and quitting easier and faster.
 nnoremap <silent> <leader>w :write<CR>
+nnoremap <silent> <leader>s :mksession<CR>
 nnoremap <silent> <leader>c :close<CR>
 
 " Buffer navigation
@@ -191,11 +192,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-" Easier window resizing
-nnoremap <M-h> <C-w><
-nnoremap <M-l> <C-w>>
-nnoremap <M-j> <C-w>+
-nnoremap <M-k> <C-w>-
+" Easier tab navigation
+nnoremap <M-h> gT
+nnoremap <M-l> gt
 
 " Turn off search highlighting easily
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
@@ -227,11 +226,14 @@ if exists(':terminal')
     " Easier terminal opening
     nnoremap <silent> <leader>t :terminal<CR>
 
-    " Easier window swapping in terminal
-    tnoremap <silent> <C-h> <C-\><C-n>:call WinMove('h')<CR>
-    tnoremap <silent> <C-j> <C-\><C-n>:call WinMove('j')<CR>
-    tnoremap <silent> <C-k> <C-\><C-n>:call WinMove('k')<CR>
-    tnoremap <silent> <C-l> <C-\><C-n>:call WinMove('l')<CR>
+    " Easier window navigation
+    tnoremap <C-h> <C-\><C-n><C-w>h
+    tnoremap <C-j> <C-\><C-n><C-w>j
+    tnoremap <C-k> <C-\><C-n><C-w>k
+    tnoremap <C-l> <C-\><C-n><C-w>l
+    " Easier tab navigation
+    tnoremap <M-h> <C-\><C-n>gT
+    tnoremap <M-l> <C-\><C-n>gt
 endif
 
 " Plugin Settings {{{1
