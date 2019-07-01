@@ -196,8 +196,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <M-h> gT
 nnoremap <M-l> gt
 
-" Turn off search highlighting easily
-nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
+" Clear the search really easily
+nnoremap <silent> <ESC><ESC> :let @/ = ""<CR>
 
 " Easier swapping between files
 nnoremap <silent> <leader>o :edit<Space>
