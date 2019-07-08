@@ -61,9 +61,6 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
 
-" Linting
-Plug 'w0rp/ale'
-
 " Neovim Specific Plugins
 if has('nvim')
     " Autocomplete
@@ -118,8 +115,15 @@ if exists('&inccommand')
     set inccommand=nosplit
 endif
 
-" Add some custom extensions
-autocmd BufNewFile,BufRead *.nvim set filetype=vim
+" Trim Whitespace
+function! s:StripTrailingWhitespace()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    %s/\n\+\%$//e
+    call cursor(l, c)
+endfunction
+autocmd BufWritePre * call s:StripTrailingWhitespace()
 
 " Show hidden characters
 set listchars=tab:>-,trail:~,extends:>,precedes:<
@@ -248,21 +252,6 @@ let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
 " Vim Markdown
 autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
-
-" ALE
-" Polybar config uses ini format, and I set up polybar with .bar extension
-" Define global fixers
-let g:ale_fixers = {
-            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \}
-" I have simple ale fixers, so I'm okay with this.
-let g:ale_fix_on_save = 1
-
-" Always have the side column open (prevents annoying shifts)
-let g:ale_sign_column_always = 1
-
-let g:ale_sign_error = '!!'
-let g:ale_sign_warning = '--'
 
 " Lightline
 " Don't show mode in command line
