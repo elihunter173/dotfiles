@@ -224,7 +224,7 @@ nnoremap <silent> <leader>f :BTags<CR>
 nnoremap <silent> <leader>F :Tags<CR>
 
 if exists(':terminal')
-    "Easier escape
+    " Easier escape
     tnoremap <ESC><ESC> <C-\><C-n>
 
     " Easier terminal opening
@@ -238,6 +238,9 @@ if exists(':terminal')
     " Easier tab navigation
     tnoremap <M-h> <C-\><C-n>gT
     tnoremap <M-l> <C-\><C-n>gt
+
+    " No linenumbers in terminals
+    autocmd TermOpen * setlocal norelativenumber nonumber
 endif
 
 " Plugin Settings {{{1
