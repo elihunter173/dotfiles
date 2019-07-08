@@ -18,9 +18,6 @@ alias ls="ls --color=auto"
 alias la="ls -lAh"
 alias l.="ls -ld .*"
 
-# Override shell defaults
-alias time="/usr/bin/time "
-
 # Git
 alias ga="git add --verbose"
 alias gaa="git add --all --verbose"
@@ -55,7 +52,13 @@ export ARC="$SRC/arc"
 # Notes
 export NOTES="$HOME/Documents/notes"
 export csc_src="$SRC/coursework/CSC-216"
-#!/usr/bin/env sh
+
+# Go to a clean, temporary directory to play around in.
+play() {
+    # Generate a playground directory with 16 random alphanumerics
+    play_dir="/tmp/playground-$(tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w 16 | head -n 1)"
+    mkdir -p "$play_dir" && cd "$play_dir"
+}
 
 # Acts as a wrapper around fuzzy finding directories for the purpose of changing
 # to them by piping the results of find into fzf and then echoing what was found
@@ -68,17 +71,6 @@ _easy_open() {
     # Sets dir to the first argument or the current directory if unspecified.
     local DIR=${1:-.}
     cd $(find "$DIR" -type d | fzf)
-}
-
-# Counts the number of instances of the given word in the given file, using word
-# regex.
-#
-# ARGS:
-#     $1: The word to counted in the given file.
-#     $2: The file to count the number of instances of the given word in
-_count_word_instances() {
-    local count=$(egrep -w "$1" < "$2" -o | wc -l)
-    echo "$count"
 }
 
 # Destroys all Docker data, reseting it to the cleanest state possible.
