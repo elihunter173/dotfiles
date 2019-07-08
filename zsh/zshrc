@@ -37,6 +37,9 @@ zplugin light sindresorhus/pure
 # More completions
 zplugin light zsh-users/zsh-completions
 zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
+if command -v rustup > /dev/null; then
+    rustup completions zsh > ~/.zplugin/completions/_rustup
+fi
 
 # Easy extraction
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
