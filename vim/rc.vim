@@ -134,7 +134,7 @@ set number relativenumber
 set ruler
 
 " number of lines to pad cursor by when scrolling
-set scrolloff=4
+set scrolloff=2
 
 " Allow GUI style colors in terminal if supported
 if exists('+termguicolors')
