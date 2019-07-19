@@ -19,6 +19,11 @@ export SRC="${HOME}/src"
 # The path to my executable folders
 export PATH="$PATH:$HOME/bin"
 
+# Set up Pyenv if present (for Pipenv)
+if command -v pyenv > /dev/null; then
+    export PYENV_ROOT="$(pyenv root)"
+fi
+
 # Tells GNUPG the terminal to use for everything
 export GPG_TTY=$(tty)
 
