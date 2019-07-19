@@ -2,6 +2,18 @@
 	email = hunter.eli.w@gmail.com
 	name = Eli W. Hunter
 [alias]
+	st = status
+	p = push
+	l = pull
+	a = add --verbose
+	c = commit --verbose
+	ca = commit --amend --verbose
+	co = checkout
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 [core]
 	excludesfile = ~/.gitignore
+[status]
+	branch = true
+	short = true
+[diff]
+	algorithm = histogram

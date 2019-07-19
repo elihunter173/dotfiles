@@ -46,7 +46,7 @@
     ~/.pandoc: pandoc/
 
     # Misc
-    ~/.gitconfig: git/gitconfigs/personal
+    ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
 
