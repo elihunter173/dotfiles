@@ -61,3 +61,8 @@ zplugin light zsh-users/zsh-syntax-highlighting
 
 # Load completions
 autoload -U compinit; compinit
+
+# Set up pyenv if it exists
+if command -v pyenv > /dev/null; then
+    eval "$(pyenv init -)"
+fi
