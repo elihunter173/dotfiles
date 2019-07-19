@@ -25,10 +25,10 @@ call plug#begin(s:plugins_path)
 " Editing
 " Additional text objects
 Plug 'wellle/targets.vim'
-" PascalCase, snake_case, etc. words (How things should be)
-Plug 'chaoren/vim-wordmotion'
 " Surrounding text objects with any character
 Plug 'machakann/vim-sandwich'
+" Easier word motion
+Plug 'chaoren/vim-wordmotion'
 " Syntax highlighting for almost every language
 Plug 'sheerun/vim-polyglot'
 " Lightweight git wrapper
@@ -43,6 +43,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ludovicchabant/vim-gutentags'
 " Fuzzy Finding
 Plug 'junegunn/fzf.vim'
+
+" Language Definition
+" Plug 'elihunter173/vim-rpl'
+Plug '~/src/research/vim-rpl'
 
 " Nice lightweight statusline
 Plug 'itchyny/lightline.vim'
@@ -180,7 +184,7 @@ nnoremap C "_C
 " Make saving and quitting easier and faster.
 nnoremap <silent> <leader>w :write<CR>
 nnoremap <silent> <leader>s :mksession<CR>
-nnoremap <silent> <leader>c :close<CR>
+nnoremap <silent> <leader>c :bdelete!<CR>
 
 " Buffer navigation
 nnoremap <silent> <Tab> :bnext<CR>
