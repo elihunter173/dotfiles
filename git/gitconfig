@@ -5,6 +5,7 @@
 	st = status
 	p = push
 	l = pull
+	cl = clone --recurse-submodules
 	a = add --verbose
 	c = commit --verbose
 	ca = commit --amend --verbose
