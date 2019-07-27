@@ -231,6 +231,9 @@ if exists(':terminal')
     " Easier escape
     tnoremap <ESC><ESC> <C-\><C-n>
 
+    " Make paste in work as expected
+    tnoremap <C-v> <C-\><C-n>pi
+
     " Easier terminal opening
     nnoremap <silent> <leader>t :terminal<CR>
 
