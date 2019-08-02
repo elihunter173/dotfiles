@@ -27,9 +27,7 @@ export NOTES="$HOME/Documents/notes"
 
 # Go to a clean, temporary directory to play around in.
 play() {
-    # Generate a playground directory with 16 random alphanumerics
-    play_dir="/tmp/playground-$(tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w 16 | head -n 1)"
-    mkdir -p "$play_dir" && cd "$play_dir"
+    cd $(mktemp -d)
 }
 
 # Destroys all Docker data, reseting it to the cleanest state possible.
