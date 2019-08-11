@@ -4,6 +4,15 @@
 # My standard shell config files
 source ~/.standard.sh
 
+# Oh-my-zsh for some basic nice config
+# Plugins are handled by zplugin
+export ZSH="$HOME/.oh-my-zsh"
+# Install oh-my-zsh if not already installed
+if [ ! -d "$ZSH" ]; then
+    git clone https://github.com/robbyrussell/oh-my-zsh.git "$ZSH"
+fi
+source $ZSH/oh-my-zsh.sh
+
 # Install zplugin if not already installed
 if [ ! -d "${HOME}/.zplugin" ]; then
     echo "Installing zplugin"
