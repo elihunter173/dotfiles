@@ -1,23 +1,9 @@
-# vim: foldmethod=marker foldlevel=0
-
 # Source ~/.profile even if not running interactively
 [[ -e "$HOME/.profile" ]] && source ~/.profile
 
 # My standard shell config files
 source ~/.standard.sh
 
-# Oh-my-zsh {{{
-# Plugins are handled by zplugin
-export ZSH="$HOME/.oh-my-zsh"
-
-# Install oh-my-zsh if not already installed
-if [ ! -d "$ZSH" ]; then
-    git clone https://github.com/robbyrussell/oh-my-zsh.git "$ZSH"
-fi
-
-source $ZSH/oh-my-zsh.sh
-# }}}
-# zplugin {{{
 # Install zplugin if not already installed
 if [ ! -d "${HOME}/.zplugin" ]; then
     echo "Installing zplugin"
@@ -28,7 +14,6 @@ fi
 module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )
 zmodload zdharma/zplugin 2> /dev/null # ignore random errors
 source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
-# }}}
 
 # Pure Prompt
 zplugin ice pick"async.zsh" src"pure.zsh"
@@ -36,7 +21,6 @@ zplugin light sindresorhus/pure
 
 # More completions
 zplugin light zsh-users/zsh-completions
-zplugin snippet OMZ::plugins/pip/pip.plugin.zsh
 if command -v rustup > /dev/null; then
     rustup completions zsh > ~/.zplugin/completions/_rustup
 fi

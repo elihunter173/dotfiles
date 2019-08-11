@@ -1,18 +1,8 @@
 #!/usr/bin/env sh
 # vim: filetype=sh
 
-# Eli W. Hunter's generic ~/.profile
-# export TERM=xterm-256color
-
-# Find out if you are running remotely
-SESSION_TYPE=
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    SESSION_TYPE="remote/ssh"
-fi
-export SESSION_TYPE
-
-# Source this machine's special config
-. "${HOME}/.envars"
+# The one true editor
+export EDITOR=nvim
 
 # The path to my source code folder
 export SRC="${HOME}/src"
@@ -27,14 +17,7 @@ fi
 # Tells GNUPG the terminal to use for everything
 export GPG_TTY=$(tty)
 
-if command -v go > /dev/null; then
-    # Make ~ my GOPATH (e.g. ~/src and ~/bin)
-    export GOPATH="$HOME"
-    # Add my GOPATH bin to PATH for Go programs
-    export PATH=$PATH:$(go env GOPATH)/bin
-fi
-
-# Rust
+# Rust binaries
 export PATH="$PATH:$HOME/.cargo/bin"
 
 # Add local binary files (used by pip)
@@ -47,8 +30,8 @@ if command -v ruby > /dev/null; then
     export GEM_HOME=$HOME/.gem
 fi
 
-# If you have Xorg and are running over ssh
-if [ -n "$DISPLAY" ] && [ "$SESSION_TYPE" != "remote/ssh" ]; then
+# If you have X display, set power settings
+if [ -n "$DISPLAY" ]; then
     xset -b b off
 
     # Display Power Management Settings
