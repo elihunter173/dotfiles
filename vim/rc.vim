@@ -152,9 +152,9 @@ let mapleader = " "
 
 " Make save work as you'd expect
 nnoremap <silent> <C-s> :w<CR>
-inoremap <silent> <C-s> <ESC>:w<CR>li
+inoremap <silent> <C-s> <ESC>:w<CR>a
 " Make paste in work as expected
-inoremap <C-v> <ESC>pli
+inoremap <C-v> <ESC>pa
 " Make copy in visual mode work as expected
 vnoremap <C-c> y
 
