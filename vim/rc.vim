@@ -177,13 +177,9 @@ nnoremap C "_C
 nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>T :tabclose<CR>
 
-" Easier f/t with vim-sneak
+" Sneaky motions 🤫
 map <leader>f <Plug>Sneak_s
 map <leader>F <Plug>Sneak_S
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
@@ -224,7 +220,7 @@ nnoremap <M-l> gt
 
 if exists(':terminal')
     " Easier terminal opening
-    nnoremap <silent> <leader>t :terminal<CR>
+    nnoremap <silent> <leader>s :terminal<CR>
 
     " Easier escape
     tnoremap <ESC><ESC> <C-\><C-n>
