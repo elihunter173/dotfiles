@@ -1,5 +1,5 @@
 " vim: filetype=vim foldmethod=marker foldlevel=0
-" A Vim agnostic vimrc. This works with both Vim and Neovim.
+" A Vim agnostic vimrc. This works with both Vim and Neovim
 "
 " Author: Eli W. Hunter
 "
@@ -29,6 +29,8 @@ Plug 'wellle/targets.vim'
 Plug 'machakann/vim-sandwich'
 " Easier word motion
 Plug 'chaoren/vim-wordmotion'
+" The missing motion
+Plug 'justinmk/vim-sneak'
 " Syntax highlighting for almost every language
 Plug 'sheerun/vim-polyglot'
 " Lightweight git wrapper
@@ -39,23 +41,23 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 " Auto-closing for brackets, parens, and quotes
 Plug 'jiangmiao/auto-pairs'
-" C Tag management
-Plug 'ludovicchabant/vim-gutentags'
 " Fuzzy Finding
 Plug 'junegunn/fzf.vim'
+" https://EditorConfig.org
+Plug 'editorconfig/editorconfig-vim'
+" Netrw enhancements
+Plug 'tpope/vim-vinegar'
 
 " Language Definition
-" Plug 'elihunter173/vim-rpl'
-Plug '~/src/research/vim-rpl'
+Plug 'elihunter173/vim-rpl'
+" Plug '~/src/research/vim-rpl'
 
+" Visualizers
 " Nice lightweight statusline
 Plug 'itchyny/lightline.vim'
 " Nice start screen for GUIs
 Plug 'mhinz/vim-startify'
 
-" Visualization tools
-" Netrw enhancements
-Plug 'tpope/vim-vinegar'
 " C Tags tagbar
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Vim undotree visualizer
@@ -94,15 +96,10 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set ignorecase
 set smartcase
 
-" When in command mode, tab completion first fills the longest match and shows
-" the wildmenu. After the first one, it cycles through all possible matches.
-set wildmenu
-set wildmode=longest:full,full
-
 " Allows switching unsaved buffers (instead of abandoning them, hide them)
 set hidden
 
-" Use X clipboard.
+" Use X clipboard by default
 set clipboard=unnamedplus
 
 " Don't redraw during macros (for performance)
@@ -110,10 +107,6 @@ set lazyredraw
 
 " Default to no folds
 set foldlevel=999
-
-" I create tabs a lot more than I use gn and gN
-nnoremap gn :tabnew<CR>
-nnoremap gN :tabclose<CR>
 
 if exists('&inccommand')
     set inccommand=nosplit
@@ -129,6 +122,9 @@ function! s:StripTrailingWhitespace()
 endfunction
 autocmd BufWritePre * call s:StripTrailingWhitespace()
 
+" number of lines to pad cursor by when scrolling
+set scrolloff=2
+
 " Show hidden characters
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 set list
@@ -136,9 +132,6 @@ set list
 " Enable line numbers and ruler
 set number relativenumber
 set ruler
-
-" number of lines to pad cursor by when scrolling
-set scrolloff=2
 
 " Allow GUI style colors in terminal if supported
 if exists('+termguicolors')
@@ -148,23 +141,25 @@ endif
 " Set base16 background
 let base16colorspace=256
 colorscheme base16-solarized-dark
-" Swap default statusline focus and no-focus colors
-" call Base16hi("StatusLine", g:base16_gui05, g:base16_gui01, g:base16_cterm05, g:base16_cterm01)
-" call Base16hi("StatusLineNC", g:base16_gui05, g:base16_gui02, g:base16_cterm05, g:base16_cterm02)
 
 " GUI Font settings
 set guifont=Hack:h11
 
 " Keybindings
+
+" Easy leader
 let mapleader = " "
 
 " Make save work as you'd expect
 nnoremap <silent> <C-s> :w<CR>
-inoremap <silent> <C-s> :w<CR>
+inoremap <silent> <C-s> <ESC>:w<CR>li
 " Make paste in work as expected
 inoremap <C-v> <ESC>pli
 " Make copy in visual mode work as expected
 vnoremap <C-c> y
+
+" Make `Y` `y$` consistent with `D`, `C`, etc
+nnoremap Y y$
 
 " Remove useless keybindings
 nnoremap s <NOP>
@@ -174,41 +169,38 @@ nnoremap S <NOP>
 nnoremap 0 _
 nnoremap _ 0
 
-" Make `Y` `y$` consistent with `D`, `C`, etc.
-nnoremap Y y$
-
 " Make 'c' go to the black hole register
 nnoremap c "_c
 nnoremap C "_C
 
-" Make saving and quitting easier and faster.
+" I create tabs a lot more than I use gn and gN
+nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>T :tabclose<CR>
+
+" Easier f/t with vim-sneak
+map <leader>f <Plug>Sneak_s
+map <leader>F <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+" Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
-nnoremap <silent> <leader>s :mksession<CR>
 nnoremap <silent> <leader>c :bdelete!<CR>
+command Bye execute ":mksession! | quit!"
 
 " Buffer navigation
 nnoremap <silent> <Tab> :bnext<CR>
 nnoremap <silent> <S-Tab> :bprevious<CR>
 nnoremap <leader><leader> <C-^>
 
-" Remap undo
+" Remap undo to make more sense
 nnoremap U <C-r>
 nnoremap <C-r> <NOP>
 
-" Easier window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-" Easier tab navigation
-nnoremap <M-h> gT
-nnoremap <M-l> gt
-
 " Clear the search really easily
 nnoremap <silent> <ESC><ESC> :let @/ = ""<CR>
-
-" Easier swapping between files
-nnoremap <silent> <leader>o :edit<Space>
 
 " Easier interactive git (fugitive)
 nnoremap <silent> <leader>g :Gstatus<CR>
@@ -221,21 +213,24 @@ nnoremap <silent> <F1> :TagbarToggle<CR>
 " A nice keybinding to toggle the undotree
 nnoremap <silent> <F2> :UndotreeToggle<CR>
 
-" FZF Hotkeys
-nnoremap <silent> <leader>l :BLines<CR>
-" f for find
-nnoremap <silent> <leader>f :BTags<CR>
-nnoremap <silent> <leader>F :Tags<CR>
+" Easier window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+" Easier tab navigation
+nnoremap <M-h> gT
+nnoremap <M-l> gt
 
 if exists(':terminal')
+    " Easier terminal opening
+    nnoremap <silent> <leader>t :terminal<CR>
+
     " Easier escape
     tnoremap <ESC><ESC> <C-\><C-n>
 
     " Make paste in work as expected
     tnoremap <C-v> <C-\><C-n>pi
-
-    " Easier terminal opening
-    nnoremap <silent> <leader>t :terminal<CR>
 
     " Easier window navigation
     tnoremap <C-h> <C-\><C-n><C-w>h
@@ -250,30 +245,18 @@ if exists(':terminal')
     autocmd TermOpen * setlocal norelativenumber nonumber
 endif
 
-" Plugin Settings {{{1
+" Plugin Settings
 
-" Gutentags
-" Hide gutentags tag files in this cache to prevent polluting tagspace
-let g:gutentags_cache_dir = '~/.cache/vim-gutentags'
-
-" Vim Sandwich
-" Custom vim-sandwich recipes
-let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-
-" Vim Markdown
-autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
+" EditorConfig + Fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " Lightline
-" Don't show mode in command line
-set noshowmode
-
+set noshowmode " Don't show mode redundantly
 let g:lightline = {
             \ 'colorscheme': 'solarized',
             \ }
 
-" Version Specific Settings {{{1
 if has('nvim')
-
     " Coc.nvim setup
     nmap <silent> gd <Plug>(coc-definition)
 
