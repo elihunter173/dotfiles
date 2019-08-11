@@ -21,7 +21,6 @@
     ~/.config/i3: i3/
     ~/.config/compton.conf: compton.conf
     ~/.config/rofi: rofi/
-    ~/.config/polybar: polybar/
 
     # Shell Config
     ~/.standard.sh: standard.sh
@@ -35,13 +34,9 @@
     ~/.config/nvim/coc-settings.json: vim/coc-settings.json
 
     # App Config
-    ~/.urxvt/ext: xorg/urxvt-ext/
-    ~/.config/dunst: dunst/
     ~/.tmux.conf: tmux/tmux.conf
-    ~/.config/kitty/kitty.conf: kitty/kitty.conf
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
     ~/.config/neofetch: neofetch/
-    ~/.config/zathura: zathura/
     ~/.pandoc: pandoc/
 
     # Misc
