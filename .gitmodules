@@ -1,9 +1,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
-[submodule "xorg/urxvt-ext/urxvt-perls"]
-	path = xorg/urxvt-ext/urxvt-perls
-	url = git@github.com:muennich/urxvt-perls.git
 [submodule "lib/pandoc-latex-template"]
 	path = lib/pandoc-latex-template
 	url = https://github.com/Wandmalfarbe/pandoc-latex-template.git
