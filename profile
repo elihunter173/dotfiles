@@ -2,7 +2,13 @@
 # vim: filetype=sh
 
 # The one true editor
-export EDITOR=nvim
+# We have the if statement to check if nvr exists and neovim is currently
+# running to prevent nested neovim sessions
+if command -v nvr &> /dev/null && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    export EDITOR=nvr
+else
+    export EDITOR=nvim
+fi
 
 # The path to my source code folder
 export SRC="${HOME}/src"
