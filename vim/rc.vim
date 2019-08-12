@@ -186,7 +186,7 @@ map <leader>F <Plug>Sneak_S
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
 nnoremap <silent> <leader>c :bdelete!<CR>
-command Bye execute ":mksession! | quit!"
+command Bye execute ":mksession! | quitall!"
 
 " Buffer navigation
 nnoremap <silent> <Tab> :bnext<CR>
