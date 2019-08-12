@@ -43,7 +43,7 @@ fi
 # IS CORRECT
 # The one true editor, using nvr for easy remote attachment
 # TODO: Once neovim has proper remote attachment remove neovim-remote (nvr)
-if command -v nvr > /dev/null; then
+if command -v nvr > /dev/null && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     export EDITOR="nvr -s"
 else
     export EDITOR=nvim
