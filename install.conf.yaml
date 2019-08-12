@@ -19,7 +19,8 @@
 
     # Window Manager Config
     ~/.config/i3: i3/
-    ~/.config/compton.conf: compton.conf
+    ~/.config/i3blocks: i3blocks/
+    # ~/.config/compton.conf: compton.conf
     ~/.config/rofi: rofi/
 
     # Shell Config

@@ -4,3 +4,6 @@
 [submodule "lib/pandoc-latex-template"]
 	path = lib/pandoc-latex-template
 	url = https://github.com/Wandmalfarbe/pandoc-latex-template.git
+[submodule "i3blocks/contrib"]
+	path = i3blocks/contrib
+	url = https://github.com/vivien/i3blocks-contrib

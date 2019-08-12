@@ -1,9 +1,26 @@
-# vim: foldmethod=marker foldlevel=0 ft=i3config
-# Enviromental Variables {{{1
+# vim: ft=i3config foldmethod=marker foldlevel=0
 
-# Mod key
+# Set font
+font pango:Hack 9
+# Remove titlebars
+for_window [class="^.*"] border pixel 2
+
+# i3blocks
+bar {
+  status_command i3blocks
+}
+
+# Startup stuff {{{1
+# Unclutter removes the mouse cursor after it hasn't been used for awhile.
+exec_always --no-startup-id unclutter --timeout 15 -b
+# Set wallpaper to any color you want
+exec_always --no-startup-id xsetroot -solid "#000"
+
+# Variables {{{1
+# mod is super
 set $mod Mod4
 
+# Keybindings {{{1
 # Use mouse+$primary_action to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -13,64 +30,8 @@ set $down j
 set $left h
 set $right l
 
-# Display {{{1
-
-# Colors {{{
-## Base16 Solarized Dark
-# Author: Ethan Schoonover (modified by aramisgithub)
-set $base00 #002b36
-set $base01 #073642
-set $base02 #586e75
-set $base03 #657b83
-set $base04 #839496
-set $base05 #93a1a1
-set $base06 #eee8d5
-set $base07 #fdf6e3
-set $base08 #dc322f
-set $base09 #cb4b16
-set $base0A #b58900
-set $base0B #859900
-set $base0C #2aa198
-set $base0D #268bd2
-set $base0E #6c71c4
-set $base0F #d33682
-# }}}
-
-# Set wallpaper
-exec_always --no-startup-id ~/.fehbg
-
-# Set font
-font pango:Noto Sans 8
-
-# Start up compton compositor
-exec_always --no-startup-id compton -b
-
-# Unclutter removes the mouse cursor after it hasn't been used for awhile.
-exec_always --no-startup-id unclutter --timeout 15 -b
-
-# Start polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
-# Pixel Border
-default_border pixel 3
-
-# class                 border   backgr.  text     indict.  child_border
-client.focused          $base01  $base01  $base05  $base0B  $base05
-client.focused_inactive $base03  $base03  $base05  $base03  $base03
-client.unfocused        $base03  $base03  $base05  $base03  $base03
-client.urgent           $base09  $base00  $base05  $base09  $base03
-client.placeholder      #000000  $base00  $base05  #000000  $base03
-
-client.background       $base00
-
-# Keybindings {{{1
-
 # Enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# Workspace layout
-bindsym $mod+e mode "default"; layout toggle split
-bindsym $mod+t mode "default"; layout tabbed
+bindsym $mod+z fullscreen toggle
 
 # Horizontal and vertical split
 bindsym $mod+s mode "default"; split h
@@ -94,22 +55,21 @@ bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 1"
 bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
 bindsym XF86Display exec --no-startup-id "xset dpms force off"
 
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pamixer --increase 1"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pamixer --decrease 1"
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "pamixer --increase 5"
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "pamixer --decrease 5"
-bindsym XF86AudioMute exec --no-startup-id "pamixer --toggle-mute"
+# Pulse Audio controls (sending signal to i3blocks bar)
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pamixer --increase 1 && pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pamixer --decrease 1 && pkill -RTMIN+10 i3blocks"
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "pamixer --increase 5 && pkill -RTMIN+10 i3blocks"
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "pamixer --decrease 5 && pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioMute exec --no-startup-id "pamixer --toggle-mute && pkill -RTMIN+10 i3blocks"
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id "playerctl play"
+bindsym XF86AudioPause exec --no-startup-id "playerctl pause"
+bindsym XF86AudioNext exec --no-startup-id "playerctl next"
+bindsym XF86AudioPrev exec --no-startup-id "playerctl previous"
 
 # Screenshots
-bindsym Print exec --no-startup-id "mkdir /tmp/screenshots; maim -s > /tmp/screenshots/$(date --iso-8601=seconds).png"
-bindsym Shift+Print exec --no-startup-id "mkdir /tmp/screenshots; maim > /tmp/screenshots/$(date --iso-8601=seconds).png"
+bindsym Print exec --no-startup-id "spectacle"
 
 # Window Management {{{2
 # Change focus
@@ -117,8 +77,6 @@ bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
-bindsym $mod+comma focus parent
-bindsym $mod+period focus child
 # Alternatively, arrow keys
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -136,28 +94,20 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# move current workspace to next output
-bindsym $mod+Ctrl+$left move workspace to output left
-bindsym $mod+Ctrl+$down move workspace to output down
-bindsym $mod+Ctrl+$up move workspace to output up
-bindsym $mod+Ctrl+$right move workspace to output right
-# alternatively, arrow keys
-bindsym $mod+Ctrl+Left move workspace to output left
-bindsym $mod+Ctrl+Down move workspace to output down
-bindsym $mod+Ctrl+Up move workspace to output up
-bindsym $mod+Ctrl+Right move workspace to output right
+# Move current workspace to next output
+# Mod1 = Alt
+bindsym $mod+Mod1+$left move workspace to output left
+bindsym $mod+Mod1+$down move workspace to output down
+bindsym $mod+Mod1+$up move workspace to output up
+bindsym $mod+Mod1+$right move workspace to output right
+# Alternatively, arrow keys
+bindsym $mod+Mod1+Left move workspace to output left
+bindsym $mod+Mod1+Down move workspace to output down
+bindsym $mod+Mod1+Up move workspace to output up
+bindsym $mod+Mod1+Right move workspace to output right
 
 # Toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-# Change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command (awkwardly) cycles
-# through them.
-bindsym $mod+Shift+minus move scratchpad
-# move the currently focused window to the scratchpad
-bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+f floating toggle
 
 # Workspaces {{{1
 # define names for workspaces
@@ -197,74 +147,12 @@ bindsym $mod+Shift+9 move container to workspace $ws_9
 bindsym $mod+Shift+0 move container to workspace $ws_10
 
 # Control Modes {{{1
+# Launch Apps
+bindsym $mod+t exec --no-startup-id "alacritty"
+bindsym $mod+e exec --no-startup-id "gnvim"
+bindsym $mod+b exec --no-startup-id "firefox"
+bindsym $mod+m exec --no-startup-id "flatpak run com.spotify.Client"
 
-# Program Launching Mode {{{2
-# key string "launch"
-set $launch "Launch Program"
-bindsym $mod+p mode $launch
-mode $launch {
-    # Productivity
-    bindsym t mode "default"; exec --no-startup-id "$TERM_EMU"
-    bindsym Shift+t mode "default"; exec --no-startup-id "$TERM_EMU"
-
-    # Web Browsing
-    bindsym b mode "default"; exec --no-startup-id firefox
-    bindsym Shift+b mode "default"; exec --no-startup-id firefox --private-window
-
-    # Entertainment
-    bindsym m mode "default"; exec --no-startup-id firefox --new-window https://open.spotify.com/browse/featured
-
-    bindsym Escape mode "default"
-}
-
-# System Control Mode {{{2
-set $system "System Control"
-bindsym $mod+c mode $system
-mode $system {
-    # i3 Control
-    bindsym Ctrl+c mode "default"; exec --no-startup-id "~/.config/i3/process-config.sh"; reload
-    bindsym Ctrl+r restart
-
-    # Power Control
-    bindsym p mode "default"; exec --no-startup-id "systemctl poweroff"
-    bindsym r mode "default"; exec --no-startup-id "systemctl reboot"
-    bindsym h mode "default"; exec --no-startup-id "systemctl hibernate"
-    bindsym s mode "default"; exec --no-startup-id "systemctl suspend-then-hibernate"
-    bindsym l mode "default"; exit
-
-    # User Control
-    bindsym e mode "default"; exit
-
-    bindsym Escape mode "default"
-}
-
-# Resize Mode {{{2
-set $resize "Resize"
-set $small_resize 15 px
-set $large_resize 60 px
-bindsym $mod+r mode $resize
-mode $resize {
-    # Small resize
-    bindsym Shift+$left       resize shrink width $large_resize
-    bindsym Shift+$down       resize grow height $large_resize
-    bindsym Shift+$up         resize shrink height $large_resize
-    bindsym Shift+$right      resize grow width $large_resize
-    # Arrow key alternatives
-    bindsym Shift+Left        resize shrink width $large_resize
-    bindsym Shift+Down        resize grow height $large_resize
-    bindsym Shift+Up          resize shrink height $large_resize
-    bindsym Shift+Right       resize grow width $large_resize
-
-    # Small resize
-    bindsym $left       resize shrink width $small_resize
-    bindsym $down       resize grow height $small_resize
-    bindsym $up         resize shrink height $small_resize
-    bindsym $right      resize grow width $small_resize
-    # Arrow key alternatives
-    bindsym Left        resize shrink width $small_resize
-    bindsym Down        resize grow height $small_resize
-    bindsym Up          resize shrink height $small_resize
-    bindsym Right       resize grow width $small_resize
-
-    bindsym Escape mode "default"
-}
+# System Control
+bindsym $mod+c exec --no-startup-id "systemctl suspend-then-hibernate"
+bindsym $mod+Shift+c exit
