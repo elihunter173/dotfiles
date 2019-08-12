@@ -172,6 +172,8 @@ nnoremap _ 0
 " Make 'c' go to the black hole register
 nnoremap c "_c
 nnoremap C "_C
+vnoremap c "_c
+vnoremap C "_C
 
 " I create tabs a lot more than I use gn and gN
 nnoremap <leader>t :tabnew<CR>
