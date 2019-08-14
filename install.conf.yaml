@@ -20,13 +20,12 @@
     # Window Manager Config
     ~/.config/i3: i3/
     ~/.config/i3blocks: i3blocks/
-    # ~/.config/compton.conf: compton.conf
     ~/.config/rofi: rofi/
 
     # Shell Config
     ~/.standard.sh: standard.sh
     ~/.zshrc: zsh/zshrc
-    ~/.bashrc: bash/bashrc
+    ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
 
     # Vim Config
     ~/.vimrc: vim/rc.vim

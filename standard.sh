@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # A collection of standard aliases, bookmarks, and functions always sourced by
-# my shells.
+# my interactive shells.
 
 # Quick shortcuts
 alias e="$EDITOR"

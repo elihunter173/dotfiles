@@ -1,7 +1,4 @@
-# Source ~/.profile even if not running interactively
-[[ -e "$HOME/.profile" ]] && source ~/.profile
-
-# My standard shell config files
+# My standard interactive shell config files
 source ~/.standard.sh
 
 # Oh-my-zsh for some basic nice config

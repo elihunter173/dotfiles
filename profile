@@ -2,17 +2,23 @@
 # vim: filetype=sh
 # The path to my source code folder
 export SRC="${HOME}/src"
-# The path to my executable folders
-export PATH="$PATH:$HOME/bin"
 
 # Tells GNUPG the terminal to use for everything
 export GPG_TTY=$(tty)
 
-# Rust binaries
-export PATH="$PATH:$HOME/.cargo/bin"
-
 # Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
+
+if command -v go > /dev/null; then
+    export GOPATH="$HOME/.go"
+    # Go binaries
+    export PATH="$PATH:$HOME/.go/bin"
+fi
+
+if command -v cargo > /dev/null; then
+    # Cargo binaries
+    export PATH="$PATH:$HOME/.cargo/bin"
+fi
 
 # Set up Pyenv if present (for Pipenv)
 if command -v pyenv > /dev/null; then
