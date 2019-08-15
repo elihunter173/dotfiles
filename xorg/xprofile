@@ -1,3 +1,10 @@
+#!/bin/sh
+
+# Prevent "intelligent DPI scaling" done by alacritty
+# XXX: If there is ever an option to turn this off in alacritty, do this
+# instead.
+export WINIT_HIDPI_FACTOR=1
+
 # Load Xresources
 xrdb ~/.Xresources
 

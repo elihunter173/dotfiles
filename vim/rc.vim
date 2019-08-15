@@ -92,6 +92,9 @@ set mouse=a
 " Disable autocomments for all things
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" Why would you ever put 2 spaces after punctuation??
+set nojoinspaces
+
 " Ignore case only when typing in purely lower case
 set ignorecase
 set smartcase
@@ -143,7 +146,7 @@ let base16colorspace=256
 colorscheme base16-solarized-dark
 
 " GUI Font settings
-set guifont=Hack:h11
+set guifont=Hack:h12
 
 " Keybindings
 
@@ -188,17 +191,12 @@ nnoremap <silent> <leader>w :write<CR>
 nnoremap <silent> <leader>c :bdelete!<CR>
 command Bye execute ":mksession! | quitall!"
 
-" Buffer navigation
-nnoremap <silent> <Tab> :bnext<CR>
-nnoremap <silent> <S-Tab> :bprevious<CR>
-nnoremap <leader><leader> <C-^>
-
 " Remap undo to make more sense
 nnoremap U <C-r>
 nnoremap <C-r> <NOP>
 
-" Clear the search really easily
-nnoremap <silent> <ESC><ESC> :let @/ = ""<CR>
+" Turn off search highlighting because vim doesn't do that by default for some reason
+nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 
 " Easier interactive git (fugitive)
 nnoremap <silent> <leader>g :Gstatus<CR>
