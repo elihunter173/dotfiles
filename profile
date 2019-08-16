@@ -47,10 +47,15 @@ fi
 
 # WE POSTPONE TESTING FOR COMMANDS AS LONG AS POSSIBLE TO MAKE SURE OUR $PATH
 # IS CORRECT
-# The one true editor, using nvr for easy remote attachment
-# TODO: Once neovim has proper remote attachment remove neovim-remote (nvr)
+# The one true editor
 if command -v nvr > /dev/null; then
+    # I try to use neovim-remote for remote attachment
+    # TODO: Once neovim has proper remote attachment remove neovim-remote (nvr)
     export EDITOR="nvr -s"
-else
+elif command -v nvim > /dev/null; then
     export EDITOR=nvim
+elif command -v vim > /dev/null; then
+    export EDITOR=vim
+else
+    export EDITOR=vi
 fi
