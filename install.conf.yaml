@@ -24,6 +24,7 @@
 
     # Shell Config
     ~/.standard.sh: standard.sh
+    ~/.bashrc: bash/bashrc
     ~/.zshrc: zsh/zshrc
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
 
