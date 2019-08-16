@@ -10,3 +10,14 @@ xrdb ~/.Xresources
 
 # Enable numlock
 numlockx on
+
+# Display settings
+xset -b b off
+
+# Display Power Management Settings
+#         standby suspend off
+xset dpms 600     900     1800
+
+# Screen Saver Settings
+#      timeout cycle
+xset s 300     0

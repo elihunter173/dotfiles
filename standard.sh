@@ -3,6 +3,18 @@
 # A collection of standard aliases, bookmarks, and functions always sourced by
 # my interactive shells.
 
+# Pick the one true editor
+if command -v nvr > /dev/null && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    # TODO: Once neovim has proper remote attachment remove neovim-remote (nvr)
+    export EDITOR="nvr -s"
+elif command -v nvim > /dev/null; then
+    export EDITOR=nvim
+elif command -v vim > /dev/null; then
+    export EDITOR=vim
+else
+    export EDITOR=vi
+fi
+
 # Quick shortcuts
 alias e="$EDITOR"
 alias g="git" # further shortcuts in ~/.gitconfig
