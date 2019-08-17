@@ -20,7 +20,7 @@ alias e="$EDITOR"
 alias g="git" # further shortcuts in ~/.gitconfig
 
 # Cleaner ls
-alias ls="ls --color=auto"
+alias ls="ls --color=auto -p"
 alias la="ls -lAh"
 alias l.="ls -ld .*"
 
