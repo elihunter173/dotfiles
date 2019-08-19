@@ -25,9 +25,9 @@ alias la="ls -lAh"
 alias l.="ls -ld .*"
 
 # Make rm safe
-if command -v safe-rm > /dev/null; then
+if command -v trash-cli > /dev/null; then
     alias rmm="/bin/rm"
-    alias rm="safe-rm"
+    alias rm="trash"
 fi
 
 # Bookmarks
