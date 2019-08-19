@@ -16,9 +16,12 @@ if command -v cargo > /dev/null; then
     export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
-# Set up Pyenv if present (for Pipenv)
 if command -v pyenv > /dev/null; then
     export PYENV_ROOT="$(pyenv root)"
+fi
+
+if command -v yarn > /dev/null; then
+    export PATH="$PATH:$HOME/.yarn/bin"
 fi
 
 if command -v ruby > /dev/null; then
