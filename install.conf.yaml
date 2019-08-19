@@ -26,6 +26,7 @@
     ~/.standard.sh: standard.sh
     ~/.bashrc: bash/bashrc
     ~/.zshrc: zsh/zshrc
+    ~/.zshenv: zsh/zshenv
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
 
     # Vim Config
