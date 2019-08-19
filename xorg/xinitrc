@@ -11,6 +11,3 @@ fi
 
 command -v unclutter > /dev/null && (unclutter --timeout 10 -b) \
     || echo "unclutter not installed" >&2
-
-command -v compton > /dev/null && compton -b \
-    || echo "compton not installed" >&2
