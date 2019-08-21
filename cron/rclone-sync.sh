@@ -1,11 +1,7 @@
 #!/usr/bin/env sh
 
-# Set up log file
-echo "*** LOG \`$@\` ($(date)) ***"
-
-
 if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
-    echo >&2 << EOF
+    cat >&2 << EOF
 This script syncs a local directory to rclone's eos profile for the current user.
 The directory is synced at the home directory using the basename of the local directory.
 
@@ -18,6 +14,9 @@ Args:
 EOF
     exit 1
 fi
+
+# Set up log file
+echo "*** LOG \`$@\` ($(date)) ***"
 
 # Parse Arguments
 LOCAL_PATH="$1"

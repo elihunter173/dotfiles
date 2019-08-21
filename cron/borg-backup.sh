@@ -3,7 +3,7 @@
 # Set up envars
 
 usage() {
-    echo << EOF
+    cat << EOF
 This script was ripped from https://borgbackup.readthedocs.io/en/stable/quickstart.html
 and then modified to fit my needs.
 
