@@ -1,7 +1,4 @@
 #!/usr/bin/env sh
-# Tells GNUPG the terminal to use for everything
-export GPG_TTY=$(tty)
-
 # Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
 

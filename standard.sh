@@ -3,6 +3,9 @@
 # A collection of standard aliases, bookmarks, and functions always sourced by
 # my interactive shells.
 
+# Tell GNUPG to use the terminal and no GUI
+export GPG_TTY=$(tty)
+
 # Pick the one true editor
 if command -v nvr > /dev/null && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     # TODO: Once neovim has proper remote attachment remove neovim-remote (nvr)
