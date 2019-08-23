@@ -90,7 +90,7 @@ URxvt.iso14755: False
 URxvt.keysym.C-M-c:    builtin-string:
 URxvt.keysym.C-M-v:    builtin-string:
 ! Bind Ctrl-Shift-c & Ctrl-Shift-v to copy and paste
-! I don't know why, but I needed to use hex keysym values to get it to work
+! I don not know why, but I needed to use hex keysym values to get it to work
 URxvt.keysym.C-S-0x43: eval:selection_to_clipboard
 URxvt.keysym.C-S-0x56: eval:paste_clipboard
 ! Spacing

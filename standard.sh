@@ -3,6 +3,9 @@
 # A collection of standard aliases, bookmarks, and functions always sourced by
 # my interactive shells.
 
+# Tell GNUPG to use the terminal and no GUI
+export GPG_TTY=$(tty)
+
 # Pick the one true editor
 if command -v nvr > /dev/null && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     # TODO: Once neovim has proper remote attachment remove neovim-remote (nvr)
@@ -20,14 +23,14 @@ alias e="$EDITOR"
 alias g="git" # further shortcuts in ~/.gitconfig
 
 # Cleaner ls
-alias ls="ls --color=auto"
+alias ls="ls --color=auto -p"
 alias la="ls -lAh"
 alias l.="ls -ld .*"
 
 # Make rm safe
-if command -v safe-rm > /dev/null; then
+if command -v trash-cli > /dev/null; then
     alias rmm="/bin/rm"
-    alias rm="safe-rm"
+    alias rm="trash"
 fi
 
 # Bookmarks

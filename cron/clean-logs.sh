@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 if [ "$#" -ne 0 ]; then
-    echo >&2 << EOF
+    cat >&2 << EOF
 Cleans all logs in the ~/log directory.
 
 Usage: $0

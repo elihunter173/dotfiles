@@ -13,7 +13,6 @@
     ~/.profile: profile
 
     # X Config
-    ~/.xinitrc: xorg/xinitrc
     ~/.xprofile: xorg/xprofile
     ~/.Xresources: xorg/Xresources
 
@@ -26,6 +25,7 @@
     ~/.standard.sh: standard.sh
     ~/.bashrc: bash/bashrc
     ~/.zshrc: zsh/zshrc
+    ~/.zshenv: zsh/zshenv
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
 
     # Vim Config
@@ -44,6 +44,7 @@
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
+    ~/.cron: cron
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

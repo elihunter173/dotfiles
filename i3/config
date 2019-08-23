@@ -11,8 +11,6 @@ bar {
 }
 
 # Startup stuff {{{1
-# Unclutter removes the mouse cursor after it hasn't been used for awhile.
-exec_always --no-startup-id unclutter --timeout 15 -b
 # Set wallpaper to any color you want
 exec_always --no-startup-id xsetroot -solid "#000"
 
