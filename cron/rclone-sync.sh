@@ -10,7 +10,8 @@ Usage: $0 LOCAL_PATH RCLONE_REMOTE [REMOTE_PATH]
 Args:
     LOCAL_PATH: The local path to be the reference for the remote.
     RCLONE_REMOTE: The rclone remote to be synced to.
-    REMOTE_PATH: The path to directory in the remote.
+    REMOTE_PATH: The path to directory in the remote. Defaults to a directory
+    with the same basename at the root of the remote.
 EOF
     exit 1
 fi
@@ -20,7 +21,7 @@ echo "*** LOG \`$@\` ($(date)) ***"
 
 # Parse Arguments
 LOCAL_PATH="$1"
-# If REMOTE_PATH ($3) is empty, it has no effect.
+# If REMOTE_PATH ($3) is empty, this is put at the root.
 REMOTE_DEST="${2}:${3}/$(basename "$LOCAL_PATH")"
 
 # Create sync alias for easier maintenance across the different branches.
