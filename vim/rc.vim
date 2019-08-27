@@ -45,7 +45,6 @@ Plug 'tpope/vim-commentary'
 Plug 'chriskempson/base16-vim'
 
 " Language Definitions
-Plug 'godlygeek/tabular'  " dependency of vim-markdown
 Plug 'plasticboy/vim-markdown'
 " Syntax highlighting for almost every language
 Plug 'sheerun/vim-polyglot'
