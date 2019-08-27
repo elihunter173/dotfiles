@@ -27,45 +27,40 @@ call plug#begin(s:plugins_path)
 Plug 'wellle/targets.vim'
 " Surrounding text objects with any character
 Plug 'machakann/vim-sandwich'
-" Easier word motion
-Plug 'chaoren/vim-wordmotion'
-" The missing motion
-Plug 'justinmk/vim-sneak'
-" Syntax highlighting for almost every language
-Plug 'sheerun/vim-polyglot'
-" Lightweight git wrapper
-Plug 'tpope/vim-fugitive'
-" Automatically detect indentation
-Plug 'tpope/vim-sleuth'
-" Easier commenting for any language
-Plug 'tpope/vim-commentary'
 " Auto-closing for brackets, parens, and quotes
 Plug 'jiangmiao/auto-pairs'
-" Fuzzy Finding
-Plug 'junegunn/fzf.vim'
 " https://EditorConfig.org
 Plug 'editorconfig/editorconfig-vim'
 " Netrw enhancements
 Plug 'tpope/vim-vinegar'
+" Lightweight git wrapper
+Plug 'tpope/vim-fugitive'
 
+" Fuzzy Finding
+Plug 'junegunn/fzf.vim'
+" Easier commenting for any language
+Plug 'tpope/vim-commentary'
+
+" Base16 colorschemes
+Plug 'chriskempson/base16-vim'
+
+" Language Definitions
+Plug 'godlygeek/tabular'  " dependency of vim-markdown
+Plug 'plasticboy/vim-markdown'
+" Syntax highlighting for almost every language
+Plug 'sheerun/vim-polyglot'
 " Language Definition
 Plug 'elihunter173/vim-rpl'
 " Plug '~/src/research/vim-rpl'
 
-" Visualizers
+" Eye Candy
 " Nice lightweight statusline
 Plug 'itchyny/lightline.vim'
-" Nice start screen for GUIs
-Plug 'mhinz/vim-startify'
 
 " C Tags tagbar
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'majutsushi/tagbar'
 " Vim undotree visualizer
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-
-" Display
-" Base16 colorschemes
-Plug 'chriskempson/base16-vim'
+Plug 'mbbill/undotree'
 
 " Neovim Specific Plugins
 if has('nvim')
@@ -188,7 +183,7 @@ map <leader>F <Plug>Sneak_S
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
-nnoremap <silent> <leader>c :bdelete!<CR>
+nnoremap <silent> <leader>c :quit<CR>
 command Bye execute ":mksession! | quitall!"
 
 " Remap undo to make more sense
@@ -204,11 +199,6 @@ nnoremap <silent> <leader>g :Gstatus<CR>
 " Toggle spell checking with F1
 nnoremap <silent> <F12> :setlocal spell! spelllang=en_us<CR>
 
-" Easy tagbar activation and toggling
-nnoremap <silent> <F1> :TagbarToggle<CR>
-" A nice keybinding to toggle the undotree
-nnoremap <silent> <F2> :UndotreeToggle<CR>
-
 " Easier window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
@@ -217,6 +207,10 @@ nnoremap <C-k> <C-w>k
 " Easier tab navigation
 nnoremap <M-h> gT
 nnoremap <M-l> gt
+
+" Helpful visualizers
+nmap <F5> :UndotreeToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 
 if exists(':terminal')
     " Easier terminal opening
@@ -245,6 +239,14 @@ endif
 
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
+
+" Markdown syntax highlighting
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+
+" Let's default to no bullets
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
 
 " Lightline
 set noshowmode " Don't show mode redundantly
