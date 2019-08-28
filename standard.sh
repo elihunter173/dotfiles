@@ -18,14 +18,20 @@ else
     export EDITOR=vi
 fi
 
+# A more friendly ls
+if command -v exa > /dev/null; then
+    alias ls="exa"
+else
+    alias ls="ls --color=auto -p"
+fi
+
+# Cleaner ls
+alias la="ls -lAh"
+alias l.="ls -ld .*"
+
 # Quick shortcuts
 alias e="$EDITOR"
 alias g="git" # further shortcuts in ~/.gitconfig
-
-# Cleaner ls
-alias ls="ls --color=auto -p"
-alias la="ls -lAh"
-alias l.="ls -ld .*"
 
 # Make rm safe
 if command -v trash-cli > /dev/null; then
