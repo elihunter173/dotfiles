@@ -177,7 +177,7 @@ nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>T :tabclose<CR>
 
 " Quick search
-map <leader>f :BLines<CR>
+map <leader>f <plug>(fzf-complete-buffer-line)
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
