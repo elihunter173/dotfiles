@@ -176,9 +176,8 @@ vnoremap C "_C
 nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>T :tabclose<CR>
 
-" Sneaky motions 🤫
-map <leader>f <Plug>Sneak_s
-map <leader>F <Plug>Sneak_S
+" Quick search
+map <leader>f :BLines<CR>
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
