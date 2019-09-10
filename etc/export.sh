@@ -6,4 +6,4 @@ if [ $(id --user) -ne 0 ]; then
     exit 1
 fi
 cd $(dirname $0)
-cp -r . /etc/. \
+cp -r . /etc/.
