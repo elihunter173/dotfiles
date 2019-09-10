@@ -20,21 +20,19 @@ fi
 
 # A more friendly ls
 if command -v exa > /dev/null; then
-    alias ls="exa"
+    alias ls="exa -F"
 else
     alias ls="ls --color=auto -p"
 fi
-
-# Cleaner ls
-alias la="ls -lAh"
-alias l.="ls -ld .*"
+alias ll="ls -lh"
+alias la="ls -lah"
 
 # Quick shortcuts
 alias e="$EDITOR"
 alias g="git" # further shortcuts in ~/.gitconfig
 
 # Make rm safe
-if command -v trash-cli > /dev/null; then
+if command -v trash > /dev/null; then
     alias rmm="/bin/rm"
     alias rm="trash"
 fi
@@ -45,19 +43,7 @@ export SRC="$HOME/src"
 export ARC="$SRC/arc"
 export NOTES="$HOME/Documents/notes"
 
-
 # Go to a clean, temporary directory to play around in.
 play() {
     cd $(mktemp -d)
-}
-
-# Destroys all Docker data, reseting it to the cleanest state possible.
-docker_destroy() {
-    echo "Destroying all docker data..."
-    docker stop $(docker ps -aq)
-    docker rm $(docker ps -aq)
-    docker network prune -f
-    docker rmi -f $(docker images --filter dangling=true -qa)
-    docker volume rm $(docker volume ls --filter dangling=true -q)
-    docker rmi -f $(docker images -qa)
 }
