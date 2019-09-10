@@ -44,6 +44,8 @@ Plug 'tpope/vim-commentary'
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
 
+" Requirement for vim-markdown
+Plug 'godlygeek/tabular'
 " Language Definitions
 Plug 'plasticboy/vim-markdown'
 " Syntax highlighting for almost every language
@@ -64,7 +66,11 @@ Plug 'mbbill/undotree'
 " Neovim Specific Plugins
 if has('nvim')
     " Autocomplete
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh',
+                \ }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif
 
 call plug#end()
@@ -130,10 +136,8 @@ set list
 set number relativenumber
 set ruler
 
-" Allow GUI style colors in terminal if supported
-if exists('+termguicolors')
-    set termguicolors
-endif
+" Allow GUI style colors in terminal
+set termguicolors
 
 " Set base16 background
 let base16colorspace=256
@@ -177,7 +181,7 @@ nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>T :tabclose<CR>
 
 " Quick search
-map <leader>f <plug>(fzf-complete-buffer-line)
+nmap <leader>f :BLines<CR>
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
@@ -231,6 +235,9 @@ if exists(':terminal')
 
     " No linenumbers in terminals
     autocmd TermOpen * setlocal norelativenumber nonumber
+
+    " Automatically delete terminals on close
+    autocmd TermClose * :bdelete!
 endif
 
 " Plugin Settings
@@ -253,25 +260,32 @@ let g:lightline = {
             \ }
 
 if has('nvim')
-    " Coc.nvim setup
-    nmap <silent> gd <Plug>(coc-definition)
+    " Nice autocompletion
+    let g:deoplete#enable_at_startup = 1
+    nnoremap <F3> :call deoplete#toggle()<CR>
 
-    " Remap for rename current word
-    nmap <leader>r <Plug>(coc-rename)
+    " LanguageClient-neovim
+    let g:LanguageClient_serverCommands = {
+                \ 'c': ['clangd'],
+                \ 'cpp': ['clangd'],
+                \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+                \ 'python': ['pyls'],
+                \ 'go': ['gopls'],
+                \ 'java': ['jdtls'],
+                \ }
 
-    " Use K for show documentation in preview window
-    " It's annoying if this fails because we don't have yarn
-    nnoremap <silent> K :silent! call <SID>show_documentation()<CR>
-    function! s:show_documentation()
-        if &filetype == 'vim'
-            execute 'h '.expand('<cword>')
-        else
-            " It's annoying if this fails because we don't have yarn
-            silent! call CocAction('doHover')
-        endif
-    endfunction
+    " Gutter signs are annoying. Virtual text is enough
+    let g:LanguageClient_diagnosticsSignsMax = 0
 
-    " Highlight symbol under cursor on CursorHold, ignoring errors
-    autocmd CursorHold * silent! call CocActionAsync('highlight')
+    " Go to definition
+    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 
+    " Rename
+    nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+    nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
+
+    " Show definition (K is standard)
+    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    " Highlight all uses of identifier (S because idk)
+    nnoremap <silent> S :call LanguageClient#textDocument_documentHighlight()<CR>
 endif

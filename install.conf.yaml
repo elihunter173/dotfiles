@@ -32,7 +32,6 @@
     ~/.vimrc: vim/rc.vim
     ~/.config/nvim/init.vim: vim/rc.vim
     ~/.config/nvim/spell: vim/spell/
-    ~/.config/nvim/coc-settings.json: vim/coc-settings.json
 
     # App Config
     ~/.tmux.conf: tmux/tmux.conf
