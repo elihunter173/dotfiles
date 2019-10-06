@@ -47,3 +47,18 @@ export NOTES="$HOME/Documents/notes"
 play() {
     cd $(mktemp -d)
 }
+
+
+# Control GDrive
+GDRIVE_PATH="$HOME/GoogleDrive"
+GDRIVES() { /usr/bin/ls -1 "$GDRIVE_PATH"}
+activate-gdrive() {
+    for gdrive in $(GDRIVES); do
+        rclone mount "$gdrive:" "$GDRIVE_PATH/$gdrive" --daemon
+    done
+}
+deactivate-gdrive() {
+    for gdrive in $(GDRIVES); do
+        fusermount -u -z "$GDRIVE_PATH/$gdrive"
+    done
+}
