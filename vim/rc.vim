@@ -36,6 +36,11 @@ Plug 'tpope/vim-vinegar'
 " Lightweight git wrapper
 Plug 'tpope/vim-fugitive'
 
+" Session management good
+" Plug 'tpope/vim-obsession'
+
+Plug 'tpope/vim-sleuth'
+
 " Fuzzy Finding
 Plug 'junegunn/fzf.vim'
 " Easier commenting for any language
@@ -130,7 +135,9 @@ set number relativenumber
 set ruler
 
 " Allow GUI style colors in terminal
-set termguicolors
+if has('termguicolors')
+    set termguicolors
+endif
 
 " Set base16 background
 let base16colorspace=256
@@ -207,33 +214,36 @@ nnoremap <M-l> gt
 nmap <F5> :UndotreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 
-if exists(':terminal')
-    " Easier terminal opening
-    nnoremap <silent> <leader>s :terminal<CR>
+" Easier terminal opening
+nnoremap <silent> <C-n> <C-d>
+nnoremap <silent> <C-d> :terminal<CR>i
+inoremap <silent> <C-d> :terminal<CR>i
 
-    " Easier escape
-    tnoremap <ESC><ESC> <C-\><C-n>
+" Easier escape
+tnoremap <ESC><ESC> <C-\><C-n>
 
-    " Make paste in work as expected
-    tnoremap <C-v> <C-\><C-n>pi
+" Make paste in work as expected
+tnoremap <C-v> <C-\><C-n>pi
 
-    " Easier window navigation
-    tnoremap <C-h> <C-\><C-n><C-w>h
-    tnoremap <C-j> <C-\><C-n><C-w>j
-    tnoremap <C-k> <C-\><C-n><C-w>k
-    tnoremap <C-l> <C-\><C-n><C-w>l
-    " Easier tab navigation
-    tnoremap <M-h> <C-\><C-n>gT
-    tnoremap <M-l> <C-\><C-n>gt
+" Easier window navigation
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+" Easier tab navigation
+tnoremap <M-h> <C-\><C-n>gT
+tnoremap <M-l> <C-\><C-n>gt
 
-    " No linenumbers in terminals
-    autocmd TermOpen * setlocal norelativenumber nonumber
+" No linenumbers in terminals
+autocmd TermOpen * setlocal norelativenumber nonumber
 
-    " Automatically delete terminals on close
-    autocmd TermClose * :bdelete!
-endif
+" Automatically delete terminals on close
+autocmd TermClose * :bdelete!
 
 " Plugin Settings
+
+" Sleuth is hella slow for markdown
+let b:sleuth_automatic = 0
 
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
