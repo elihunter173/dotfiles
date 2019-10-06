@@ -1,6 +1,12 @@
 #!/usr/bin/env sh
 # Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
+# Add poetry
+export PATH="$HOME/.poetry/bin:$PATH"
+
+if command -v R > /dev/null; then
+    export R_LIBS_USER="$HOME/.r"
+fi
 
 if command -v go > /dev/null; then
     export GOPATH="$HOME/.go"
