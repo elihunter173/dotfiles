@@ -27,9 +27,16 @@ zplugin light sindresorhus/pure
 
 # More completions
 zplugin light zsh-users/zsh-completions
-if command -v rustup > /dev/null; then
-    rustup completions zsh > ~/.zplugin/completions/_rustup
-fi
+
+# Make completions lazily
+make_completions() {
+    completion_file="$HOME/.zplugin/completions/_$1"
+    if command -v $1 > /dev/null && [ ! -f "$completion_file" ]; then
+        eval "$2" > "$completion_file"
+    fi
+}
+make_completions "rustup" "rustup completions zsh"
+make_completions "poetry" "poetry completions zsh"
 
 # Easy extraction
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
