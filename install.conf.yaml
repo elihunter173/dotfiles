@@ -32,6 +32,7 @@
     ~/.vimrc: vim/rc.vim
     ~/.config/nvim/init.vim: vim/rc.vim
     ~/.config/nvim/spell: vim/spell/
+    ~/.config/nvim/coc-settings.json: vim/coc-settings.json
 
     # App Config
     ~/.tmux.conf: tmux/tmux.conf
@@ -44,6 +45,7 @@
     ~/.gitignore: git/gitignore
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
     ~/.cron: cron
+    ~/.config/bat: bat/
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
