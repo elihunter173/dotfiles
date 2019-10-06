@@ -162,7 +162,7 @@ vnoremap <C-c> y
 " Make `Y` `y$` consistent with `D`, `C`, etc
 nnoremap Y y$
 
-" Remove useless keybindings
+" Remap useless keys
 nnoremap s <NOP>
 nnoremap S <NOP>
 
@@ -176,17 +176,22 @@ nnoremap C "_C
 vnoremap c "_c
 vnoremap C "_C
 
+" I'm lazy and like sessions
+nnoremap <leader>i :mksession!<CR>
+nnoremap <leader>o :source Session.vim<CR>
+
 " I create tabs a lot more than I use gn and gN
 nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>T :tabclose<CR>
 
 " Quick search
-nmap <leader>f :BLines<CR>
+nnoremap <leader>f :BLines<CR>
+nnoremap <leader>F :Rg<CR>
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
 nnoremap <silent> <leader>c :quit<CR>
-command Bye execute ":mksession! | quitall!"
+nnoremap <silent> <leader>x :quitall!<CR>
 
 " Remap undo to make more sense
 nnoremap U <C-r>
@@ -196,10 +201,10 @@ nnoremap <C-r> <NOP>
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 
 " Easier interactive git (fugitive)
-nnoremap <silent> <leader>g :Gstatus<CR>
+nnoremap <silent> <leader>g :G<CR>
 
 " Toggle spell checking with F1
-nnoremap <silent> <F12> :setlocal spell! spelllang=en_us<CR>
+nnoremap <F12> :setlocal spell! spelllang=en_us<CR>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
