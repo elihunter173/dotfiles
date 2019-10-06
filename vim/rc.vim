@@ -63,15 +63,8 @@ Plug 'majutsushi/tagbar'
 " Vim undotree visualizer
 Plug 'mbbill/undotree'
 
-" Neovim Specific Plugins
-if has('nvim')
-    " Autocomplete
-    Plug 'autozimu/LanguageClient-neovim', {
-                \ 'branch': 'next',
-                \ 'do': 'bash install.sh',
-                \ }
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-endif
+" Autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 """}}}
@@ -257,35 +250,40 @@ let g:vim_markdown_new_list_item_indent = 0
 set noshowmode " Don't show mode redundantly
 let g:lightline = {
             \ 'colorscheme': 'solarized',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'readonly', 'filename', 'modified' ],
+            \             [ 'gitbranch' ] ],
+            \   'right': [ [ 'lineinfo' ],
+            \              [ 'filetype' ],
+            \              [ 'fileformat', 'fileencoding' ] ],
+            \ },
+            \ 'inactive': {
+            \   'left': [ [  ],
+            \             [ 'filename' ],
+            \             [  ] ],
+            \   'right': [ [  ],
+            \              [  ],
+            \              [  ] ],
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'fugitive#head'
+            \ },
             \ }
 
-if has('nvim')
-    " Nice autocompletion
-    let g:deoplete#enable_at_startup = 1
-    nnoremap <F3> :call deoplete#toggle()<CR>
+" Coc.nvim setup
+nmap <silent> gd <Plug>(coc-definition)
 
-    " LanguageClient-neovim
-    let g:LanguageClient_serverCommands = {
-                \ 'c': ['clangd'],
-                \ 'cpp': ['clangd'],
-                \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-                \ 'python': ['pyls'],
-                \ 'go': ['gopls'],
-                \ 'java': ['jdtls'],
-                \ }
+" Remap for rename current word
+nmap <leader>r <Plug>(coc-rename)
+nmap <F2> <Plug>(coc-rename)
+nmap <F3> :CocDisable<CR>
 
-    " Gutter signs are annoying. Virtual text is enough
-    let g:LanguageClient_diagnosticsSignsMax = 0
+" Easy formatting
+command! -nargs=0 Format :call CocAction('format')
 
-    " Go to definition
-    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-
-    " Rename
-    nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-    nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
-
-    " Show definition (K is standard)
-    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    " Highlight all uses of identifier (S because idk)
-    nnoremap <silent> S :call LanguageClient#textDocument_documentHighlight()<CR>
-endif
+" Use K for show documentation in preview window
+" It's annoying if this fails because we don't have yarn
+nnoremap <silent> K :silent! call CocAction('doHover')<CR>
+" Highlight all instances using S because idk
+nnoremap <silent> S :silent! call CocActionAsync('highlight')<CR>
