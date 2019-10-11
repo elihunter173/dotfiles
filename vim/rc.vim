@@ -220,7 +220,6 @@ nmap <F5> :UndotreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 
 " Easier terminal opening
-nnoremap <silent> <C-n> <C-d>
 nnoremap <silent> <C-d> :terminal<CR>i
 inoremap <silent> <C-d> :terminal<CR>i
 
@@ -268,10 +267,10 @@ let g:lightline = {
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
             \             [ 'readonly', 'filename', 'modified' ],
-            \             [ 'gitbranch' ] ],
-            \   'right': [ [ 'lineinfo' ],
+            \             [  ] ],
+            \   'right': [ [  ],
             \              [ 'filetype' ],
-            \              [ 'fileformat', 'fileencoding' ] ],
+            \              [ 'gitbranch' ] ],
             \ },
             \ 'inactive': {
             \   'left': [ [  ],
