@@ -1,8 +1,10 @@
 #!/usr/bin/env sh
 # Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
-# Add poetry
-export PATH="$HOME/.poetry/bin:$PATH"
+
+if command -v poetry > /dev/null; then
+    export PATH="$HOME/.poetry/bin:$PATH"
+fi
 
 if command -v R > /dev/null; then
     export R_LIBS_USER="$HOME/.r"
@@ -33,4 +35,8 @@ if command -v ruby > /dev/null; then
     export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
     # Allows the user to install rubygems
     export GEM_HOME=$HOME/.gem
+fi
+
+if command -v nnn > /dev/null; then
+    export NNN_USE_EDITOR=1
 fi
