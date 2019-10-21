@@ -35,16 +35,28 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-vinegar'
 " Lightweight git wrapper
 Plug 'tpope/vim-fugitive'
+" Easier commenting for any language
+Plug 'tpope/vim-commentary'
+" Syntax highlighting for almost every language
+Plug 'sheerun/vim-polyglot'
+" Language Definition
+Plug 'elihunter173/vim-rpl'
+" Plug '~/src/research/vim-rpl'
 
 " Session management good
 " Plug 'tpope/vim-obsession'
 
+" Better word motion
+Plug 'chaoren/vim-wordmotion'
+
+" Autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Hmmm
 Plug 'tpope/vim-sleuth'
 
 " Fuzzy Finding
 Plug 'junegunn/fzf.vim'
-" Easier commenting for any language
-Plug 'tpope/vim-commentary'
 
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
@@ -53,23 +65,13 @@ Plug 'chriskempson/base16-vim'
 Plug 'godlygeek/tabular'
 " Language Definitions
 Plug 'plasticboy/vim-markdown'
-" Syntax highlighting for almost every language
-Plug 'sheerun/vim-polyglot'
-" Language Definition
-Plug 'elihunter173/vim-rpl'
-" Plug '~/src/research/vim-rpl'
 
 " Eye Candy
 " Nice lightweight statusline
 Plug 'itchyny/lightline.vim'
 
-" C Tags tagbar
-Plug 'majutsushi/tagbar'
 " Vim undotree visualizer
 Plug 'mbbill/undotree'
-
-" Autocomplete
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 """}}}
@@ -219,30 +221,32 @@ nnoremap <M-l> gt
 nmap <F5> :UndotreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 
-" Easier terminal opening
-nnoremap <silent> <C-d> :terminal<CR>i
-inoremap <silent> <C-d> :terminal<CR>i
+if exists(':term')
+    " Easier terminal opening
+    nnoremap <silent> <C-d> :terminal<CR>i
+    inoremap <silent> <C-d> :terminal<CR>i
 
-" Easier escape
-tnoremap <ESC><ESC> <C-\><C-n>
+    " Easier escape
+    tnoremap <ESC><ESC> <C-\><C-n>
 
-" Make paste in work as expected
-tnoremap <C-v> <C-\><C-n>pi
+    " Make paste in work as expected
+    tnoremap <C-v> <C-\><C-n>pi
 
-" Easier window navigation
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-l> <C-\><C-n><C-w>l
-" Easier tab navigation
-tnoremap <M-h> <C-\><C-n>gT
-tnoremap <M-l> <C-\><C-n>gt
+    " Easier window navigation
+    tnoremap <C-h> <C-\><C-n><C-w>h
+    tnoremap <C-j> <C-\><C-n><C-w>j
+    tnoremap <C-k> <C-\><C-n><C-w>k
+    tnoremap <C-l> <C-\><C-n><C-w>l
+    " Easier tab navigation
+    tnoremap <M-h> <C-\><C-n>gT
+    tnoremap <M-l> <C-\><C-n>gt
 
-" No linenumbers in terminals
-autocmd TermOpen * setlocal norelativenumber nonumber
+    " No linenumbers in terminals
+    autocmd TermOpen * setlocal norelativenumber nonumber
 
-" Automatically delete terminals on close
-autocmd TermClose * :bdelete!
+    " Automatically delete terminals on close
+    autocmd TermClose * :bdelete!
+end
 
 " Plugin Settings
 
@@ -284,6 +288,9 @@ let g:lightline = {
             \   'gitbranch': 'fugitive#head'
             \ },
             \ }
+
+" Make wordmotion easier
+let g:wordmotion_prefix = '['
 
 " Coc.nvim setup
 nmap <silent> gd <Plug>(coc-definition)
