@@ -1,0 +1,15 @@
+[Unit]
+Description=rclone Google Drive for %i
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+Environment=RCLONE_CONFIG=%h/.config/rclone/rclone.conf
+
+ExecStart=/usr/bin/rclone mount %i: %h/GoogleDrive/%i
+ExecStop=/bin/fusermount -uz %h/GoogleDrive/%i
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

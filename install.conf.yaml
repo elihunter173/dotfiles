@@ -11,6 +11,7 @@
 - link:
     # System Config
     ~/.profile: profile
+    ~/.config/systemd: systemd/
 
     # X Config
     ~/.xprofile: xorg/xprofile
