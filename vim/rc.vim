@@ -95,10 +95,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Why would you ever put 2 spaces after punctuation??
 set nojoinspaces
 
-" Ignore case only when typing in purely lower case
-set ignorecase
-set smartcase
-
 " Allows switching unsaved buffers (instead of abandoning them, hide them)
 set hidden
 
@@ -187,13 +183,21 @@ nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>T :tabclose<CR>
 
 " Quick search
+nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>f :BLines<CR>
 nnoremap <leader>F :Rg<CR>
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
-nnoremap <silent> <leader>c :quit<CR>
-nnoremap <silent> <leader>x :quitall!<CR>
+nnoremap <silent> <leader>q :quitall!<CR>
+nnoremap <silent> <leader>d :bdelete<CR>
+nnoremap <silent> <leader>s :hide<CR>
+
+" Make splits open on the side that makes more sense imo
+set splitbelow
+set splitright
+nnoremap <silent> <C-w>s <C-w>s:enew<CR>
+nnoremap <silent> <C-w>v <C-w>v:enew<CR>
 
 " Remap undo to make more sense
 nnoremap U <C-r>
