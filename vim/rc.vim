@@ -43,6 +43,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'elihunter173/vim-rpl'
 " Plug '~/src/research/vim-rpl'
 
+" I need sensible buffer killing
+Plug 'qpkorr/vim-bufkill'
+
 " Session management good
 " Plug 'tpope/vim-obsession'
 
@@ -174,26 +177,20 @@ nnoremap C "_C
 vnoremap c "_c
 vnoremap C "_C
 
-" I'm lazy and like sessions
-nnoremap <leader>i :mksession!<CR>
-nnoremap <leader>o :source Session.vim<CR>
-
-" I create tabs a lot more than I use gn and gN
-nnoremap <leader>t :tabnew<CR>
-nnoremap <leader>T :tabclose<CR>
-
-" Quick search
+" Fuzzy finding
+nnoremap <leader>o :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>f :BLines<CR>
 nnoremap <leader>F :Rg<CR>
 
+" Make clearing a buffer easier
+
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
-nnoremap <silent> <leader>q :quitall!<CR>
-nnoremap <silent> <leader>d :bdelete<CR>
-nnoremap <silent> <leader>s :hide<CR>
+nnoremap <silent> <leader>d :quit<CR>
+nnoremap <silent> <leader>s :BD<CR>
 
-" Make splits open on the side that makes more sense imo
+" Make splits make more sense
 set splitbelow
 set splitright
 nnoremap <silent> <C-w>s <C-w>s:enew<CR>
@@ -220,15 +217,20 @@ nnoremap <C-k> <C-w>k
 " Easier tab navigation
 nnoremap <M-h> gT
 nnoremap <M-l> gt
+" Make tabs easier
+nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>T :tabclose<CR>
 
 " Helpful visualizers
 nmap <F5> :UndotreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 
 if exists(':term')
-    " Easier terminal opening
-    nnoremap <silent> <C-d> :terminal<CR>i
-    inoremap <silent> <C-d> :terminal<CR>i
+    " Make terminals always open in insert mode
+    autocmd TermOpen * startinsert
+
+    " Easier terminal opening. L for shell
+    nnoremap <silent> <leader>l :terminal<CR>
 
     " Easier escape
     tnoremap <ESC><ESC> <C-\><C-n>
@@ -247,12 +249,12 @@ if exists(':term')
 
     " No linenumbers in terminals
     autocmd TermOpen * setlocal norelativenumber nonumber
-
-    " Automatically delete terminals on close
-    autocmd TermClose * :bdelete!
 end
 
 " Plugin Settings
+
+" Don't open unnecessary files
+let g:fzf_buffers_jump = 1
 
 " Sleuth is hella slow for markdown
 let b:sleuth_automatic = 0
