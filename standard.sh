@@ -7,10 +7,7 @@
 export GPG_TTY=$(tty)
 
 # Pick the one true editor
-if command -v nvr > /dev/null && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    # TODO: Once neovim has proper remote attachment remove neovim-remote (nvr)
-    export EDITOR="nvr -s"
-elif command -v nvim > /dev/null; then
+if command -v nvim > /dev/null; then
     export EDITOR=nvim
 elif command -v vim > /dev/null; then
     export EDITOR=vim
@@ -46,19 +43,4 @@ export NOTES="$HOME/Documents/notes"
 # Go to a clean, temporary directory to play around in.
 play() {
     cd $(mktemp -d)
-}
-
-
-# Control GDrive
-GDRIVE_PATH="$HOME/GoogleDrive"
-GDRIVES() { /usr/bin/ls -1 "$GDRIVE_PATH"}
-activate-gdrive() {
-    for gdrive in $(GDRIVES); do
-        rclone mount "$gdrive:" "$GDRIVE_PATH/$gdrive" --daemon
-    done
-}
-deactivate-gdrive() {
-    for gdrive in $(GDRIVES); do
-        fusermount -u -z "$GDRIVE_PATH/$gdrive"
-    done
 }
