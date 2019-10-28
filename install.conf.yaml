@@ -11,7 +11,7 @@
 - link:
     # System Config
     ~/.profile: profile
-    ~/.config/systemd: systemd/
+    ~/.config/systemd/user/rclone-gdrive@.service: systemd/user/rclone-gdrive@.service
 
     # X Config
     ~/.xprofile: xorg/xprofile
