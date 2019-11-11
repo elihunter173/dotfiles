@@ -47,6 +47,7 @@
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
     ~/.cron: cron
     ~/.config/bat: bat/
+    ~/.hushlogin: empty
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
