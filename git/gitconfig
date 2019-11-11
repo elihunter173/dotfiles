@@ -7,8 +7,8 @@
 	l = pull
 	cl = clone --recurse-submodules
 	a = add --verbose
-	c = commit --verbose
-	ca = commit --amend --verbose
+	c = commit
+	ca = commit --amend
 	co = checkout
 	hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	d = diff
