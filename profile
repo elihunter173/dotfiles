@@ -12,18 +12,12 @@ fi
 
 if command -v go > /dev/null; then
     export GOPATH="$HOME/.go"
-    # Go binaries
     export PATH="$PATH:$HOME/.go/bin"
 fi
 
 if command -v cargo > /dev/null; then
     # Cargo binaries
     export PATH="$PATH:$HOME/.cargo/bin"
-fi
-
-if command -v pyenv > /dev/null; then
-    export PYENV_ROOT="$(pyenv root)"
-    export PATH="$PYENV_ROOT/bin:$PATH"
 fi
 
 if command -v yarn > /dev/null; then
