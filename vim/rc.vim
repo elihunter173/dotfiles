@@ -291,7 +291,7 @@ let g:lightline = {
 let g:wordmotion_prefix = '['
 
 " Coc.nvim setup
-nmap <silent> gd <Plug>(coc-definition)
+nmap gd <Plug>(coc-definition)
 
 " Remap for rename current word
 nmap <leader>r <Plug>(coc-rename)
