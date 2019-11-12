@@ -1,2 +1,5 @@
 # Ignore netrw (vim's File Brower) history
 .netrwhist
+
+# Ignore spelling file
+*.spl
