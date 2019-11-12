@@ -178,7 +178,6 @@ vnoremap C "_C
 
 " Fuzzy finding
 nnoremap <leader>o :Files<CR>
-nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>f :BLines<CR>
 nnoremap <leader>F :Rg<CR>
 
@@ -192,8 +191,6 @@ nnoremap <silent> <leader>s :BD<CR>
 " Make splits make more sense
 set splitbelow
 set splitright
-nnoremap <silent> <C-w>s <C-w>s:enew<CR>
-nnoremap <silent> <C-w>v <C-w>v:enew<CR>
 
 " Remap undo to make more sense
 nnoremap U <C-r>
