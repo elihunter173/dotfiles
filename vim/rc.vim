@@ -55,7 +55,7 @@ Plug 'chaoren/vim-wordmotion'
 " Autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Hmmm
+" Never think about indentation
 Plug 'tpope/vim-sleuth'
 
 " Fuzzy Finding
@@ -63,11 +63,6 @@ Plug 'junegunn/fzf.vim'
 
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
-
-" Requirement for vim-markdown
-Plug 'godlygeek/tabular'
-" Language Definitions
-Plug 'plasticboy/vim-markdown'
 
 " Eye Candy
 " Nice lightweight statusline
@@ -84,6 +79,10 @@ set nocompatible
 
 " Enable ftplugins for everything
 filetype plugin indent on
+
+" Be easy on casing
+set ignorecase
+set smartcase
 
 " No annoying sound or blink on errors
 set noerrorbells
@@ -223,7 +222,6 @@ nnoremap <leader>T :tabclose<CR>
 
 " Helpful visualizers
 nmap <F5> :UndotreeToggle<CR>
-nmap <F8> :TagbarToggle<CR>
 
 if exists(':term')
     " Make terminals always open in insert mode
@@ -256,9 +254,6 @@ end
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
 
-" Sleuth is hella slow for markdown
-let b:sleuth_automatic = 0
-
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
@@ -268,7 +263,7 @@ let g:vim_markdown_frontmatter = 1
 
 " Let's default to no bullets
 let g:vim_markdown_auto_insert_bullets = 0
-let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_new_list_item_indent = 2
 
 " Lightline
 set noshowmode " Don't show mode redundantly
