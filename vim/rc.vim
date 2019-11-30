@@ -122,28 +122,16 @@ set clipboard=unnamedplus
 " Don't redraw during macros (for performance)
 set lazyredraw
 
-" Default to no folds
-set foldlevel=999
-
 if exists('&inccommand')
-    set inccommand=nosplit
+  set inccommand=nosplit
 endif
 
-" Trim Whitespace
-function! s:StripTrailingWhitespace()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    %s/\n\+\%$//e
-    call cursor(l, c)
-endfunction
-autocmd BufWritePre * call s:StripTrailingWhitespace()
-
-" number of lines to pad cursor by when scrolling
+" Pad cursor when scrolling
 set scrolloff=2
+set sidescrolloff=5
 
 " Show hidden characters
-set listchars=tab:>-,trail:~,extends:>,precedes:<
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set list
 
 " Enable line numbers and ruler
