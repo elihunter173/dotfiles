@@ -31,8 +31,6 @@ Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
 " https://EditorConfig.org
 Plug 'editorconfig/editorconfig-vim'
-" Netrw enhancements
-Plug 'tpope/vim-vinegar'
 " Lightweight git wrapper
 Plug 'tpope/vim-fugitive'
 " Easier commenting for any language
@@ -42,6 +40,24 @@ Plug 'sheerun/vim-polyglot'
 " Language Definition
 Plug 'elihunter173/vim-rpl'
 " Plug '~/src/research/vim-rpl'
+" Fuzzy Finding
+Plug 'junegunn/fzf.vim'
+" Never think about indentation
+Plug 'tpope/vim-sleuth'
+" Swap things with ease
+Plug 'tommcdo/vim-exchange'
+" Easier unix commands
+Plug 'tpope/vim-eunuch'
+
+" Netrw enhancements
+" Plug 'tpope/vim-vinegar'
+" Netrw but simpler and better
+Plug 'justinmk/vim-dirvish'
+" Disable netrw
+let g:loaded_netrwPlugin = 1
+command! -nargs=? -complete=dir Explore Dirvish <args>
+command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
+command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
 " I need sensible buffer killing
 Plug 'qpkorr/vim-bufkill'
