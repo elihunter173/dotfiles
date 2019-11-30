@@ -26,6 +26,8 @@ alias la="ls -lah"
 
 # Quick shortcuts
 alias e="$EDITOR"
+# Fugitive is so nice
+alias eg="$EDITOR '+:Gstatus\|bd #'"
 alias g="git" # further shortcuts in ~/.gitconfig
 
 # Make rm safe
