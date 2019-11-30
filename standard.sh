@@ -41,8 +41,3 @@ export TRASH="$HOME/.local/share/Trash/files"
 export SRC="$HOME/src"
 export ARC="$SRC/arc"
 export NOTES="$HOME/Documents/notes"
-
-# Go to a clean, temporary directory to play around in.
-play() {
-    cd $(mktemp -d)
-}
