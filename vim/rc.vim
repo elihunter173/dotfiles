@@ -6,17 +6,17 @@
 
 " vim-plug setup {{{
 if has('nvim')
-    let s:vim_plug_path = '~/.local/share/nvim/site/autoload/plug.vim'
-    let s:plugins_path = '~/.local/share/nvim/plugged'
+  let s:vim_plug_path = '~/.local/share/nvim/site/autoload/plug.vim'
+  let s:plugins_path = '~/.local/share/nvim/plugged'
 else
-    let s:vim_plug_path = '~/.vim/autoload/plug.vim'
-    let s:plugins_path = '~/.vim/plugged'
+  let s:vim_plug_path = '~/.vim/autoload/plug.vim'
+  let s:plugins_path = '~/.vim/plugged'
 endif
 let s:vim_plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 if empty(glob(s:vim_plug_path))
-    silent execute '!curl -fLo '.s:vim_plug_path.' --create-dirs '.s:vim_plug_url
-    autocmd VimEnter * PlugInstall --sync | qa
+  silent execute '!curl -fLo '.s:vim_plug_path.' --create-dirs '.s:vim_plug_url
+  autocmd VimEnter * PlugInstall --sync | qa
 endif
 " }}}
 
@@ -136,7 +136,7 @@ set ruler
 
 " Allow GUI style colors in terminal
 if has('termguicolors')
-    set termguicolors
+  set termguicolors
 endif
 
 " Set base16 background
@@ -210,40 +210,45 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
+" Easier window resizing. I can't make C-< or C-> work
+nnoremap <C-n> <C-w><
+nnoremap <C-m> <C-w>>
 " Easier tab navigation
 nnoremap <M-h> gT
 nnoremap <M-l> gt
 " Make tabs easier
 nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>T :tabclose<CR>
+" Easier swapping between buffers
+nnoremap <tab> <C-^>
 
 " Helpful visualizers
 nmap <F5> :UndotreeToggle<CR>
 
 if exists(':term')
-    " Make terminals always open in insert mode
-    autocmd TermOpen * startinsert
+  " Make terminals always open in insert mode
+  autocmd TermOpen * startinsert
 
-    " Easier terminal opening. L for shell
-    nnoremap <silent> <leader>l :terminal<CR>
+  " Easier terminal opening. L for shell
+  nnoremap <silent> <leader>l :terminal<CR>
 
-    " Easier escape
-    tnoremap <ESC><ESC> <C-\><C-n>
+  " Easier escape
+  tnoremap <ESC><ESC> <C-\><C-n>
 
-    " Make paste in work as expected
-    tnoremap <C-v> <C-\><C-n>pi
+  " Make paste in work as expected
+  tnoremap <C-v> <C-\><C-n>pi
 
-    " Easier window navigation
-    tnoremap <C-h> <C-\><C-n><C-w>h
-    tnoremap <C-j> <C-\><C-n><C-w>j
-    tnoremap <C-k> <C-\><C-n><C-w>k
-    tnoremap <C-l> <C-\><C-n><C-w>l
-    " Easier tab navigation
-    tnoremap <M-h> <C-\><C-n>gT
-    tnoremap <M-l> <C-\><C-n>gt
+  " Easier window navigation
+  tnoremap <C-h> <C-\><C-n><C-w>h
+  tnoremap <C-j> <C-\><C-n><C-w>j
+  tnoremap <C-k> <C-\><C-n><C-w>k
+  tnoremap <C-l> <C-\><C-n><C-w>l
+  " Easier tab navigation
+  tnoremap <M-h> <C-\><C-n>gT
+  tnoremap <M-l> <C-\><C-n>gt
 
-    " No linenumbers in terminals
-    autocmd TermOpen * setlocal norelativenumber nonumber
+  " No linenumbers in terminals
+  autocmd TermOpen * setlocal norelativenumber nonumber
 end
 
 " Plugin Settings
@@ -265,27 +270,27 @@ let g:vim_markdown_new_list_item_indent = 2
 " Lightline
 set noshowmode " Don't show mode redundantly
 let g:lightline = {
-            \ 'colorscheme': 'solarized',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'readonly', 'filename', 'modified' ],
-            \             [  ] ],
-            \   'right': [ [  ],
-            \              [ 'filetype' ],
-            \              [ 'gitbranch' ] ],
-            \ },
-            \ 'inactive': {
-            \   'left': [ [  ],
-            \             [ 'filename' ],
-            \             [  ] ],
-            \   'right': [ [  ],
-            \              [  ],
-            \              [  ] ],
-            \ },
-            \ 'component_function': {
-            \   'gitbranch': 'fugitive#head'
-            \ },
-            \ }
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ],
+      \             [  ] ],
+      \   'right': [ [  ],
+      \              [ 'filetype' ],
+      \              [ 'gitbranch' ] ],
+      \ },
+      \ 'inactive': {
+      \   'left': [ [  ],
+      \             [ 'filename' ],
+      \             [  ] ],
+      \   'right': [ [  ],
+      \              [  ],
+      \              [  ] ],
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 " Make wordmotion easier
 let g:wordmotion_prefix = '['
