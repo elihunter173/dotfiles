@@ -34,3 +34,5 @@ fi
 if command -v nnn > /dev/null; then
     export NNN_USE_EDITOR=1
 fi
+
+export PATH="$HOME/.poetry/bin:$PATH"

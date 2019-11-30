@@ -1,2 +1,4 @@
 # My ~/.profile is zsh and sh compatible
 [ -e "$HOME/.profile" ] && . ~/.profile
+
+export PATH="$HOME/.poetry/bin:$PATH"
