@@ -68,14 +68,10 @@ Plug 'qpkorr/vim-bufkill'
 " Better word motion
 Plug 'chaoren/vim-wordmotion'
 
-" Autocomplete
+" Language Server Protocol
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Never think about indentation
-Plug 'tpope/vim-sleuth'
-
-" Fuzzy Finding
-Plug 'junegunn/fzf.vim'
+" Common LSPs
+" Plug 'neovim/nvim-lsp'
 
 " Base16 colorschemes
 Plug 'chriskempson/base16-vim'
