@@ -20,3 +20,5 @@
 	short = true
 [diff]
 	algorithm = histogram
+[pager]
+	branch = false
