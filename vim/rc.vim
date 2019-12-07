@@ -123,7 +123,7 @@ if exists('&inccommand')
 endif
 
 " Pad cursor when scrolling
-set scrolloff=2
+set scrolloff=1
 set sidescrolloff=5
 
 " Show hidden characters
