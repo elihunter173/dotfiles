@@ -1,58 +1,83 @@
-" vim: filetype=vim foldmethod=marker foldlevel=0
+" vim: filetype=vim
 " A Vim agnostic vimrc. This works with both Vim and Neovim
 "
 " Author: Eli W. Hunter
-"
 
-" vim-plug setup {{{
-if has('nvim')
-  let s:vim_plug_path = '~/.local/share/nvim/site/autoload/plug.vim'
-  let s:plugins_path = '~/.local/share/nvim/plugged'
-else
-  let s:vim_plug_path = '~/.vim/autoload/plug.vim'
-  let s:plugins_path = '~/.vim/plugged'
+let g:did_install_default_menus = 1
+
+" Easy leader
+let mapleader = " "
+
+" Set up or install minpac
+packadd minpac
+if !exists('*minpac#init')
+  if has('nvim')
+    execute '!git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac'
+  else
+    execute '!git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac'
+  endif
 endif
-let s:vim_plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+call minpac#init()
+" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
+call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-if empty(glob(s:vim_plug_path))
-  silent execute '!curl -fLo '.s:vim_plug_path.' --create-dirs '.s:vim_plug_url
-  autocmd VimEnter * PlugInstall --sync | qa
-endif
-" }}}
-
-" Install Plugins {{{
-call plug#begin(s:plugins_path)
-" Editing
 " Additional text objects
-Plug 'wellle/targets.vim'
+call minpac#add('wellle/targets.vim')
 " Surrounding text objects with any character
-Plug 'machakann/vim-sandwich'
+call minpac#add('machakann/vim-sandwich')
 " Auto-closing for brackets, parens, and quotes
-Plug 'jiangmiao/auto-pairs'
+call minpac#add('jiangmiao/auto-pairs')
+
 " https://EditorConfig.org
-Plug 'editorconfig/editorconfig-vim'
-" Lightweight git wrapper
-Plug 'tpope/vim-fugitive'
+call minpac#add('editorconfig/editorconfig-vim')
+
 " Easier commenting for any language
-Plug 'tpope/vim-commentary'
-" Syntax highlighting for almost every language
-Plug 'sheerun/vim-polyglot'
-" Language Definition
-Plug 'elihunter173/vim-rpl'
-" Plug '~/src/research/vim-rpl'
+call minpac#add('tpope/vim-commentary')
+
+" Lightweight git wrapper
+call minpac#add('tpope/vim-fugitive')
+" Interactive (fug)git(ive)
+nnoremap <silent> <leader>g :G<CR>
+
+" EditorConfig + Fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
+
+" More syntax highlighting
+" call minpac#add('sheerun/vim-polyglot')
+" call minpac#add('elihunter173/vim-rpl')
+
+" Markdown syntax highlighting
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+" Let's default to no bullets
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 2
+
 " Fuzzy Finding
-Plug 'junegunn/fzf.vim'
+call minpac#add('junegunn/fzf.vim')
+" Don't open unnecessary files
+let g:fzf_buffers_jump = 1
+" Don't pollute the global namespace
+let g:fzf_command_prefix = 'Fzf'
+" Nice keybindings
+nnoremap <leader>o :FzfFiles<CR>
+nnoremap <leader>f :FzfBLines<CR>
+nnoremap <leader>F :FzfRg<CR>
+
 " Never think about indentation
-Plug 'tpope/vim-sleuth'
+call minpac#add('tpope/vim-sleuth')
+" Sleuth can be really slow
+let g:sleuth_automatic = 0
+
 " Swap things with ease
-Plug 'tommcdo/vim-exchange'
+call minpac#add('tommcdo/vim-exchange')
 " Easier unix commands
-Plug 'tpope/vim-eunuch'
+call minpac#add('tpope/vim-eunuch')
 
 " Netrw enhancements
-" Plug 'tpope/vim-vinegar'
+" call minpac#add('tpope/vim-vinegar')
 " Netrw but simpler and better
-Plug 'justinmk/vim-dirvish'
+call minpac#add('justinmk/vim-dirvish')
 " Disable netrw
 let g:loaded_netrwPlugin = 1
 command! -nargs=? -complete=dir Explore Dirvish <args>
@@ -60,34 +85,73 @@ command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args
 command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
 " I need sensible buffer killing
-Plug 'qpkorr/vim-bufkill'
+call minpac#add('qpkorr/vim-bufkill')
 
 " Session management good
-" Plug 'tpope/vim-obsession'
+" call minpac#add('tpope/vim-obsession')
 
-" Better word motion
-Plug 'chaoren/vim-wordmotion'
+" Word motion through CamelCase and friends
+call minpac#add('chaoren/vim-wordmotion')
+let g:wordmotion_prefix = '['
 
 " Language Server Protocol
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Common LSPs
-" Plug 'neovim/nvim-lsp'
+call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+nmap gd <Plug>(coc-definition)
+nmap <leader>r <Plug>(coc-rename)
+nmap <F2> <Plug>(coc-rename)
+nmap <F3> :CocDisable<CR>
+command! -nargs=0 Format :call CocAction('format')
+" Use K for show documentation in preview window
+" It's annoying if this fails because we don't have yarn
+nnoremap <silent> K :silent! call CocAction('doHover')<CR>
+" Highlight all instances using S because idk
+nnoremap <silent> S :silent! call CocActionAsync('highlight')<CR>
 
-" Base16 colorschemes
-Plug 'chriskempson/base16-vim'
+" Common LSPs
+" call minpac#add('neovim/nvim-lsp')
+
+" Base16 colorscheme
+call minpac#add('chriskempson/base16-vim')
+let base16colorspace=256
+colorscheme base16-solarized-dark
+if has('termguicolors')
+  set termguicolors
+endif
+
+" GUI Font settings
+set guifont=Hack:h12
 
 " Eye Candy
 " Nice lightweight statusline
-Plug 'itchyny/lightline.vim'
+call minpac#add('itchyny/lightline.vim')
+" Don't show mode redundantly
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ],
+      \             [  ] ],
+      \   'right': [ [  ],
+      \              [ 'filetype' ],
+      \              [ 'gitbranch' ] ],
+      \ },
+      \ 'inactive': {
+      \   'left': [ [  ],
+      \             [ 'filename' ],
+      \             [  ] ],
+      \   'right': [ [  ],
+      \              [  ],
+      \              [  ] ],
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 " Vim undotree visualizer
-Plug 'mbbill/undotree'
-
-call plug#end()
-"""}}}
-
-" No vi compatibility
-set nocompatible
+call minpac#add('mbbill/undotree')
+nmap <F5> :UndotreeToggle<CR>
 
 " Enable ftplugins for everything
 filetype plugin indent on
@@ -134,22 +198,7 @@ set list
 set number relativenumber
 set ruler
 
-" Allow GUI style colors in terminal
-if has('termguicolors')
-  set termguicolors
-endif
-
-" Set base16 background
-let base16colorspace=256
-colorscheme base16-solarized-dark
-
-" GUI Font settings
-set guifont=Hack:h12
-
 " Keybindings
-
-" Easy leader
-let mapleader = " "
 
 " Make save work as you'd expect
 nnoremap <silent> <C-s> :w<CR>
@@ -176,13 +225,6 @@ nnoremap C "_C
 vnoremap c "_c
 vnoremap C "_C
 
-" Fuzzy finding
-nnoremap <leader>o :Files<CR>
-nnoremap <leader>f :BLines<CR>
-nnoremap <leader>F :Rg<CR>
-
-" Make clearing a buffer easier
-
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
 nnoremap <silent> <leader>d :quit<CR>
@@ -198,9 +240,6 @@ nnoremap <C-r> <NOP>
 
 " Turn off search highlighting because vim doesn't do that by default for some reason
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
-
-" Easier interactive git (fugitive)
-nnoremap <silent> <leader>g :G<CR>
 
 " Toggle spell checking with F1
 nnoremap <F12> :setlocal spell! spelllang=en_us<CR>
@@ -221,9 +260,6 @@ nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>T :tabclose<CR>
 " Easier swapping between buffers
 nnoremap <tab> <C-^>
-
-" Helpful visualizers
-nmap <F5> :UndotreeToggle<CR>
 
 if exists(':term')
   " Make terminals always open in insert mode
@@ -250,64 +286,3 @@ if exists(':term')
   " No linenumbers in terminals
   autocmd TermOpen * setlocal norelativenumber nonumber
 end
-
-" Plugin Settings
-
-" Don't open unnecessary files
-let g:fzf_buffers_jump = 1
-
-" EditorConfig + Fugitive
-let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
-
-" Markdown syntax highlighting
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-
-" Let's default to no bullets
-let g:vim_markdown_auto_insert_bullets = 0
-let g:vim_markdown_new_list_item_indent = 2
-
-" Lightline
-set noshowmode " Don't show mode redundantly
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ],
-      \             [  ] ],
-      \   'right': [ [  ],
-      \              [ 'filetype' ],
-      \              [ 'gitbranch' ] ],
-      \ },
-      \ 'inactive': {
-      \   'left': [ [  ],
-      \             [ 'filename' ],
-      \             [  ] ],
-      \   'right': [ [  ],
-      \              [  ],
-      \              [  ] ],
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-" Make wordmotion easier
-let g:wordmotion_prefix = '['
-
-" Coc.nvim setup
-nmap gd <Plug>(coc-definition)
-
-" Remap for rename current word
-nmap <leader>r <Plug>(coc-rename)
-nmap <F2> <Plug>(coc-rename)
-nmap <F3> :CocDisable<CR>
-
-" Easy formatting
-command! -nargs=0 Format :call CocAction('format')
-
-" Use K for show documentation in preview window
-" It's annoying if this fails because we don't have yarn
-nnoremap <silent> K :silent! call CocAction('doHover')<CR>
-" Highlight all instances using S because idk
-nnoremap <silent> S :silent! call CocActionAsync('highlight')<CR>
