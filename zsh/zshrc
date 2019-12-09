@@ -38,6 +38,10 @@ make_completions() {
 make_completions "rustup" "rustup completions zsh"
 make_completions "poetry" "poetry completions zsh"
 
+# Source fzf files added by pacman
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
 # Easy extraction
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
 # Colorful man pages
