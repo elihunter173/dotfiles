@@ -11,11 +11,8 @@ let mapleader = " "
 " Set up or install minpac
 packadd minpac
 if !exists('*minpac#init')
-  if has('nvim')
-    execute '!git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac'
-  else
-    execute '!git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac'
-  endif
+  let s:config_path = has('nvim') ? stdpath('config') : '~/.vim'
+  execute '!git clone https://github.com/k-takata/minpac.git '.s:config_path.'/pack/minpac/opt/minpac'
 endif
 call minpac#init()
 " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
