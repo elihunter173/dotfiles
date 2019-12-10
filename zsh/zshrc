@@ -19,12 +19,17 @@ zplugin light sindresorhus/pure
 # Add syntax highlighting. We zpcompinit and zcpdreplay at init because syntax
 # highlighters expect to be loaded last
 zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"
-zplugin light zdharma/fast-syntax-highlighting
+zplugin light zsh-users/zsh-syntax-highlighting
 
 # Turbo load more completions. Use blockf and zplugin creinstall to use zplugin
 # to handle completions
 zplugin ice wait lucid blockf atpull'zplugin creinstall -q .'
 zplugin light zsh-users/zsh-completions
+
+# Load a bunch of nice stuff from OMZ. These have issues if you turbo load
+zplugin snippet OMZ::lib/completion.zsh
+zplugin snippet OMZ::lib/history.zsh
+zplugin snippet OMZ::lib/key-bindings.zsh
 
 # Easy extraction
 zplugin ice wait lucid
@@ -32,21 +37,6 @@ zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
 
 # All new terminals automatically go to the last working directory (lwd does the same)
 zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
-
-# Highlight completions. Taken from OMZ
-zstyle ':completion:*:*:*:*:*' menu select
-
-# Keybindings
-# A lot of these were ripped from
-# https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/key-bindings.zsh
-# Make <HOME> and <END> work
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}"  end-of-line
-# <C-right> and <C-right> move through words
-bindkey '^[[1;5C' forward-word
-bindkey '^[[1;5D' backward-word
-# Make <S-Tab> work
-bindkey "${terminfo[kcbt]}" reverse-menu-complete
 
 # Easier history searching
 zplugin light zsh-users/zsh-history-substring-search
