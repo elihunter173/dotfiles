@@ -44,8 +44,6 @@ source /usr/share/fzf/completion.zsh
 
 # Easy extraction
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
-# Colorful man pages
-zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 # Easier history searching
 zplugin light zsh-users/zsh-history-substring-search
