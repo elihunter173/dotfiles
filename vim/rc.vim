@@ -1,5 +1,5 @@
 " vim: filetype=vim
-" A Vim agnostic vimrc. This works with both Vim and Neovim
+" A Vim agnostic vimrc. This works with both Vim and Neovim.
 "
 " Author: Eli W. Hunter
 
@@ -13,6 +13,9 @@ packadd minpac
 if !exists('*minpac#init')
   let s:config_path = has('nvim') ? stdpath('config') : '~/.vim'
   execute '!git clone https://github.com/k-takata/minpac.git '.s:config_path.'/pack/minpac/opt/minpac'
+  " Load for real this time
+  packadd minpac
+  autocmd VimEnter * ++once silent call minpac#update('', { 'do': 'quit' })
 endif
 call minpac#init()
 " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
@@ -81,9 +84,6 @@ command! -nargs=? -complete=dir Explore Dirvish <args>
 command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
 command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
-" I need sensible buffer killing
-call minpac#add('qpkorr/vim-bufkill')
-
 " Session management good
 " call minpac#add('tpope/vim-obsession')
 
@@ -110,7 +110,7 @@ nnoremap <silent> S :silent! call CocActionAsync('highlight')<CR>
 " Base16 colorscheme
 call minpac#add('chriskempson/base16-vim')
 let base16colorspace=256
-colorscheme base16-solarized-dark
+silent! colorscheme base16-solarized-dark
 if has('termguicolors')
   set termguicolors
 endif
@@ -225,7 +225,6 @@ vnoremap C "_C
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
 nnoremap <silent> <leader>d :quit<CR>
-nnoremap <silent> <leader>s :BD<CR>
 
 " Make splits make more sense
 set splitbelow
