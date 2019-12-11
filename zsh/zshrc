@@ -36,9 +36,11 @@ zplugin ice wait lucid
 zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
 
 # All new terminals automatically go to the last working directory (lwd does the same)
+# This has issues if you turbo load
 zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
 
 # Easier history searching
+# This has issues if you turbo load
 zplugin light zsh-users/zsh-history-substring-search
 bindkey 'OA' history-substring-search-up
 bindkey 'OB' history-substring-search-down
