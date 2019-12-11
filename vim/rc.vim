@@ -15,7 +15,7 @@ if !exists('*minpac#init')
   execute '!git clone https://github.com/k-takata/minpac.git '.s:config_path.'/pack/minpac/opt/minpac'
   " Load for real this time
   packadd minpac
-  autocmd VimEnter * ++once silent call minpac#update('', { 'do': 'quit' })
+  autocmd VimEnter * silent call minpac#update('', { 'do': 'quit' })
 endif
 call minpac#init()
 " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
