@@ -43,7 +43,7 @@ nnoremap <silent> <leader>g :G<CR>
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " More syntax highlighting
-" call minpac#add('sheerun/vim-polyglot')
+call minpac#add('sheerun/vim-polyglot')
 " call minpac#add('elihunter173/vim-rpl')
 
 " Markdown syntax highlighting
@@ -194,8 +194,6 @@ set list
 " Enable line numbers and ruler
 set number relativenumber
 set ruler
-
-" Keybindings
 
 " Make save work as you'd expect
 nnoremap <silent> <C-s> :w<CR>
