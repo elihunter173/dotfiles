@@ -20,6 +20,11 @@ if command -v cargo > /dev/null; then
     export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
+if command -v npm > /dev/null; then
+    export PATH="$PATH:$HOME/.npm/bin"
+    export NODE_PATH="$NODE_PATH:$HOME/.npm/lib/node_modules"
+fi
+
 if command -v yarn > /dev/null; then
     export PATH="$PATH:$HOME/.yarn/bin"
 fi
