@@ -4,3 +4,4 @@
 # Vim
 Session.vim
 .vim/
+.vimrc.local
