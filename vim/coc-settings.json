@@ -23,6 +23,9 @@
       "ignoredRootPaths": ["~"]
     }
   },
+
+  "rust-analyzer.enableCargoWatchOnStartup": true,
+
   "java.errors.incompleteClasspath.severity": "ignore"
 
 }
