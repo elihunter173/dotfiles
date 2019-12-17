@@ -34,24 +34,32 @@ call minpac#add('editorconfig/editorconfig-vim')
 " Easier commenting for any language
 call minpac#add('tpope/vim-commentary')
 
+" A bunch of nice matching
+call minpac#add('tpope/vim-unimpaired')
+
 " Lightweight git wrapper
 call minpac#add('tpope/vim-fugitive')
 " Interactive (fug)git(ive)
 nnoremap <silent> <leader>g :G<CR>
 
+" Nice session management
+call minpac#add('tpope/vim-obsession')
+" I don't need things to always save (https://github.com/tpope/vim-obsession/issues/40)
+let g:obsession_no_bufenter = 1
+
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
-" More syntax highlighting
+" Syntax highlighting for more languages
 call minpac#add('sheerun/vim-polyglot')
+" I take notes in markdown and vim-polyglot's markdown gets laggy for 1000+
+" line files. The default one is worse but at least it's not slow.
+let g:polyglot_disabled = ['markdown']
 " call minpac#add('elihunter173/vim-rpl')
 
-" Markdown syntax highlighting
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-" Let's default to no bullets
-let g:vim_markdown_auto_insert_bullets = 0
-let g:vim_markdown_new_list_item_indent = 2
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+end
 
 " Fuzzy Finding
 call minpac#add('junegunn/fzf.vim')
@@ -66,16 +74,12 @@ nnoremap <leader>F :FzfRg<CR>
 
 " Never think about indentation
 call minpac#add('tpope/vim-sleuth')
-" Sleuth can be really slow
-let g:sleuth_automatic = 0
 
 " Swap things with ease
 call minpac#add('tommcdo/vim-exchange')
 " Easier unix commands
 call minpac#add('tpope/vim-eunuch')
 
-" Netrw enhancements
-" call minpac#add('tpope/vim-vinegar')
 " Netrw but simpler and better
 call minpac#add('justinmk/vim-dirvish')
 " Disable netrw
@@ -169,9 +173,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Why would you ever put 2 spaces after punctuation??
 set nojoinspaces
-
-" Allows switching unsaved buffers (instead of abandoning them, hide them)
-set hidden
 
 " Use X clipboard by default
 set clipboard=unnamedplus
