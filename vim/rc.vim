@@ -62,6 +62,7 @@ if executable('rg')
 end
 
 " Fuzzy Finding
+call minpac#add('junegunn/fzf', { 'do': './install --all' })
 call minpac#add('junegunn/fzf.vim')
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
