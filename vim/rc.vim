@@ -40,7 +40,7 @@ call minpac#add('tpope/vim-unimpaired')
 " Lightweight git wrapper
 call minpac#add('tpope/vim-fugitive')
 " Interactive (fug)git(ive)
-nnoremap <silent> <leader>g :G<CR>
+nnoremap <leader>g <Cmd>G<CR>
 
 " Nice session management
 call minpac#add('tpope/vim-obsession')
@@ -69,9 +69,9 @@ let g:fzf_buffers_jump = 1
 " Don't pollute the global namespace
 let g:fzf_command_prefix = 'Fzf'
 " Nice keybindings
-nnoremap <leader>o :FzfFiles<CR>
-nnoremap <leader>f :FzfBLines<CR>
-nnoremap <leader>F :FzfRg<CR>
+nnoremap <leader>o <Cmd>FzfFiles<CR>
+nnoremap <leader>f <Cmd>FzfBLines<CR>
+nnoremap <leader>F <Cmd>FzfRg<CR>
 
 " Never think about indentation
 call minpac#add('tpope/vim-sleuth')
@@ -153,7 +153,7 @@ let g:lightline = {
 
 " Vim undotree visualizer
 call minpac#add('mbbill/undotree')
-nmap <F5> :UndotreeToggle<CR>
+nmap <F5> <Cmd>UndotreeToggle<CR>
 
 " Enable ftplugins for everything
 filetype plugin indent on
@@ -198,62 +198,47 @@ set number relativenumber
 set ruler
 
 " Make save work as you'd expect
-nnoremap <silent> <C-s> :w<CR>
-inoremap <silent> <C-s> <ESC>:w<CR>a
+nnoremap <C-s> <Cmd>w<CR>
+inoremap <C-s> <Cmd>w<CR>
 " Make paste in work as expected
 inoremap <C-v> <ESC>pa
 " Make copy in visual mode work as expected
 vnoremap <C-c> y
 
+" TODO: Put these common sense mappings somewhere else
 " Make `Y` `y$` consistent with `D`, `C`, etc
 nnoremap Y y$
-
-" Remap useless keys
+" Remove useless mapping
 nnoremap s <NOP>
-nnoremap S <NOP>
-
 " Swap 0 and _ since _ is more useful and 0 is easier to reach
 nnoremap 0 _
 nnoremap _ 0
-
-" Make 'c' go to the black hole register
-nnoremap c "_c
-nnoremap C "_C
-vnoremap c "_c
-vnoremap C "_C
+" Remap undo to make more sense
+nnoremap U <C-r>
+nnoremap <C-r> <NOP>
 
 " Make saving and quitting easier and faster
-nnoremap <silent> <leader>w :write<CR>
-nnoremap <silent> <leader>d :quit<CR>
+nnoremap <leader>w <Cmd>write<CR>
+nnoremap <leader>d <Cmd>quit<CR>
 
 " Make splits make more sense
 set splitbelow
 set splitright
 
-" Remap undo to make more sense
-nnoremap U <C-r>
-nnoremap <C-r> <NOP>
-
-" Turn off search highlighting because vim doesn't do that by default for some reason
-nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
-
 " Toggle spell checking with F1
-nnoremap <F12> :setlocal spell! spelllang=en_us<CR>
+nnoremap <F12> <Cmd>setlocal spell! spelllang=en_us<CR>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-" Easier window resizing. I can't make C-< or C-> work
-nnoremap <C-n> <C-w><
-nnoremap <C-m> <C-w>>
 " Easier tab navigation
 nnoremap <M-h> gT
 nnoremap <M-l> gt
 " Make tabs easier
-nnoremap <leader>t :tabnew<CR>
-nnoremap <leader>T :tabclose<CR>
+nnoremap <leader>t <Cmd>tabnew<CR>
+nnoremap <leader>T <Cmd>tabclose<CR>
 " Easier swapping between buffers
 nnoremap <tab> <C-^>
 
@@ -262,7 +247,7 @@ if exists(':term')
   autocmd TermOpen * startinsert
 
   " Easier terminal opening. L for shell
-  nnoremap <silent> <leader>l :terminal<CR>
+  nnoremap <silent> <leader>l <Cmd>terminal<CR>
 
   " Easier escape
   tnoremap <ESC><ESC> <C-\><C-n>
