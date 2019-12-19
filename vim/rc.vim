@@ -93,28 +93,59 @@ command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args
 " call minpac#add('tpope/vim-obsession')
 
 " Word motion through CamelCase and friends
-call minpac#add('chaoren/vim-wordmotion')
-let g:wordmotion_prefix = '['
+" call minpac#add('chaoren/vim-wordmotion')
+" let g:wordmotion_prefix = '['
 
-" Language Server Protocol
-call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
-nmap gd <Plug>(coc-definition)
-nmap <leader>r <Plug>(coc-rename)
-nmap <F2> <Plug>(coc-rename)
-nmap <F3> :CocDisable<CR>
-command! -nargs=0 Format :call CocAction('format')
-" Use K for show documentation in preview window
-" It's annoying if this fails because we don't have yarn
-nnoremap <silent> K :silent! call CocAction('doHover')<CR>
-" Highlight all instances using S because idk
-nnoremap <silent> S :silent! call CocActionAsync('highlight')<CR>
-
-" Common LSPs
+" Common LSPs. Enable when 0.5 hits on all machines
 " call minpac#add('neovim/nvim-lsp')
+
+" Make omnifunc more usable
+inoremap <C-space> <C-x><C-o>
+" Language Server Protocol. Remove when 0.5 hits on all machines
+call minpac#add('autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': '!bash ./install.sh',
+      \ })
+" Required for operations modifying multiple buffers like rename.
+set hidden
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'cpp': ['clangd', '--background-index'],
+    \ 'c': ['clangd', '--background-index'],
+    \ 'go': ['gopls'],
+    \ 'python': ['pyls'],
+    \ 'sh': ['bash-language-server'],
+    \ 'java': ['jdtls'],
+    \ }
+let g:LanguageClient_hoverPreview = 'always'
+nnoremap gd <Cmd>call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>r <Cmd>call LanguageClient#textDocument_rename()<CR>
+nnoremap <F2> <Cmd>call LanguageClient#textDocument_rename()<CR>
+nnoremap <F3> <Cmd>LanguageClientStop<CR>
+nnoremap <F4> <Cmd>LanguageClientStart<CR>
+" Only change these settings if we have a language server running
+function s:LSP_settings()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    " The docs recommend &_sync, but it feels slow and I haven't had any
+    " issues with async
+    setlocal formatexpr=LanguageClient#textDocument_rangeFormatting()
+  end
+endfunction
+autocmd FileType * call <SID>LSP_settings()
+command! -nargs=0 Format :call LanguageClient#textDocument_formatting()
+" Use K for show documentation in preview window
+nnoremap K <Cmd>call LanguageClient#textDocument_hover()<CR>
+" Highlight all instances using S because idk
+nnoremap S <Cmd>call LanguageClient#textDocument_documentHighlight()<CR>
+
+" Turn off search highlighting because vim doesn't do that by default for some
+" reason
+nnoremap <ESC><ESC> <Cmd>nohlsearch\|call LanguageClient#clearDocumentHighlight()<CR>
 
 " Base16 colorscheme
 call minpac#add('chriskempson/base16-vim')
 let base16colorspace=256
+" Shut up when we're first installing
 silent! colorscheme base16-solarized-dark
 if has('termguicolors')
   set termguicolors
