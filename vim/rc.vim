@@ -78,6 +78,7 @@ call minpac#add('tpope/vim-sleuth')
 
 " Swap things with ease
 call minpac#add('tommcdo/vim-exchange')
+
 " Easier unix commands
 call minpac#add('tpope/vim-eunuch')
 
@@ -89,11 +90,8 @@ command! -nargs=? -complete=dir Explore Dirvish <args>
 command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
 command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
-" Session management good
-" call minpac#add('tpope/vim-obsession')
-
 " Word motion through CamelCase and friends
-" call minpac#add('chaoren/vim-wordmotion')
+call minpac#add('chaoren/vim-wordmotion')
 " let g:wordmotion_prefix = '['
 
 " Common LSPs. Enable when 0.5 hits on all machines
@@ -110,8 +108,8 @@ call minpac#add('autozimu/LanguageClient-neovim', {
 set hidden
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ 'cpp': ['clangd', '--background-index'],
-    \ 'c': ['clangd', '--background-index'],
+    \ 'cpp': ['clangd', '-background-index',],
+    \ 'c': ['clangd', '-background-index',],
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'sh': ['bash-language-server'],
@@ -129,12 +127,15 @@ function s:LSP_settings()
     " The docs recommend &_sync, but it feels slow and I haven't had any
     " issues with async
     setlocal formatexpr=LanguageClient#textDocument_rangeFormatting()
+    " Use built in keywordprg
+    setlocal keywordprg=:call\ LanguageClient#textDocument_hover()
   end
 endfunction
 autocmd FileType * call <SID>LSP_settings()
 command! -nargs=0 Format :call LanguageClient#textDocument_formatting()
-" Use K for show documentation in preview window
-nnoremap K <Cmd>call LanguageClient#textDocument_hover()<CR>
+" Double tap K to run keywordprg
+nnoremap KK K
+nnoremap KE <Cmd>call LanguageClient#explainErrorAtPoint()<CR>
 " Highlight all instances using S because idk
 nnoremap S <Cmd>call LanguageClient#textDocument_documentHighlight()<CR>
 
@@ -178,7 +179,7 @@ let g:lightline = {
       \              [  ] ],
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
       \ },
       \ }
 
