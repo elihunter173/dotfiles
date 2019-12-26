@@ -232,9 +232,6 @@ vnoremap <C-c> y
 nnoremap Y y$
 " Remove useless mapping
 nnoremap s <NOP>
-" Swap 0 and _ since _ is more useful and 0 is easier to reach
-nnoremap 0 _
-nnoremap _ 0
 " Remap undo to make more sense
 nnoremap U <C-r>
 nnoremap <C-r> <NOP>
