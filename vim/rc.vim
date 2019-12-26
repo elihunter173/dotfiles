@@ -121,20 +121,10 @@ nnoremap <leader>r <Cmd>call LanguageClient#textDocument_rename()<CR>
 nnoremap <F2> <Cmd>call LanguageClient#textDocument_rename()<CR>
 nnoremap <F3> <Cmd>LanguageClientStop<CR>
 nnoremap <F4> <Cmd>LanguageClientStart<CR>
-" Only change these settings if we have a language server running
-function s:LSP_settings()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    " The docs recommend &_sync, but it feels slow and I haven't had any
-    " issues with async
-    setlocal formatexpr=LanguageClient#textDocument_rangeFormatting()
-    " Use built in keywordprg
-    setlocal keywordprg=:call\ LanguageClient#textDocument_hover()
-  end
-endfunction
-autocmd FileType * call <SID>LSP_settings()
 command! -nargs=0 Format :call LanguageClient#textDocument_formatting()
 " Double tap K to run keywordprg
-nnoremap KK K
+nnoremap K <nop>
+nnoremap KK <Cmd>call LanguageClient#textDocument_hover()<CR>
 nnoremap KE <Cmd>call LanguageClient#explainErrorAtPoint()<CR>
 " Highlight all instances using S because idk
 nnoremap S <Cmd>call LanguageClient#textDocument_documentHighlight()<CR>
