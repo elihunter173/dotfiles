@@ -49,6 +49,7 @@
     ~/.config/bat: bat/
     ~/.hushlogin: empty
     ~/.config/fontconfig: fontconfig/
+    ~/.config/polybar: polybar/
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

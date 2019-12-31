@@ -4,12 +4,13 @@ include-file = ~/.config/polybar/colors.ini
 include-file = ~/.config/polybar/modules.ini
 
 [bar/top]
-monitor = ${env:MAIN_MONITOR:eDP1}
+; polybar automatically figures out the right thing to do
+; monitor = ${env:MAIN_MONITOR:eDP1}
 
-width = 1920
-height = 24
-radius = 0.0
-fixed-center = true
+; width = 1920
+; height = 24
+; radius = 0.0
+; fixed-center = true
 
 ; False = Your WM will configure the window.
 ; True = Your WM will not to configure the window. This to detaches the bar if your WM is locking
@@ -36,16 +37,17 @@ padding = 1
 ; Number of spaces to add before/after each module
 module-margin = 1
 
+; The separator will be inserted between the output of each module
+separator = |
+
 ; Fonts are defined using <font-name>;<vertical-offset>
 ; Font names are specified using a fontconfig pattern.
-font-0 = "Iosevka:size=10:style=Semibold;2.0"
-font-1 = "Material Icons:size=13;4.5"
-font-2 = "Typicons:size=15;3.0"
+font-0 = "monospace:size=10;2.0"
 
 ; Modules are added to one of the available blocks
-modules-left = i3
-modules-center = xwindow
-modules-right = backlight pulseaudio wired-network wireless-network battery0 battery1 time date
+modules-left = i3 ewmh
+modules-center =
+modules-right = backlight pulseaudio wired-network wireless-network battery0 battery1 datetime
 
 ; Position of the system tray window
 ; If empty or undefined, tray support will be disabled
