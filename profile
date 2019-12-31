@@ -2,6 +2,8 @@
 # Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 if command -v poetry > /dev/null; then
     export PATH="$HOME/.poetry/bin:$PATH"
 fi
@@ -16,7 +18,6 @@ if command -v go > /dev/null; then
 fi
 
 if command -v cargo > /dev/null; then
-    # Cargo binaries
     export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
@@ -39,5 +40,3 @@ fi
 if command -v nnn > /dev/null; then
     export NNN_USE_EDITOR=1
 fi
-
-export PATH="$HOME/.poetry/bin:$PATH"
