@@ -52,10 +52,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " Syntax highlighting for more languages
 call minpac#add('sheerun/vim-polyglot')
-" I take notes in markdown and vim-polyglot's markdown gets laggy for 1000+
-" line files. The default one is worse but at least it's not slow.
-let g:polyglot_disabled = ['markdown']
-" call minpac#add('elihunter173/vim-rpl')
 
 if executable('rg')
   set grepprg=rg\ --vimgrep
