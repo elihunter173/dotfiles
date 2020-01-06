@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-# Terminate already running bar instances
-killall -q polybar
-
-# Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+# Terminate already running bar instances. If we failed to terminate anything,
+# we're launching on startup and need to wait for Plasma to start up for ewhm.
+killall -q -w polybar || sleep 1
 
 # Launch bars
 polybar top &
