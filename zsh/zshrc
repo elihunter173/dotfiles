@@ -1,47 +1,46 @@
 # My standard interactive shell config files, override oh-my-zsh
 source ~/.standard.sh
 
-# Install zplugin if not already installed
-if [ ! -d "${HOME}/.zplugin" ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/mod-install.sh)"
+# Install zinit if not already installed
+if [ ! -d "${HOME}/.zinit" ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/mod-install.sh)"
 fi
-module_path+=( "${HOME}/.zplugin/mod-bin/zmodules/Src" )
-zmodload zdharma/zplugin
-source "${HOME}/.zplugin/mod-bin/zplugin.zsh"
+module_path+=( "${HOME}/.zinit/mod-bin/zmodules/Src" )
+source "${HOME}/.zinit/mod-bin/zinit.zsh"
 
 # I'm a traitor in the shell. I like emacs bindings there
 bindkey -e
 
 # Pure Prompt
-zplugin ice pick"async.zsh" src"pure.zsh"
-zplugin light sindresorhus/pure
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 
 # Add syntax highlighting. We zpcompinit and zcpdreplay at init because syntax
 # highlighters expect to be loaded last
-zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"
-zplugin light zsh-users/zsh-syntax-highlighting
+zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
+zinit light zsh-users/zsh-syntax-highlighting
 
-# Turbo load more completions. Use blockf and zplugin creinstall to use zplugin
+# Turbo load more completions. Use blockf and zinit creinstall to use zinit
 # to handle completions
-zplugin ice wait lucid blockf atpull'zplugin creinstall -q .'
-zplugin light zsh-users/zsh-completions
+zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
 
 # Load a bunch of nice stuff from OMZ. These have issues if you turbo load
-zplugin snippet OMZ::lib/completion.zsh
-zplugin snippet OMZ::lib/history.zsh
-zplugin snippet OMZ::lib/key-bindings.zsh
+zinit snippet OMZ::lib/completion.zsh
+zinit snippet OMZ::lib/history.zsh
+zinit snippet OMZ::lib/key-bindings.zsh
 
 # Easy extraction
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
+zinit ice wait lucid
+zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 
 # All new terminals automatically go to the last working directory (lwd does the same)
 # This has issues if you turbo load
-zplugin snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
+zinit snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
 
 # Easier history searching
 # This has issues if you turbo load
-zplugin light zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-history-substring-search
 bindkey 'OA' history-substring-search-up
 bindkey 'OB' history-substring-search-down
 bindkey '^P'   history-substring-search-up
