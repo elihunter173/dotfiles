@@ -37,7 +37,8 @@
 
     # App Config
     ~/.tmux.conf: tmux/tmux.conf
-    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
+    ~/.config/alacritty: alacritty/
+    ~/.config/termite: termite/
     ~/.config/neofetch: neofetch/
     ~/.pandoc: pandoc/
 
