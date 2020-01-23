@@ -52,6 +52,12 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " Syntax highlighting for more languages
 call minpac#add('sheerun/vim-polyglot')
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 2
+" LaTeX with no concealing
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
 
 if executable('rg')
   set grepprg=rg\ --vimgrep
