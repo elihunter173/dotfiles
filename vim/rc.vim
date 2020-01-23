@@ -205,9 +205,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Why would you ever put 2 spaces after punctuation??
 set nojoinspaces
 
-" Use X clipboard by default
-set clipboard=unnamedplus
-
 " Don't redraw during macros (for performance)
 set lazyredraw
 
