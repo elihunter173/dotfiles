@@ -41,4 +41,4 @@ fi
 export TRASH="$HOME/.local/share/Trash/files"
 export SRC="$HOME/src"
 export ARC="$SRC/arc"
-export NOTES="$HOME/Documents/notes"
+export NOTES="$SRC/personal/website/content/notes"
