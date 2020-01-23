@@ -212,6 +212,10 @@ if exists('&inccommand')
   set inccommand=nosplit
 endif
 
+" Make splitting make more sense
+set splitbelow
+set splitright
+
 " Pad cursor when scrolling
 set scrolloff=1
 set sidescrolloff=5
@@ -244,13 +248,6 @@ nnoremap <C-r> <NOP>
 " Make saving and quitting easier and faster
 nnoremap <leader>w <Cmd>write<CR>
 nnoremap <leader>d <Cmd>quit<CR>
-
-" Make splits make more sense
-set splitbelow
-set splitright
-
-" Toggle spell checking with F1
-nnoremap <F12> <Cmd>setlocal spell! spelllang=en_us<CR>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
