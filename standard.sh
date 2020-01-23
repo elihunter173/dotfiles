@@ -9,7 +9,6 @@ export GPG_TTY=$(tty)
 # Pick the one true editor
 if command -v nvim > /dev/null; then
     export EDITOR=nvim
-    export MANPAGER='nvim +Man!'
 elif command -v vim > /dev/null; then
     export EDITOR=vim
 else
