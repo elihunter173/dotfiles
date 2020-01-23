@@ -36,6 +36,11 @@ if command -v trash > /dev/null; then
     alias rm="trash"
 fi
 
+# I have issues with xterm-termite cross platform
+if [[ $TERM == xterm-termite ]]; then
+    export TERM=xterm-256color
+fi
+
 # Bookmarks
 export TRASH="$HOME/.local/share/Trash/files"
 export SRC="$HOME/src"
