@@ -186,6 +186,12 @@ filetype plugin indent on
 set ignorecase
 set smartcase
 
+" Nice undo
+set undofile
+if !has('nvim')
+  set undodir=~/.vim/undo
+endif
+
 " No annoying sound or blink on errors
 set noerrorbells
 set novisualbell
