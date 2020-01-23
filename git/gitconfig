@@ -1,8 +1,12 @@
 [user]
-	email = hunter.eli.w@gmail.com
+	email = elihunter173@gmail.com
 	name = Eli W. Hunter
 [alias]
+	; Custom "commands"
+	hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	; Nice aliases
 	st = status
+	d = diff
 	p = push
 	l = pull
 	cl = clone --recurse-submodules
@@ -11,8 +15,8 @@
 	ca = commit --amend
 	ce = commit --amend --no-edit
 	co = checkout
-	hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	d = diff
+	sw = switch
+	rb = rebase
 [core]
 	excludesfile = ~/.gitignore
 [status]
