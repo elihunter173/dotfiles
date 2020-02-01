@@ -7,7 +7,7 @@ After=network-online.target
 Type=notify
 Environment=RCLONE_CONFIG=%h/.config/rclone/rclone.conf
 
-ExecStart=/usr/bin/rclone mount %i: %h/GoogleDrive/%i
+ExecStart=/usr/bin/rclone mount %i: %h/GoogleDrive/%i --vfs-cache-mode full
 ExecStop=/bin/fusermount -uz %h/GoogleDrive/%i
 Restart=on-failure
 
