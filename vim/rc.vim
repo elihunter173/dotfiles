@@ -146,34 +146,9 @@ endif
 
 " GUI Font settings
 set guifont=Hack:h12
-
-" Eye Candy
-" Nice lightweight statusline
-call minpac#add('itchyny/lightline.vim')
-" Don't show mode redundantly
-set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ],
-      \             [  ] ],
-      \   'right': [ [  ],
-      \              [ 'filetype' ],
-      \              [ 'gitbranch' ] ],
-      \ },
-      \ 'inactive': {
-      \   'left': [ [  ],
-      \             [ 'filename' ],
-      \             [  ] ],
-      \   'right': [ [  ],
-      \              [  ],
-      \              [  ] ],
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \ },
-      \ }
+" TODO: Colors?
+set laststatus=2
+set statusline=%f%m%r%w%q%=%{FugitiveHead()}
 
 " Vim undotree visualizer
 call minpac#add('mbbill/undotree')
@@ -204,6 +179,9 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Why would you ever put 2 spaces after punctuation??
 set nojoinspaces
+
+" A more civilized tab
+set tabstop=4
 
 " Don't redraw during macros (for performance)
 set lazyredraw
