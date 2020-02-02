@@ -51,6 +51,7 @@
     ~/.hushlogin: empty
     ~/.config/fontconfig: fontconfig/
     ~/.config/polybar: polybar/
+    ~/.config/zathura: zathura/
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
