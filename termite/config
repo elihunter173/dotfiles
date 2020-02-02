@@ -2,6 +2,8 @@
 [options]
 font = Monospace 11
 
+scrollback_lines = -1
+
 [colors]
 # Base16 Solarized Dark
 # Author: Ethan Schoonover (modified by aramisgithub)
