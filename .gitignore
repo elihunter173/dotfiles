@@ -1,11 +1,2 @@
-# Machine-specific envars
-/envars
-
-# Temporary vim files
-*.swp
-
-# Temporary files
-*~
-
 # Compiled zsh files
 *.zwc
