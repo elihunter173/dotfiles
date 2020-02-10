@@ -135,6 +135,11 @@ nnoremap S <Cmd>call LanguageClient#textDocument_documentHighlight()<CR>
 " reason
 nnoremap <ESC><ESC> <Cmd>nohlsearch\|call LanguageClient#clearDocumentHighlight()<CR>
 
+" A nice tagbar for LSP
+call minpac#add('liuchengxu/vista.vim')
+" Pretty icons don't work everywhere
+let g:vista#renderer#enable_icon = 0
+
 " Base16 colorscheme
 call minpac#add('chriskempson/base16-vim')
 let base16colorspace=256
