@@ -5,20 +5,20 @@ font pango:Hack 9
 # Remove titlebars
 for_window [class="^.*"] border pixel 2
 
-# i3blocks
 bar {
-  status_command i3blocks
+  status_command i3status
 }
 
 # Startup stuff {{{1
 # Set wallpaper to any color you want
 exec_always --no-startup-id xsetroot -solid "#000"
+# TODO: Necessary with xinitrc?
+exec_always --no-startup-id unclutter --timeout 10 -b
 
-# Variables {{{1
+# Keybindings {{{1
 # mod is super
 set $mod Mod4
 
-# Keybindings {{{1
 # Use mouse+$primary_action to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -32,13 +32,12 @@ set $right l
 bindsym $mod+z fullscreen toggle
 
 # Horizontal and vertical split
-bindsym $mod+s mode "default"; split h
-bindsym $mod+v mode "default"; split v
+bindsym $mod+s split h
+bindsym $mod+v split v
 
 # Rofi
 bindsym $mod+Return exec rofi -show drun
 bindsym $mod+Shift+Return exec rofi -show run
-bindsym $mod+w exec rofi -show window
 
 # Kill focused window
 bindsym $mod+q kill
@@ -53,21 +52,16 @@ bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 1"
 bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
 bindsym XF86Display exec --no-startup-id "xset dpms force off"
 
-# Pulse Audio controls (sending signal to i3blocks bar)
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pamixer --increase 1 && pkill -RTMIN+10 i3blocks"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pamixer --decrease 1 && pkill -RTMIN+10 i3blocks"
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id "pamixer --increase 5 && pkill -RTMIN+10 i3blocks"
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id "pamixer --decrease 5 && pkill -RTMIN+10 i3blocks"
-bindsym XF86AudioMute exec --no-startup-id "pamixer --toggle-mute && pkill -RTMIN+10 i3blocks"
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q set Master 1%+"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q set Master 1%-"
+bindsym XF86AudioMute exec --no-startup-id "amixer -q set Master mute"
 
 # Media player controls
-bindsym XF86AudioPlay exec --no-startup-id "playerctl play"
-bindsym XF86AudioPause exec --no-startup-id "playerctl pause"
+bindsym XF86AudioPlay exec --no-startup-id "playerctl play-pause"
+bindsym XF86AudioPause exec --no-startup-id "playerctl play-pause"
 bindsym XF86AudioNext exec --no-startup-id "playerctl next"
 bindsym XF86AudioPrev exec --no-startup-id "playerctl previous"
-
-# Screenshots
-bindsym Print exec --no-startup-id "spectacle"
 
 # Window Management {{{2
 # Change focus
@@ -75,22 +69,12 @@ bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
-# Alternatively, arrow keys
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
 
 # Move focused window
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-# Alternatively, arrow keys
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
 
 # Move current workspace to next output
 # Mod1 = Alt
@@ -98,11 +82,6 @@ bindsym $mod+Mod1+$left move workspace to output left
 bindsym $mod+Mod1+$down move workspace to output down
 bindsym $mod+Mod1+$up move workspace to output up
 bindsym $mod+Mod1+$right move workspace to output right
-# Alternatively, arrow keys
-bindsym $mod+Mod1+Left move workspace to output left
-bindsym $mod+Mod1+Down move workspace to output down
-bindsym $mod+Mod1+Up move workspace to output up
-bindsym $mod+Mod1+Right move workspace to output right
 
 # Toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
@@ -144,13 +123,12 @@ bindsym $mod+Shift+8 move container to workspace $ws_8
 bindsym $mod+Shift+9 move container to workspace $ws_9
 bindsym $mod+Shift+0 move container to workspace $ws_10
 
-# Control Modes {{{1
+# Layout switching
+bindsym $mod+m layout default
+bindsym $mod+n layout tabbed
+workspace_layout tabbed
+
 # Launch Apps
-bindsym $mod+t exec --no-startup-id "alacritty"
+bindsym $mod+t exec --no-startup-id "termite"
 bindsym $mod+e exec --no-startup-id "gnvim"
 bindsym $mod+b exec --no-startup-id "firefox"
-bindsym $mod+m exec --no-startup-id "flatpak run com.spotify.Client"
-
-# System Control
-bindsym $mod+c exec --no-startup-id "systemctl suspend-then-hibernate"
-bindsym $mod+Shift+c exit
