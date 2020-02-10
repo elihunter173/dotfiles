@@ -40,3 +40,7 @@ fi
 if command -v nnn > /dev/null; then
     export NNN_USE_EDITOR=1
 fi
+
+if [ -d "$HOME/.linuxbrew" ]; then
+    eval $(~/.linuxbrew/bin/brew shellenv)
+fi
