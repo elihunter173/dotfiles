@@ -2,8 +2,6 @@
 
 # Set font
 font pango:Hack 9
-# Remove titlebars
-for_window [class="^.*"] border pixel 2
 
 bar {
   status_command i3status
