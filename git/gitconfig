@@ -15,8 +15,6 @@
 	ca = commit --amend
 	ce = commit --amend --no-edit
 	co = checkout
-	sw = switch
-	rb = rebase
 [core]
 	excludesfile = ~/.gitignore
 [status]
