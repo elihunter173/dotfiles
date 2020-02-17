@@ -5,6 +5,7 @@ font pango:Hack 9
 
 bar {
   status_command i3status
+  position top
 }
 
 # Startup stuff {{{1
