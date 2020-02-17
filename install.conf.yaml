@@ -19,7 +19,7 @@
 
     # Window Manager Config
     ~/.config/i3: i3/
-    ~/.config/sway: i3/
+    ~/.config/sway: sway/
     ~/.config/i3blocks: i3blocks/
     ~/.config/rofi: rofi/
 
