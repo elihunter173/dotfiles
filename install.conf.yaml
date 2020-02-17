@@ -21,7 +21,6 @@
     ~/.config/i3: i3/
     ~/.config/sway: sway/
     ~/.config/i3status: i3status/
-    ~/.config/rofi: rofi/
 
     # Shell Config
     ~/.standard.sh: standard.sh
@@ -39,8 +38,6 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.config/alacritty: alacritty/
     ~/.config/termite: termite/
-    ~/.config/neofetch: neofetch/
-    ~/.pandoc: pandoc/
 
     # Misc
     ~/.gitconfig: git/gitconfig
