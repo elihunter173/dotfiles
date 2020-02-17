@@ -5,3 +5,6 @@
 Session.vim
 .vim/
 .vimrc.local
+
+# NixOS
+shell.nix
