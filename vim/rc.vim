@@ -179,9 +179,6 @@ set novisualbell
 " Enable mouse support for all modes
 set mouse=a
 
-" Disable autocomments for all things
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
 " Why would you ever put 2 spaces after punctuation??
 set nojoinspaces
 
