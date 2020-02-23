@@ -30,6 +30,10 @@ zinit snippet OMZ::lib/completion.zsh
 zinit snippet OMZ::lib/history.zsh
 zinit snippet OMZ::lib/key-bindings.zsh
 
+# Lazily load a good colorscheme
+zinit ice wait lucid
+zinit snippet https://raw.githubusercontent.com/chriskempson/base16-shell/master/scripts/base16-solarized-dark.sh
+
 # Easy extraction
 zinit ice wait lucid
 zinit snippet OMZ::plugins/extract/extract.plugin.zsh
