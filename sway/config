@@ -8,12 +8,6 @@ bar {
   position top
 }
 
-# Startup stuff {{{1
-# Set wallpaper to any color you want
-exec_always --no-startup-id xsetroot -solid "#000"
-# TODO: Necessary with xinitrc?
-exec_always --no-startup-id unclutter --timeout 10 -b
-
 # Keybindings {{{1
 # mod is super
 set $mod Mod4
@@ -34,9 +28,9 @@ bindsym $mod+z fullscreen toggle
 bindsym $mod+s split h
 bindsym $mod+v split v
 
-# Rofi
-bindsym $mod+Return exec rofi -show drun
-bindsym $mod+Shift+Return exec rofi -show run
+# wofi
+bindsym $mod+Return exec wofi --show drun
+bindsym $mod+Shift+Return exec wofi --show run
 
 # Kill focused window
 bindsym $mod+q kill
