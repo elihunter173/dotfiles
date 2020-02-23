@@ -28,27 +28,31 @@ call minpac#add('machakann/vim-sandwich')
 " Auto-closing for brackets, parens, and quotes
 call minpac#add('jiangmiao/auto-pairs')
 
-" https://EditorConfig.org
-call minpac#add('editorconfig/editorconfig-vim')
-
 " Easier commenting for any language
 call minpac#add('tpope/vim-commentary')
-
-" A bunch of nice matching
-call minpac#add('tpope/vim-unimpaired')
 
 " Lightweight git wrapper
 call minpac#add('tpope/vim-fugitive')
 " Interactive (fug)git(ive)
 nnoremap <leader>g <Cmd>G<CR>
 
+" https://EditorConfig.org
+call minpac#add('editorconfig/editorconfig-vim')
+
+" EditorConfig + Fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
+
+" A bunch of nice matching
+call minpac#add('tpope/vim-unimpaired')
+
 " Nice session management
 call minpac#add('tpope/vim-obsession')
 " I don't need things to always save (https://github.com/tpope/vim-obsession/issues/40)
 let g:obsession_no_bufenter = 1
 
-" EditorConfig + Fugitive
-let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
+" Easy per-project configuration
+call minpac#add('LucHermitte/lh-vim-lib')
+call minpac#add('LucHermitte/local_vimrc')
 
 " Syntax highlighting for more languages
 call minpac#add('sheerun/vim-polyglot')

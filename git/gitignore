@@ -3,8 +3,7 @@
 
 # Vim
 Session.vim
-.vim/
-.vimrc.local
+_vimrc_local.vim
 
 # NixOS
 shell.nix
