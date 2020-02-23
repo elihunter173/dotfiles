@@ -145,7 +145,7 @@ call minpac#add('chriskempson/base16-vim')
 let base16colorspace=256
 " Shut up when we're first installing
 silent! colorscheme base16-solarized-dark
-if has('termguicolors')
+if $TERM != 'linux' and has('termguicolors')
   set termguicolors
 endif
 
