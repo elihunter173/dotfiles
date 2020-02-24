@@ -16,8 +16,6 @@ else
 fi
 
 # A more friendly ls
-alias exa="exa --classify"
-alias ls="ls --color=auto --classify"
 if command -v exa > /dev/null; then
     alias l="exa"
     alias ll="exa --long --header --group --git"
@@ -29,6 +27,9 @@ else
     alias la="ls --all"
     command -v tree > /dev/null && alias lt="tree"
 fi
+# I put this after, so command doesn't get tricked
+alias exa="exa --classify"
+alias ls="ls --color=auto --classify"
 
 # Quick shortcuts
 alias e="$EDITOR"
