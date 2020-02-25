@@ -119,7 +119,7 @@ let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'sh': ['bash-language-server'],
-    \ 'java': ['jdtls'],
+    \ 'java': ['jdtls', '-data', '~/.cache/jdtls'.getcwd()],
     \ }
 let g:LanguageClient_hoverPreview = 'always'
 nnoremap gd <Cmd>call LanguageClient#textDocument_definition()<CR>
