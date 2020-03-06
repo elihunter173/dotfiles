@@ -23,8 +23,8 @@ if command -v exa > /dev/null; then
     alias lt="exa --tree"
 else
     alias l="ls"
-    alias ll="ls --long --human-readable"
-    alias la="ls --all"
+    alias ll="ls -lh"
+    alias la="ls -a"
     command -v tree > /dev/null && alias lt="tree"
 fi
 # I put this after, so command doesn't get tricked
@@ -37,12 +37,6 @@ alias e="$EDITOR"
 alias eg="$EDITOR '+:Gstatus\|bd #'"
 alias g="git" # further shortcuts in ~/.gitconfig
 
-# Make rm safe
-if command -v trash > /dev/null; then
-    alias rmm="/bin/rm"
-    alias rm="trash"
-fi
-
 # I have issues with xterm-termite cross platform
 if [[ $TERM == xterm-termite ]]; then
     export TERM=xterm-256color
@@ -52,4 +46,4 @@ fi
 export TRASH="$HOME/.local/share/Trash/files"
 export SRC="$HOME/src"
 export ARC="$SRC/arc"
-export NOTES="$SRC/personal/website/content/notes"
+export NOTES="$HOME/Documents/ncsu/notes"
