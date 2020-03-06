@@ -146,10 +146,10 @@ let g:vista#renderer#enable_icon = 0
 
 " Base16 colorscheme
 call minpac#add('chriskempson/base16-vim')
-let base16colorspace=256
 " Shut up when we're first installing
 silent! colorscheme base16-solarized-dark
 if $TERM != 'linux' && has('termguicolors')
+  let base16colorspace=256
   set termguicolors
 endif
 
