@@ -7,3 +7,6 @@ _vimrc_local.vim
 
 # NixOS
 shell.nix
+
+# pyls generated stuff
+.mypy_cache/
