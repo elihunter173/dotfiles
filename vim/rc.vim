@@ -72,12 +72,10 @@ call minpac#add('junegunn/fzf', { 'do': '!./install --bin' })
 call minpac#add('junegunn/fzf.vim')
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
-" Don't pollute the global namespace
-let g:fzf_command_prefix = 'Fzf'
 " Nice keybindings
-nnoremap <leader>o <Cmd>FzfFiles<CR>
-nnoremap <leader>f <Cmd>FzfBLines<CR>
-nnoremap <leader>F <Cmd>FzfRg<CR>
+nnoremap <leader>o <Cmd>Files<CR>
+nnoremap <leader>f <Cmd>BLines<CR>
+nnoremap <leader>F <Cmd>Rg<CR>
 
 " Never think about indentation
 call minpac#add('tpope/vim-sleuth')
