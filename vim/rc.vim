@@ -83,9 +83,6 @@ call minpac#add('tpope/vim-sleuth')
 " Swap things with ease
 call minpac#add('tommcdo/vim-exchange')
 
-" Easier unix commands
-call minpac#add('tpope/vim-eunuch')
-
 " Netrw but simpler and better
 call minpac#add('justinmk/vim-dirvish')
 " Disable netrw
@@ -122,14 +119,8 @@ let g:LanguageClient_serverCommands = {
 let g:LanguageClient_hoverPreview = 'always'
 nnoremap gd <Cmd>call LanguageClient#textDocument_definition()<CR>
 nnoremap <leader>r <Cmd>call LanguageClient#textDocument_rename()<CR>
-nnoremap <F2> <Cmd>call LanguageClient#textDocument_rename()<CR>
-nnoremap <F3> <Cmd>LanguageClientStop<CR>
-nnoremap <F4> <Cmd>LanguageClientStart<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 command! -nargs=0 Format :call LanguageClient#textDocument_formatting()
-" Double tap K to run keywordprg
-nnoremap K <nop>
-nnoremap KK <Cmd>call LanguageClient#textDocument_hover()<CR>
-nnoremap KE <Cmd>call LanguageClient#explainErrorAtPoint()<CR>
 " Highlight all instances using S because idk
 nnoremap S <Cmd>call LanguageClient#textDocument_documentHighlight()<CR>
 
@@ -151,15 +142,14 @@ if $TERM != 'linux' && has('termguicolors')
   set termguicolors
 endif
 
+" Vim undotree visualizer
+call minpac#add('mbbill/undotree')
+
 " GUI Font settings
 set guifont=Hack:h12
 " TODO: Colors?
 set laststatus=2
 set statusline=%f%m%r%w%q%=%{FugitiveHead()}
-
-" Vim undotree visualizer
-call minpac#add('mbbill/undotree')
-nmap <F5> <Cmd>UndotreeToggle<CR>
 
 " Enable ftplugins for everything
 filetype plugin indent on
@@ -209,14 +199,6 @@ set list
 " Enable line numbers and ruler
 set number relativenumber
 set ruler
-
-" Make save work as you'd expect
-nnoremap <C-s> <Cmd>w<CR>
-inoremap <C-s> <Cmd>w<CR>
-" Make paste in work as expected
-inoremap <C-v> <ESC>pa
-" Make copy in visual mode work as expected
-vnoremap <C-c> y
 
 " TODO: Put these common sense mappings somewhere else
 " Make `Y` `y$` consistent with `D`, `C`, etc
