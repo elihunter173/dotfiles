@@ -25,8 +25,6 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('wellle/targets.vim')
 " Surrounding text objects with any character
 call minpac#add('machakann/vim-sandwich')
-" Auto-closing for brackets, parens, and quotes
-call minpac#add('jiangmiao/auto-pairs')
 
 " Easier commenting for any language
 call minpac#add('tpope/vim-commentary')
@@ -49,10 +47,6 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-obsession')
 " I don't need things to always save (https://github.com/tpope/vim-obsession/issues/40)
 let g:obsession_no_bufenter = 1
-
-" Easy per-project configuration
-call minpac#add('LucHermitte/lh-vim-lib')
-call minpac#add('LucHermitte/local_vimrc')
 
 " Syntax highlighting for more languages
 call minpac#add('sheerun/vim-polyglot')
