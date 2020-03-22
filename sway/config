@@ -12,6 +12,9 @@ bar {
 # mod is super
 set $mod Mod4
 
+# Make the cursor disappear after 3 seconds of inactivity
+seat * hide_cursor 3000
+
 # Use mouse+$primary_action to drag floating windows to their wanted position
 floating_modifier $mod
 
