@@ -60,24 +60,29 @@ bindsym XF86AudioNext exec --no-startup-id "playerctl next"
 bindsym XF86AudioPrev exec --no-startup-id "playerctl previous"
 
 # Window Management {{{2
-# Change focus
+# Change window focus
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 
-# Move focused window
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+# Change output focus
+bindsym $mod+Alt+$left focus output left
+bindsym $mod+Alt+$down focus output down
+bindsym $mod+Alt+$up focus output up
+bindsym $mod+Alt+$right focus output right
 
-# Move current workspace to next output
-# Mod1 = Alt
-bindsym $mod+Mod1+$left move workspace to output left
-bindsym $mod+Mod1+$down move workspace to output down
-bindsym $mod+Mod1+$up move workspace to output up
-bindsym $mod+Mod1+$right move workspace to output right
+# Move focused window
+bindsym $mod+Shift+$left move window left
+bindsym $mod+Shift+$down move window down
+bindsym $mod+Shift+$up move window up
+bindsym $mod+Shift+$right move window right
+
+# Move focused workspace across outputs
+bindsym $mod+Shift+Alt+$left move workspace to output left
+bindsym $mod+Shift+Alt+$down move workspace to output down
+bindsym $mod+Shift+Alt+$up move workspace to output up
+bindsym $mod+Shift+Alt+$right move workspace to output right
 
 # Toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
