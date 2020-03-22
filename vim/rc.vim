@@ -29,10 +29,13 @@ call minpac#add('machakann/vim-sandwich')
 " Easier commenting for any language
 call minpac#add('tpope/vim-commentary')
 
+" Async (for fugitive)
+call minpac#add('tpope/vim-dispatch')
 " Lightweight git wrapper
 call minpac#add('tpope/vim-fugitive')
 " Interactive (fug)git(ive)
-nnoremap <leader>g <Cmd>G<CR>
+nnoremap <leader>gs <Cmd>tab Gstatus<CR>
+nnoremap <leader>gp <Cmd>Gpush<CR>
 
 " https://EditorConfig.org
 call minpac#add('editorconfig/editorconfig-vim')
