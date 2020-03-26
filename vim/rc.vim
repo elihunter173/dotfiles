@@ -112,6 +112,7 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ 'sh': ['bash-language-server'],
     \ 'java': ['jdtls', '-data', '~/.cache/jdtls'.getcwd()],
+    \ 'lua': ['lua-language-server', '-E', '-e', 'LANG=en'],
     \ }
 let g:LanguageClient_hoverPreview = 'always'
 nnoremap gd <Cmd>call LanguageClient#textDocument_definition()<CR>
