@@ -226,17 +226,11 @@ nnoremap <leader>T <Cmd>tabclose<CR>
 nnoremap <tab> <C-^>
 
 if exists(':term')
-  " Make terminals always open in insert mode
-  autocmd TermOpen * startinsert
-
   " Easier terminal opening. L for shell
   nnoremap <silent> <leader>l <Cmd>terminal<CR>
 
   " Easier escape
   tnoremap <ESC><ESC> <C-\><C-n>
-
-  " Make paste in work as expected
-  tnoremap <C-v> <C-\><C-n>pi
 
   " Easier window navigation
   tnoremap <C-h> <C-\><C-n><C-w>h
@@ -247,6 +241,11 @@ if exists(':term')
   tnoremap <M-h> <C-\><C-n>gT
   tnoremap <M-l> <C-\><C-n>gt
 
-  " No linenumbers in terminals
-  autocmd TermOpen * setlocal norelativenumber nonumber
+  augroup TermSettings
+    autocmd!
+    " Make terminals always open in insert mode
+    autocmd TermOpen * startinsert
+    " No linenumbers in terminals
+    autocmd TermOpen * setlocal norelativenumber nonumber
+  augroup END
 end
