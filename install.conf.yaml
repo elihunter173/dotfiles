@@ -19,6 +19,7 @@
 
     # Window Manager Config
     ~/.config/i3: i3/
+    ~/.config/awesome: awesome/
     ~/.config/sway: sway/
     ~/.config/i3status: i3status/
 
