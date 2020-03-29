@@ -17,7 +17,7 @@ trap 'printf "$RESET"' EXIT
 #
 # If no COMMANDS are given or the BIN couldn't be installed due to a command
 # failing, a warning is issued
-function try_install() {
+try_install() {
   bin="$1"
   # We pop $1 off of $@, making $@ the commands we want to install. We can't
   # assign it to a variable because that causes issues with string

@@ -211,9 +211,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-" Easier tab navigation
-nnoremap <C-S-j> gT
-nnoremap <C-S-k> gt
 " Make tabs easier
 nnoremap <leader>t <Cmd>tabnew<CR>
 nnoremap <leader>T <Cmd>tabclose<CR>
@@ -232,9 +229,6 @@ if exists(':term')
   tnoremap <C-j> <C-\><C-n><C-w>j
   tnoremap <C-k> <C-\><C-n><C-w>k
   tnoremap <C-l> <C-\><C-n><C-w>l
-  " Easier tab navigation
-  tnoremap <C-S-h> <C-\><C-n>gT
-  tnoremap <C-S-l> <C-\><C-n>gt
 
   augroup TermSettings
     autocmd!
