@@ -26,6 +26,9 @@ call minpac#add('wellle/targets.vim')
 " Surrounding text objects with any character
 call minpac#add('machakann/vim-sandwich')
 
+" Nice matching of paired things (e.g. parens)
+call minpac#add('jiangmiao/auto-pairs')
+
 " Easier commenting for any language
 call minpac#add('tpope/vim-commentary')
 
