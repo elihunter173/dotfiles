@@ -44,6 +44,5 @@ fi
 
 # Bookmarks
 export TRASH="$HOME/.local/share/Trash/files"
-export SRC="$HOME/src"
 export ARC="$SRC/arc"
 export NOTES="$HOME/Documents/ncsu/notes"
