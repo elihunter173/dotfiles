@@ -4,9 +4,9 @@
 # check_for display messages in a warning color
 
 # Set up so we always print our desired color
-WARN="\u001b[31m"
-OKAY="\u001b[34m"
-RESET="\u001b[0m"
+WARN="\033[31m"
+OKAY="\033[34m"
+RESET="\033[0m"
 trap 'printf "$RESET"' EXIT
 
 # usage: try_install BIN [COMMANDS...]
@@ -17,13 +17,13 @@ trap 'printf "$RESET"' EXIT
 #
 # If no COMMANDS are given or the BIN couldn't be installed due to a command
 # failing, a warning is issued
-function try_install() {
+try_install() {
   bin="$1"
   # We pop $1 off of $@, making $@ the commands we want to install. We can't
   # assign it to a variable because that causes issues with string
   # separation.
   shift
-  if command -v "$bin" &>/dev/null; then
+  if command -v "$bin" > /dev/null; then
     printf "$OKAY"
     echo "'$bin' already installed. Skipping..."
     return
