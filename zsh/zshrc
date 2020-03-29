@@ -26,10 +26,6 @@ bindkey 'OB' history-substring-search-down
 bindkey '^P'   history-substring-search-up
 bindkey '^N'   history-substring-search-down
 
-# Pure Prompt
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
-
 # Add syntax highlighting. We zpcompinit and zcpdreplay at init because syntax
 # highlighters expect to be loaded last
 zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
@@ -56,3 +52,6 @@ zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
 fi
+
+# Initialize starship prompt
+eval "$(starship init zsh)"

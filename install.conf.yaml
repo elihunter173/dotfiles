@@ -29,6 +29,7 @@
     ~/.zshrc: zsh/zshrc
     ~/.zshenv: zsh/zshenv
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
+    ~/.config/starship.toml: starship.toml
 
     # Vim Config
     ~/.vimrc: vim/rc.vim
@@ -53,3 +54,8 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - description: Checking dependencies
+    command: ./check_deps.sh
+    stdout: true
+    stdin: true
+    quiet: false
