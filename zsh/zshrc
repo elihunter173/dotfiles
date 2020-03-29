@@ -18,6 +18,14 @@ source ~/.standard.sh
 # I'm a traitor in the shell. I like emacs bindings there
 bindkey -e
 
+# Easier history searching
+# This has issues if you turbo load
+zinit light zsh-users/zsh-history-substring-search
+bindkey 'OA' history-substring-search-up
+bindkey 'OB' history-substring-search-down
+bindkey '^P'   history-substring-search-up
+bindkey '^N'   history-substring-search-down
+
 # Pure Prompt
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
@@ -44,18 +52,6 @@ zinit snippet https://raw.githubusercontent.com/chriskempson/base16-shell/master
 # Easy extraction
 zinit ice wait lucid
 zinit snippet OMZ::plugins/extract/extract.plugin.zsh
-
-# All new terminals automatically go to the last working directory (lwd does the same)
-# This has issues if you turbo load
-zinit snippet OMZ::plugins/last-working-dir/last-working-dir.plugin.zsh
-
-# Easier history searching
-# This has issues if you turbo load
-zinit light zsh-users/zsh-history-substring-search
-bindkey 'OA' history-substring-search-up
-bindkey 'OB' history-substring-search-down
-bindkey '^P'   history-substring-search-up
-bindkey '^N'   history-substring-search-down
 
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
