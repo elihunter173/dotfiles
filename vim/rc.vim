@@ -32,8 +32,6 @@ call minpac#add('jiangmiao/auto-pairs')
 " Easier commenting for any language
 call minpac#add('tpope/vim-commentary')
 
-" Async (for fugitive)
-call minpac#add('tpope/vim-dispatch')
 " Lightweight git wrapper
 call minpac#add('tpope/vim-fugitive')
 " Interactive (fug)git(ive)
@@ -45,9 +43,6 @@ call minpac#add('editorconfig/editorconfig-vim')
 
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
-
-" A bunch of nice matching
-call minpac#add('tpope/vim-unimpaired')
 
 " Nice session management
 call minpac#add('tpope/vim-obsession')
@@ -79,9 +74,6 @@ nnoremap <leader>F <Cmd>Rg<CR>
 
 " Never think about indentation
 call minpac#add('tpope/vim-sleuth')
-
-" Swap things with ease
-call minpac#add('tommcdo/vim-exchange')
 
 " Netrw but simpler and better
 call minpac#add('justinmk/vim-dirvish')
@@ -220,8 +212,8 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 " Easier tab navigation
-nnoremap <M-h> gT
-nnoremap <M-l> gt
+nnoremap <C-S-j> gT
+nnoremap <C-S-k> gt
 " Make tabs easier
 nnoremap <leader>t <Cmd>tabnew<CR>
 nnoremap <leader>T <Cmd>tabclose<CR>
@@ -241,8 +233,8 @@ if exists(':term')
   tnoremap <C-k> <C-\><C-n><C-w>k
   tnoremap <C-l> <C-\><C-n><C-w>l
   " Easier tab navigation
-  tnoremap <M-h> <C-\><C-n>gT
-  tnoremap <M-l> <C-\><C-n>gt
+  tnoremap <C-S-h> <C-\><C-n>gT
+  tnoremap <C-S-l> <C-\><C-n>gt
 
   augroup TermSettings
     autocmd!
