@@ -13,10 +13,10 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
+local hotkeys_popup = require("awful.hotkeys_popup")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -64,20 +64,21 @@ editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
+-- I think I've restricted this to the ones I actually care about
 awful.layout.layouts = {
     awful.layout.suit.floating,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
+    -- awful.layout.suit.tile,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.magnifier,
+    -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -233,29 +234,34 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
-              {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-              {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
-              {description = "go back", group = "tag"}),
-
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-        end,
-        {description = "focus next by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
+   awful.key(
+      {modkey}, "s",
+      hotkeys_popup.show_help,
+      {description="show help", group="awesome"}),
+   -- TODO: Remove the view previous/next?
+   awful.key(
+      {modkey}, "Left",
+      awful.tag.viewprev,
+      {description = "view previous", group = "tag"}),
+   awful.key(
+      {modkey}, "Right",
+      awful.tag.viewnext,
+      {description = "view next", group = "tag"}),
+   awful.key(
+      {modkey}, "Escape",
+      awful.tag.history.restore,
+      {description = "go back", group = "tag"}),
+   awful.key({ modkey,           }, "j",
+      function () awful.client.focus.byidx(-1) end,
+      {description = "focus previous by index", group = "client"}),
+   awful.key(
+      {modkey}, "k",
+      function () awful.client.focus.byidx(1) end,
+      {description = "focus next by index", group = "client"}),
+   awful.key(
+      {modkey}, "w",
+      function () mymainmenu:show() end,
+      {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
