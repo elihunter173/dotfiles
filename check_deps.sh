@@ -4,9 +4,9 @@
 # check_for display messages in a warning color
 
 # Set up so we always print our desired color
-WARN="\u001b[31m"
-OKAY="\u001b[34m"
-RESET="\u001b[0m"
+WARN="\033[31m"
+OKAY="\033[34m"
+RESET="\033[0m"
 trap 'printf "$RESET"' EXIT
 
 # usage: try_install BIN [COMMANDS...]
@@ -23,7 +23,7 @@ try_install() {
   # assign it to a variable because that causes issues with string
   # separation.
   shift
-  if command -v "$bin" &>/dev/null; then
+  if command -v "$bin" > /dev/null; then
     printf "$OKAY"
     echo "'$bin' already installed. Skipping..."
     return
@@ -50,6 +50,6 @@ try_install() {
   echo "'$bin' couldn't be found and is recommended!"
 }
 
-try_install 'starship' 'cargo install starship' 'curl -fsSL https://starship.rs/install.sh | bash'
+try_install 'starship' 'cargo install starship' 'brew install starship' 'curl -fsSL https://starship.rs/install.sh | bash'
 try_install 'direnv'
 try_install 'nvim'
