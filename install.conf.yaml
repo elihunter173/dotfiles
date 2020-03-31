@@ -28,6 +28,7 @@
     ~/.bashrc: bash/bashrc
     ~/.zshrc: zsh/zshrc
     ~/.zshenv: zsh/zshenv
+    ~/.p10k.zsh: zsh/p10k.zsh
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
     ~/.config/starship.toml: starship.toml
 

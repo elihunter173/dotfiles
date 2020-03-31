@@ -50,6 +50,5 @@ try_install() {
   echo "'$bin' couldn't be found and is recommended!"
 }
 
-try_install 'starship' 'cargo install starship' 'brew install starship' 'curl -fsSL https://starship.rs/install.sh | bash'
 try_install 'direnv'
 try_install 'nvim'
