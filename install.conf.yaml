@@ -42,8 +42,7 @@
     ~/.config/termite: termite/
 
     # Misc
-    ~/.gitconfig: git/gitconfig
-    ~/.gitignore: git/gitignore
+    ~/.config/git: git/
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
     ~/.cron: cron
     ~/.config/bat: bat/

@@ -15,10 +15,10 @@
 	ca = commit --amend
 	ce = commit --amend --no-edit
 	co = checkout
-[core]
-	excludesfile = ~/.gitignore
 [status]
 	branch = true
 	short = true
+	showStash = true
 [pager]
 	branch = false
+
