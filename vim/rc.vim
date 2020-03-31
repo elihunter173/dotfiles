@@ -201,6 +201,8 @@ nnoremap s <NOP>
 " Remap undo to make more sense
 nnoremap U <C-r>
 nnoremap <C-r> <NOP>
+" Easily repeat a macro
+nnoremap Q @@
 
 " Make saving and quitting easier and faster
 nnoremap <leader>w <Cmd>write<CR>
