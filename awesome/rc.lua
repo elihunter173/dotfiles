@@ -162,6 +162,14 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+local VOLUME_GET_CMD = "amixer sget Master"
+local VOLUME_INC_CMD = "amixer sset Master 5%+"
+local VOLUME_DEC_CMD = "amixer sset Master 5%-"
+local VOLUME_TOG_CMD = "amixer sset Master toggle"
+
+-- TODO: Replace with plugin manager once I create one
+local volumebar_widget = require("awesome-wm-widgets.volumebar-widget.volumebar")
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
@@ -210,7 +218,15 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
+            volumebar_widget({
+                  mute_color = beautiful.bg_urgent,
+                  shape = "rounded_bar",
+                  margins = 8,
+                  get_volume_cmd = VOLUME_GET_CMD,
+                  inc_volume_cmd = VOLUME_INC_CMD,
+                  dec_volume_cmd = VOLUME_DEC_CMD,
+                  tog_volume_cmd = VOLUME_TOG_CMD,
+               }),
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
@@ -309,6 +325,37 @@ globalkeys = gears.table.join(
        {modkey}, "m",
        function() awful.spawn("spotify") end,
        {description = "open Spotify", group = "launcher"}),
+
+    -- Media control
+    awful.key(
+       {}, "XF86AudioRaiseVolume",
+       function() awful.spawn(VOLUME_INC_CMD, false) end,
+       {description = "increase volume", group = "media"}),
+    awful.key(
+       {}, "XF86AudioLowerVolume",
+       function() awful.spawn(VOLUME_DEC_CMD, false) end,
+       {description = "decrease volume", group = "media"}),
+    awful.key(
+       {}, "XF86AudioMute",
+       function() awful.spawn(VOLUME_TOG_CMD, false) end,
+       {description = "(un)mute", group = "media"}),
+    awful.key(
+       {}, "XF86AudioPlay",
+       function() awful.spawn("playerctl play-pause", false) end,
+       {description = "play/pause current media", group = "media"}),
+    awful.key(
+       {}, "XF86AudioPause",
+       function() awful.spawn("playerctl play-pause", false) end,
+       {description = "play/pause current media", group = "media"}),
+    awful.key(
+       {}, "XF86AudioNext",
+       function() awful.spawn("playerctl next", false) end,
+       {description = "play next song", group = "media"}),
+    awful.key(
+       {}, "XF86AudioPrev",
+       function() awful.spawn("playerctl previous", false) end,
+       {description = "play previous song", group = "media"}),
+
 
     -- Awesome control
     awful.key(
