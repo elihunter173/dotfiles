@@ -66,22 +66,9 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 -- I think I've restricted this to the ones I actually care about
 awful.layout.layouts = {
-    awful.layout.suit.floating,
-    -- awful.layout.suit.tile,
-    -- awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.tile.top,
-    -- awful.layout.suit.fair,
-    -- awful.layout.suit.fair.horizontal,
-    -- awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    -- awful.layout.suit.max.fullscreen,
-    -- awful.layout.suit.magnifier,
-    -- awful.layout.suit.corner.nw,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
+    awful.layout.suit.floating,
+    awful.layout.suit.spiral.dwindle,
 }
 -- }}}
 
@@ -318,6 +305,10 @@ globalkeys = gears.table.join(
        {modkey}, "b",
        function() awful.spawn("firefox") end,
        {description = "open a web browser", group = "launcher"}),
+    awful.key(
+       {modkey}, "m",
+       function() awful.spawn("spotify") end,
+       {description = "open Spotify", group = "launcher"}),
 
     -- Awesome control
     awful.key(
@@ -373,20 +364,7 @@ globalkeys = gears.table.join(
                 )
           end
        end,
-       {description = "restore minimized", group = "client"}),
-
-
-    awful.key(
-       {modkey}, "x",
-       function()
-          awful.prompt.run {
-             prompt       = "Run Lua code: ",
-             textbox      = awful.screen.focused().mypromptbox.widget,
-             exe_callback = awful.util.eval,
-             history_path = awful.util.get_cache_dir() .. "/history_eval"
-          }
-       end,
-       {description = "lua execute prompt", group = "awesome"})
+       {description = "restore minimized", group = "client"})
     )
 
 clientkeys = gears.table.join(
