@@ -32,6 +32,9 @@ call minpac#add('jiangmiao/auto-pairs')
 " Easier commenting for any language
 call minpac#add('tpope/vim-commentary')
 
+" Easier commenting for any language
+call minpac#add('tpope/vim-unimpaired')
+
 " Lightweight git wrapper
 call minpac#add('tpope/vim-fugitive')
 " Interactive (fug)git(ive)
