@@ -54,6 +54,10 @@ theme.menu_submenu_icon = themes_path.."default/submenu.png"
 theme.menu_height = dpi(16)
 theme.menu_width  = dpi(100)
 
+-- Set notification sizes
+theme.notification_width = dpi(300)
+theme.notification_height = dpi(100)
+
 -- You can add as many variables as
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
