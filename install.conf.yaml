@@ -18,10 +18,7 @@
     ~/.Xresources: xorg/Xresources
 
     # Window Manager Config
-    ~/.config/i3: i3/
     ~/.config/awesome: awesome/
-    ~/.config/sway: sway/
-    ~/.config/i3status: i3status/
 
     # Shell Config
     ~/.standard.sh: standard.sh
@@ -30,7 +27,6 @@
     ~/.zshenv: zsh/zshenv
     ~/.p10k.zsh: zsh/p10k.zsh
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
-    ~/.config/starship.toml: starship.toml
 
     # Vim Config
     ~/.vimrc: vim/rc.vim
@@ -38,18 +34,14 @@
     ~/.config/nvim/spell: vim/spell/
 
     # App Config
-    ~/.tmux.conf: tmux/tmux.conf
     ~/.config/alacritty: alacritty/
-    ~/.config/termite: termite/
 
     # Misc
     ~/.config/git: git/
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
     ~/.cron: cron
-    ~/.config/bat: bat/
     ~/.hushlogin: empty
     ~/.config/fontconfig: fontconfig/
-    ~/.config/polybar: polybar/
     ~/.config/zathura: zathura/
 
 - shell:
