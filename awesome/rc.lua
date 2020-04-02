@@ -52,7 +52,7 @@ end
 beautiful.init("~/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "termite"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -321,10 +321,6 @@ globalkeys = gears.table.join(
        {modkey}, "b",
        function() awful.spawn("firefox") end,
        {description = "open a web browser", group = "launcher"}),
-    awful.key(
-       {modkey}, "m",
-       function() awful.spawn("spotify") end,
-       {description = "open Spotify", group = "launcher"}),
 
     -- Media control
     awful.key(
