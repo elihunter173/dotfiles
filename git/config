@@ -16,7 +16,7 @@
 	ce = commit --amend --no-edit
 	; co = checkout
 	sw = switch
-	r = restore
+	rv = restore
 [status]
 	branch = true
 	short = true
