@@ -6,7 +6,7 @@
 let g:did_install_default_menus = 1
 
 " Easy leader
-let mapleader = " "
+let mapleader = ' '
 
 " Set up or install minpac
 packadd minpac
@@ -38,8 +38,8 @@ call minpac#add('tpope/vim-unimpaired')
 " Lightweight git wrapper
 call minpac#add('tpope/vim-fugitive')
 " Interactive (fug)git(ive)
-nnoremap <leader>gs <Cmd>tab Gstatus<CR>
-nnoremap <leader>gp <Cmd>Gpush<CR>
+nnoremap <leader>gs :tab Gstatus<CR>
+nnoremap <leader>gp :Gpush<CR>
 
 " https://EditorConfig.org
 call minpac#add('editorconfig/editorconfig-vim')
@@ -71,9 +71,9 @@ call minpac#add('junegunn/fzf.vim')
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
 " Nice keybindings
-nnoremap <leader>o <Cmd>Files<CR>
-nnoremap <leader>f <Cmd>BLines<CR>
-nnoremap <leader>F <Cmd>Rg<CR>
+nnoremap <leader>o :Files<CR>
+nnoremap <leader>f :BLines<CR>
+nnoremap <leader>F :Rg<CR>
 
 " Never think about indentation
 call minpac#add('tpope/vim-sleuth')
@@ -113,16 +113,16 @@ let g:LanguageClient_serverCommands = {
     \ 'lua': ['lua-language-server', '-E', '-e', 'LANG=en'],
     \ }
 let g:LanguageClient_hoverPreview = 'always'
-nnoremap gd <Cmd>call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>r <Cmd>call LanguageClient#textDocument_rename()<CR>
+nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>r :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 command! -nargs=0 Format :call LanguageClient#textDocument_formatting()
 " Highlight all instances using S because idk
-nnoremap S <Cmd>call LanguageClient#textDocument_documentHighlight()<CR>
+nnoremap S :call LanguageClient#textDocument_documentHighlight()<CR>
 
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
-nnoremap <ESC><ESC> <Cmd>nohlsearch\|call LanguageClient#clearDocumentHighlight()<CR>
+nnoremap <ESC><ESC> :nohlsearch\|call LanguageClient#clearDocumentHighlight()<CR>
 
 " A nice tagbar for LSP
 call minpac#add('liuchengxu/vista.vim')
@@ -208,8 +208,8 @@ nnoremap <C-r> <NOP>
 nnoremap Q @@
 
 " Make saving and quitting easier and faster
-nnoremap <leader>w <Cmd>write<CR>
-nnoremap <leader>d <Cmd>quit<CR>
+nnoremap <leader>w :write<CR>
+nnoremap <leader>d :quit<CR>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
@@ -217,14 +217,14 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 " Make tabs easier
-nnoremap <leader>t <Cmd>tabnew<CR>
-nnoremap <leader>T <Cmd>tabclose<CR>
+nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>T :tabclose<CR>
 " Easier swapping between buffers
 nnoremap <tab> <C-^>
 
 if exists(':term')
   " Easier terminal opening. L for shell
-  nnoremap <silent> <leader>l <Cmd>terminal<CR>
+  nnoremap <silent> <leader>l :terminal<CR>
 
   " Easier escape
   tnoremap <ESC><ESC> <C-\><C-n>
@@ -235,11 +235,13 @@ if exists(':term')
   tnoremap <C-k> <C-\><C-n><C-w>k
   tnoremap <C-l> <C-\><C-n><C-w>l
 
-  augroup TermSettings
-    autocmd!
-    " Make terminals always open in insert mode
-    autocmd TermOpen * startinsert
-    " No linenumbers in terminals
-    autocmd TermOpen * setlocal norelativenumber nonumber
-  augroup END
+  if has('nvim')
+    augroup TermSettings
+      autocmd!
+      " Make terminals always open in insert mode
+      autocmd TermOpen * startinsert
+      " No linenumbers in terminals
+      autocmd TermOpen * setlocal norelativenumber nonumber
+    augroup END
+  end
 end
