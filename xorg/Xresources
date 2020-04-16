@@ -1,6 +1,6 @@
 ! vim: foldmethod=marker foldlevel=0
 ! Cursor (from /etc/share/icons)
-Xcursor.theme: Bibata_Oil
+Xcursor.theme: capitaine-cursors
 
 ! Base16 Solarized Dark
 ! Scheme: Ethan Schoonover (http://ethanschoonover.com/solarized)
