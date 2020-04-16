@@ -35,12 +35,13 @@
 
     # App Config
     ~/.config/alacritty: alacritty/
+    ~/.config/Dharkael/flameshot.ini: flameshot.conf
 
     # Misc
     ~/.config/git: git/
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
     ~/.cron: cron
-    ~/.hushlogin: empty
+    ~/.hushlogin: hushlogin
     ~/.config/fontconfig: fontconfig/
     ~/.config/zathura: zathura/
 
