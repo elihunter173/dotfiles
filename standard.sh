@@ -22,6 +22,8 @@ if command -v exa > /dev/null; then
     alias la="exa --all"
     alias lt="exa --tree"
 else
+    # The defaults are good IMO
+    unset LS_COLORS
     alias l="ls"
     alias ll="ls -lh"
     alias la="ls -a"
