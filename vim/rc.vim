@@ -7,6 +7,8 @@ let g:did_install_default_menus = 1
 
 " Easy leader
 let mapleader = ' '
+" Prevent space from moving forward in normal mode
+nnoremap <Space> <NOP>
 
 " Set up or install minpac
 packadd minpac
