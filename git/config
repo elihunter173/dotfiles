@@ -25,3 +25,6 @@
 [push]
 	; Don't make me do --set-upstream every time. Just do what I want
 	default = current
+[color]
+	; Force pre 1.8.4 git to use colors
+	ui = auto

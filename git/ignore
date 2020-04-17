@@ -4,6 +4,7 @@
 # Vim
 Session.vim
 _vimrc_local.vim
+*.swp
 
 # NixOS
 shell.nix
