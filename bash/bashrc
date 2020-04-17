@@ -1,4 +1,2 @@
 # My standard interactive shell config files
 source ~/.standard.sh
-# Set up starship prompt
-eval "$(starship init bash)"
