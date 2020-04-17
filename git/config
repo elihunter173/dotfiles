@@ -14,7 +14,7 @@
 	c = commit
 	ca = commit --amend
 	ce = commit --amend --no-edit
-	; co = checkout
+	co = checkout
 	sw = switch
 	rs = restore
 [status]
