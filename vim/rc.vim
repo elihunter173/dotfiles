@@ -88,11 +88,11 @@ let mapleader = ' '
 nnoremap <Space> <NOP>
 
 " Shut up when we're first installing
-colorscheme base16-solarized-dark
 if has('termguicolors')
-  let base16colorspace=256
   set termguicolors
 endif
+let base16colorspace=256
+colorscheme base16-solarized-dark
 
 " Pretty icons don't work everywhere
 let g:vista#renderer#enable_icon = 0
@@ -157,8 +157,8 @@ inoremap <C-space> <C-x><C-o>
 set hidden
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ 'cpp': ['clangd', '-background-index',],
-    \ 'c': ['clangd', '-background-index',],
+    \ 'cpp': ['clangd', '-background-index'],
+    \ 'c': ['clangd', '-background-index'],
     \ 'go': ['gopls'],
     \ 'python': ['pyls'],
     \ 'sh': ['bash-language-server'],
