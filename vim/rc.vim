@@ -4,17 +4,22 @@
 " Author: Eli W. Hunter
 
 " Set up or install minpac
-let s:data_path = has('nvim') ? stdpath('data') : '~/.vim'
-let s:vimplug_path = s:data_path.'/autoload/plug.vim'
-let s:vimplug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+if has('nvim')
+  let s:vimplug_path = stdpath('data').'/site/autoload/plug.vim'
+  let s:plugged_path = stdpath('data').'/plugged'
+else
+  let s:vimplug_path = '~/.vim/autoload/plug.vim'
+  let s:plugged_path = '~/.vim/plugged'
+endif
 let s:new_install = 0
+let s:vimplug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 if empty(glob(s:vimplug_path))
   silent execute '!curl -fLo '.s:vimplug_path.' --create-dirs '.s:vimplug_url
   let s:new_install = 1
 endif
 
 " TODO: Switch to minpac when you never have to deal with Vim 7 :)
-call plug#begin(s:data_path.'/plugged')
+call plug#begin(s:plugged_path)
 " Additional text objects
 Plug 'wellle/targets.vim'
 " Surrounding text objects with any character
