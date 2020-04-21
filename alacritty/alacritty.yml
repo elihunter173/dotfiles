@@ -13,6 +13,8 @@ env:
   # This is set for compatibility along
   TERM: xterm-256color
 
+  WINIT_X11_SCALE_FACTOR: "1"
+
 window:
   # Window dimensions (changes require restart)
   #
@@ -94,7 +96,7 @@ font:
     style: Italic
 
   # Point size
-  size: 9.5
+  size: 12
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
