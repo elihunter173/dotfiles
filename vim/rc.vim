@@ -43,6 +43,8 @@ Plug 'editorconfig/editorconfig-vim'
 " Nice session management
 Plug 'tpope/vim-obsession'
 
+" For :TableFormat in markdown
+Plug 'godlygeek/tabular'
 " Syntax highlighting for more languages
 Plug 'sheerun/vim-polyglot'
 
