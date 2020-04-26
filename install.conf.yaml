@@ -43,7 +43,6 @@
     ~/.cron: cron
     ~/.hushlogin: hushlogin
     ~/.config/fontconfig: fontconfig/
-    ~/.config/zathura: zathura/
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
