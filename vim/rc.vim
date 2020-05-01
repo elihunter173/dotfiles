@@ -68,6 +68,10 @@ Plug 'chaoren/vim-wordmotion'
 " Base16 colorscheme
 Plug 'chriskempson/base16-vim'
 
+" Enable editing of readonly files using sudo.
+" Remove when   https://github.com/neovim/neovim/pull/10842 gets merged
+Plug 'lambdalisue/suda.vim'
+
 " Vim undotree visualizer
 Plug 'mbbill/undotree'
 
@@ -191,6 +195,9 @@ let g:vim_markdown_new_list_item_indent = 2
 " LaTeX with no concealing
 let g:tex_conceal = ""
 let g:vim_markdown_math = 1
+
+" Automatically open readonly files with sudo using suda.vim
+let g:suda_smart_edit = 1
 
 if executable('rg')
   set grepprg=rg\ --vimgrep
