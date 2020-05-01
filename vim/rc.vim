@@ -49,7 +49,7 @@ Plug 'godlygeek/tabular'
 Plug 'sheerun/vim-polyglot'
 
 " Fuzzy Finding
-Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Never think about indentation
@@ -205,10 +205,14 @@ end
 
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 " Nice keybindings
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>f :BLines<CR>
 nnoremap <leader>F :Rg<CR>
+" The previewer became default at some point (at least for me), but I don't
+" want it
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
 
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
