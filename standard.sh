@@ -31,7 +31,7 @@ else
 fi
 # I put this after, so command doesn't get tricked
 alias exa="exa --classify"
-alias ls="ls --color=auto --classify"
+alias ls="ls --color=auto -F"
 
 # Quick shortcuts
 alias e="$EDITOR"
