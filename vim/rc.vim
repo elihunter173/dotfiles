@@ -205,7 +205,7 @@ end
 
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.75 } }
 " Nice keybindings
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>f :BLines<CR>
