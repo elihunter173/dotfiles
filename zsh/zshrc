@@ -36,18 +36,17 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit ice wait lucid blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
-# Load a bunch of nice stuff from OMZ. These have issues if you turbo load
-zinit snippet OMZ::lib/completion.zsh
-zinit snippet OMZ::lib/history.zsh
-zinit snippet OMZ::lib/key-bindings.zsh
+# These cannot be turboloaded because they don't work as expected
+zinit for \
+  jreese/zsh-titles \
+  OMZ::lib/completion.zsh \
+  OMZ::lib/history.zsh \
+  OMZ::lib/key-bindings.zsh
 
-# Lazily load a good colorscheme
-zinit ice wait lucid
-zinit snippet https://raw.githubusercontent.com/chriskempson/base16-shell/master/scripts/base16-solarized-dark.sh
-
-# Easy extraction
-zinit ice wait lucid
-zinit snippet OMZ::plugins/extract/extract.plugin.zsh
+# Turbo load what works well turbo-loaded
+zinit wait lucid for \
+  https://raw.githubusercontent.com/chriskempson/base16-shell/master/scripts/base16-solarized-dark.sh \
+  OMZ::plugins/extract/extract.plugin.zsh \
 
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
