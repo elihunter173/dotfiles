@@ -55,8 +55,15 @@ theme.menu_height = dpi(16)
 theme.menu_width  = dpi(100)
 
 -- Set notification sizes
-theme.notification_width = dpi(300)
-theme.notification_height = dpi(100)
+-- TODO: Remove the redundant settings
+theme.notification_position = 'top_right'
+theme.notification_bg = theme.transparent
+theme.notification_margin = dpi(5)
+theme.notification_border_width = dpi(0)
+theme.notification_border_color = theme.transparent
+theme.notification_spacing = dpi(0)
+theme.notification_icon_resize_strategy = 'center'
+theme.notification_icon_size = dpi(96)
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -99,7 +106,7 @@ theme = theme_assets.recolor_titlebar(
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
+theme.icon_theme = "Papirius"
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
@@ -114,13 +121,6 @@ theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
     taglist_square_size, theme.fg_normal
 )
-
--- Try to determine if we are running light or dark colorscheme:
-local bg_numberic_value = 0
-for s in theme.bg_normal:gmatch("[a-fA-F0-9][a-fA-F0-9]") do
-    bg_numberic_value = bg_numberic_value + tonumber("0x"..s)
-end
-local is_dark_bg = (bg_numberic_value < 383)
 
 -- Generate wallpaper:
 local wallpaper_bg = xrdb.color8

@@ -18,12 +18,14 @@ local menubar = require("menubar")
 -- when client with a matching name is opened:
 local hotkeys_popup = require("awful.hotkeys_popup")
 
+local config = require("config")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
   naughty.notify({
-      preset = naughty.config.presets.critical,
+      preset = naughty.config.apps.presets.critical,
       title = "Oops, there were errors during startup!",
       text = awesome.startup_errors,
     })
@@ -38,7 +40,7 @@ do
     in_error = true
 
     naughty.notify({
-        preset = naughty.config.presets.critical,
+        preset = naughty.config.apps.presets.critical,
         title = "Oops, an error happened!",
         text = tostring(err),
       })
@@ -51,11 +53,6 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "/theme.lua")
 
--- This is used later as the default terminal and editor to run.
-terminal = "alacritty"
-editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " -e " .. editor
-
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -63,52 +60,13 @@ editor_cmd = terminal .. " -e " .. editor
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
--- Table of layouts to cover with awful.layout.inc, order matters.
--- I think I've restricted this to the ones I actually care about
-awful.layout.layouts = {
-  awful.layout.suit.max,
-  awful.layout.suit.floating,
-  awful.layout.suit.spiral.dwindle,
-}
--- }}}
-
--- Ensure we have the proper monitor setup on startup
-awful.spawn("autorandr --change", false)
-
--- {{{ Menu
--- Create a launcher widget and a main menu
-mymainmenu = awful.menu({
-    items = {
-      {
-        "awesome",
-        {
-          { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-          { "manual", terminal .. " -e man awesome" },
-          { "edit config", editor_cmd .. " " .. awesome.conffile },
-          { "restart", awesome.restart },
-          { "quit", function() awesome.quit() end },
-        },
-        beautiful.awesome_icon
-      },
-      { "open terminal", terminal }
-    }
-  })
-
-mylauncher = awful.widget.launcher({
-    image = beautiful.awesome_icon,
-    menu = mymainmenu,
-  })
+for _, cmd in ipairs(config.autostart) do
+  awful.spawn(cmd, false)
+end
 
 -- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+menubar.utils.terminal = config.apps.terminal -- Set the terminal for applications that require it
 -- }}}
-
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
--- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
 
 MediaPlayer = require("media_player")
 spotify = MediaPlayer:new("spotify")
@@ -179,6 +137,26 @@ local function reset_tagnames(tags)
     t.name = i
   end
 end
+-- Create a launcher widget and a main menu
+mylauncher = awful.widget.launcher{
+  image = beautiful.awesome_icon,
+  menu = awful.menu{
+    items = {
+      {
+        "awesome",
+        {
+          { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+          { "manual", config.apps.terminal .. " -e man awesome" },
+          { "edit config", config.apps.editor .. " " .. awesome.conffile },
+          { "restart", awesome.restart },
+          { "quit", function() awesome.quit() end },
+        },
+        beautiful.awesome_icon,
+      },
+      { "open terminal", config.apps.terminal },
+    },
+  },
+}
 
 awful.screen.connect_for_each_screen(function(s)
   -- Wallpaper
@@ -201,11 +179,11 @@ awful.screen.connect_for_each_screen(function(s)
       awful.button({ }, 5, function() awful.layout.inc(-1) end)
     ))
   -- Create a taglist widget
-  s.mytaglist = awful.widget.taglist({
-      screen  = s,
-      filter  = awful.widget.taglist.filter.all,
-      buttons = taglist_buttons
-    })
+  s.mytaglist = awful.widget.taglist{
+    screen  = s,
+    filter  = awful.widget.taglist.filter.all,
+    buttons = taglist_buttons
+  }
 
   -- Create a tasklist widget
   s.mytasklist = awful.widget.tasklist {
@@ -218,7 +196,7 @@ awful.screen.connect_for_each_screen(function(s)
   s.mywibox = awful.wibar({ position = "top", screen = s })
 
   -- Add widgets to the wibox
-  s.mywibox:setup {
+  s.mywibox:setup{
     layout = wibox.layout.align.horizontal,
     { -- Left widgets
       layout = wibox.layout.fixed.horizontal,
@@ -240,7 +218,7 @@ awful.screen.connect_for_each_screen(function(s)
       --     tog_volume_cmd = VOLUME_TOG_CMD,
       --   }),
       wibox.widget.systray(),
-      mytextclock,
+      wibox.widget.textclock(),
       s.mylayoutbox,
     },
   }
@@ -373,15 +351,19 @@ globalkeys = gears.table.join(
   -- App Launcher
   awful.key(
     {modkey}, "Return",
-    function() menubar.show() end,
-    {description = "show the menubar", group = "launcher"}),
+    function() awful.spawn(config.apps.launcher) end,
+    {description = "launch apps", group = "launcher"}),
   awful.key(
-    {modkey}, "r",
-    function() awful.screen.focused().mypromptbox:run() end,
-    {description = "run prompt", group = "launcher"}),
+    {modkey, "Shift"}, "Return",
+    function() awful.spawn(config.apps.runner) end,
+    {description = "run command", group = "launcher"}),
+  awful.key(
+    {modkey, "Ctrl"}, "Return",
+    function() awful.spawn(config.apps.window_finder) end,
+    {description = "search for window", group = "launcher"}),
   awful.key(
     {modkey}, "t",
-    function() awful.spawn(terminal) end,
+    function() awful.spawn(config.apps.terminal) end,
     {description = "open a terminal", group = "launcher"}),
   awful.key(
     {modkey}, "b",
