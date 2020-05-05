@@ -111,6 +111,9 @@ let g:vista#renderer#enable_icon = 0
 " GUI Font settings
 set guifont=Hack:h12
 
+" Give yourself a useful name in the terminal
+set title
+
 " TODO: Colors?
 set laststatus=2
 set statusline=%f%m%r%w%q
