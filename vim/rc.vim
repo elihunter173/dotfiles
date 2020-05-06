@@ -171,7 +171,7 @@ inoremap <C-space> <C-x><C-o>
 nnoremap gd :LspDefinition<CR>
 nnoremap <leader>r :LspRename<CR>
 nnoremap <silent> K :LspHover<CR>
-command! -nargs=0 Format :LspDocumentFormat<CR>
+command! -nargs=0 Format LspDocumentFormat
 let g:lsp_semantic_enabled = 1
 let g:lsp_fold_enabled = 0
 
