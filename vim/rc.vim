@@ -75,15 +75,13 @@ Plug 'lambdalisue/suda.vim'
 " Vim undotree visualizer
 Plug 'mbbill/undotree'
 
-" Language Server Protocol. Remove when 0.5 hits on all machines
-if has('nvim') || has('job')
-  Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash ./install.sh',
-        \ }
-  " A nice tagbar for LSP
-  Plug 'liuchengxu/vista.vim'
-endif
+" Language Server Protocol. Remove in favor of build-in language server when
+" Neovim 0.5 hits all my machines.
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+" A nice tagbar for LSP
+Plug 'liuchengxu/vista.vim'
 
 call plug#end()
 
@@ -168,28 +166,18 @@ set splitright
 inoremap <C-space> <C-x><C-o>
 
 " Required for operations modifying multiple buffers like rename.
-set hidden
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ 'cpp': ['clangd', '-background-index'],
-    \ 'c': ['clangd', '-background-index'],
-    \ 'go': ['gopls'],
-    \ 'python': ['pyls'],
-    \ 'sh': ['bash-language-server'],
-    \ 'java': ['jdtls', '-data', '~/.cache/jdtls'.getcwd()],
-    \ 'lua': ['lua-language-server', '-E', '-e', 'LANG=en'],
-    \ }
-let g:LanguageClient_hoverPreview = 'always'
-nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>r :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-command! -nargs=0 Format :call LanguageClient#textDocument_formatting()
-" Highlight all instances using S because idk
-nnoremap S :call LanguageClient#textDocument_documentHighlight()<CR>
+" set hidden
+" Nice LSP bindings
+nnoremap gd :LspDefinition<CR>
+nnoremap <leader>r :LspRename<CR>
+nnoremap <silent> K :LspHover<CR>
+command! -nargs=0 Format :LspDocumentFormat<CR>
+let g:lsp_semantic_enabled = 1
+let g:lsp_fold_enabled = 0
 
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
-nnoremap <ESC><ESC> :nohlsearch\|call LanguageClient#clearDocumentHighlight()<CR>
+nnoremap <ESC><ESC> :nohlsearch<CR>
 
 " Markdown shit
 let g:vim_markdown_frontmatter = 1
