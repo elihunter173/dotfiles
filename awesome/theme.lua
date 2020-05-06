@@ -125,4 +125,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- Generate wallpaper:
 theme.wallpaper = gfs.get_configuration_dir() .. "wallpapers/jumpstart_optus.png"
 
+-- Extras
+theme.panel_height = nil
+
 return theme

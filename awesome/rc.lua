@@ -192,8 +192,13 @@ awful.screen.connect_for_each_screen(function(s)
     buttons = tasklist_buttons,
   }
 
+  -- TODO: Move widget setup into its own file
   -- Create the wibox
-  s.mywibox = awful.wibar({ position = "top", screen = s })
+  s.mywibox = awful.wibar{
+    position = "top",
+    screen = s,
+    height = beautiful.panel_height,
+  }
 
   -- Add widgets to the wibox
   s.mywibox:setup{
@@ -272,8 +277,9 @@ globalkeys = gears.table.join(
     {modkey}, "u",
     awful.client.urgent.jumpto,
     {description = "jump to urgent client", group = "client"}),
+  -- TODO: Remove?
   awful.key(
-    {modkey}, "Tab",
+    {"Mod1"}, "Tab",
     function()
       awful.client.focus.history.previous()
       if client.focus then
@@ -282,6 +288,7 @@ globalkeys = gears.table.join(
     end,
     {description = "go back", group = "client"}),
 
+  -- TODO: Remove
   awful.key(
     {modkey}, "n",
     function()
@@ -395,6 +402,10 @@ globalkeys = gears.table.join(
     {}, "XF86AudioPrev",
     function() if spotify.is_connected then spotify:Previous() end end,
     {description = "play previous song", group = "media"}),
+  awful.key(
+    {}, "Print",
+    function() awful.spawn(config.apps.screenshot) end,
+    {description = "take screenshot", group = "media"}),
 
   -- Awesome control
   awful.key(
