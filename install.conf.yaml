@@ -19,6 +19,7 @@
 
     # Window Manager Config
     ~/.config/awesome: awesome/
+    ~/.config/rofi: rofi/
 
     # Shell Config
     ~/.standard.sh: standard.sh

@@ -1,0 +1,2 @@
+rofi.modi: run,drun,window
+rofi.theme: slate

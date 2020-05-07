@@ -13,9 +13,9 @@ awful.layout.layouts = {
 return {
   apps = {
     terminal = "alacritty",
-    launcher = "rofi -modi drun -show drun",
-    runner = "rofi -modi run -show run",
-    window_finder = "rofi -modi window -show window",
+    launcher = "rofi -show drun",
+    runner = "rofi -show run",
+    window_finder = "rofi -show window",
     lock = "i3lock",
     screenshot = "flameshot gui",
     filebrowser = "thunar",
