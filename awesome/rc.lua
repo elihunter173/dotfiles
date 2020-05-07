@@ -197,7 +197,10 @@ awful.screen.connect_for_each_screen(function(s)
   s.mywibox = awful.wibar{
     position = "top",
     screen = s,
+<<<<<<< Updated upstream
     height = beautiful.panel_height,
+=======
+>>>>>>> Stashed changes
   }
 
   -- Add widgets to the wibox
@@ -223,7 +226,8 @@ awful.screen.connect_for_each_screen(function(s)
       --     tog_volume_cmd = VOLUME_TOG_CMD,
       --   }),
       wibox.widget.systray(),
-      wibox.widget.textclock(),
+      -- TODO: Split into two widgets?
+      wibox.widget.textclock("%R %F"),
       s.mylayoutbox,
     },
   }
