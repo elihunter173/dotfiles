@@ -197,10 +197,7 @@ awful.screen.connect_for_each_screen(function(s)
   s.mywibox = awful.wibar{
     position = "top",
     screen = s,
-<<<<<<< Updated upstream
     height = beautiful.panel_height,
-=======
->>>>>>> Stashed changes
   }
 
   -- Add widgets to the wibox
