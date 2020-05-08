@@ -89,14 +89,11 @@ if s:new_install
   PlugInstall --sync
 endif
 
-let g:did_install_default_menus = 1
-
 " Easy leader
 let mapleader = ' '
 " Prevent space from moving forward in normal mode
 nnoremap <Space> <NOP>
 
-" Shut up when we're first installing
 if has('termguicolors')
   set termguicolors
 endif
@@ -116,21 +113,13 @@ set title
 set laststatus=2
 set statusline=%f%m%r%w%q
 set statusline+=%=
-" TODO: Figure out how to only add this if fugitive is installed
 set statusline+=%{FugitiveHead()}
 
 " Enable ftplugins for everything
 filetype plugin indent on
 
-" Disable netrw
+" Disable netrw because I use Dirvish
 let g:loaded_netrwPlugin = 1
-command! -nargs=? -complete=dir Explore Dirvish <args>
-command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
-command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
-
-" Be easy on casing
-set ignorecase
-set smartcase
 
 " Nice undo
 set undofile
@@ -224,18 +213,6 @@ set list
 
 " Enable line numbers and ruler
 set number relativenumber
-set ruler
-
-" TODO: Put these common sense mappings somewhere else
-" Make `Y` `y$` consistent with `D`, `C`, etc
-nnoremap Y y$
-" Remove useless mapping
-nnoremap s <NOP>
-" Remap undo to make more sense
-nnoremap U <C-r>
-nnoremap <C-r> <NOP>
-" Easily repeat a macro
-nnoremap Q @@
 
 " Make saving and quitting easier and faster
 nnoremap <leader>w :write<CR>
@@ -252,7 +229,7 @@ nnoremap <leader>T :tabclose<CR>
 " Easier swapping between buffers
 nnoremap <tab> <C-^>
 
-if exists(':term')
+if exists(':terminal')
   " Easier terminal opening. L for shell
   nnoremap <silent> <leader>l :terminal<CR>
 
