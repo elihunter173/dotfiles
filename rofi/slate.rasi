@@ -10,8 +10,6 @@ configuration {
   display-run: "Execute";
   display-window: "Window";
   show-icons: true;
-  /* TODO: Keey sidebar mode? Just shows things on bottom */
-  sidebar-mode: true;
   lines: 8;
 }
 
