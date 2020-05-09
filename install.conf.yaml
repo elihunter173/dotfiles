@@ -1,12 +1,7 @@
-# My gitconfig is not linked here to prevent people from accidentally
-# committing as me
-
 - defaults:
     link:
       relink: true
       create: true
-
-- clean: ['~', '~/.config']
 
 - link:
     # System Config
@@ -47,9 +42,19 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - description: Maybe linking /etc/nixos
+    command: |
+      if [ ! -L /etc/nixos ] && uname -v | grep --ignore-case 'nixos'; then
+        sudo ln -s ~/dotfiles/nixos/ /etc/.
+      fi
+    stdin: true
   - description: Checking dependencies
     command: ./check_deps.sh
     stdin: true
     stdout: true
     stderr: true
     quiet: false
+
+- clean:
+  - '~'
+  - '~/.config'
