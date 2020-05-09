@@ -42,8 +42,9 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - description: Maybe linking /etc/nixos
-    command: |
+  # I don't use description because the comment works as it
+  - command: |
+      # Maybe linking /etc/nixos
       if [ ! -L /etc/nixos ] && uname -v | grep --ignore-case 'nixos'; then
         sudo ln -s ~/dotfiles/nixos/ /etc/.
       fi
