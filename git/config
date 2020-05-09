@@ -22,6 +22,3 @@
 	short = true
 [pager]
 	branch = false
-[push]
-	; Don't make me do --set-upstream every time. Just do what I want
-	default = current
