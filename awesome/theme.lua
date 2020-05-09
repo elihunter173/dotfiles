@@ -1,30 +1,32 @@
 ---------------------------------------------
 -- Awesome theme which follows xrdb config --
---   by Yauhen Kirylau                    --
+--   by Yauhen Kirylau          --
 ---------------------------------------------
 
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local xrdb = xresources.get_current_theme()
+-- TODO: Remove in favor of full gears.filesystem
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
+local gears = require("gears")
 
 -- inherit default theme
 local theme = dofile(themes_path.."default/theme.lua")
 -- load vector assets' generators for this theme
 
-theme.font          = "sans 8"
+theme.font      = "monospace 8"
 
-theme.bg_normal     = xrdb.background
-theme.bg_focus      = xrdb.color12
-theme.bg_urgent     = xrdb.color9
+theme.bg_normal   = xrdb.background
+theme.bg_focus    = xrdb.color12
+theme.bg_urgent   = xrdb.color9
 theme.bg_minimize   = xrdb.color8
-theme.bg_systray    = theme.bg_normal
+theme.bg_systray  = theme.bg_normal
 
-theme.fg_normal     = xrdb.foreground
-theme.fg_focus      = theme.bg_normal
-theme.fg_urgent     = theme.bg_normal
+theme.fg_normal   = xrdb.foreground
+theme.fg_focus    = theme.bg_normal
+theme.fg_urgent   = theme.bg_normal
 theme.fg_minimize   = theme.bg_normal
 
 theme.useless_gap   = dpi(0)
@@ -55,15 +57,11 @@ theme.menu_height = dpi(16)
 theme.menu_width  = dpi(100)
 
 -- Set notification sizes
--- TODO: Remove the redundant settings
-theme.notification_position = 'top_right'
-theme.notification_bg = theme.transparent
-theme.notification_margin = dpi(5)
-theme.notification_border_width = dpi(0)
-theme.notification_border_color = theme.transparent
-theme.notification_spacing = dpi(0)
-theme.notification_icon_resize_strategy = 'center'
-theme.notification_icon_size = dpi(96)
+-- TODO: A lot of settings about border and margin aren't taking effect because
+-- I'm on awesome 4.3. Fix when that gets fixed
+theme.notification_width = dpi(275)
+theme.notification_height = dpi(100)
+theme.notification_icon_size = dpi(100)
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -76,33 +74,33 @@ theme = theme_assets.recolor_layout(theme, theme.fg_normal)
 -- Recolor titlebar icons:
 --
 local function darker(color_value, darker_n)
-    local result = "#"
-    for s in color_value:gmatch("[a-fA-F0-9][a-fA-F0-9]") do
-        local bg_numeric_value = tonumber("0x"..s) - darker_n
-        if bg_numeric_value < 0 then bg_numeric_value = 0 end
-        if bg_numeric_value > 255 then bg_numeric_value = 255 end
-        result = result .. string.format("%2.2x", bg_numeric_value)
-    end
-    return result
+  local result = "#"
+  for s in color_value:gmatch("[a-fA-F0-9][a-fA-F0-9]") do
+    local bg_numeric_value = tonumber("0x"..s) - darker_n
+    if bg_numeric_value < 0 then bg_numeric_value = 0 end
+    if bg_numeric_value > 255 then bg_numeric_value = 255 end
+    result = result .. string.format("%2.2x", bg_numeric_value)
+  end
+  return result
 end
 theme = theme_assets.recolor_titlebar(
-    theme, theme.fg_normal, "normal"
-)
+  theme, theme.fg_normal, "normal"
+  )
 theme = theme_assets.recolor_titlebar(
-    theme, darker(theme.fg_normal, -60), "normal", "hover"
-)
+  theme, darker(theme.fg_normal, -60), "normal", "hover"
+  )
 theme = theme_assets.recolor_titlebar(
-    theme, xrdb.color1, "normal", "press"
-)
+  theme, xrdb.color1, "normal", "press"
+  )
 theme = theme_assets.recolor_titlebar(
-    theme, theme.fg_focus, "focus"
-)
+  theme, theme.fg_focus, "focus"
+  )
 theme = theme_assets.recolor_titlebar(
-    theme, darker(theme.fg_focus, -60), "focus", "hover"
-)
+  theme, darker(theme.fg_focus, -60), "focus", "hover"
+  )
 theme = theme_assets.recolor_titlebar(
-    theme, xrdb.color1, "focus", "press"
-)
+  theme, xrdb.color1, "focus", "press"
+  )
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
@@ -110,17 +108,17 @@ theme.icon_theme = "Papirius"
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-)
+  theme.menu_height, theme.bg_focus, theme.fg_focus
+  )
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-)
+  taglist_square_size, theme.fg_normal
+  )
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
+  taglist_square_size, theme.fg_normal
+  )
 
 -- Generate wallpaper:
 theme.wallpaper = gfs.get_configuration_dir() .. "wallpapers/jumpstart_optus.png"
