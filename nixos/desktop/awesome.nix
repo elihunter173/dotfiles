@@ -15,6 +15,7 @@
     zathura
     arandr
     rofi
+    networkmanagerapplet
 
     xfce.thunar
     xfce.thunar-archive-plugin

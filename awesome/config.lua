@@ -26,5 +26,6 @@ return {
   autostart = {
     -- Ensure we have the proper monitor setup on startup
     "autorandr --change",
+    "nm-applet",
   },
 }

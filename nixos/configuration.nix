@@ -140,6 +140,9 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  # TODO: Should I do this? Also, need to add group to my user. Maybe make this
+  # a module?
+  networking.networkmanager.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -154,6 +157,7 @@
     isNormalUser = true;
     extraGroups = [
       "wheel"  # sudo
+      "networkmanager"  # network manager is enabled
     ];
     shell = pkgs.zsh;
   };
