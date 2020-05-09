@@ -31,7 +31,7 @@
 
     # App Config
     ~/.config/alacritty: alacritty/
-    ~/.config/Dharkael/flameshot.ini: flameshot.conf
+    ~/.config/Dharkael/flameshot.ini: flameshot.ini
 
     # Misc
     ~/.config/git: git/
