@@ -364,26 +364,39 @@ globalkeys = gears.table.join(
     {description = "move client to next", group = "tag"}),
 
   -- App Launcher
+  -- TODO: There's probably a better way to do this
   awful.key(
     {modkey}, "Return",
     function() awful.spawn(config.apps.launcher) end,
-    {description = "launch apps", group = "launcher"}),
+    {description = "open app launcher", group = "launcher"}),
   awful.key(
     {modkey, "Shift"}, "Return",
     function() awful.spawn(config.apps.runner) end,
-    {description = "run command", group = "launcher"}),
+    {description = "open command runner", group = "launcher"}),
   awful.key(
     {modkey, "Ctrl"}, "Return",
     function() awful.spawn(config.apps.window_finder) end,
-    {description = "search for window", group = "launcher"}),
+    {description = "open window searcher", group = "launcher"}),
   awful.key(
     {modkey}, "t",
     function() awful.spawn(config.apps.terminal) end,
-    {description = "open a terminal", group = "launcher"}),
+    {description = "open terminal", group = "launcher"}),
   awful.key(
     {modkey}, "b",
-    function() awful.spawn("firefox") end,
-    {description = "open a web browser", group = "launcher"}),
+    function() awful.spawn(config.apps.browser) end,
+    {description = "open web browser", group = "launcher"}),
+  awful.key(
+    {modkey}, "m",
+    function() awful.spawn(config.apps.music_player) end,
+    {description = "open music player", group = "launcher"}),
+  awful.key(
+    {modkey}, "f",
+    function() awful.spawn(config.apps.filebrowser) end,
+    {description = "open file browser", group = "launcher"}),
+  awful.key(
+    {modkey}, "p",
+    function() awful.spawn(config.apps.screenshot) end,
+    {description = "take screenshot", group = "launcher"}),
 
   -- Media control
   awful.key(

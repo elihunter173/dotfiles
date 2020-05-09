@@ -21,9 +21,7 @@ return {
     filebrowser = "thunar",
     browser = "firefox",
     editor = "alacritty -e nvim",
-    musicPlayer = "spotify",
-    gameLauncher = "steam",
-    imageEditor = "gimp",
+    music_player = "spotify",
   },
   autostart = {
     -- Ensure we have the proper monitor setup on startup
