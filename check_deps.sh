@@ -51,6 +51,7 @@ try_install() {
 
 try_install 'awesome'
 try_install 'direnv'
+try_install 'flameshot'
 try_install 'nvim'
 try_install 'rofi'
 try_install 'xautolock'
