@@ -20,6 +20,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 
 local config = require("config")
 
+local dpi = require("beautiful.xresources").apply_dpi
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -71,6 +73,8 @@ menubar.utils.terminal = config.apps.terminal -- Set the terminal for applicatio
 MediaPlayer = require("media_player")
 spotify = MediaPlayer:new("spotify")
 
+local lain = require("lain")
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
   awful.button({ }, 1, function(t) t:view_only() end),
@@ -90,26 +94,15 @@ local taglist_buttons = gears.table.join(
   )
 
 local tasklist_buttons = gears.table.join(
-  awful.button({ }, 1, function (c)
+  awful.button({}, 1, function(c)
     if c == client.focus then
       c.minimized = true
     else
-      c:emit_signal(
-        "request::activate",
-        "tasklist",
-        {raise = true}
-        )
+      c:emit_signal("request::activate", "tasklist", {raise = true})
     end
   end),
-  awful.button({ }, 3, function()
-    awful.menu.client_list({ theme = { width = 250 } })
-  end),
-  awful.button({ }, 4, function()
-    awful.client.focus.byidx(1)
-  end),
-  awful.button({ }, 5, function()
-    awful.client.focus.byidx(-1)
-  end)
+  awful.button({}, 4, function() awful.client.focus.byidx(1) end),
+  awful.button({}, 5, function() awful.client.focus.byidx(-1) end)
   )
 
 local function set_wallpaper(s)
@@ -126,11 +119,6 @@ end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
-
-local VOLUME_GET_CMD = "amixer sget Master"
-local VOLUME_INC_CMD = "amixer sset Master 5%+"
-local VOLUME_DEC_CMD = "amixer sset Master 5%-"
-local VOLUME_TOG_CMD = "amixer sset Master toggle"
 
 local function reset_tagnames(tags)
   for i, t in ipairs(tags) do
@@ -158,12 +146,28 @@ mylauncher = awful.widget.launcher{
   },
 }
 
+-- TODO: Make clicking work
+local my_alsa = lain.widget.alsa{
+  settings = function()
+    if volume_now.status == "on" then
+      widget:set_markup(string.format("V %d%%", volume_now.level))
+    else
+      widget:set_markup(string.format("V M", volume_now.level))
+    end
+  end
+}
+
+local function spacer(width)
+  -- TODO: Can I do the base widget?
+  local t = wibox.widget.textbox()
+  t.forced_width = width
+  return t
+end
+
 awful.screen.connect_for_each_screen(function(s)
   -- Wallpaper
   set_wallpaper(s)
 
-  -- Each screen has its own tag table.
-  -- local tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
   -- Start at default layout
   awful.tag({"1"}, s, awful.layout.layouts[1])
 
@@ -173,10 +177,10 @@ awful.screen.connect_for_each_screen(function(s)
   -- We need one layoutbox per screen.
   s.mylayoutbox = awful.widget.layoutbox(s)
   s.mylayoutbox:buttons(gears.table.join(
-      awful.button({ }, 1, function() awful.layout.inc( 1) end),
-      awful.button({ }, 3, function() awful.layout.inc(-1) end),
-      awful.button({ }, 4, function() awful.layout.inc( 1) end),
-      awful.button({ }, 5, function() awful.layout.inc(-1) end)
+      awful.button({}, 1, function() awful.layout.inc( 1) end),
+      awful.button({}, 3, function() awful.layout.inc(-1) end),
+      awful.button({}, 4, function() awful.layout.inc( 1) end),
+      awful.button({}, 5, function() awful.layout.inc(-1) end)
     ))
   -- Create a taglist widget
   s.mytaglist = awful.widget.taglist{
@@ -186,7 +190,7 @@ awful.screen.connect_for_each_screen(function(s)
   }
 
   -- Create a tasklist widget
-  s.mytasklist = awful.widget.tasklist {
+  s.mytasklist = awful.widget.tasklist{
     screen  = s,
     filter  = awful.widget.tasklist.filter.currenttags,
     buttons = tasklist_buttons,
@@ -203,28 +207,22 @@ awful.screen.connect_for_each_screen(function(s)
   -- Add widgets to the wibox
   s.mywibox:setup{
     layout = wibox.layout.align.horizontal,
-    { -- Left widgets
+    {
       layout = wibox.layout.fixed.horizontal,
       mylauncher,
       s.mytaglist,
       s.mypromptbox,
     },
-    s.mytasklist, -- Middle widget
-    { -- Right widgets
+    s.mytasklist,
+    {
       layout = wibox.layout.fixed.horizontal,
-      pulse,
-      -- volumebar_widget({
-      --     mute_color = beautiful.bg_urgent,
-      --     shape = "rounded_bar",
-      --     margins = 8,
-      --     get_volume_cmd = VOLUME_GET_CMD,
-      --     inc_volume_cmd = VOLUME_INC_CMD,
-      --     dec_volume_cmd = VOLUME_DEC_CMD,
-      --     tog_volume_cmd = VOLUME_TOG_CMD,
-      --   }),
       wibox.widget.systray(),
+      spacer(dpi(8)),
+      my_alsa.widget,
+      spacer(dpi(8)),
       -- TODO: Split into two widgets?
       wibox.widget.textclock("%R %F"),
+      spacer(dpi(8)),
       s.mylayoutbox,
     },
   }
@@ -249,7 +247,8 @@ globalkeys = gears.table.join(
     {modkey}, "Escape",
     awful.tag.history.restore,
     {description = "go back", group = "tag"}),
-  awful.key({ modkey,           }, "j",
+  awful.key(
+    {modkey}, "j",
     function() awful.client.focus.byidx(-1) end,
     {description = "focus previous by index", group = "client"}),
   awful.key(
@@ -294,18 +293,22 @@ globalkeys = gears.table.join(
     {modkey, "Shift"}, "n",
     function()
       naughty.notify{
-          title = "Test",
-          -- 500 a's
-          text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          icon = "/home/eli/Pictures/minerir.png",
-        }
-    end),
+        title = "Test",
+        -- 500 a's
+        text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        icon = "/home/eli/Pictures/minerir.png",
+      }
+    end
+    ),
   awful.key(
     {modkey}, "n",
     function()
       naughty.notify{ text = "a" }
-    end),
-
+      for k, v in pairs(my_alsa) do
+        naughty.notify{ text = string.format("%s => %s", k, v) }
+      end
+    end
+    ),
 
   -- Tag control
   awful.key(
@@ -401,15 +404,24 @@ globalkeys = gears.table.join(
   -- Media control
   awful.key(
     {}, "XF86AudioRaiseVolume",
-    function() awful.spawn(VOLUME_INC_CMD, false) end,
+    function()
+      os.execute(string.format("%s set %s 5%%+", my_alsa.cmd, my_alsa.channel))
+      my_alsa.update()
+    end,
     {description = "increase volume", group = "media"}),
   awful.key(
     {}, "XF86AudioLowerVolume",
-    function() awful.spawn(VOLUME_DEC_CMD, false) end,
+    function()
+      os.execute(string.format("%s set %s 5%%-", my_alsa.cmd, my_alsa.channel))
+      my_alsa.update()
+    end,
     {description = "decrease volume", group = "media"}),
   awful.key(
     {}, "XF86AudioMute",
-    function() awful.spawn(VOLUME_TOG_CMD, false) end,
+    function()
+      os.execute(string.format("%s set %s toggle", my_alsa.cmd, my_alsa.channel))
+      my_alsa.update()
+    end,
     {description = "(un)mute", group = "media"}),
   awful.key(
     {}, "XF86AudioPlay",
