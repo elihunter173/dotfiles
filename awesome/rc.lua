@@ -217,6 +217,7 @@ awful.screen.connect_for_each_screen(function(s)
     {
       layout = wibox.layout.fixed.horizontal,
       wibox.widget.systray(),
+      -- TODO: Conditionally add spacing
       spacer(dpi(8)),
       my_alsa.widget,
       spacer(dpi(8)),
