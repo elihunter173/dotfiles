@@ -220,6 +220,7 @@ awful.screen.connect_for_each_screen(function(s)
       -- TODO: Conditionally add spacing
       spacer(dpi(8)),
       my_alsa.widget,
+      -- TODO: Brightness widget
       spacer(dpi(8)),
       -- TODO: Split into two widgets?
       wibox.widget.textclock("%R %F"),
@@ -440,6 +441,22 @@ globalkeys = gears.table.join(
     {}, "Print",
     function() awful.spawn(config.apps.screenshot) end,
     {description = "take screenshot", group = "media"}),
+  awful.key(
+    {}, "XF86MonBrightnessUp",
+    function()
+      os.execute("xbacklight 5%+")
+      -- TODO: Have widget for brightness
+      -- my_alsa.update()
+    end,
+    {description = "increase brightness", group = "system"}),
+  awful.key(
+    {}, "XF86MonBrightnessDown",
+    function()
+      os.execute("xbacklight 5%-")
+      -- TODO: Have widget for brightness
+      -- my_alsa.update()
+    end,
+    {description = "decrease brightness", group = "system"}),
 
   -- Awesome control
   awful.key(
