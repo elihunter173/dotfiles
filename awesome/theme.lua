@@ -59,8 +59,8 @@ do
 
   conf.timeout = 5
   conf.margin = dpi(8)
-  conf.max_height = dpi(150)
-  conf.max_width = dpi(400)
+  conf.max_height = dpi(96)
+  conf.max_width = dpi(300)
   conf.icon_size = conf.max_height - 2 * conf.margin
   conf.border_width = 0
 end
