@@ -410,37 +410,37 @@ globalkeys = gears.table.join(
       os.execute(string.format("%s set %s 5%%+", my_alsa.cmd, my_alsa.channel))
       my_alsa.update()
     end,
-    {description = "increase volume", group = "media"}),
+    {description = "increase volume", group = "system"}),
   awful.key(
     {}, "XF86AudioLowerVolume",
     function()
       os.execute(string.format("%s set %s 5%%-", my_alsa.cmd, my_alsa.channel))
       my_alsa.update()
     end,
-    {description = "decrease volume", group = "media"}),
+    {description = "decrease volume", group = "system"}),
   awful.key(
     {}, "XF86AudioMute",
     function()
       os.execute(string.format("%s set %s toggle", my_alsa.cmd, my_alsa.channel))
       my_alsa.update()
     end,
-    {description = "(un)mute", group = "media"}),
+    {description = "(un)mute", group = "system"}),
   awful.key(
     {}, "XF86AudioPlay",
     function() if spotify.is_connected then spotify:PlayPause() end end,
-    {description = "play/pause current media", group = "media"}),
+    {description = "play/pause current media", group = "system"}),
   awful.key(
     {}, "XF86AudioNext",
     function() if spotify.is_connected then spotify:Next() end end,
-    {description = "play next song", group = "media"}),
+    {description = "play next song", group = "system"}),
   awful.key(
     {}, "XF86AudioPrev",
     function() if spotify.is_connected then spotify:Previous() end end,
-    {description = "play previous song", group = "media"}),
+    {description = "play previous song", group = "system"}),
   awful.key(
     {}, "Print",
     function() awful.spawn(config.apps.screenshot) end,
-    {description = "take screenshot", group = "media"}),
+    {description = "take screenshot", group = "system"}),
   awful.key(
     {}, "XF86MonBrightnessUp",
     function()
