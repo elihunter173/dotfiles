@@ -22,7 +22,7 @@ local config = require("config")
 
 local dpi = require("beautiful.xresources").apply_dpi
 
--- {{{ Error handling
+-- Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
@@ -49,9 +49,8 @@ do
     in_error = false
   end)
 end
--- }}}
 
--- {{{ Variable definitions
+-- Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "/theme.lua")
 
@@ -191,8 +190,8 @@ awful.screen.connect_for_each_screen(function(s)
 
   -- Create a tasklist widget
   s.mytasklist = awful.widget.tasklist{
-    screen  = s,
-    filter  = awful.widget.tasklist.filter.currenttags,
+    screen = s,
+    filter = awful.widget.tasklist.filter.currenttags,
     buttons = tasklist_buttons,
   }
 
@@ -229,17 +228,15 @@ awful.screen.connect_for_each_screen(function(s)
     },
   }
 end)
--- }}}
 
--- {{{ Mouse bindings
+-- Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function() mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({}, 3, function() mymainmenu:toggle() end),
+    awful.button({}, 4, awful.tag.viewnext),
+    awful.button({}, 5, awful.tag.viewprev)
   ))
--- }}}
 
--- {{{ Key bindings
+-- Key bindings
 globalkeys = gears.table.join(
   awful.key(
     {modkey}, "F1",
@@ -306,9 +303,6 @@ globalkeys = gears.table.join(
     {modkey}, "n",
     function()
       naughty.notify{ text = "a" }
-      for k, v in pairs(my_alsa) do
-        naughty.notify{ text = string.format("%s => %s", k, v) }
-      end
     end
     ),
 
@@ -390,10 +384,6 @@ globalkeys = gears.table.join(
     {modkey}, "b",
     function() awful.spawn(config.apps.browser) end,
     {description = "open web browser", group = "launcher"}),
-  awful.key(
-    {modkey}, "m",
-    function() awful.spawn(config.apps.music_player) end,
-    {description = "open music player", group = "launcher"}),
   awful.key(
     {modkey}, "f",
     function() awful.spawn(config.apps.filebrowser) end,
@@ -529,9 +519,7 @@ clientbuttons = gears.table.join(
 
 -- Set keys
 root.keys(globalkeys)
--- }}}
 
--- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
   -- All clients will match this rule.
@@ -559,9 +547,8 @@ awful.rules.rules = {
     },
   },
 }
--- }}}
 
--- {{{ Signals
+-- Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
   -- Set the windows at the slave,
@@ -580,31 +567,31 @@ end)
 client.connect_signal("request::titlebars", function(c)
   -- buttons for the titlebar
   local buttons = gears.table.join(
-    awful.button({ }, 1, function()
+    awful.button({}, 1, function()
       c:emit_signal("request::activate", "titlebar", {raise = true})
       awful.mouse.client.move(c)
     end),
-    awful.button({ }, 3, function()
+    awful.button({}, 3, function()
       c:emit_signal("request::activate", "titlebar", {raise = true})
       awful.mouse.client.resize(c)
     end)
     )
 
-  awful.titlebar(c) : setup {
-    { -- Left
+  awful.titlebar(c):setup {
+    {
       awful.titlebar.widget.iconwidget(c),
       buttons = buttons,
       layout  = wibox.layout.fixed.horizontal
     },
-    { -- Middle
-      { -- Title
+    {
+      {
         align  = "center",
         widget = awful.titlebar.widget.titlewidget(c)
       },
       buttons = buttons,
       layout  = wibox.layout.flex.horizontal
     },
-    { -- Right
+    {
       awful.titlebar.widget.floatingbutton (c),
       awful.titlebar.widget.maximizedbutton(c),
       awful.titlebar.widget.stickybutton   (c),
@@ -623,4 +610,3 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
--- }}}

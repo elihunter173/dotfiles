@@ -1,8 +1,4 @@
----------------------------------------------
--- Awesome theme which follows xrdb config --
---   by Yauhen Kirylau          --
----------------------------------------------
-
+local naughty = require("naughty")
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -57,11 +53,19 @@ theme.menu_height = dpi(16)
 theme.menu_width  = dpi(100)
 
 -- Set notification sizes
--- TODO: A lot of settings about border and margin aren't taking effect because
--- I'm on awesome 4.3. Fix when that gets fixed
-theme.notification_width = dpi(275)
-theme.notification_height = dpi(100)
-theme.notification_icon_size = dpi(100)
+-- TODO: When beautiful notification settings work for everything, use those
+do
+  local conf = naughty.config.defaults
+
+  conf.timeout = 5
+  conf.margin = dpi(8)
+  conf.max_height = dpi(150)
+  conf.max_width = dpi(400)
+  conf.icon_size = conf.max_height - 2 * conf.margin
+  conf.border_width = 0
+end
+naughty.config.padding = 8
+naughty.config.spacing = 8
 
 -- You can add as many variables as
 -- you wish and access them by using
