@@ -15,6 +15,7 @@
     # Window Manager Config
     ~/.config/awesome: awesome/
     ~/.config/rofi: rofi/
+    ~/.config/sway: sway/
 
     # Shell Config
     ~/.standard.sh: standard.sh
@@ -38,6 +39,7 @@
     ~/.cron: cron
     ~/.hushlogin: hushlogin
     ~/.config/fontconfig: fontconfig/
+    ~/.wallpaper.png: wallpaper.png
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
