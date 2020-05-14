@@ -8,8 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./host-specific.nix
-    # ./desktop/awesome.nix
-    ./desktop/sway.nix
+    ./modules
   ];
 
   # I'm a bad person
@@ -24,6 +23,12 @@
   # Automated location data because I move around
   location.provider = "geoclue2";
 
+  modules = {
+    awesome.enable = true;
+    sway.enable = true;
+    sway.default = true;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -37,6 +42,7 @@
     vlc
     spotify
     libnotify
+    firefox
 
     # CLI Tools
     git
