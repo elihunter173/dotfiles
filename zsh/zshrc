@@ -13,7 +13,7 @@ autoload -Uz _zinit
 ### End of Zinit's installer chunk
 
 # My standard interactive shell config files
-source ~/.standard.sh
+source ~/.config/standard.sh
 
 # I'm a traitor in the shell. I like emacs bindings there
 bindkey -e

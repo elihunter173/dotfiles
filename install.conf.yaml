@@ -8,10 +8,6 @@
     ~/.profile: profile
     ~/.config/systemd/user/rclone-gdrive@.service: systemd/user/rclone-gdrive@.service
 
-    # X Config
-    ~/.xprofile: xorg/xprofile
-    ~/.Xresources: xorg/Xresources
-
     # Window Manager Config
     ~/.config/awesome: awesome/
     ~/.config/rofi: rofi/
@@ -19,8 +15,8 @@
     ~/.config/i3: i3/
 
     # Shell Config
-    ~/.standard.sh: standard.sh
-    ~/.bashrc: bash/bashrc
+    ~/.config/standard.sh: standard.sh
+    ~/.bashrc: bashrc
     ~/.zshrc: zsh/zshrc
     ~/.p10k.zsh: zsh/p10k.zsh
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
@@ -39,7 +35,6 @@
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
     ~/.cron: cron
     ~/.hushlogin: hushlogin
-    ~/.config/fontconfig: fontconfig/
     ~/.wallpaper.png: wallpaper.png
 
 - shell:
