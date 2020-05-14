@@ -21,10 +21,11 @@ font pango:monospace 10
     bindsym $mod+Return exec rofi -show drun
     bindsym $mod+Shift+Return exec rofi -show run
     bindsym $mod+Ctrl+Return exec rofi -show window
-    bindsym $mod+Shift+e exec $exiter "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B
-    bindsym $mod+t exec alacritty
+    # TODO: Make this a mode and make it more user friendly
+    bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B
+    bindsym $mod+t exec --no-startup-id alacritty
     bindsym $mod+b exec firefox
-    bindsym $mod+p exec flameshot gui
+    bindsym $mod+p exec --no-startup-id flameshot gui
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -37,9 +38,11 @@ font pango:monospace 10
     bindsym $mod+Shift+c reload
 
 # Autostart:
-    exec --no-startup-id feh --bg-scale ~/.wallpaper.png
+    exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.png
+    exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
     exec --no-startup-id nm-applet
-    exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+    exec --no-startup-id autorandr
+    exec --no-startup-id flameshot
 
 # Moving around:
     # Move your focus around

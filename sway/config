@@ -19,6 +19,7 @@ set $up k
 set $right l
 
 font pango:monospace 10
+output * bg ~/Pictures/wallpaper.png fill
 
 # Launcher
     # Kill focused window

@@ -36,7 +36,7 @@
     ~/.config/libinput-gestures.conf: libinput-gestures.conf
     ~/.cron: cron
     ~/.hushlogin: hushlogin
-    ~/.wallpaper.png: wallpaper.png
+    ~/Pictures/wallpaper.png: wallpaper.png
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

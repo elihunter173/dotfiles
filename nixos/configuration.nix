@@ -25,9 +25,12 @@
 
   modules = {
     awesome.enable = true;
+    i3.enable = true;
+    i3.default = true;
     sway.enable = true;
-    sway.default = true;
   };
+
+  boot.plymouth.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -38,11 +41,10 @@
     alacritty
     discord
     steam
-    deluge
     vlc
     spotify
-    libnotify
     firefox
+    libnotify
 
     # CLI Tools
     git

@@ -125,7 +125,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
   )
 
 -- Generate wallpaper:
-theme.wallpaper = "~/.wallpaper.png"
+theme.wallpaper = "~/Pictures/wallpaper.png"
 
 -- Extras
 theme.panel_height = nil
