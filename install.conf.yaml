@@ -13,6 +13,7 @@
     ~/.config/rofi: rofi/
     ~/.config/sway: sway/
     ~/.config/i3: i3/
+    ~/.config/i3status: i3status/
 
     # Shell Config
     ~/.config/standard.sh: standard.sh
