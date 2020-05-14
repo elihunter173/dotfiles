@@ -8,7 +8,8 @@
   imports = [
     ./hardware-configuration.nix
     ./host-specific.nix
-    ./desktop/awesome.nix
+    # ./desktop/awesome.nix
+    ./desktop/sway.nix
   ];
 
   # I'm a bad person
@@ -16,17 +17,6 @@
     allowUnfree = true;
     allowBroken = true;
   };
-
-  # Install the Nix User Repository (NUR)
-  nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
-  };
-
-  # Virtualbox for provisioning
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "eli" ];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -40,13 +30,13 @@
     # Apps
     neovim
     gnvim
-    firefox
     alacritty
     discord
     steam
     deluge
     vlc
     spotify
+    libnotify
 
     # CLI Tools
     git

@@ -17,6 +17,8 @@
     rofi
     networkmanagerapplet
 
+    firefox
+
     xfce.thunar
     xfce.thunar-archive-plugin
     xfce.gvfs
@@ -29,7 +31,6 @@
     # mojave-gtk-theme
 
     i3lock
-    libnotify
   ];
   services = {
     picom = {

@@ -13,19 +13,10 @@ set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
-set $term alacritty
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# Output configuration
 output * bg ~/.wallpaper.png fill
 
-#
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -65,13 +56,18 @@ output * bg ~/.wallpaper.png fill
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+t exec alacritty
+    bindsym $mod+b exec firefox
+    bindsym $mod+p exec flameshot gui
 
     # Kill focused window
     bindsym $mod+q kill
+    # Middle click on window kills it
+    bindsym button2 kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+Return exec j4-dmenu-desktop --dmenu="bemenu --ignorecase --prompt 'launch'" --term="$term" | xargs swaymsg exec --
+    bindsym $mod+Shift+Return exec bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -85,33 +81,43 @@ output * bg ~/.wallpaper.png fill
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-#
+
 # Moving around:
-#
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    # Move the focused window between outputs
+    bindsym $mod+Shift+$left move container to output left; focus output left
+    bindsym $mod+Shift+$down move container to output down; focus output down
+    bindsym $mod+Shift+$up move container to output up; focus output up
+    bindsym $mod+Shift+$right move container to output right; focus output right
 
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-#
+    # Move your focus between outputs
+    bindsym $mod+Control+$left focus output left
+    bindsym $mod+Control+$down focus output down
+    bindsym $mod+Control+$up focus output up
+    bindsym $mod+Control+$right focus output right
+    # Move your workspaces around between outputs
+    bindsym $mod+Control+Shift+$left move workspace to left
+    bindsym $mod+Control+Shift+$down move workspace to down
+    bindsym $mod+Control+Shift+$up move workspace to up
+    bindsym $mod+Control+Shift+$right move workspace to right
+
+# System Control:
+    bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
+    bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
+    bindsym XF86AudioMute exec amixer sset Master toggle
+
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl prev
+
+    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
 # Workspaces:
-#
     # Switch to workspace
     bindsym $mod+1 workspace 1
     bindsym $mod+2 workspace 2
@@ -136,22 +142,22 @@ output * bg ~/.wallpaper.png fill
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-#
+
 # Layout stuff:
-#
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
+    bindsym $mod+s splith
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
+    # bindsym $mod+r layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
+    workspace_layout tabbed
 
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    bindsym $mod+z fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
@@ -161,9 +167,8 @@ output * bg ~/.wallpaper.png fill
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
-#
+
 # Scratchpad:
-#
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
@@ -186,12 +191,6 @@ mode "resize" {
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -205,8 +204,6 @@ bindsym $mod+r mode "resize"
 bar {
     position top
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
     status_command while date +'%R %F'; do sleep 30; done
 
     colors {
