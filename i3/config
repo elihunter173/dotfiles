@@ -1,14 +1,5 @@
 # vim: ft=i3config
 
-# Applications
-# Your preferred terminal emulator
-set $terminal alacritty
-set $browser firefox
-# Your preferred application launcher
-set $launcher j4-dmenu-desktop --dmenu="bemenu --ignorecase --prompt 'launch'" --term="alacritty" | xargs swaymsg exec --
-set $runner bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
-set $exiter swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-
 # Common keybindings
 set $mod Mod4
 set $alt Mod1
@@ -27,22 +18,28 @@ font pango:monospace 10
     bindsym button2 kill
 
     # Launch apps
-    bindsym $mod+Return exec $launcher
-    bindsym $mod+Shift+Return exec $runner
-    bindsym $mod+Shift+e exec $exiter
-    bindsym $mod+t exec $terminal
-    bindsym $mod+b exec $browser
-    bindsym $mod+p exec $screenshot
+    bindsym $mod+Return exec rofi -show drun
+    bindsym $mod+Shift+Return exec rofi -show run
+    bindsym $mod+Ctrl+Return exec rofi -show window
+    bindsym $mod+Shift+e exec $exiter "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B
+    bindsym $mod+t exec alacritty
+    bindsym $mod+b exec firefox
+    bindsym $mod+p exec flameshot gui
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
     # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
-    floating_modifier $mod normal
+    floating_modifier $mod
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
+
+# Autostart:
+    exec --no-startup-id feh --bg-scale ~/.wallpaper.png
+    exec --no-startup-id nm-applet
+    exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Moving around:
     # Move your focus around
@@ -78,6 +75,8 @@ font pango:monospace 10
 
     bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
     bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+    bindsym XF86Display exec arandr
 
 # Workspaces:
     # Switch to workspace

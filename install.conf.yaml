@@ -16,6 +16,7 @@
     ~/.config/awesome: awesome/
     ~/.config/rofi: rofi/
     ~/.config/sway: sway/
+    ~/.config/i3: i3/
 
     # Shell Config
     ~/.standard.sh: standard.sh
