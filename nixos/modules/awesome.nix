@@ -89,6 +89,7 @@ with lib;
     # Set up autologin
     services.xserver.displayManager = mkIf config.modules.awesome.default {
       defaultSession = "none+awesome";
+      lightdm.enable = true;
       lightdm.autoLogin.enable = true;
       # TODO: Make it so this is read from some user config
       lightdm.autoLogin.user = "eli";

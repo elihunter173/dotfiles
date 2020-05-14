@@ -60,6 +60,7 @@ with lib;
 
           lxappearance
           capitaine-cursors
+          materia-theme
           papirus-icon-theme
         ];
       };
@@ -68,6 +69,7 @@ with lib;
     # Set up autologin
     services.xserver.displayManager = mkIf config.modules.i3.default {
       defaultSession = "none+i3";
+      lightdm.enable = true;
       lightdm.autoLogin.enable = true;
       # TODO: Make it so this is read from some user config
       lightdm.autoLogin.user = "eli";

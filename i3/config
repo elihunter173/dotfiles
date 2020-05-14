@@ -40,8 +40,8 @@ font pango:monospace 10
 # Autostart:
     exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.png
     exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
+    exec --no-startup-id autorandr --change
     exec --no-startup-id nm-applet
-    exec --no-startup-id autorandr
     exec --no-startup-id flameshot
 
 # Moving around:

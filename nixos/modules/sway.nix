@@ -32,6 +32,7 @@ with lib;
 
     services.xserver.displayManager = mkIf config.modules.sway.default {
       defaultSession = "sway";
+      lightdm.enable = true;
       lightdm.autoLogin.enable = true;
       # TODO: Make it so this is read from some user config
       lightdm.autoLogin.user = "eli";
