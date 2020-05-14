@@ -159,8 +159,7 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 bar {
     position top
-
-    status_command while date +'%R %F'; do sleep 30; done
+    status_command i3status;
 
     colors {
         statusline #ffffff
