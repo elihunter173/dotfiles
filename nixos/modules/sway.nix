@@ -30,6 +30,8 @@ with lib;
       ];
     };
 
+    services.pipewire.enable = true;
+
     services.xserver.displayManager = mkIf config.modules.sway.default {
       defaultSession = "sway";
       lightdm.enable = true;
