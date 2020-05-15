@@ -9,6 +9,8 @@ set $down j
 set $up k
 set $right l
 
+set $lock betterlockscreen -l -- --nofork
+
 font pango:monospace 10
 
 # Launcher
@@ -18,13 +20,11 @@ font pango:monospace 10
     bindsym button2 kill
 
     # Launch apps
-    bindsym $mod+Return exec rofi -show drun
-    bindsym $mod+Shift+Return exec rofi -show run
-    bindsym $mod+Ctrl+Return exec rofi -show window
-    # TODO: Make this a mode and make it more user friendly
-    bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B
+    bindsym $mod+Return exec --no-startup-id rofi -show drun
+    bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
+    bindsym $mod+Ctrl+Return exec --no-startup-id rofi -show window
     bindsym $mod+t exec --no-startup-id alacritty
-    bindsym $mod+b exec firefox
+    bindsym $mod+b exec --no-startup-id firefox
     bindsym $mod+p exec --no-startup-id flameshot gui
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -37,9 +37,23 @@ font pango:monospace 10
     # Reload the configuration file
     bindsym $mod+Shift+c reload
 
+# Exit
+set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit i3
+mode "$mode_system" {
+    bindsym l exec $lock
+    bindsym s exec systemctl suspend-then-hibernate
+    bindsym r exec shutdown now -r
+    bindsym q exit
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+e mode "$mode_system"
+
 # Autostart:
     exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.png
-    exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l
+    exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
     exec --no-startup-id autorandr --change
     exec --no-startup-id nm-applet
     exec --no-startup-id flameshot

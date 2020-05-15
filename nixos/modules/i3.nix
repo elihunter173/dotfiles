@@ -60,7 +60,6 @@ with lib;
 
           lxappearance
           capitaine-cursors
-          materia-theme
           papirus-icon-theme
         ];
       };
