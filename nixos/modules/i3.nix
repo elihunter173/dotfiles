@@ -16,7 +16,6 @@ with lib;
     # greedily started by nixos
     services = {
       autorandr.enable = true;
-      unclutter.enable = true;
       redshift = {
         enable = true;
         # Balanced white temperature during day

@@ -46,7 +46,6 @@ with lib;
       # TODO: Remove these so they are lazily started by awesome instead of
       # greedily started by nixos
       autorandr.enable = true;
-      unclutter.enable = true;
       redshift = {
         enable = true;
         # Balanced white temperature during day

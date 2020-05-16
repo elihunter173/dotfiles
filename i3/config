@@ -54,6 +54,7 @@ bindsym $mod+Shift+e mode "$mode_system"
     exec --no-startup-id autorandr --change
     exec --no-startup-id nm-applet
     exec --no-startup-id flameshot
+    exec --no-startup-id unclutter -idle 1
 
 # Moving around:
     # Move your focus around
