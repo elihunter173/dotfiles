@@ -1,14 +1,5 @@
 # vim: ft=i3config
 
-# Applications
-# Your preferred terminal emulator
-set $terminal alacritty
-set $browser firefox
-# Your preferred application launcher
-set $launcher j4-dmenu-desktop --dmenu="bemenu --ignorecase --prompt 'launch'" --term="alacritty" | xargs swaymsg exec --
-set $runner bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
-set $exiter swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
-
 # Common keybindings
 set $mod Mod4
 set $alt Mod1
@@ -19,6 +10,7 @@ set $up k
 set $right l
 
 font pango:monospace 10
+
 output * bg ~/Pictures/wallpaper.png fill
 
 # Launcher
@@ -28,13 +20,11 @@ output * bg ~/Pictures/wallpaper.png fill
     bindsym button2 kill
 
     # Launch apps
-    bindsym $mod+Return exec $launcher
-    bindsym $mod+Shift+Return exec $runner
-    bindsym $mod+Shift+e exec $exiter
-    bindsym $mod+t exec $terminal
-    bindsym $mod+b exec $browser
-    bindsym $mod+p exec $screenshot
-
+    bindsym $mod+Return exec j4-dmenu-desktop --dmenu="bemenu --ignorecase --prompt 'launch'" --term="alacritty" | xargs swaymsg exec --
+    bindsym $mod+Shift+Return exec bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
+    bindsym $mod+t exec alacritty
+    bindsym $mod+b exec firefox
+    bindsym $mod+p exec notify-send -u warning "Whoops!" "I haven't set this up yet."
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -42,8 +32,19 @@ output * bg ~/Pictures/wallpaper.png fill
     # mouse button for dragging.
     floating_modifier $mod normal
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
+# Exit
+set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit sway
+mode "$mode_system" {
+    bindsym l exec $lock
+    bindsym s exec systemctl suspend-then-hibernate
+    bindsym r exec shutdown now -r
+    bindsym q exit
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+e mode "$mode_system"
 
 # Moving around:
     # Move your focus around
