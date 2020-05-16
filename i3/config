@@ -34,15 +34,12 @@ font pango:monospace 10
     # mouse button for dragging.
     floating_modifier $mod
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
-
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit i3
 mode "$mode_system" {
-    bindsym l exec $lock
-    bindsym s exec systemctl suspend-then-hibernate
-    bindsym r exec shutdown now -r
+    bindsym l exec --no-startup-id $lock
+    bindsym s exec --no-startup-id systemctl suspend-then-hibernate
+    bindsym r exec --no-startup-id shutdown now -r
     bindsym q exit
 
     # Return to default mode
@@ -65,10 +62,16 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
     # Move the focused window between outputs
-    bindsym $mod+Shift+$left move container to output left; focus output left
-    bindsym $mod+Shift+$down move container to output down; focus output down
-    bindsym $mod+Shift+$up move container to output up; focus output up
-    bindsym $mod+Shift+$right move container to output right; focus output right
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # bindsym $mod+Shift+$left move container to output left; focus output left
+    # bindsym $mod+Shift+$down move container to output down; focus output down
+    # bindsym $mod+Shift+$up move container to output up; focus output up
+    # bindsym $mod+Shift+$right move container to output right; focus output right
+
+    # Add `focus_wrapping workspace` when 4.18 hits NixOS stable
 
     # Move your focus between outputs
     bindsym $mod+Control+$left focus output left
@@ -82,18 +85,18 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+Control+Shift+$right move workspace to right
 
 # System Control:
-    bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
-    bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
-    bindsym XF86AudioMute exec amixer sset Master toggle
+    bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
+    bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
+    bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
 
-    bindsym XF86AudioPlay exec playerctl play-pause
-    bindsym XF86AudioNext exec playerctl next
-    bindsym XF86AudioPrev exec playerctl prev
+    bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+    bindsym XF86AudioNext exec --no-startup-id playerctl next
+    bindsym XF86AudioPrev exec --no-startup-id playerctl prev
 
-    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
-    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
+    bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
-    bindsym XF86Display exec arandr
+    bindsym XF86Display exec --no-startup-id arandr
 
 # Workspaces:
     # Switch to workspace
@@ -177,6 +180,7 @@ bar {
     position top
 
     status_command i3status
+    tray_output primary
 
     colors {
         statusline #ffffff
