@@ -14,6 +14,8 @@
     ~/.config/sway: sway/
     ~/.config/i3: i3/
     ~/.config/i3status: i3status/
+    ~/.config/picom.conf: picom.conf
+    ~/.config/dunst: dunst/
 
     # Shell Config
     ~/.config/standard.sh: standard.sh
