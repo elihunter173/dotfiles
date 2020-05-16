@@ -45,17 +45,6 @@ with lib;
     services = {
       # TODO: Remove these so they are lazily started by awesome instead of
       # greedily started by nixos
-      picom = {
-        enable = true;
-        vSync = true;
-        shadow = true;
-        shadowExclude = [
-          # Only put shadows on these window types
-          # Read man picom(1) to find all WINDOW_TYPES from the EWMH standard
-          # TODO: Make shadows work with rofi
-          "! window_type~='(dock|dialog|splash|notify)$'"
-        ];
-      };
       autorandr.enable = true;
       unclutter.enable = true;
       redshift = {

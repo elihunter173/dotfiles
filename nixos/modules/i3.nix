@@ -15,17 +15,6 @@ with lib;
     # TODO: Remove these so they are lazily started by i3 instead of
     # greedily started by nixos
     services = {
-      picom = {
-        enable = true;
-        vSync = true;
-        shadow = true;
-        shadowExclude = [
-          # Only put shadows on these window types
-          # Read man picom(1) to find all WINDOW_TYPES from the EWMH standard
-          # TODO: Make shadows work with rofi
-          "! window_type~='(dock|dialog|splash|notify)$'"
-        ];
-      };
       autorandr.enable = true;
       unclutter.enable = true;
       redshift = {
@@ -44,6 +33,8 @@ with lib;
           i3status
           betterlockscreen
           xss-lock
+          # Enabled in i3 startup
+          picom
 
           flameshot
           feh
