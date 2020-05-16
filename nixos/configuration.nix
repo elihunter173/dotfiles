@@ -61,6 +61,7 @@
     zip
     unzip
     hyperfine
+    gnumake
 
     plover.dev
 
@@ -129,6 +130,11 @@
         hplip
       ];
     };
+
+    udev.extraRules = ''
+      # Suspend the system when battery level drops to 5% or lower
+      SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
+    '';
   };
 
   # Open ports in the firewall.
