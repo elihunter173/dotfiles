@@ -32,7 +32,7 @@ with lib;
           i3status
           betterlockscreen
           xss-lock
-          # Enabled in i3 startup
+          dunst
           picom
 
           flameshot
