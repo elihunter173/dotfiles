@@ -1,19 +1,9 @@
 { config, pkgs, lib, ... }:
-# TODO: Is this with needed?
-with lib;
-{
-  options.modules.i3 = {
-    enable = mkEnableOption "i3";
-    default = mkOption {
-      default = false;
-      type = types.bool;
-      description = "Whether i3 should be autostarted.";
-    };
-  };
 
-  config = mkIf config.modules.i3.enable {
-    # TODO: Remove these so they are lazily started by i3 instead of
-    # greedily started by nixos
+{
+  options.modules.i3.enable = lib.mkEnableOption "i3";
+
+  config = lib.mkIf config.modules.i3.enable {
     services = {
       autorandr.enable = true;
       redshift = {
@@ -21,47 +11,47 @@ with lib;
         # Balanced white temperature during day
         temperature.day = 6500;
       };
-    };
 
-    services.xserver = {
-      enable = true;
-      desktopManager.xterm.enable = false;
-      windowManager.i3 = {
+      # TODO: Move more things to be services?
+
+      xserver = {
         enable = true;
-        extraPackages = with pkgs; [
-          i3status
-          betterlockscreen
-          xss-lock
-          dunst
-          picom
+        desktopManager.xterm.enable = false;
+        displayManager = {
+          defaultSession = "none+i3";
+          lightdm.enable = true;
+          lightdm.autoLogin.enable = true;
+          # TODO: Make it so this is read from some user config
+          lightdm.autoLogin.user = "eli";
+        };
+        windowManager.i3 = {
+          enable = true;
+          extraPackages = with pkgs; [
+            i3status
+            betterlockscreen
+            xss-lock
+            dunst
+            picom
 
-          flameshot
-          feh
-          zathura
-          arandr
-          rofi
-          networkmanagerapplet
+            flameshot
+            feh
+            zathura
+            arandr
+            rofi
+            networkmanagerapplet
 
-          xfce.thunar
-          xfce.thunar-archive-plugin
-          xfce.gvfs
-          # Required for thunar to store settings
-          xfce.xfconf
+            xfce.thunar
+            xfce.thunar-archive-plugin
+            xfce.gvfs
+            # Required for thunar to store settings
+            xfce.xfconf
 
-          lxappearance
-          capitaine-cursors
-          papirus-icon-theme
-        ];
+            lxappearance
+            capitaine-cursors
+            papirus-icon-theme
+          ];
+        };
       };
-    };
-
-    # Set up autologin
-    services.xserver.displayManager = mkIf config.modules.i3.default {
-      defaultSession = "none+i3";
-      lightdm.enable = true;
-      lightdm.autoLogin.enable = true;
-      # TODO: Make it so this is read from some user config
-      lightdm.autoLogin.user = "eli";
     };
   };
 }

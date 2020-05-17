@@ -1,17 +1,13 @@
-{ config, options, pkgs, lib, ... }:
-# TODO: Is this with needed?
-with lib;
-{
-  options.modules.sway = {
-    enable = mkEnableOption "sway";
-    default = mkOption {
-      default = false;
-      type = types.bool;
-      description = "Whether sway should be autostarted.";
-    };
-  };
+{ config, pkgs, lib, ... }:
 
-  config = mkIf config.modules.sway.enable {
+{
+  options.modules.sway.enable = lib.mkEnableOption "sway";
+
+  config = lib.mkIf config.modules.sway.enable {
+
+    # TODO: Figure out autostart
+    # TODO: Move things to be services
+
     programs.sway = {
       enable = true;
       extraPackages = with pkgs; [
@@ -31,13 +27,5 @@ with lib;
     };
 
     services.pipewire.enable = true;
-
-    services.xserver.displayManager = mkIf config.modules.sway.default {
-      defaultSession = "sway";
-      lightdm.enable = true;
-      lightdm.autoLogin.enable = true;
-      # TODO: Make it so this is read from some user config
-      lightdm.autoLogin.user = "eli";
-    };
   };
 }

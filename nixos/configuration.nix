@@ -24,10 +24,7 @@
   location.provider = "geoclue2";
 
   modules = {
-    awesome.enable = true;
     i3.enable = true;
-    i3.default = true;
-    sway.enable = true;
   };
 
   # List packages installed in system profile. To search, run:

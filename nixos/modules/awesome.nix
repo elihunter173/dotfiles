@@ -1,17 +1,9 @@
 { config, pkgs, lib, ... }:
-# TODO: Is this with needed?
-with lib;
-{
-  options.modules.awesome = {
-    enable = mkEnableOption "awesome";
-    default = mkOption {
-      default = false;
-      type = types.bool;
-      description = "Whether awesome should be autostarted.";
-    };
-  };
 
-  config = mkIf config.modules.awesome.enable {
+{
+  options.modules.awesome.enable = lib.mkEnableOption "awesome";
+
+  config = lib.mkIf config.modules.awesome.enable {
     # Overlays for stephano-m's luaModules enabling better pulseaudio control
     nixpkgs.overlays = with builtins; [
       (import (fetchGit {
@@ -60,6 +52,13 @@ with lib;
           locker = "${pkgs.i3lock}/bin/i3lock";
           notifier = "${pkgs.libnotify}/bin/notify-send -u critical 'Locking in 10 seconds'";
         };
+        displayManager = {
+          defaultSession = "none+awesome";
+          lightdm.enable = true;
+          lightdm.autoLogin.enable = true;
+          # TODO: Make it so this is read from some user config
+          lightdm.autoLogin.user = "eli";
+        };
         windowManager.awesome = {
           enable = true;
           # TODO: Figure out how to use luarocks packages
@@ -74,13 +73,5 @@ with lib;
       };
     };
 
-    # Set up autologin
-    services.xserver.displayManager = mkIf config.modules.awesome.default {
-      defaultSession = "none+awesome";
-      lightdm.enable = true;
-      lightdm.autoLogin.enable = true;
-      # TODO: Make it so this is read from some user config
-      lightdm.autoLogin.user = "eli";
-    };
   };
 }
