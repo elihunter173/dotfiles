@@ -35,8 +35,8 @@ output * bg ~/Pictures/wallpaper.png fill
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit sway
 mode "$mode_system" {
-    bindsym l exec $lock
-    bindsym s exec systemctl suspend-then-hibernate
+    bindsym l exec $lock; mode "default"
+    bindsym s exec systemctl suspend-then-hibernate; mode "default"
     bindsym r exec shutdown now -r
     bindsym q exit
 
