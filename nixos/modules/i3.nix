@@ -39,6 +39,7 @@
             arandr
             rofi
             networkmanagerapplet
+            playerctl
 
             xfce.thunar
             xfce.thunar-archive-plugin

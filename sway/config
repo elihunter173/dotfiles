@@ -13,6 +13,10 @@ font pango:monospace 10
 
 output * bg ~/Pictures/wallpaper.png fill
 
+# Autostart
+# TODO: Servicify
+    exec --no-startup-id mako
+
 # Launcher
     # Kill focused window
     bindsym $mod+q kill
