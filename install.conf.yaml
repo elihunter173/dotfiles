@@ -10,8 +10,9 @@
 
     # Window Manager Config
     ~/.config/awesome: awesome/
-    ~/.config/rofi: rofi/
     ~/.config/sway: sway/
+    ~/.config/mako: mako/
+    ~/.config/rofi: rofi/
     ~/.config/i3: i3/
     ~/.config/i3status: i3status/
     ~/.config/picom.conf: picom.conf
