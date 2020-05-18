@@ -32,6 +32,7 @@
             xss-lock
             dunst
             picom
+            blueman
 
             flameshot
             feh
