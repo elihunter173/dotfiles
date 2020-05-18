@@ -20,6 +20,7 @@ font pango:monospace 10
     exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.png
     exec --no-startup-id flameshot
     exec --no-startup-id nm-applet
+    exec --no-startup-id blueman-tray
     exec --no-startup-id picom -b
     exec --no-startup-id unclutter -idle 1
     exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
@@ -92,6 +93,9 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
     bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
     bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
+    bindsym Control+XF86AudioRaiseVolume exec --no-startup-id amixer sset Capture 5%+
+    bindsym Control+XF86AudioLowerVolume exec --no-startup-id amixer sset Capture 5%-
+    bindsym Control+XF86AudioMute exec --no-startup-id amixer sset Capture toggle
 
     bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
     bindsym XF86AudioNext exec --no-startup-id playerctl next
@@ -185,10 +189,4 @@ bar {
 
     status_command i3status
     tray_output primary
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
 }
