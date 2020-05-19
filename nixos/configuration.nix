@@ -47,9 +47,6 @@
     # Required for thunar to store settings
     xfce.xfconf
 
-    lxappearance
-    capitaine-cursors
-    papirus-icon-theme
     feh
     zathura
     # Applets

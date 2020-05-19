@@ -35,6 +35,11 @@
             flameshot
             arandr
             rofi
+
+            lxappearance
+            materia-theme
+            capitaine-cursors
+            papirus-icon-theme
           ];
         };
       };

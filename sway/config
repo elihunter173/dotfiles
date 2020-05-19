@@ -28,7 +28,7 @@ output * bg ~/Pictures/wallpaper.png fill
     bindsym $mod+Shift+Return exec bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
     bindsym $mod+t exec alacritty
     bindsym $mod+b exec firefox
-    bindsym $mod+p exec notify-send -u warning "Whoops!" "I haven't set this up yet."
+    bindsym $mod+p exec grimshot copy area
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
