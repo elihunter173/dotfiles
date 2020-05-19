@@ -32,6 +32,7 @@
   environment.systemPackages = with pkgs; [
     # Apps
     neovim
+    neovim-remote
     gnvim
     alacritty
     discord
