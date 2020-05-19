@@ -12,10 +12,13 @@ set $right l
 font pango:monospace 10
 
 output * bg ~/Pictures/wallpaper.png fill
+# Hide the cursor in all seats after 1 second
+seat * hide_cursor 1000
 
 # Autostart
-# TODO: Servicify
     exec --no-startup-id mako
+    exec --no-startup-id nm-applet
+    exec --no-startup-id blueman
 
 # Launcher
     # Kill focused window
@@ -27,7 +30,8 @@ output * bg ~/Pictures/wallpaper.png fill
     bindsym $mod+Return exec j4-dmenu-desktop --dmenu="bemenu --ignorecase --prompt 'launch'" --term="alacritty" | xargs swaymsg exec --
     bindsym $mod+Shift+Return exec bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
     bindsym $mod+t exec alacritty
-    bindsym $mod+b exec firefox
+    # bindsym $mod+b exec firefox
+    bindsym $mod+b exec qutebrowser
     bindsym $mod+p exec grimshot copy area
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

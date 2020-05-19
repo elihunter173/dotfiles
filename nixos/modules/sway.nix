@@ -14,6 +14,7 @@
         swaylock
         swayidle
         i3status
+        wdisplays
 
         lxappearance
         materia-theme

@@ -31,17 +31,15 @@ Plug 'jiangmiao/auto-pairs'
 " Easier commenting for any language
 Plug 'tpope/vim-commentary'
 
-" Easier commenting for any language
+" Nice mappings
 Plug 'tpope/vim-unimpaired'
 
 " Lightweight git wrapper
+" TODO: Check out Gina.vim
 Plug 'tpope/vim-fugitive'
 
 " https://EditorConfig.org
 Plug 'editorconfig/editorconfig-vim'
-
-" Nice session management
-Plug 'tpope/vim-obsession'
 
 " For :TableFormat in markdown
 Plug 'godlygeek/tabular'
@@ -64,6 +62,13 @@ Plug 'chaoren/vim-wordmotion'
 
 " Common LSPs. Enable when 0.5 hits on all machines
 " Plug 'neovim/nvim-lsp'
+" Language Server Protocol. Remove in favor of build-in language server when
+" Neovim 0.5 hits all my machines.
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+" A nice tagbar for LSP
+Plug 'liuchengxu/vista.vim'
 
 " Base16 colorscheme
 Plug 'chriskempson/base16-vim'
@@ -74,14 +79,6 @@ Plug 'lambdalisue/suda.vim'
 
 " Vim undotree visualizer
 Plug 'mbbill/undotree'
-
-" Language Server Protocol. Remove in favor of build-in language server when
-" Neovim 0.5 hits all my machines.
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-" A nice tagbar for LSP
-Plug 'liuchengxu/vista.vim'
 
 call plug#end()
 
@@ -186,13 +183,12 @@ end
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.75 } }
+let g:fzf_preview_window = ''
 " Nice keybindings
-nnoremap <silent> <leader>o :Files<CR>
-nnoremap <silent> <leader>f :BLines<CR>
-nnoremap <silent> <leader>F :Rg<CR>
-" The previewer became default at some point (at least for me), but I don't
-" want it
-command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
+nnoremap <leader>o :Buffers<CR>
+nnoremap <leader>O :Files<CR>
+nnoremap <leader>f :BLines<CR>
+nnoremap <leader>F :Rg<CR>
 
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']

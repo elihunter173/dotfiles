@@ -40,6 +40,7 @@
     vlc
     spotify
     firefox
+    qutebrowser
     libnotify
 
     xfce.thunar
@@ -58,9 +59,10 @@
     git
     tmux
     htop
+    exa
     fd
     ripgrep
-    exa
+    fzf
     nmap
     direnv  # for lorri
     xclip
