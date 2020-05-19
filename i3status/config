@@ -8,8 +8,7 @@ general {
 order += "ipv6"
 order += "wireless _first_"
 order += "ethernet _first_"
-order += "battery 0"
-order += "battery 1"
+order += "battery all"
 order += "volume master"
 # TODO: Add this when https://github.com/i3/i3status/pull/345 gets merged
 # order += "volume capture"
@@ -33,31 +32,20 @@ ethernet _first_ {
     format_down = ""
 }
 
-battery 0 {
-    format = "%status0 %percentage"
-    format_down = ""
-}
-
-battery 1 {
-    format = "%status1 %percentage"
+battery all {
+    format = "%status: %percentage (%remaining %consumption)"
     format_down = ""
 }
 
 volume master {
     format = "V: %volume"
-    format_muted = "V: M"
-    mixer = "Master"
-}
-
-volume master {
-    format = "V: %volume"
-    format_muted = "V: M (%volume)"
+    format_muted = "V: muted (%volume)"
     # device = "pulse:sink"
 }
 
 volume capture {
     format = "M: %volume"
-    format_muted = "M: M (%volume)"
+    format_muted = "M: muted (%volume)"
     # device = "pulse:source"
 }
 
