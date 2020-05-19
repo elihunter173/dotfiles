@@ -20,9 +20,6 @@
         bemenu
         # System control
         brightnessctl
-        playerctl
-        networkmanagerapplet
-        arandr
       ];
     };
 

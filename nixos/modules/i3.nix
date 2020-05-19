@@ -32,25 +32,9 @@
             xss-lock
             dunst
             picom
-            blueman
-
             flameshot
-            feh
-            zathura
             arandr
             rofi
-            networkmanagerapplet
-            playerctl
-
-            xfce.thunar
-            xfce.thunar-archive-plugin
-            xfce.gvfs
-            # Required for thunar to store settings
-            xfce.xfconf
-
-            lxappearance
-            capitaine-cursors
-            papirus-icon-theme
           ];
         };
       };

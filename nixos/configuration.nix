@@ -41,6 +41,21 @@
     firefox
     libnotify
 
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.gvfs
+    # Required for thunar to store settings
+    xfce.xfconf
+
+    lxappearance
+    capitaine-cursors
+    papirus-icon-theme
+    feh
+    zathura
+    # Applets
+    blueman
+    networkmanagerapplet
+
     # CLI Tools
     git
     tmux
@@ -59,6 +74,7 @@
     unzip
     hyperfine
     gnumake
+    playerctl
 
     plover.dev
 
