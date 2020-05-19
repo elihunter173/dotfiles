@@ -61,6 +61,7 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+Shift+$down move container to output down; focus output down
     bindsym $mod+Shift+$up move container to output up; focus output up
     bindsym $mod+Shift+$right move container to output right; focus output right
+    focus_wrapping workspace
 
     # Move your focus between outputs
     bindsym $mod+Control+$left focus output left
