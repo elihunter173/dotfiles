@@ -36,6 +36,7 @@ font pango:monospace 10
     bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
     bindsym $mod+Ctrl+Return exec --no-startup-id rofi -show window
     bindsym $mod+t exec --no-startup-id alacritty
+    bindsym $mod+e exec --no-startup-id gnvim
     bindsym $mod+b exec --no-startup-id firefox
     bindsym $mod+p exec --no-startup-id flameshot gui
 
@@ -101,8 +102,8 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym XF86AudioNext exec --no-startup-id playerctl next
     bindsym XF86AudioPrev exec --no-startup-id playerctl prev
 
-    bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
-    bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+    bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+    bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 
     bindsym XF86Display exec --no-startup-id arandr
 
@@ -139,8 +140,8 @@ bindsym $mod+Shift+e mode "$mode_system"
 
     # Switch the current container between different layout styles
     # bindsym $mod+r layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+u layout tabbed
+    bindsym $mod+i layout toggle split
     workspace_layout tabbed
 
     # Make the current focus fullscreen
@@ -166,8 +167,10 @@ bindsym $mod+Shift+e mode "$mode_system"
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 
-# Resizing containers:
+# Resizing containers
 mode "resize" {
+    # TODO: Add moving the window around
+
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
