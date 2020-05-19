@@ -94,7 +94,7 @@ let mapleader = ' '
 " Prevent space from moving forward in normal mode
 nnoremap <Space> <NOP>
 
-if has('termguicolors')
+if has('termguicolors') && $TERM != "screen"
   set termguicolors
 endif
 let base16colorspace=256
@@ -157,8 +157,8 @@ inoremap <C-space> <C-x><C-o>
 " Required for operations modifying multiple buffers like rename.
 " set hidden
 " Nice LSP bindings
-nnoremap gd :LspDefinition<CR>
-nnoremap <leader>r :LspRename<CR>
+nnoremap <silent> gd :LspDefinition<CR>
+nnoremap <silent> <leader>r :LspRename<CR>
 nnoremap <silent> K :LspHover<CR>
 command! -nargs=0 Format LspDocumentFormat
 let g:lsp_semantic_enabled = 1
@@ -166,7 +166,7 @@ let g:lsp_fold_enabled = 0
 
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
-nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 
 " Markdown shit
 let g:vim_markdown_frontmatter = 1
@@ -187,9 +187,9 @@ end
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.75 } }
 " Nice keybindings
-nnoremap <leader>o :Files<CR>
-nnoremap <leader>f :BLines<CR>
-nnoremap <leader>F :Rg<CR>
+nnoremap <silent> <leader>o :Files<CR>
+nnoremap <silent> <leader>f :BLines<CR>
+nnoremap <silent> <leader>F :Rg<CR>
 " The previewer became default at some point (at least for me), but I don't
 " want it
 command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
@@ -197,8 +197,8 @@ command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " Interactive (fug)git(ive)
-nnoremap <leader>gs :tab Gstatus<CR>
-nnoremap <leader>gp :Gpush<CR>
+nnoremap <silent> <leader>gs :tab Gstatus<CR>
+nnoremap <silent> <leader>gp :Gpush<CR>
 
 " I don't need things to always save (https://github.com/tpope/vim-obsession/issues/40)
 let g:obsession_no_bufenter = 1
@@ -215,8 +215,8 @@ set list
 set number relativenumber
 
 " Make saving and quitting easier and faster
-nnoremap <leader>w :write<CR>
-nnoremap <leader>d :quit<CR>
+nnoremap <silent> <leader>w :write<CR>
+nnoremap <silent> <leader>d :quit<CR>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
@@ -234,7 +234,7 @@ if exists(':terminal')
   nnoremap <silent> <leader>l :terminal<CR>
 
   " Easier escape
-  tnoremap <ESC><ESC> <C-\><C-n>
+  tnoremap <ESC> <C-\><C-n>
 
   " Easier window navigation
   tnoremap <C-h> <C-\><C-n><C-w>h
