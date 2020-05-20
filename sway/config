@@ -47,6 +47,9 @@ seat * hide_cursor 1000
     bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
     bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
     bindsym XF86AudioMute exec amixer sset Master toggle
+    bindsym Control+XF86AudioRaiseVolume exec --no-startup-id amixer sset Capture 5%+
+    bindsym Control+XF86AudioLowerVolume exec --no-startup-id amixer sset Capture 5%-
+    bindsym Control+XF86AudioMute exec --no-startup-id amixer sset Capture toggle
 
     bindsym XF86AudioPlay exec playerctl play-pause
     bindsym XF86AudioNext exec playerctl next
