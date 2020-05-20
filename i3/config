@@ -47,6 +47,23 @@ font pango:monospace 10
     # mouse button for dragging.
     floating_modifier $mod
 
+# System Control
+    bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
+    bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
+    bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
+    bindsym Control+XF86AudioRaiseVolume exec --no-startup-id amixer sset Capture 5%+
+    bindsym Control+XF86AudioLowerVolume exec --no-startup-id amixer sset Capture 5%-
+    bindsym Control+XF86AudioMute exec --no-startup-id amixer sset Capture toggle
+
+    bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+    bindsym XF86AudioNext exec --no-startup-id playerctl next
+    bindsym XF86AudioPrev exec --no-startup-id playerctl prev
+
+    bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+    bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+
+    bindsym XF86Display exec --no-startup-id arandr
+
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit i3
 mode "$mode_system" {
@@ -89,23 +106,6 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+Control+Shift+$down move container to output down; focus output down
     bindsym $mod+Control+Shift+$up move container to output up; focus output up
     bindsym $mod+Control+Shift+$right move container to output right; focus output right
-
-# System Control:
-    bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
-    bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
-    bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
-    bindsym Control+XF86AudioRaiseVolume exec --no-startup-id amixer sset Capture 5%+
-    bindsym Control+XF86AudioLowerVolume exec --no-startup-id amixer sset Capture 5%-
-    bindsym Control+XF86AudioMute exec --no-startup-id amixer sset Capture toggle
-
-    bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-    bindsym XF86AudioNext exec --no-startup-id playerctl next
-    bindsym XF86AudioPrev exec --no-startup-id playerctl prev
-
-    bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
-    bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
-
-    bindsym XF86Display exec --no-startup-id arandr
 
 # Workspaces:
     # Switch to workspace

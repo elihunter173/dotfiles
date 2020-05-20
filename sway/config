@@ -30,15 +30,32 @@ seat * hide_cursor 1000
     bindsym $mod+Return exec j4-dmenu-desktop --dmenu="bemenu --ignorecase --prompt 'launch'" --term="alacritty" | xargs swaymsg exec --
     bindsym $mod+Shift+Return exec bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
     bindsym $mod+t exec alacritty
-    # bindsym $mod+b exec firefox
     bindsym $mod+b exec qutebrowser
-    bindsym $mod+p exec grimshot copy area
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
     # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
     floating_modifier $mod normal
+
+# System Control:
+    bindsym $mod+p exec grimshot copy area
+    bindsym Print exec grimshot copy area
+    bindsym Control+Print exec grimshot copy output
+    bindsym $mod+Control+p exec grimshot copy output
+
+    bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
+    bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
+    bindsym XF86AudioMute exec amixer sset Master toggle
+
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl prev
+
+    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+    bindsym XF86Display exec --no-startup-id wdisplay
 
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit sway
@@ -77,18 +94,6 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+Control+Shift+$down move workspace to down
     bindsym $mod+Control+Shift+$up move workspace to up
     bindsym $mod+Control+Shift+$right move workspace to right
-
-# System Control:
-    bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
-    bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
-    bindsym XF86AudioMute exec amixer sset Master toggle
-
-    bindsym XF86AudioPlay exec playerctl play-pause
-    bindsym XF86AudioNext exec playerctl next
-    bindsym XF86AudioPrev exec playerctl prev
-
-    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
-    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 # Workspaces:
     # Switch to workspace
