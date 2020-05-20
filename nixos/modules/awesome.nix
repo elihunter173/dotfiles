@@ -57,7 +57,7 @@
           lightdm.enable = true;
           lightdm.autoLogin.enable = true;
           # TODO: Make it so this is read from some user config
-          lightdm.autoLogin.user = "eli";
+          lightdm.autoLogin.user = "${config.my.username}";
         };
         windowManager.awesome = {
           enable = true;

@@ -1,30 +1,22 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
+device: username:
+{ config, pkgs, lib, ... }:
 
 {
+  networking.hostName = lib.mkDefault device;
+  my.username = username;
+
   imports = [
     ./hardware-configuration.nix
-    ./host-specific.nix
     ./modules
+    # Have to put ./hosts in ${} to get absolute path because relative paths
+    # don't work for some reason
+    "${./hosts}/${device}.nix"
   ];
 
   # I'm a bad person
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
-  };
-
-  # Set your time zone.
-  time.timeZone = "America/New_York";
-
-  # Automated location data because I move around
-  location.provider = "geoclue2";
-
-  modules = {
-    sway.enable = true;
   };
 
   # List packages installed in system profile. To search, run:
@@ -36,7 +28,6 @@
     gnvim
     alacritty
     discord
-    steam
     vlc
     spotify
     firefox
@@ -145,11 +136,6 @@
         hplip
       ];
     };
-
-    udev.extraRules = ''
-      # Suspend the system when battery level drops to 5% or lower
-      SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${pkgs.systemd}/bin/systemctl hibernate"
-    '';
   };
 
   # Open ports in the firewall.
@@ -164,13 +150,9 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-  # For steam support
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
-  hardware.pulseaudio.support32Bit = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.eli = {
+  users.users."${config.my.username}" = {
     isNormalUser = true;
     extraGroups = [
       "wheel"  # sudo
@@ -178,10 +160,4 @@
     ];
     shell = pkgs.zsh;
   };
-
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "20.03"; # Did you read the comment?
 }
