@@ -42,6 +42,8 @@
     firefox
     qutebrowser
     libnotify
+    slack-term
+    weechat
 
     xfce.thunar
     xfce.thunar-archive-plugin
