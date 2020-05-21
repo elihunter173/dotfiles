@@ -9,7 +9,7 @@ set $down j
 set $up k
 set $right l
 
-font pango:monospace 10
+font pango:Hack 10
 
 output * bg ~/Pictures/wallpaper.png fill
 # Hide the cursor in all seats after 1 second
@@ -38,7 +38,7 @@ seat * hide_cursor 1000
     # mouse button for dragging.
     floating_modifier $mod normal
 
-# System Control:
+# System Control
     bindsym $mod+p exec grimshot copy area
     bindsym Print exec grimshot copy area
     bindsym Control+Print exec grimshot copy output
@@ -74,7 +74,7 @@ mode "$mode_system" {
 }
 bindsym $mod+Shift+e mode "$mode_system"
 
-# Moving around:
+# Moving around
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -98,7 +98,7 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+Control+Shift+$up move workspace to up
     bindsym $mod+Control+Shift+$right move workspace to right
 
-# Workspaces:
+# Workspaces
     # Switch to workspace
     bindsym $mod+1 workspace 1
     bindsym $mod+2 workspace 2
@@ -122,7 +122,7 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+Shift+9 move container to workspace 9
     bindsym $mod+Shift+0 move container to workspace 10
 
-# Layout stuff:
+# Layout stuff
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -147,7 +147,7 @@ bindsym $mod+Shift+e mode "$mode_system"
     # Move focus to the parent container
     bindsym $mod+a focus parent
 
-# Scratchpad:
+# Scratchpad
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
@@ -158,7 +158,7 @@ bindsym $mod+Shift+e mode "$mode_system"
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 
-# Resizing containers:
+# Resizing containers
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -175,7 +175,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# Status Bar:
+# Status Bar
 bar {
     position top
     status_command i3status;
