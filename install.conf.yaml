@@ -9,7 +9,6 @@
     ~/.config/systemd/user/rclone-gdrive@.service: systemd/user/rclone-gdrive@.service
 
     # Window Manager Config
-    ~/.config/awesome: awesome/
     ~/.config/sway: sway/
     ~/.config/mako: mako/
     ~/.config/rofi: rofi/
