@@ -60,6 +60,9 @@ Plug 'justinmk/vim-dirvish'
 Plug 'chaoren/vim-wordmotion'
 " let g:wordmotion_prefix = '['
 
+" Floating terminal
+Plug 'voldikss/vim-floaterm'
+
 " Common LSPs. Enable when 0.5 hits on all machines
 " Plug 'neovim/nvim-lsp'
 " Language Server Protocol. Remove in favor of build-in language server when
@@ -97,8 +100,9 @@ endif
 let base16colorspace=256
 colorscheme base16-solarized-dark
 
-" Pretty icons don't work everywhere
+" Pretty icons don't work everywhere and are idiosyncratic IMO
 let g:vista#renderer#enable_icon = 0
+let g:vista_fold_toggle_icons = ['-', '+']
 
 " GUI Font settings
 set guifont=Hack:h12
@@ -163,7 +167,7 @@ let g:lsp_fold_enabled = 0
 
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
-nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
+nnoremap <silent> <leader>s :nohlsearch<CR>
 
 " Markdown shit
 let g:vim_markdown_frontmatter = 1
@@ -193,8 +197,11 @@ nnoremap <leader>F :Rg<CR>
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " Interactive (fug)git(ive)
-nnoremap <silent> <leader>gs :tab Gstatus<CR>
+nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gp :Gpush<CR>
+
+" Make tabs easier
+nnoremap <leader>t :FloatermToggle<CR>
 
 " I don't need things to always save (https://github.com/tpope/vim-obsession/issues/40)
 let g:obsession_no_bufenter = 1
@@ -212,16 +219,13 @@ set number relativenumber
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
-nnoremap <silent> <leader>d :quit<CR>
+nnoremap <silent> <leader>d :bdelete<CR>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-" Make tabs easier
-nnoremap <leader>t :tabnew<CR>
-nnoremap <leader>T :tabclose<CR>
 " Easier swapping between buffers
 nnoremap <tab> <C-^>
 
@@ -241,10 +245,9 @@ if exists(':terminal')
   if has('nvim')
     augroup TermSettings
       autocmd!
-      " Make terminals always open in insert mode
-      autocmd TermOpen * startinsert
-      " No linenumbers in terminals
-      autocmd TermOpen * setlocal norelativenumber nonumber
+      " Make terminals always open in insert mode and no linenumbers in
+      " terminals
+      autocmd TermOpen * startinsert | setlocal norelativenumber nonumber
     augroup END
   end
 end
