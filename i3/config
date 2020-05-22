@@ -37,7 +37,7 @@ font pango:Hack 10
     bindsym $mod+Ctrl+Return exec --no-startup-id rofi -show window
     bindsym $mod+t exec --no-startup-id alacritty
     bindsym $mod+e exec --no-startup-id gnvim
-    bindsym $mod+b exec --no-startup-id firefox
+    bindsym $mod+b exec --no-startup-id qutebrowser
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -47,10 +47,10 @@ font pango:Hack 10
     floating_modifier $mod
 
 # System Control
-    bindsym Print exec flameshot gui
-    bindsym $mod+p exec flameshot gui
-    bindsym Control+Print exec flameshot full -c
-    bindsym $mod+Control+p exec flameshot full -c
+    bindsym Print exec --no-startup-id flameshot gui
+    bindsym $mod+p exec --no-startup-id flameshot gui
+    bindsym Control+Print exec --no-startup-id flameshot full -c
+    bindsym $mod+Control+p exec --no-startup-id flameshot full -c
 
     bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
     bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
