@@ -14,7 +14,6 @@ set $lock betterlockscreen -l -- --nofork
 font pango:Hack 10
 
 # Autostart
-# TODO: Make dunst, picom, unclutter services
     exec --no-startup-id autorandr --change
     exec --no-startup-id dunst
     exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.png
@@ -102,14 +101,14 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+Control+$up focus output up
     bindsym $mod+Control+$right focus output right
     # Move your workspaces around between outputs
-    # bindsym $mod+Control+Shift+$left move workspace to left
-    # bindsym $mod+Control+Shift+$down move workspace to down
-    # bindsym $mod+Control+Shift+$up move workspace to up
-    # bindsym $mod+Control+Shift+$right move workspace to right
-    bindsym $mod+Control+Shift+$left move container to output left; focus output left
-    bindsym $mod+Control+Shift+$down move container to output down; focus output down
-    bindsym $mod+Control+Shift+$up move container to output up; focus output up
-    bindsym $mod+Control+Shift+$right move container to output right; focus output right
+    bindsym $mod+Control+Shift+$left move workspace to left
+    bindsym $mod+Control+Shift+$down move workspace to down
+    bindsym $mod+Control+Shift+$up move workspace to up
+    bindsym $mod+Control+Shift+$right move workspace to right
+    # bindsym $mod+Control+Shift+$left move container to output left; focus output left
+    # bindsym $mod+Control+Shift+$down move container to output down; focus output down
+    # bindsym $mod+Control+Shift+$up move container to output up; focus output up
+    # bindsym $mod+Control+Shift+$right move container to output right; focus output right
 
 # Workspaces
     # Switch to workspace
