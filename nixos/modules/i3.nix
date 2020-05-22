@@ -35,6 +35,11 @@
             flameshot
             arandr
             rofi
+            unclutter
+
+            # Applets
+            blueman
+            networkmanagerapplet
 
             lxappearance
             materia-theme

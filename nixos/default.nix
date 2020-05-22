@@ -19,6 +19,14 @@ device: username:
     allowBroken = true;
   };
 
+  # Set your time zone.
+  time.timeZone = "America/New_York";
+
+  location = {
+    latitude = 36.01262;
+    longitude = -80.37556;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -36,6 +44,9 @@ device: username:
     slack-term
     weechat
 
+    aerc
+    appimage-run
+
     xfce.thunar
     xfce.thunar-archive-plugin
     xfce.gvfs
@@ -44,9 +55,6 @@ device: username:
 
     feh
     zathura
-    # Applets
-    blueman
-    networkmanagerapplet
 
     # CLI Tools
     git
@@ -68,6 +76,7 @@ device: username:
     hyperfine
     gnumake
     playerctl
+    pciutils
 
     plover.dev
 
@@ -152,8 +161,10 @@ device: username:
   hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  # TODO: Use passwordHash and turn mutable users off
   users.users."${config.my.username}" = {
     isNormalUser = true;
+    description = "Eli W. Hunter";
     extraGroups = [
       "wheel"  # sudo
       "networkmanager"  # network manager is enabled
