@@ -51,6 +51,8 @@ font pango:Hack 10
     bindsym Control+Print exec --no-startup-id flameshot full -c
     bindsym $mod+Control+p exec --no-startup-id flameshot full -c
 
+    # TODO: Use variable for bindings
+
     bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset Master 5%+
     bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset Master 5%-
     bindsym XF86AudioMute exec --no-startup-id amixer sset Master toggle
@@ -62,6 +64,23 @@ font pango:Hack 10
     bindsym XF86AudioNext exec --no-startup-id playerctl next
     bindsym XF86AudioPrev exec --no-startup-id playerctl prev
 
+bindsym $mod+Shift+m mode "media"
+mode "media" {
+    bindsym $up exec --no-startup-id amixer sset Master 5%+
+    bindsym $down exec --no-startup-id amixer sset Master 5%-
+    bindsym m exec --no-startup-id amixer sset Master toggle
+    bindsym Control+$up exec --no-startup-id amixer sset Master 5%+
+    bindsym Control+$down exec --no-startup-id amixer sset Master 5%-
+    bindsym Control+m exec --no-startup-id amixer sset Master toggle
+
+    bindsym space exec --no-startup-id playerctl play-pause
+    bindsym $right exec --no-startup-id playerctl next
+    bindsym $left exec --no-startup-id playerctl prev
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
     bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
     bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 
@@ -69,17 +88,16 @@ font pango:Hack 10
 
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit i3
+bindsym $mod+Shift+e mode "$mode_system"
 mode "$mode_system" {
     bindsym l exec --no-startup-id $lock; mode "default"
     bindsym s exec --no-startup-id systemctl suspend-then-hibernate; mode "default"
     bindsym r exec --no-startup-id shutdown now -r
     bindsym q exit
 
-    # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+e mode "$mode_system"
 
 # Moving around
     # Move your focus around
@@ -171,6 +189,7 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+minus scratchpad show
 
 # Resizing containers
+bindsym $mod+r mode "resize"
 mode "resize" {
     # TODO: Add moving the window around
 
@@ -183,11 +202,9 @@ mode "resize" {
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
 
-    # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
 
 # Status Bar
 bar {
