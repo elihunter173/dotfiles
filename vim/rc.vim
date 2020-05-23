@@ -3,6 +3,10 @@
 "
 " Author: Eli W. Hunter
 
+" TODO: Remove <silent> commands mappings and replace them with <Cmd>
+" TODO: Remove vim support
+" TODO: Switch to minpac
+
 " Set up or install minpac
 if has('nvim')
   let s:vimplug_path = stdpath('data').'/site/autoload/plug.vim'
@@ -186,7 +190,7 @@ end
 
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.75 } }
+let g:fzf_layout = { 'window': { 'width': 0.85, 'height': 0.8 } }
 let g:fzf_preview_window = ''
 " Nice keybindings
 nnoremap <leader>o :Buffers<CR>
@@ -201,7 +205,9 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gp :Gpush<CR>
 
 " Make tabs easier
-nnoremap <leader>t :FloatermToggle<CR>
+nnoremap <silent> <leader>t :FloatermToggle<CR>
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.8
 
 " I don't need things to always save (https://github.com/tpope/vim-obsession/issues/40)
 let g:obsession_no_bufenter = 1
