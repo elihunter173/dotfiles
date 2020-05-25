@@ -30,7 +30,7 @@ Plug 'wellle/targets.vim'
 Plug 'machakann/vim-sandwich'
 
 " Nice matching of paired things (e.g. parens)
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 
 " Easier commenting for any language
 Plug 'tpope/vim-commentary'
