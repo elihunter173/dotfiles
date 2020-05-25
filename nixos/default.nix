@@ -43,9 +43,10 @@ device: username:
     libnotify
     slack-term
     weechat
+    zoom-us
+    multimc
 
     aerc
-    appimage-run
 
     xfce.thunar
     xfce.thunar-archive-plugin
@@ -77,6 +78,7 @@ device: username:
     gnumake
     playerctl
     pciutils
+    wget
 
     plover.dev
 
