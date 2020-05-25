@@ -17,12 +17,14 @@ font pango:Hack 10
     exec --no-startup-id autorandr --change
     exec --no-startup-id dunst
     exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.png
-    exec --no-startup-id flameshot
-    exec --no-startup-id nm-applet
-    exec --no-startup-id blueman-tray
     exec --no-startup-id picom -b
     exec --no-startup-id unclutter -idle 1
     exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
+
+    # Tray icons
+    exec --no-startup-id flameshot
+    exec --no-startup-id blueman-tray
+    exec --no-startup-id nm-applet
 
 # Launcher
     # Kill focused window
