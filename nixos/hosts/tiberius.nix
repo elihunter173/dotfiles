@@ -15,15 +15,12 @@
     # Per-interface useDHCP will be mandatory in the future, so this generated config
     # replicates the default behaviour.
     useDHCP = false;
-    interfaces = {
-      # Ethernet
-      enp3s0 = {
+    interfaces.enp3s0 = {
+        useDHCP = true;
         ipv4.addresses = [ {
           address = "192.168.2.20";
           prefixLength = 24;
         } ];
-        # We use a static IP but also have all the good dynamic stuff
-        useDHCP = true;
       };
     };
   };

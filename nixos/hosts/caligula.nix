@@ -14,5 +14,4 @@
 
   # I'd use nouveau with sway, but it keeps crashing :(
   services.xserver.videoDrivers = [ "nvidia" ];
-
 }
