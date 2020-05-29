@@ -38,7 +38,7 @@ font pango:Hack 10
     bindsym $mod+Ctrl+Return exec --no-startup-id rofi -show window
     bindsym $mod+t exec --no-startup-id alacritty
     bindsym $mod+e exec --no-startup-id gnvim
-    bindsym $mod+b exec --no-startup-id qutebrowser
+    bindsym $mod+b exec --no-startup-id firefox
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
