@@ -35,7 +35,7 @@
             flameshot
             arandr
             rofi
-            unclutter
+            unclutter-xfixes
 
             # Applets
             blueman
