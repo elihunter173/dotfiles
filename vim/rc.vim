@@ -167,7 +167,6 @@ nnoremap <silent> <leader>r :LspRename<CR>
 nnoremap <silent> K :LspHover<CR>
 command! -nargs=0 Format LspDocumentFormat
 let g:lsp_semantic_enabled = 1
-let g:lsp_fold_enabled = 0
 
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason

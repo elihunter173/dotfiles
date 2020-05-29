@@ -50,8 +50,8 @@ font pango:Hack 10
 # System Control
     bindsym Print exec --no-startup-id flameshot gui
     bindsym $mod+p exec --no-startup-id flameshot gui
-    bindsym Control+Print exec --no-startup-id flameshot full -c
-    bindsym $mod+Control+p exec --no-startup-id flameshot full -c
+    bindsym Control+Print exec --no-startup-id flameshot screen -c
+    bindsym $mod+Control+p exec --no-startup-id flameshot screen -c
 
     # TODO: Use variable for bindings
 
