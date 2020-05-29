@@ -41,10 +41,11 @@ device: username:
     firefox
     qutebrowser
     libnotify
-    slack-term
+    slack
     weechat
     zoom-us
     multimc
+    obs-studio
 
     aerc
 
@@ -108,6 +109,8 @@ device: username:
 
     # Lua
     lua
+    # emmylua requires java to be installed
+    jdk12
   ];
 
   fonts = {
