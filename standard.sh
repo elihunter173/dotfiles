@@ -8,42 +8,40 @@ export GPG_TTY=$(tty)
 
 # Pick the one true editor
 if command -v nvr > /dev/null && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    export EDITOR="nvr -cc FloatermHide"
+    export EDITOR='nvr -cc FloatermHide'
 elif command -v nvim > /dev/null; then
-    export EDITOR=nvim
+    export EDITOR='nvim'
 elif command -v vim > /dev/null; then
-    export EDITOR=vim
+    export EDITOR='vim'
 else
-    export EDITOR=vi
+    export EDITOR='vi'
 fi
 
 # A more friendly ls
 if command -v exa > /dev/null; then
-    alias l="exa"
-    alias ll="exa --long --header --group --git"
-    alias la="exa --all"
-    alias lt="exa --tree"
+    alias l='exa'
+    alias ll='exa --long --header --group --git'
+    alias la='exa --all'
+    alias lt='exa --tree'
 else
     # The defaults are good IMO
     unset LS_COLORS
-    alias l="ls"
-    alias ll="ls -lh"
-    alias la="ls -a"
+    alias l='ls'
+    alias ll='ls -lh'
+    alias la='ls -a'
     command -v tree > /dev/null && alias lt="tree"
 fi
 # I put this after, so command doesn't get tricked
-alias exa="exa --classify"
-alias ls="ls --color=auto -F"
+alias exa='exa --classify'
+alias ls='ls --color=auto -F'
 
 # Quick shortcuts
-alias e="$EDITOR"
-# Fugitive is so nice
-alias eg="$EDITOR '+:Gstatus\|bd #'"
-alias g="git" # further shortcuts in ~/.gitconfig
+alias e='$EDITOR'
+alias g='git' # further shortcuts in ~/.gitconfig
 
 # I have issues with xterm-termite cross platform
 if [[ $TERM == xterm-termite ]]; then
-    export TERM=xterm-256color
+    export TERM='xterm-256color'
 fi
 
 # Bookmarks
