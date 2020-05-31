@@ -36,7 +36,7 @@ alias exa='exa --classify'
 alias ls='ls --color=auto -F'
 
 # Quick shortcuts
-alias e='$EDITOR'
+alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.gitconfig
 
 # I have issues with xterm-termite cross platform
