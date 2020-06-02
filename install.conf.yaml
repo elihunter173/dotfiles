@@ -39,6 +39,7 @@
     ~/.cron: cron
     ~/.hushlogin: hushlogin
     ~/Pictures/wallpaper.png: wallpaper.png
+    ~/.config/fontconfig: fontconfig/
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
