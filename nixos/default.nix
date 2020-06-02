@@ -46,8 +46,8 @@ device: username:
     zoom-us
     multimc
     obs-studio
-
-    aerc
+    bitwarden
+    thunderbird
 
     xfce.thunar
     xfce.thunar-archive-plugin
