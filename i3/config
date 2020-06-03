@@ -11,6 +11,9 @@ set $right l
 
 set $lock betterlockscreen -l -- --nofork
 
+# If a window requests focus, just mark it as urgent
+focus_on_window_activation urgent
+
 font pango:Hack 10
 
 # Autostart
@@ -20,6 +23,8 @@ font pango:Hack 10
     exec --no-startup-id picom -b
     exec --no-startup-id unclutter -idle 1
     exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
+
+    exec --no-startup-id thunar --daemon
 
     # Tray icons
     exec --no-startup-id flameshot
@@ -39,6 +44,7 @@ font pango:Hack 10
     bindsym $mod+t exec --no-startup-id alacritty
     bindsym $mod+e exec --no-startup-id gnvim
     bindsym $mod+b exec --no-startup-id firefox
+    bindsym $mod+f exec --no-startup-id thunar
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -66,7 +72,7 @@ font pango:Hack 10
     bindsym XF86AudioNext exec --no-startup-id playerctl next
     bindsym XF86AudioPrev exec --no-startup-id playerctl prev
 
-bindsym $mod+Shift+m mode "media"
+bindsym $mod+m mode "media"
 mode "media" {
     bindsym $up exec --no-startup-id amixer sset Master 5%+
     bindsym $down exec --no-startup-id amixer sset Master 5%-
@@ -130,6 +136,9 @@ mode "$mode_system" {
     # bindsym $mod+Control+Shift+$up move container to output up; focus output up
     # bindsym $mod+Control+Shift+$right move container to output right; focus output right
 
+    # Focus on the most recent urgent window
+    bindsym $mod+u [urgent=newest] focus
+
 # Workspaces
     # Switch to workspace
     bindsym $mod+1 workspace 1
@@ -162,9 +171,10 @@ mode "$mode_system" {
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    # bindsym $mod+r layout stacking
-    bindsym $mod+u layout tabbed
-    bindsym $mod+i layout toggle split
+    bindsym $mod+Control+s layout stacking
+    bindsym $mod+Control+w layout tabbed
+    bindsym $mod+Control+e layout toggle split
+
     workspace_layout tabbed
 
     # Make the current focus fullscreen
