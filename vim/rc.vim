@@ -60,10 +60,6 @@ Plug 'tpope/vim-sleuth'
 " Netrw but simpler and better
 Plug 'justinmk/vim-dirvish'
 
-" Word motion through CamelCase and friends
-Plug 'chaoren/vim-wordmotion'
-" let g:wordmotion_prefix = '['
-
 " Floating terminal
 Plug 'voldikss/vim-floaterm'
 
@@ -171,6 +167,9 @@ let g:lsp_semantic_enabled = 1
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
 nnoremap <silent> <leader>s :nohlsearch<CR>
+
+" Case insensitive searching
+set ignorecase
 
 " Markdown shit
 let g:vim_markdown_frontmatter = 1
