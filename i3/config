@@ -100,7 +100,7 @@ bindsym $mod+Shift+e mode "$mode_system"
 mode "$mode_system" {
     bindsym l exec --no-startup-id $lock; mode "default"
     bindsym s exec --no-startup-id systemctl suspend-then-hibernate; mode "default"
-    bindsym r exec --no-startup-id shutdown now -r
+    bindsym r exec --no-startup-id systemctl reboot
     bindsym q exit
 
     bindsym Return mode "default"
