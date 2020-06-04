@@ -9,6 +9,8 @@ export GPG_TTY=$(tty)
 # Pick the one true editor
 if command -v nvr > /dev/null && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     export EDITOR='nvr -cc FloatermHide'
+elif command -v code > /dev/null && [ "$TERM_PROGRAM" = "vscode" ]; then
+    export EDITOR='code'
 elif command -v nvim > /dev/null; then
     export EDITOR='nvim'
 elif command -v vim > /dev/null; then
