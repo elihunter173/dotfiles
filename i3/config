@@ -11,8 +11,11 @@ set $right l
 
 set $lock betterlockscreen -l -- --nofork
 
-# If a window requests focus, just mark it as urgent
+# If a window requests focus, just mark it as urgent because I have a
+# keybinding for focusing urgent windows
 focus_on_window_activation urgent
+
+hide_edge_borders smart
 
 font pango:Hack 10
 
