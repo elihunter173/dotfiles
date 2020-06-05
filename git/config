@@ -5,12 +5,13 @@
 	; Custom "commands"
 	hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	; Nice aliases
-	st = status
+	; Force st to use my config settings, even on old versions
+	st = status --short --branch
 	d = diff
 	p = push
 	l = pull
 	cl = clone --recurse-submodules
-	a = add --verbose
+	a = add --verbose --all
 	c = commit
 	ca = commit --amend
 	ce = commit --amend --no-edit
@@ -24,3 +25,8 @@
 	branch = false
 [pull]
 	ff = only
+[color]
+	; Force color for old versions
+	ui = auto
+[push]
+	default = simple
