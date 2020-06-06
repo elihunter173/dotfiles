@@ -49,12 +49,6 @@
         sudo ln -s ~/dotfiles/nixos/ /etc/.
       fi
     stdin: true
-  - description: Checking dependencies
-    command: ./check_deps.sh
-    stdin: true
-    stdout: true
-    stderr: true
-    quiet: false
 
 - clean:
   - '~'
