@@ -368,7 +368,10 @@
 #    fullscreen = show
 
 [beep]
+    msg_urgency = normal
     script = ~/.config/dunst/notification.sh
+
+# TODO: Include setting for critical
 
 #[script-test]
 #    summary = "*script*"
