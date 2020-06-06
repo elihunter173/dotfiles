@@ -30,19 +30,19 @@ device: username:
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # Apps
+    # Neovim
     neovim
     neovim-remote
     gnvim
+
+    # Core apps
     alacritty
     discord
     vlc
     spotify
-    firefox
-    qutebrowser
+    firefox-bin
     libnotify
     slack
-    weechat
     zoom-us
     multimc
     obs-studio
@@ -69,8 +69,8 @@ device: username:
     nmap
     direnv  # for lorri
     xclip
-    ctags
     entr
+    at
     pdftk
     texlive.combined.scheme-basic
     zip
@@ -103,6 +103,9 @@ device: username:
     # ensure-pip has problems if you add this as a package to python
     poetry
 
+    # Rust
+    rustup
+
     # C/C++
     clang-tools
     man-pages
@@ -110,7 +113,7 @@ device: username:
     # Lua
     lua
     # emmylua requires java to be installed
-    jdk12
+    jdk
   ];
 
   fonts = {
@@ -176,4 +179,6 @@ device: username:
     ];
     shell = pkgs.zsh;
   };
+
+  system.stateVersion = "20.03";
 }

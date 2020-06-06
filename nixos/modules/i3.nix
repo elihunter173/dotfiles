@@ -41,8 +41,9 @@
             blueman
             networkmanagerapplet
 
+            # Theming
             lxappearance
-            materia-theme
+            arc-theme
             capitaine-cursors
             papirus-icon-theme
           ];
