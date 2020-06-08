@@ -39,6 +39,8 @@
     ~/.hushlogin: hushlogin
     ~/Pictures/wallpaper.png: wallpaper.png
     ~/.config/fontconfig: fontconfig/
+    ~/.face: face
+    ~/.face.icon: face
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
