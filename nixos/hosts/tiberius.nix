@@ -16,12 +16,11 @@
     # replicates the default behaviour.
     useDHCP = false;
     interfaces.enp3s0 = {
-        useDHCP = true;
-        ipv4.addresses = [ {
-          address = "192.168.2.20";
-          prefixLength = 24;
-        } ];
-      };
+      useDHCP = true;
+      ipv4.addresses = [ {
+        address = "192.168.2.20";
+        prefixLength = 24;
+      } ];
     };
   };
 }
