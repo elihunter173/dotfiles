@@ -86,6 +86,7 @@ device: username:
     # Python
     (python3.withPackages (ps: with ps; [
       # Development
+      virtualenv
       ipython
       flake8
       mypy
