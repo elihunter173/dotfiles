@@ -28,7 +28,7 @@
           enable = true;
           extraPackages = with pkgs; [
             i3status
-            betterlockscreen
+            i3lock
             xss-lock
             dunst
             picom

@@ -9,7 +9,7 @@ set $down j
 set $up k
 set $right l
 
-set $lock betterlockscreen -l -- --nofork
+set $lock i3lock
 
 # If a window requests focus, just mark it as urgent because I have a
 # keybinding for focusing urgent windows
