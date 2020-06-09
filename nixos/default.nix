@@ -105,8 +105,11 @@ device: username:
 
     # Rust
     rustup
+    clang
+    rust-analyzer
 
     # C/C++
+    clang
     clang-tools
     man-pages
 
