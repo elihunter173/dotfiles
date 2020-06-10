@@ -87,7 +87,7 @@ device: username:
     (python3.withPackages (ps: with ps; [
       # Development
       virtualenv
-      ipython
+      tox
       flake8
       mypy
       black
@@ -97,6 +97,7 @@ device: username:
       pyls-black
       pyls-isort
       # Math
+      ipython
       jupyterlab
       numpy
       sympy

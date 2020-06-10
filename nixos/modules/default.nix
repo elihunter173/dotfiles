@@ -5,6 +5,7 @@
     ./i3.nix
     ./sway.nix
     ./steam.nix
+    ./docker.nix
   ];
 
   options = {

@@ -4,6 +4,7 @@
   modules = {
     i3.enable = true;
     steam.enable = true;
+    docker.enable = true;
   };
 
   # Use the systemd-boot EFI boot loader.
