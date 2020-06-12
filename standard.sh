@@ -33,7 +33,8 @@ else
     alias la='ls -a'
     command -v tree > /dev/null && alias lt="tree"
 fi
-# I put this after, so command doesn't get tricked
+# I put this after, so command doesn't get tricked into thinking exa and ls are
+# installed because we have aliases
 alias exa='exa --classify'
 alias ls='ls --color=auto -F'
 
