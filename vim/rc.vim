@@ -29,9 +29,6 @@ Plug 'wellle/targets.vim'
 " Surrounding text objects with any character
 Plug 'machakann/vim-sandwich'
 
-" Nice matching of paired things (e.g. parens)
-" Plug 'jiangmiao/auto-pairs'
-
 " Easier commenting for any language
 Plug 'tpope/vim-commentary'
 
@@ -223,7 +220,7 @@ set number relativenumber
 
 " Make saving and quitting easier and faster
 nnoremap <silent> <leader>w :write<CR>
-nnoremap <silent> <leader>d :bdelete<CR>
+nnoremap <silent> <leader>d :bp\|bd #<CR>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
