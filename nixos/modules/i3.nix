@@ -36,6 +36,8 @@
             arandr
             rofi
             unclutter-xfixes
+            # For setting background
+            feh
 
             # Applets
             blueman

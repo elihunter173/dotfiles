@@ -48,14 +48,16 @@ device: username:
     obs-studio
     bitwarden
     thunderbird
+    gimp
 
     xfce.thunar
     xfce.thunar-archive-plugin
+    xarchiver
     xfce.gvfs
     # Required for thunar to store settings
     xfce.xfconf
 
-    feh
+    xfce.ristretto
     zathura
 
     # CLI Tools
