@@ -178,6 +178,10 @@ mode "$mode_system" {
     bindsym $mod+Control+w layout tabbed
     bindsym $mod+Control+e layout toggle split
 
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+    bindsym $mod+Shift+a focus child
+
     workspace_layout tabbed
 
     # Make the current focus fullscreen
@@ -188,9 +192,6 @@ mode "$mode_system" {
 
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
 
 # Scratchpad
     # Sway has a "scratchpad", which is a bag of holding for windows.
