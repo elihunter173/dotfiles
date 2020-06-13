@@ -30,6 +30,7 @@
 
     # App Config
     ~/.config/alacritty/alacritty.yml: alacritty.yml
+    ~/.config/termite: termite/
     ~/.config/Dharkael/flameshot.ini: flameshot.ini
 
     # Misc
