@@ -1,3 +1,4 @@
+# i3 config file (v4)
 # vim: ft=i3config
 
 # Common keybindings
@@ -15,7 +16,7 @@ set $lock i3lock
 # keybinding for focusing urgent windows
 focus_on_window_activation urgent
 
-hide_edge_borders smart
+hide_edge_borders both
 
 font pango:Hack 10
 
@@ -177,7 +178,6 @@ mode "$mode_system" {
     bindsym $mod+Control+s layout stacking
     bindsym $mod+Control+w layout tabbed
     bindsym $mod+Control+e layout toggle split
-
     # Move focus to the parent container
     bindsym $mod+a focus parent
     bindsym $mod+Shift+a focus child
