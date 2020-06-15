@@ -11,6 +11,8 @@ set $right l
 
 font pango:Hack 10
 
+set $lock swaylock
+
 output * bg ~/Pictures/wallpaper.png fill
 # Hide the cursor in all seats after 1 second
 seat * hide_cursor 1000
@@ -18,7 +20,7 @@ seat * hide_cursor 1000
 # Autostart
     exec --no-startup-id mako
     exec --no-startup-id nm-applet
-    exec --no-startup-id blueman
+    exec --no-startup-id blueman-applet
 
 # Launcher
     # Kill focused window
@@ -30,7 +32,10 @@ seat * hide_cursor 1000
     bindsym $mod+Return exec j4-dmenu-desktop --dmenu="bemenu --ignorecase --prompt 'launch'" --term="alacritty" | xargs swaymsg exec --
     bindsym $mod+Shift+Return exec bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
     bindsym $mod+t exec alacritty
-    bindsym $mod+b exec qutebrowser
+    bindsym $mod+e exec gnvim
+    bindsym $mod+b exec firefox
+    bindsym $mod+f exec thunar
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -47,9 +52,9 @@ seat * hide_cursor 1000
     bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
     bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
     bindsym XF86AudioMute exec amixer sset Master toggle
-    bindsym Control+XF86AudioRaiseVolume exec --no-startup-id amixer sset Capture 5%+
-    bindsym Control+XF86AudioLowerVolume exec --no-startup-id amixer sset Capture 5%-
-    bindsym Control+XF86AudioMute exec --no-startup-id amixer sset Capture toggle
+    bindsym Control+XF86AudioRaiseVolume exec amixer sset Capture 5%+
+    bindsym Control+XF86AudioLowerVolume exec amixer sset Capture 5%-
+    bindsym Control+XF86AudioMute exec amixer sset Capture toggle
 
     bindsym XF86AudioPlay exec playerctl play-pause
     bindsym XF86AudioNext exec playerctl next
@@ -58,14 +63,14 @@ seat * hide_cursor 1000
     bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
     bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
-    bindsym XF86Display exec --no-startup-id wdisplay
+    bindsym XF86Display exec wdisplay
 
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit sway
 mode "$mode_system" {
-    bindsym l exec $lock; mode "default"
-    bindsym s exec systemctl suspend-then-hibernate; mode "default"
-    bindsym r exec shutdown now -r
+    bindsym l exec --no-startup-id $lock; mode "default"
+    bindsym s exec --no-startup-id systemctl suspend-then-hibernate; mode "default"
+    bindsym r exec --no-startup-id systemctl reboot
     bindsym q exit
 
     # Return to default mode
@@ -75,17 +80,18 @@ mode "$mode_system" {
 bindsym $mod+Shift+e mode "$mode_system"
 
 # Moving around
+    focus_wrapping workspace
+
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
     # Move the focused window between outputs
-    bindsym $mod+Shift+$left move container to output left; focus output left
-    bindsym $mod+Shift+$down move container to output down; focus output down
-    bindsym $mod+Shift+$up move container to output up; focus output up
-    bindsym $mod+Shift+$right move container to output right; focus output right
-    focus_wrapping workspace
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
 
     # Move your focus between outputs
     bindsym $mod+Control+$left focus output left
@@ -130,10 +136,14 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    # bindsym $mod+r layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+Control+s layout stacking
+    bindsym $mod+Control+w layout tabbed
+    bindsym $mod+Control+e layout toggle split
     workspace_layout tabbed
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+    bindsym $mod+Shift+a focus child
 
     # Make the current focus fullscreen
     bindsym $mod+z fullscreen
@@ -144,22 +154,20 @@ bindsym $mod+Shift+e mode "$mode_system"
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
-
 # Scratchpad
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
-
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 
 # Resizing containers
 mode "resize" {
+    # TODO: Add moving the window around
+
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
@@ -178,5 +186,7 @@ bindsym $mod+r mode "resize"
 # Status Bar
 bar {
     position top
-    status_command i3status;
+
+    status_command i3status
+    tray_output primary
 }

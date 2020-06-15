@@ -44,7 +44,6 @@ font pango:Hack 10
     # Launch apps
     bindsym $mod+Return exec --no-startup-id rofi -show drun
     bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
-    bindsym $mod+Ctrl+Return exec --no-startup-id rofi -show window
     bindsym $mod+t exec --no-startup-id alacritty
     bindsym $mod+e exec --no-startup-id gnvim
     bindsym $mod+b exec --no-startup-id firefox
@@ -112,6 +111,8 @@ mode "$mode_system" {
 }
 
 # Moving around
+    # Add `focus_wrapping workspace` when 4.18 hits NixOS stable
+
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -122,8 +123,6 @@ mode "$mode_system" {
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-
-    # Add `focus_wrapping workspace` when 4.18 hits NixOS stable
 
     # Move your focus between outputs
     bindsym $mod+Control+$left focus output left
@@ -178,11 +177,11 @@ mode "$mode_system" {
     bindsym $mod+Control+s layout stacking
     bindsym $mod+Control+w layout tabbed
     bindsym $mod+Control+e layout toggle split
+    workspace_layout tabbed
+
     # Move focus to the parent container
     bindsym $mod+a focus parent
     bindsym $mod+Shift+a focus child
-
-    workspace_layout tabbed
 
     # Make the current focus fullscreen
     bindsym $mod+z fullscreen
@@ -199,7 +198,6 @@ mode "$mode_system" {
 
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
-
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
