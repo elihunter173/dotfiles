@@ -102,7 +102,7 @@ set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit i3
 bindsym $mod+Shift+e mode "$mode_system"
 mode "$mode_system" {
     bindsym l exec --no-startup-id $lock; mode "default"
-    bindsym s exec --no-startup-id systemctl suspend-then-hibernate; mode "default"
+    bindsym s exec --no-startup-id systemctl suspend; mode "default"
     bindsym r exec --no-startup-id systemctl reboot
     bindsym q exit
 

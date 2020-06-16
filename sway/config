@@ -69,7 +69,7 @@ seat * hide_cursor 1000
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit sway
 mode "$mode_system" {
     bindsym l exec --no-startup-id $lock; mode "default"
-    bindsym s exec --no-startup-id systemctl suspend-then-hibernate; mode "default"
+    bindsym s exec --no-startup-id systemctl suspend; mode "default"
     bindsym r exec --no-startup-id systemctl reboot
     bindsym q exit
 
