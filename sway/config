@@ -11,16 +11,17 @@ set $right l
 
 font pango:Hack 10
 
-set $lock swaylock
+set $lock swaylock -l
 
 output * bg ~/Pictures/wallpaper.png fill
 # Hide the cursor in all seats after 1 second
 seat * hide_cursor 1000
 
 # Autostart
-    exec --no-startup-id mako
-    exec --no-startup-id nm-applet
-    exec --no-startup-id blueman-applet
+    exec mako
+    exec nm-applet
+    exec blueman-applet
+    exec xss-lock --transfer-sleep-lock -- $lock
 
 # Launcher
     # Kill focused window
