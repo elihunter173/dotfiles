@@ -49,6 +49,8 @@ device: username:
     bitwarden
     thunderbird
     gimp
+    transmission-gtk
+    pavucontrol
 
     xfce.thunar
     xfce.thunar-archive-plugin
