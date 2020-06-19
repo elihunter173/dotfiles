@@ -45,6 +45,7 @@ font pango:Hack 10
     bindsym $mod+Return exec --no-startup-id rofi -show drun
     bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
     bindsym $mod+t exec --no-startup-id alacritty
+    # bindsym $mod+t exec --no-startup-id termite
     bindsym $mod+e exec --no-startup-id gnvim
     bindsym $mod+b exec --no-startup-id firefox
     bindsym $mod+f exec --no-startup-id thunar
