@@ -106,3 +106,5 @@ wildcards
 ZMQ
 desugared
 desugaring
+plugin
+plugins
