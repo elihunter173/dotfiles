@@ -112,7 +112,7 @@ device: username:
     # Rust
     rustup
     clang
-    rust-analyzer
+    # rust-analyzer
 
     # C/C++
     clang
