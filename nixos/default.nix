@@ -177,16 +177,24 @@ device: username:
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # TODO: Use passwordHash and turn mutable users off
-  users.users."${config.my.username}" = {
-    isNormalUser = true;
-    description = "Eli W. Hunter";
-    extraGroups = [
-      "wheel"  # sudo
-      "networkmanager"  # network manager is enabled
-    ];
-    shell = pkgs.zsh;
+  # Define a user account. Don't forget to set a password with 'passwd'.
+  # TODO: Use passwordHash and add it as an argument
+  users = {
+    users."${config.my.username}" = {
+      isNormalUser = true;
+      description = "Eli W. Hunter";
+      name = "${config.my.username}";
+      group = "${config.my.username}";
+      extraGroups = [
+        "wheel"  # sudo
+        "networkmanager"  # network manager is enabled
+      ];
+      shell = pkgs.zsh;
+    };
+    # I share my home directory across distros, so be standard!
+    groups = {
+      "${config.my.username}" = { gid = 1000; };
+    };
   };
 
   system.stateVersion = "20.03";
