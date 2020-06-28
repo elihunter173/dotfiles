@@ -32,7 +32,7 @@ font pango:Hack 10
 
     # Tray icons
     exec --no-startup-id flameshot
-    exec --no-startup-id blueman-tray
+    # exec --no-startup-id blueman-tray
     exec --no-startup-id nm-applet
 
 # Launcher
@@ -93,8 +93,8 @@ mode "media" {
     bindsym Escape mode "default"
 }
 
-    bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
-    bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+    bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
+    bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
     bindsym XF86Display exec --no-startup-id arandr
 
