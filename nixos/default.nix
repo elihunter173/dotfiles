@@ -76,7 +76,7 @@ device: username:
     entr
     at
     pdftk
-    texlive.combined.scheme-basic
+    texlive.combined.scheme-full
     zip
     unzip
     hyperfine
@@ -84,6 +84,7 @@ device: username:
     playerctl
     pciutils
     wget
+    pandoc
 
     plover.dev
 
