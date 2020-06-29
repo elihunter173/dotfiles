@@ -98,7 +98,7 @@ device: username:
       isort
       python-language-server
       pyls-mypy
-      pyls-black
+      # pyls-black
       pyls-isort
       # Math
       ipython
@@ -113,6 +113,7 @@ device: username:
     rustup
     clang
     # rust-analyzer
+    llvmPackages.bintools
 
     # C/C++
     clang
