@@ -157,9 +157,13 @@ inoremap <C-space> <C-x><C-o>
 " Nice LSP bindings
 nnoremap <silent> gd :LspDefinition<CR>
 nnoremap <silent> <leader>r :LspRename<CR>
+nnoremap <silent> <leader>f :LspDocumentFormat<CR>
 nnoremap <silent> K :LspHover<CR>
-command! -nargs=0 Format LspDocumentFormat
-let g:lsp_semantic_enabled = 1
+" Diagnostics in floating windows, not virtual text. Helpful for long errors
+" and narrow windows
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_virtual_text_enabled = 0
+
 
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
@@ -190,8 +194,8 @@ let g:fzf_preview_window = ''
 " Nice keybindings
 nnoremap <leader>o :Buffers<CR>
 nnoremap <leader>O :Files<CR>
-nnoremap <leader>f :BLines<CR>
-nnoremap <leader>F :Rg<CR>
+nnoremap <leader>g :BLines<CR>
+nnoremap <leader>G :Rg<CR>
 
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
