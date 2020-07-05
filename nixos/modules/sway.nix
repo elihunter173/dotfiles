@@ -14,6 +14,7 @@
         swaylock
         swayidle
         i3status
+        mako
         wdisplays
 
         lxappearance

@@ -17,6 +17,8 @@ output * bg ~/Pictures/wallpaper.png fill
 # Hide the cursor in all seats after 1 second
 seat * hide_cursor 1000
 
+hide_edge_borders both
+
 # If a window requests focus, just mark it as urgent because I have a
 # keybinding for focusing urgent windows
 focus_on_window_activation urgent
