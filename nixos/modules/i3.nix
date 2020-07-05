@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
-
 {
   options.modules.i3.enable = lib.mkEnableOption "i3";
-
   config = lib.mkIf config.modules.i3.enable {
     services = {
       autorandr.enable = true;

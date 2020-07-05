@@ -2,9 +2,10 @@
 
 {
   modules = {
-    i3.enable = true;
+    sway.enable = true;
     steam.enable = true;
     docker.enable = true;
+    bluetooth.enable = true;
   };
 
   # Use the systemd-boot EFI boot loader.

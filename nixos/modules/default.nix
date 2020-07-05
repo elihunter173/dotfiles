@@ -2,10 +2,11 @@
 
 {
   imports = [
-    ./i3.nix
-    ./sway.nix
-    ./steam.nix
+    ./bluetooth.nix
     ./docker.nix
+    ./i3.nix
+    ./steam.nix
+    ./sway.nix
   ];
 
   options = {
