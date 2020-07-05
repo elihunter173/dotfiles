@@ -68,7 +68,7 @@ focus_on_window_activation urgent
     bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
     bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
-    bindsym XF86Display exec wdisplay
+    bindsym XF86Display exec wdisplays
 
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit sway
@@ -194,7 +194,6 @@ bindsym $mod+r mode "resize"
 # Status Bar
 bar {
     position top
-
     status_command i3status
-    tray_output primary
+    tray_output *
 }
