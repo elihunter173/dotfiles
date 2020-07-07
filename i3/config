@@ -76,6 +76,11 @@ font pango:Hack 10
     bindsym XF86AudioNext exec --no-startup-id playerctl next
     bindsym XF86AudioPrev exec --no-startup-id playerctl prev
 
+    bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
+    bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+    bindsym XF86Display exec --no-startup-id arandr
+
 bindsym $mod+m mode "media"
 mode "media" {
     bindsym $up exec --no-startup-id amixer sset Master 5%+
@@ -92,11 +97,6 @@ mode "media" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
-    bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
-    bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
-
-    bindsym XF86Display exec --no-startup-id arandr
 
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit i3
