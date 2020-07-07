@@ -21,9 +21,8 @@ hide_edge_borders both
 font pango:Hack 10
 
 # Autostart
-    exec --no-startup-id autorandr --change
+    exec --no-startup-id autorandr --change && feh --bg-scale ~/Pictures/wallpaper.png
     exec --no-startup-id dunst
-    exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper.png
     exec --no-startup-id picom -b
     exec --no-startup-id unclutter -idle 1
     exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
@@ -44,6 +43,7 @@ font pango:Hack 10
     # Launch apps
     bindsym $mod+Return exec --no-startup-id rofi -show drun
     bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
+    bindsym $mod+Control+Return exec --no-startup-id rofi -show window
     bindsym $mod+t exec --no-startup-id alacritty
     # bindsym $mod+t exec --no-startup-id termite
     bindsym $mod+e exec --no-startup-id gnvim
@@ -59,9 +59,9 @@ font pango:Hack 10
 
 # System Control
     bindsym Print exec --no-startup-id flameshot gui
-    bindsym $mod+p exec --no-startup-id flameshot gui
+    bindsym $mod+c exec --no-startup-id flameshot gui
     bindsym Control+Print exec --no-startup-id flameshot screen -c
-    bindsym $mod+Control+p exec --no-startup-id flameshot screen -c
+    bindsym $mod+Control+c exec --no-startup-id flameshot screen -c
 
     # TODO: Use variable for bindings
 
@@ -120,10 +120,10 @@ mode "$mode_system" {
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
     # Move the focused window between outputs
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
+    bindsym $mod+Shift+$left move container left
+    bindsym $mod+Shift+$down move container down
+    bindsym $mod+Shift+$up move container up
+    bindsym $mod+Shift+$right move container right
 
     # Move your focus between outputs
     bindsym $mod+Control+$left focus output left
@@ -181,8 +181,8 @@ mode "$mode_system" {
     workspace_layout tabbed
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
-    bindsym $mod+Shift+a focus child
+    bindsym $mod+p focus parent
+    bindsym $mod+n focus child
 
     # Make the current focus fullscreen
     bindsym $mod+z fullscreen
