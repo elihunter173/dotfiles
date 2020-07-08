@@ -8,9 +8,9 @@ device: username:
   imports = [
     ./hardware-configuration.nix
     ./modules
-    # Have to put ./hosts in ${} to get absolute path because relative paths
+    # Have to put ./machines in ${} to get absolute path because relative paths
     # don't work for some reason
-    "${./hosts}/${device}.nix"
+    "${./machines}/${device}.nix"
   ];
 
   # I'm a bad person
