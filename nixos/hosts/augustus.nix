@@ -6,11 +6,23 @@
     steam.enable = true;
     docker.enable = true;
     bluetooth.enable = true;
+    rclone = {
+      enable = true;
+      paths = [
+        # { src = "~/Documents/ncsu"; dest = "gdrive:/ncsu"; }
+      ];
+    };
   };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # augustus dual boots Ubuntu so we have to boot using grub
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+    version = 2;
+    useOSProber = true;
+  };
 
   hardware.cpu.intel.updateMicrocode = true;
 
