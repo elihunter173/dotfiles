@@ -7,11 +7,13 @@
 	; Nice aliases
 	; Force st to use my config settings, even on old versions
 	st = status --short --branch
+	hs = hist -16
 	d = diff
 	p = push
 	l = pull
 	cl = clone --recurse-submodules
 	a = add --verbose --all
+	ae = add --edit --all
 	c = commit
 	ca = commit --amend
 	ce = commit --amend --no-edit
