@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 # Add local binary files (used by pip)
 export PATH="$PATH:$HOME/.local/bin"
 
@@ -17,8 +18,8 @@ if command -v go > /dev/null; then
     export PATH="$PATH:$HOME/.go/bin"
 fi
 
-if command -v cargo > /dev/null; then
-    export PATH="$PATH:$HOME/.cargo/bin"
+if [ -d "$HOME/.cargo" ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 if command -v npm > /dev/null; then
