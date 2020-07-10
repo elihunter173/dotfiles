@@ -62,6 +62,8 @@ device: username:
     xfce.ristretto
     zathura
 
+    libreoffice
+
     # CLI Tools
     git
     tmux
