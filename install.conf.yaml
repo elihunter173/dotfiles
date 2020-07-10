@@ -6,7 +6,6 @@
 - link:
     # System Config
     ~/.profile: profile
-    ~/.config/systemd/user/rclone-gdrive@.service: systemd/user/rclone-gdrive@.service
 
     # Window Manager Config
     ~/.config/sway: sway/
@@ -24,9 +23,9 @@
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
 
     # Vim Config
-    ~/.vimrc: vim/rc.vim
-    ~/.config/nvim/init.vim: vim/rc.vim
-    ~/.config/nvim/spell: vim/spell/
+    ~/.vimrc: nvim/init.vim
+    ~/.config/nvim/init.vim: nvim/init.vim
+    ~/.config/nvim/spell: nvim/spell/
 
     # App Config
     ~/.config/alacritty/alacritty.yml: alacritty.yml
@@ -35,7 +34,6 @@
 
     # Misc
     ~/.config/git: git/
-    ~/.config/libinput-gestures.conf: libinput-gestures.conf
     ~/.cron: cron
     ~/.hushlogin: hushlogin
     ~/Pictures/wallpaper.png: wallpaper.png

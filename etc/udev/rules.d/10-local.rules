@@ -1,5 +1,0 @@
-# This is parsed before 50-udev.rules
-
-# From Arch wiki: https://wiki.archlinux.org/index.php/Laptop
-# Suspend the system when main battery level drops to 5% or lower
-KERNEL=="BAT0", SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="/usr/bin/systemctl hibernate"
