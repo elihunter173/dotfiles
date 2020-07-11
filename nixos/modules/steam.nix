@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
-
 {
   options.modules.steam.enable = lib.mkEnableOption "steam";
-
   config = lib.mkIf config.modules.steam.enable {
     environment.systemPackages = with pkgs; [
       steam
