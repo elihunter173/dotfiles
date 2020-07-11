@@ -95,10 +95,10 @@ bindsym $mod+Shift+e mode "$mode_system"
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
     # Move the focused window between outputs
-    bindsym $mod+Shift+$left move container left
-    bindsym $mod+Shift+$down move container down
-    bindsym $mod+Shift+$up move container up
-    bindsym $mod+Shift+$right move container right
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
 
     # Move your focus between outputs
     bindsym $mod+Control+$left focus output left
