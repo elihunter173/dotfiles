@@ -47,8 +47,10 @@ in {
     };
     systemd.user.timers.rclonesync = {
       enable = true;
+      wantedBy = [ "timers.target" ];
       timerConfig = {
-        OnCalendar = "daily";
+        # Every 3 hours
+        OnCalendar = "00/3:00";
         Unit = "rclonesync.service";
       };
     };

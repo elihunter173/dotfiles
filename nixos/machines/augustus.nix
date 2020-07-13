@@ -9,14 +9,14 @@
     rclone = {
       enable = true;
       paths = [
-        { path1 = "~/Documents/arc"; path2 = "ewhunter:/arc"; }
-        { path1 = "~/Documents/cms"; path2 = "ewhunter:/cms"; }
-        { path1 = "~/Documents/fun_stuff"; path2 = "ewhunter:/fun_stuff"; }
-        { path1 = "~/Documents/ncsu"; path2 = "ewhunter:/ncsu"; }
-        { path1 = "~/Documents/personal"; path2 = "ewhunter:/personal"; }
-        { path1 = "~/Documents/textbooks"; path2 = "ewhunter:/textbooks"; }
-        { path1 = "~/Documents/wfhs"; path2 = "ewhunter:/wfhs"; }
-        { path1 = "~/Pictures"; path2 = "ewhunter:/Pictures"; }
+        { path1 = "%h/Documents/arc"; path2 = "ewhunter:/arc"; }
+        { path1 = "%h/Documents/cms"; path2 = "ewhunter:/cms"; }
+        { path1 = "%h/Documents/fun_stuff"; path2 = "ewhunter:/fun_stuff"; }
+        { path1 = "%h/Documents/ncsu"; path2 = "ewhunter:/ncsu"; }
+        { path1 = "%h/Documents/personal"; path2 = "ewhunter:/personal"; }
+        { path1 = "%h/Documents/textbooks"; path2 = "ewhunter:/textbooks"; }
+        { path1 = "%h/Documents/wfhs"; path2 = "ewhunter:/wfhs"; }
+        { path1 = "%h/Pictures"; path2 = "ewhunter:/Pictures"; }
       ];
     };
   };
