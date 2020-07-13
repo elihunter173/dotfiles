@@ -11,11 +11,16 @@ set $right l
 
 font pango:Hack 10
 
-set $lock swaylock -l
+# We need to daemonize so swayidle can appropriately suspend after awhile
+set $lock swaylock --daemonize
 
 output * bg ~/Pictures/wallpaper.png fill
 # Hide the cursor in all seats after 1 second
 seat * hide_cursor 1000
+
+# If a window requests focus, just mark it as urgent because I have a
+# keybinding for focusing urgent windows
+focus_on_window_activation urgent
 
 hide_edge_borders both
 
@@ -28,6 +33,10 @@ focus_on_window_activation urgent
     exec nm-applet
     exec blueman-applet
     exec xss-lock --transfer-sleep-lock -- $lock
+    exec swayidle -w \
+        timeout 300 '$lock' \
+        timeout 900 'systemctl suspend' \
+        before-sleep '$lock' \
 
 # Launcher
     # Kill focused window
