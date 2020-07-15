@@ -197,6 +197,10 @@ nnoremap <leader>O :Files<CR>
 nnoremap <leader>g :BLines<CR>
 nnoremap <leader>G :Rg<CR>
 
+" Replace the current line with todo comment. Have to do nmap because gcc is a
+" <Plug> mapping from 'tpope/vim-commentary'
+nmap <leader>c ccTODO:<ESC>gcc0f:a<SPACE>
+
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " Interactive (fug)git(ive)
