@@ -87,6 +87,7 @@ device: username:
     pciutils
     wget
     pandoc
+    imagemagick
 
     plover.dev
 
@@ -115,7 +116,7 @@ device: username:
     # Rust
     rustup
     clang
-    # rust-analyzer
+    rust-analyzer
     llvmPackages.bintools
 
     # C/C++
