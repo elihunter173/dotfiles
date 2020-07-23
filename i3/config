@@ -24,7 +24,7 @@ font pango:Hack 10
     exec --no-startup-id autorandr --change && feh --bg-scale ~/Pictures/wallpaper.png
     exec --no-startup-id dunst
     exec --no-startup-id picom -b
-    exec --no-startup-id unclutter -idle 1
+    exec --no-startup-id unclutter -idle 5
     exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
 
     exec --no-startup-id thunar --daemon

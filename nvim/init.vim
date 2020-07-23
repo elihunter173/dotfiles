@@ -24,6 +24,8 @@ endif
 
 " TODO: Switch to minpac when you never have to deal with Vim 7 :)
 call plug#begin(s:plugged_path)
+Plug '/home/eli/src/personal/nvim-dirbuf'
+
 " Additional text objects
 Plug 'wellle/targets.vim'
 " Surrounding text objects with any character

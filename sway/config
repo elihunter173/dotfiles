@@ -15,8 +15,8 @@ font pango:Hack 10
 set $lock swaylock --daemonize
 
 output * bg ~/Pictures/wallpaper.png fill
-# Hide the cursor in all seats after 1 second
-seat * hide_cursor 1000
+# Hide the cursor in all seats after 5 seconds
+seat * hide_cursor 5000
 
 # If a window requests focus, just mark it as urgent because I have a
 # keybinding for focusing urgent windows

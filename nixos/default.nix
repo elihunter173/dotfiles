@@ -40,7 +40,8 @@ device: username:
     discord
     vlc
     spotify
-    firefox-bin
+    # firefox-bin
+    firefox-wayland
     libnotify
     slack
     zoom-us
@@ -81,6 +82,7 @@ device: username:
     texlive.combined.scheme-full
     zip
     unzip
+    unrar
     hyperfine
     gnumake
     playerctl
@@ -88,6 +90,7 @@ device: username:
     wget
     pandoc
     imagemagick
+    gnupg
 
     plover.dev
 
