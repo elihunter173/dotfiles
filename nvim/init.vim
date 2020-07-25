@@ -202,10 +202,14 @@ nnoremap <leader>G :Rg<CR>
 " Replace the current line with todo comment. Have to do nmap because gcc is a
 " <Plug> mapping from 'tpope/vim-commentary'
 " nmap <leader>c ccTODO:<ESC>gcc0f:a<SPACE>
-nnoremap <leader>c :call append('.', substitute(&commentstring, "\s*%s\s*", " TODO: ", ""))<CR>j==f:la
-nnoremap <leader>C :call append(line('.')-1, substitute(&commentstring, "\s*%s\s*", " TODO: ", ""))<CR>k==f:la
+nnoremap <leader>c :call append('.', substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<CR>j==f:la
+nnoremap <leader>C :call append(line('.')-1, substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<CR>k==f:la
 
 nnoremap <leader>y "+y
+
+" Search for my prompt
+" TODO: Maybe do a plugin or something better?
+nnoremap <leader>/ /❯<CR>
 
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
