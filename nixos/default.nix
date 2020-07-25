@@ -121,6 +121,8 @@ device: username:
     clang
     rust-analyzer
     llvmPackages.bintools
+    cargo-udeps
+    cargo-audit
 
     # C/C++
     clang
@@ -162,6 +164,7 @@ device: username:
 
   # List services that you want to enable:
   services = {
+    # TODO: Make this disable-able
     openssh.enable = true;
     lorri.enable = true;
     printing = {
