@@ -16,6 +16,7 @@
         i3status
         mako
         wdisplays
+        wl-clipboard
 
         lxappearance
         materia-theme
