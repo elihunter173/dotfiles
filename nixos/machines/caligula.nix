@@ -5,6 +5,13 @@
     i3.enable = true;
     steam.enable = true;
     docker.enable = true;
+
+    python.enable = true;
+    rust.enable = true;
+
+    creativeTools.enable = true;
+    documents.enable = true;
+
     rclone = {
       enable = true;
       paths = [
@@ -29,4 +36,9 @@
 
   # I'd use nouveau with sway, but it keeps crashing :(
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  location = {
+    latitude = 36.01262;
+    longitude = -80.37556;
+  };
 }

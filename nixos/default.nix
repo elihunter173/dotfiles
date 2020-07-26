@@ -22,21 +22,16 @@ device: username:
   # Set your time zone.
   time.timeZone = "America/New_York";
 
-  location = {
-    latitude = 36.01262;
-    longitude = -80.37556;
-  };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # Neovim
+    # Core Apps
     neovim
     neovim-remote
     gnvim
+    alacritty
 
     # Core apps
-    alacritty
     discord
     vlc
     spotify
@@ -46,10 +41,8 @@ device: username:
     slack
     zoom-us
     multimc
-    obs-studio
     bitwarden
     thunderbird
-    gimp
     transmission-gtk
     pavucontrol
 
@@ -62,8 +55,6 @@ device: username:
 
     xfce.ristretto
     zathura
-
-    libreoffice
 
     # CLI Tools
     git
@@ -78,8 +69,6 @@ device: username:
     xclip
     entr
     at
-    pdftk
-    texlive.combined.scheme-full
     zip
     unzip
     unrar
@@ -88,46 +77,17 @@ device: username:
     playerctl
     pciutils
     wget
-    pandoc
-    imagemagick
     gnupg
 
     plover.dev
-
-    # Python
-    (python3.withPackages (ps: with ps; [
-      # Development
-      virtualenv
-      tox
-      flake8
-      mypy
-      black
-      isort
-      python-language-server
-      pyls-mypy
-      # pyls-black
-      pyls-isort
-      # Math
-      ipython
-      jupyterlab
-      numpy
-      sympy
-    ]))
-    # ensure-pip has problems if you add this as a package to python
-    poetry
-
-    # Rust
-    rustup
-    clang
-    rust-analyzer
-    llvmPackages.bintools
-    cargo-udeps
-    cargo-audit
 
     # C/C++
     clang
     clang-tools
     man-pages
+
+    # JavaScript
+    nodejs
 
     # Lua
     lua
@@ -164,8 +124,6 @@ device: username:
 
   # List services that you want to enable:
   services = {
-    # TODO: Make this disable-able
-    openssh.enable = true;
     lorri.enable = true;
     printing = {
       enable = true;

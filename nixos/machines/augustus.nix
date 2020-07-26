@@ -6,6 +6,13 @@
     steam.enable = true;
     docker.enable = true;
     bluetooth.enable = true;
+
+    python.enable = true;
+    rust.enable = true;
+
+    creativeTools.enable = true;
+    documents.enable = true;
+
     rclone = {
       enable = true;
       paths = [
@@ -39,4 +46,6 @@
     middleEmulation = false;
     tapping = false;
   };
+
+  location.provider = "geoclue2";
 }

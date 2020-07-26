@@ -10,7 +10,6 @@
     # By default we're limited to around ~5000 tasks, which means you can only
     # have around 200 concurrent containers. This poses an issue for Codie if
     # she is receiving hundreds of requests in a short amount of time.
-    systemd.services.docker-cor.serviceConfig.TasksMax = "infinity";
     systemd.services.docker.serviceConfig.TasksMax = "infinity";
   };
 }
