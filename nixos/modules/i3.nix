@@ -18,9 +18,9 @@
         displayManager = {
           defaultSession = "none+i3";
           lightdm.enable = true;
-          lightdm.autoLogin.enable = true;
+          autoLogin.enable = true;
           # TODO: Make it so this is read from some user config
-          lightdm.autoLogin.user = "${config.my.username}";
+          autoLogin.user = "${config.my.username}";
         };
         windowManager.i3 = {
           enable = true;
