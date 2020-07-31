@@ -196,8 +196,8 @@ let g:fzf_preview_window = ''
 " Nice keybindings
 nnoremap <leader>o :Buffers<CR>
 nnoremap <leader>O :Files<CR>
-nnoremap <leader>g :BLines<CR>
-nnoremap <leader>G :Rg<CR>
+nnoremap <leader>h :BLines<CR>
+nnoremap <leader>H :Rg<CR>
 
 " Replace the current line with todo comment. Have to do nmap because gcc is a
 " <Plug> mapping from 'tpope/vim-commentary'
