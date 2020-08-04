@@ -4,7 +4,7 @@
   config = lib.mkIf config.modules.documents.enable {
     environment.systemPackages = with pkgs; [
       pandoc
-      texlive.combined.scheme-full
+      texlive.combined.scheme-basic
       pdftk
       imagemagick
       libreoffice
