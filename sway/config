@@ -32,7 +32,6 @@ focus_on_window_activation urgent
     exec mako
     exec nm-applet
     exec blueman-applet
-    exec xss-lock --transfer-sleep-lock -- $lock
     exec swayidle -w \
         timeout 300 '$lock' \
         timeout 900 'systemctl suspend' \
@@ -45,11 +44,11 @@ focus_on_window_activation urgent
     bindsym button2 kill
 
     # Launch apps
-    bindsym $mod+Return exec j4-dmenu-desktop --dmenu="bemenu --ignorecase --prompt 'launch'" --term="alacritty" | xargs swaymsg exec --
-    bindsym $mod+Shift+Return exec bemenu --prompt 'run' < /dev/null | xargs swaymsg exec --
+    bindsym $mod+Return exec --no-startup-id rofi -show drun
+    bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
     bindsym $mod+t exec alacritty
     bindsym $mod+e exec gnvim
-    bindsym $mod+b exec firefox
+    bindsym $mod+b exec MOZ_ENABLE_WAYLAND=1 firefox
     bindsym $mod+f exec thunar
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -79,7 +78,8 @@ focus_on_window_activation urgent
     bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
     bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
-    bindsym XF86Display exec wdisplays
+    # Toggle wdisplays
+    bindsym XF86Display exec pkill wdisplays || wdisplays
 
 # Exit
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit sway
