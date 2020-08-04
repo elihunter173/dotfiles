@@ -50,13 +50,11 @@ battery all {
 volume master {
     format = "V: %volume"
     format_muted = "V: muted (%volume)"
-    # device = "pulse:sink"
 }
 
 volume capture {
     format = "M: %volume"
     format_muted = "M: muted (%volume)"
-    # device = "pulse:source"
 }
 
 tztime local {
