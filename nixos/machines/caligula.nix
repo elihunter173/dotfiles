@@ -37,6 +37,8 @@
   # I'd use nouveau with sway, but it keeps crashing :(
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  services.openssh.enable = true;
+
   location = {
     latitude = 36.01262;
     longitude = -80.37556;
