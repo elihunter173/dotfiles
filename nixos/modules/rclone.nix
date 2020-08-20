@@ -19,7 +19,7 @@ let
 
       # Make sure we point rclone to the right path
       mkdir -p $out/bin/
-      makeWrapper $src/rclonesync.py $out/bin/rclonesync.py \
+      makeWrapper $src/rclonesync.py $out/bin/rclonesync \
         --set PATH "${stdenv.lib.makeBinPath (with pkgs; [rclone pythonPackages.python])}"
 
       runHook postInstall
@@ -41,7 +41,7 @@ in {
       serviceConfig = {
         Type = "oneshot";
         ExecStart = map
-          ({path1, path2}: "${rclonesync}/bin/rclonesync.py ${path1} ${path2}")
+          ({path1, path2}: "${rclonesync}/bin/rclonesync ${path1} ${path2}")
           config.modules.rclone.paths;
       };
     };
