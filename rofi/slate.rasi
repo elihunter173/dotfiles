@@ -5,14 +5,6 @@
 
 /* TODO: Change colors */
 
-configuration {
-  display-drun: "Launch";
-  display-run: "Execute";
-  display-window: "Window";
-  show-icons: true;
-  lines: 8;
-}
-
 * {
   background-color: #282C33;
   border-color: #2e343f;

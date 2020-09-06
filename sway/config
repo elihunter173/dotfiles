@@ -48,7 +48,7 @@ focus_on_window_activation urgent
     bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
     bindsym $mod+t exec alacritty
     bindsym $mod+e exec gnvim
-    bindsym $mod+b exec MOZ_ENABLE_WAYLAND=1 firefox
+    bindsym $mod+b exec firefox
     bindsym $mod+f exec thunar
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -82,10 +82,11 @@ focus_on_window_activation urgent
     bindsym XF86Display exec pkill wdisplays || wdisplays
 
 # Exit
-set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit sway
+set $mode_system System (l) lock, (p) poweroff, (s) suspend, (r) reboot, (q) exit sway
 mode "$mode_system" {
     bindsym l exec --no-startup-id $lock; mode "default"
     bindsym s exec --no-startup-id systemctl suspend; mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff
     bindsym r exec --no-startup-id systemctl reboot
     bindsym q exit
 

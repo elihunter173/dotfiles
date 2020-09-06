@@ -21,18 +21,17 @@ hide_edge_borders both
 font pango:Hack 10
 
 # Autostart
-    exec --no-startup-id autorandr --change && feh --bg-scale ~/Pictures/wallpaper.png
+    exec --no-startup-id autorandr --change
     exec --no-startup-id dunst
     exec --no-startup-id picom -b
     exec --no-startup-id unclutter -idle 5
     exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
-
-    exec --no-startup-id thunar --daemon
-
     # Tray icons
     exec --no-startup-id flameshot
-    # exec --no-startup-id blueman-tray
+    exec --no-startup-id blueman-tray
     exec --no-startup-id nm-applet
+
+    exec --no-startup-id thunar --daemon
 
 # Launcher
     # Kill focused window
@@ -99,20 +98,22 @@ mode "media" {
 }
 
 # Exit
-set $mode_system System (l) lock, (s) suspend, (r) reboot, (q) exit i3
-bindsym $mod+Shift+e mode "$mode_system"
+set $mode_system System (l) lock, (p) poweroff, (s) suspend, (r) reboot, (q) exit sway
 mode "$mode_system" {
     bindsym l exec --no-startup-id $lock; mode "default"
     bindsym s exec --no-startup-id systemctl suspend; mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff
     bindsym r exec --no-startup-id systemctl reboot
     bindsym q exit
 
+    # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+bindsym $mod+Shift+e mode "$mode_system"
 
 # Moving around
-    # Add `focus_wrapping workspace` when 4.18 hits NixOS stable
+    focus_wrapping workspace
 
     # Move your focus around
     bindsym $mod+$left focus left
