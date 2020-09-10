@@ -166,13 +166,9 @@ nnoremap <silent> K :LspHover<CR>
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_virtual_text_enabled = 0
 
-
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
 nnoremap <silent> <leader>s :nohlsearch<CR>
-
-" Case insensitive searching
-set ignorecase
 
 " Markdown shit
 let g:vim_markdown_frontmatter = 1
