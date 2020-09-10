@@ -10,8 +10,6 @@ set $down j
 set $up k
 set $right l
 
-set $lock i3lock
-
 # If a window requests focus, just mark it as urgent because I have a
 # keybinding for focusing urgent windows
 focus_on_window_activation urgent
@@ -25,7 +23,16 @@ font pango:Hack 10
     exec --no-startup-id dunst
     exec --no-startup-id picom -b
     exec --no-startup-id unclutter -idle 5
-    exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
+    exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock
+    # Lock after 10 minutes and suspend after 30 minutes (or 10 + 50)
+    exec --no-startup-id xidlehook \
+      --not-when-fullscreen \
+      --not-when-audio \
+      --timer 600 \
+        'i3lock' '' \
+      --timer 1200 \
+        'systemctl suspend' ''
+
     # Tray icons
     exec --no-startup-id flameshot
     exec --no-startup-id blueman-tray
@@ -100,7 +107,7 @@ mode "media" {
 # Exit
 set $mode_system System (l) lock, (p) poweroff, (s) suspend, (r) reboot, (q) exit sway
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $lock; mode "default"
+    bindsym l exec --no-startup-id i3lock; mode "default"
     bindsym s exec --no-startup-id systemctl suspend; mode "default"
     bindsym p exec --no-startup-id systemctl poweroff
     bindsym r exec --no-startup-id systemctl reboot
