@@ -105,16 +105,34 @@ endif
 let base16colorspace=256
 colorscheme base16-solarized-dark
 
+" General editing
+" Easier commenting for any language
+call minpac#add('tpope/vim-commentary')
 " Additional text objects
 call minpac#add('wellle/targets.vim')
 " Surrounding text objects with any character
 call minpac#add('machakann/vim-sandwich')
-
-" Easier commenting for any language
-call minpac#add('tpope/vim-commentary')
-
 " Nice mappings
 call minpac#add('tpope/vim-unimpaired')
+" gS to split lines and gJ to join lines in a logical way
+call minpac#add('AndrewRadev/splitjoin.vim')
+" Show lines for indentation
+call minpac#add('Yggdroot/indentLine')
+
+" Configuration stuff
+" Never think about indentation
+call minpac#add('tpope/vim-sleuth')
+" https://EditorConfig.org
+call minpac#add('editorconfig/editorconfig-vim')
+
+" Enable editing of readonly files using sudo.
+" Remove when   https://github.com/neovim/neovim/pull/10842 gets merged
+call minpac#add('lambdalisue/suda.vim')
+" Automatically open readonly files with sudo using suda.vim
+let g:suda_smart_edit = 1
+
+" Nice start screen
+call minpac#add('mhinz/vim-startify')
 
 " Lightweight git wrapper
 " TODO: Check out Gina.vim
@@ -131,16 +149,10 @@ set statusline=%f%m%r%w%q
 set statusline+=%=
 set statusline+=%{FugitiveHead()}
 
-" Never think about indentation
-call minpac#add('tpope/vim-sleuth')
-
 " Netrw but simpler and better
 call minpac#add('justinmk/vim-dirvish')
 " Disable netrw because I use Dirvish
 let g:loaded_netrwPlugin = 1
-
-" https://EditorConfig.org
-call minpac#add('editorconfig/editorconfig-vim')
 
 " For :TableFormat in markdown
 call minpac#add('godlygeek/tabular')
@@ -153,12 +165,6 @@ let g:vim_markdown_new_list_item_indent = 2
 " LaTeX with no concealing
 let g:tex_conceal = ""
 let g:vim_markdown_math = 1
-
-" Enable editing of readonly files using sudo.
-" Remove when   https://github.com/neovim/neovim/pull/10842 gets merged
-call minpac#add('lambdalisue/suda.vim')
-" Automatically open readonly files with sudo using suda.vim
-let g:suda_smart_edit = 1
 
 " Vim undotree visualizer
 call minpac#add('mbbill/undotree')
