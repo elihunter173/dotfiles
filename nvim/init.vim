@@ -49,12 +49,12 @@ let mapleader = ' '
 nnoremap <Space> <NOP>
 
 " Make saving and quitting easier and faster
-nnoremap <leader>w <Cmd>write<CR>
-nnoremap <leader>d <Cmd>bp\|bd #<CR>
+nnoremap <leader>w <cmd>write<CR>
+nnoremap <leader>d <cmd>bp\|bd #<CR>
 
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
-nnoremap <leader>s <Cmd>nohlsearch<CR>
+nnoremap <leader>s <cmd>nohlsearch<CR>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
@@ -67,7 +67,7 @@ inoremap <C-space> <C-x><C-o>
 
 " Terminal settings
 " Easier terminal opening. L for shell
-nnoremap <leader>l <Cmd>terminal<CR>
+nnoremap <leader>l <cmd>terminal<CR>
 " Easier escape
 tnoremap <ESC> <C-\><C-n>
 " Easier window navigation
@@ -85,8 +85,8 @@ augroup END
 " Replace the current line with todo comment. Have to do nmap because gcc is a
 " <Plug> mapping from 'tpope/vim-commentary'
 " nmap <leader>c ccTODO:<ESC>gcc0f:a<SPACE>
-nnoremap <leader>c :call append('.', substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<CR>j==f:la
-nnoremap <leader>C :call append(line('.')-1, substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<CR>k==f:la
+nnoremap <leader>c <cmd>call append('.', substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<CR>j==f:la
+nnoremap <leader>C <cmd>call append(line('.')-1, substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<CR>k==f:la
 
 " Set up minpac
 packadd minpac
@@ -122,8 +122,8 @@ call minpac#add('tpope/vim-fugitive')
 " EditorConfig + Fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " Interactive (fug)git(ive)
-nnoremap <leader>gs <Cmd>Gstatus<CR>
-nnoremap <leader>gp <Cmd>Gpush<CR>
+nnoremap <leader>gs <cmd>Gstatus<CR>
+nnoremap <leader>gp <cmd>Gpush<CR>
 
 " TODO: Colors?
 set laststatus=2
