@@ -164,42 +164,67 @@ let g:suda_smart_edit = 1
 call minpac#add('mbbill/undotree')
 
 " Fuzzy Finding
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call minpac#add('junegunn/fzf.vim')
+call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } })
 " Don't open unnecessary files
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'window': { 'width': 0.85, 'height': 0.8 } }
 let g:fzf_preview_window = ''
 " Nice keybindings
-nnoremap <leader>o :Buffers<CR>
-nnoremap <leader>O :Files<CR>
-nnoremap <leader>h :BLines<CR>
-nnoremap <leader>H :Rg<CR>
+nnoremap <leader>o <cmd>Buffers<CR>
+nnoremap <leader>O <cmd>Files<CR>
+nnoremap <leader>h <cmd>BLines<CR>
+nnoremap <leader>H <cmd>Rg<CR>
 
 " Floating terminal
 call minpac#add('voldikss/vim-floaterm')
-nnoremap <leader>t <Cmd>FloatermToggle<CR>
+nnoremap <leader>t <cmd>FloatermToggle<CR>
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
 
-" Common LSPs. Enable when 0.5 hits on all machines
-" Plug 'neovim/nvim-lsp'
-" Language Server Protocol. Remove in favor of build-in language server when
-" Neovim 0.5 hits all my machines.
-call minpac#add('prabirshrestha/async.vim')
-call minpac#add('prabirshrestha/vim-lsp')
-call minpac#add('mattn/vim-lsp-settings')
-" Required for operations modifying multiple buffers like rename.
-" set hidden
-" Nice LSP bindings
-nnoremap gd <Cmd>LspDefinition<CR>
-nnoremap <leader>r <Cmd>LspRename<CR>
-nnoremap <leader>f <Cmd>LspDocumentFormat<CR>
-nnoremap K <Cmd>LspHover<CR>
-" Diagnostics in floating windows, not virtual text. Helpful for long errors
-" and narrow windows
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_virtual_text_enabled = 0
+" LSP
+nnoremap <silent> gd        <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]>     <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD       <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> g0        <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" This is a lua plugin. Neovim doesn't source lua/ in an autostart plugin
+" package by default (for now) so you have to manually packadd it.
+call minpac#add('neovim/nvim-lspconfig', {'type': 'opt'})
+packadd nvim-lspconfig
+call minpac#add('nvim-lua/completion-nvim', {'type': 'opt'})
+packadd completion-nvim
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
+call minpac#add('nvim-lua/diagnostic-nvim', {'type': 'opt'})
+packadd diagnostic-nvim
+nnoremap <leader>] <cmd>NextDiagnostic<CR>
+nnoremap <leader>[ <cmd>PrevDiagnostic<CR>
+lua <<EOF
+local nvim_lsp = require("nvim_lsp")
+local nvim_completion = require("completion")
+local nvim_diagnostic = require("diagnostic")
+
+local custom_attach = function()
+  nvim_completion.on_attach()
+  nvim_diagnostic.on_attach()
+end
+
+nvim_lsp.pyls.setup{ on_attach = custom_attach }
+nvim_lsp.jdtls.setup{ on_attach = custom_attach }
+nvim_lsp.vimls.setup{ on_attach = custom_attach }
+
+nvim_lsp.clangd.setup{ on_attach = custom_attach }
+nvim_lsp.rust_analyzer.setup{ on_attach = custom_attach }
+EOF
 
 " A nice tagbar for LSP
 call minpac#add('liuchengxu/vista.vim')
