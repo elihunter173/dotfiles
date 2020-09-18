@@ -35,7 +35,6 @@
     ~/.config/git: git/
     ~/.cron: cron
     ~/.hushlogin: hushlogin
-    ~/Pictures/wallpaper.png: wallpaper.png
     ~/.config/fontconfig: fontconfig/
     ~/.face: face
     ~/.face.icon: face
