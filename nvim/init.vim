@@ -62,9 +62,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
-" Make omnifunc more usable
-inoremap <C-space> <C-x><C-o>
-
 " Terminal settings
 " Easier terminal opening. L for shell
 nnoremap <leader>l <cmd>terminal<CR>
@@ -126,7 +123,7 @@ call minpac#add('tpope/vim-sleuth')
 call minpac#add('editorconfig/editorconfig-vim')
 
 " Enable editing of readonly files using sudo.
-" Remove when   https://github.com/neovim/neovim/pull/10842 gets merged
+" Remove when https://github.com/neovim/neovim/pull/10842 gets merged
 call minpac#add('lambdalisue/suda.vim')
 " Automatically open readonly files with sudo using suda.vim
 let g:suda_smart_edit = 1
@@ -188,18 +185,20 @@ nnoremap <leader>t <cmd>FloatermToggle<CR>
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
 
-" LSP
+" LSP {{{
 nnoremap <silent> gd        <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <c-]>     <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <C-s>     <cmd>lua vim.lsp.buf.signature_help()<CR>
+inoremap <silent> <C-s>     <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> 1gD       <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> g0        <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> ge        <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 " This is a lua plugin. Neovim doesn't source lua/ in an autostart plugin
 " package by default (for now) so you have to manually packadd it.
 call minpac#add('neovim/nvim-lspconfig', {'type': 'opt'})
@@ -222,6 +221,7 @@ local nvim_diagnostic = require("diagnostic")
 local custom_attach = function()
   nvim_completion.on_attach()
   nvim_diagnostic.on_attach()
+  print("LSP attached")
 end
 
 nvim_lsp.pyls.setup{ on_attach = custom_attach }
