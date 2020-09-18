@@ -237,3 +237,18 @@ call minpac#add('liuchengxu/vista.vim')
 " Pretty icons don't work everywhere and are idiosyncratic IMO
 let g:vista#renderer#enable_icon = 0
 let g:vista_fold_toggle_icons = ['-', '+']
+" }}}
+
+" TreeSitter {{{
+call minpac#add('nvim-treesitter/nvim-treesitter', {'type': 'opt'})
+packadd nvim-treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  -- one of "all", "language", or a list of languages
+  ensure_installed = "all",
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+" }}}
