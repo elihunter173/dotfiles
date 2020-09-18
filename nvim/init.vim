@@ -48,6 +48,9 @@ let mapleader = ' '
 " Prevent space from moving forward in normal mode
 nnoremap <Space> <NOP>
 
+" I like using s for other mappings
+nnoremap s <NOP>
+
 " Make saving and quitting easier and faster
 nnoremap <leader>w <cmd>write<CR>
 nnoremap <leader>d <cmd>bp\|bd #<CR>
@@ -211,8 +214,8 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 call minpac#add('nvim-lua/diagnostic-nvim', {'type': 'opt'})
 packadd diagnostic-nvim
-nnoremap <leader>] <cmd>NextDiagnostic<CR>
-nnoremap <leader>[ <cmd>PrevDiagnostic<CR>
+nnoremap ]d <cmd>NextDiagnostic<CR>
+nnoremap [d <cmd>PrevDiagnostic<CR>
 lua <<EOF
 local nvim_lsp = require("nvim_lsp")
 local nvim_completion = require("completion")
@@ -221,12 +224,18 @@ local nvim_diagnostic = require("diagnostic")
 local custom_attach = function()
   nvim_completion.on_attach()
   nvim_diagnostic.on_attach()
-  print("LSP attached")
 end
 
 nvim_lsp.pyls.setup{ on_attach = custom_attach }
 nvim_lsp.jdtls.setup{ on_attach = custom_attach }
+
 nvim_lsp.vimls.setup{ on_attach = custom_attach }
+nvim_lsp.sumneko_lua.setup {
+  cmd = { vim.fn.stdpath("cache") .. "/nvim_lsp/sumneko_lua/lua-language-server/bin/Linux/lua-language-server", "-E", vim.fn.stdpath("cache") .. "/nvim_lsp/sumneko_lua/lua-language-server/main.lua" },
+  on_attach = custom_attach,
+}
+
+nvim_lsp.texlab.setup{ on_attach = custom_attach }
 
 nvim_lsp.clangd.setup{ on_attach = custom_attach }
 nvim_lsp.rust_analyzer.setup{ on_attach = custom_attach }
@@ -242,12 +251,17 @@ let g:vista_fold_toggle_icons = ['-', '+']
 " TreeSitter {{{
 call minpac#add('nvim-treesitter/nvim-treesitter', {'type': 'opt'})
 packadd nvim-treesitter
+" Manually highlight usages
+nnoremap S <Cmd>lua require'nvim-treesitter.refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   -- one of "all", "language", or a list of languages
   ensure_installed = "all",
   highlight = {
     enable = true,
+  },
+  refactor = {
+    highlight_definitions = { enable = true },
   },
 }
 EOF
