@@ -249,6 +249,9 @@ nvim_lsp.sumneko_lua.setup {
   },
 }
 
+nvim_lsp.yamlls.setup{ on_attach = custom_attach }
+nvim_lsp.bashls.setup{ on_attach = custom_attach }
+
 nvim_lsp.texlab.setup{ on_attach = custom_attach }
 
 nvim_lsp.clangd.setup{ on_attach = custom_attach }
