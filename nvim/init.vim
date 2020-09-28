@@ -25,6 +25,9 @@ set tabstop=4
 " Don't redraw during macros (for performance)
 set lazyredraw
 
+" Always show the sign column. Useful so the LSP doesn't move numbers around
+set signcolumn=yes
+
 " GUI Font settings
 set guifont=Hack:h12
 
@@ -41,6 +44,10 @@ endif
 " ripgrep >> grep
 if executable('rg')
   set grepprg=rg\ --vimgrep
+end
+
+if executable('fd')
+  let $FZF_DEFAULT_COMMAND = 'fd --type f'
 end
 
 " Easy leader
@@ -79,7 +86,7 @@ augroup TermSettings
   autocmd!
   " Make terminals always open in insert mode and no linenumbers in
   " terminals
-  autocmd TermOpen * startinsert | setlocal norelativenumber nonumber
+  autocmd TermOpen * startinsert | setlocal norelativenumber nonumber signcolumn=no
 augroup END
 
 " Replace the current line with todo comment. Have to do nmap because gcc is a
@@ -116,8 +123,6 @@ call minpac#add('machakann/vim-sandwich')
 call minpac#add('tpope/vim-unimpaired')
 " gS to split lines and gJ to join lines in a logical way
 call minpac#add('AndrewRadev/splitjoin.vim')
-" Show lines for indentation
-call minpac#add('Yggdroot/indentLine')
 
 " Configuration stuff
 " Never think about indentation
@@ -130,6 +135,9 @@ call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('lambdalisue/suda.vim')
 " Automatically open readonly files with sudo using suda.vim
 let g:suda_smart_edit = 1
+
+" Neovim's CursorHold is a little laggy right now. This fixes that.
+call minpac#add('antoinemadec/FixCursorHold.nvim')
 
 " Nice start screen
 call minpac#add('mhinz/vim-startify')
@@ -202,6 +210,7 @@ nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> g0        <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> ge        <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+nnoremap <silent> ga        <cmd>lua vim.lsp.buf.code_action()<CR>
 " This is a lua plugin. Neovim doesn't source lua/ in an autostart plugin
 " package by default (for now) so you have to manually packadd it.
 call minpac#add('neovim/nvim-lspconfig', {'type': 'opt'})
@@ -233,6 +242,13 @@ nvim_lsp.vimls.setup{ on_attach = custom_attach }
 nvim_lsp.sumneko_lua.setup {
   cmd = { vim.fn.stdpath("cache") .. "/nvim_lsp/sumneko_lua/lua-language-server/bin/Linux/lua-language-server", "-E", vim.fn.stdpath("cache") .. "/nvim_lsp/sumneko_lua/lua-language-server/main.lua" },
   on_attach = custom_attach,
+  settings = {
+  Lua = {
+    diagnostics = {
+        globals = { "vim" },
+      },
+    },
+  },
 }
 
 nvim_lsp.texlab.setup{ on_attach = custom_attach }
