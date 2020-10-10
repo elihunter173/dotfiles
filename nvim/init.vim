@@ -267,9 +267,11 @@ let g:vista_fold_toggle_icons = ['-', '+']
 
 " TreeSitter {{{
 call minpac#add('nvim-treesitter/nvim-treesitter', {'type': 'opt'})
+call minpac#add('nvim-treesitter/nvim-treesitter-refactor', {'type': 'opt'})
 packadd nvim-treesitter
+packadd nvim-treesitter-refactor
 " Manually highlight usages
-nnoremap S <Cmd>lua require'nvim-treesitter.refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>
+nnoremap S <Cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   -- one of "all", "language", or a list of languages
