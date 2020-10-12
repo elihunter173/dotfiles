@@ -263,6 +263,7 @@ call minpac#add('liuchengxu/vista.vim')
 " Pretty icons don't work everywhere and are idiosyncratic IMO
 let g:vista#renderer#enable_icon = 0
 let g:vista_fold_toggle_icons = ['-', '+']
+let g:vista_icon_indent = [' ', ' ']
 " }}}
 
 " TreeSitter {{{
