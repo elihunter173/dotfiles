@@ -23,8 +23,7 @@
     ~/.zprofile: zsh/zprofile # zsh doesn't use ~/.profile >:(
 
     # Vim Config
-    ~/.config/nvim/init.vim: nvim/init.vim
-    ~/.config/nvim/spell: nvim/spell/
+    ~/.config/nvim: nvim/
 
     # App Config
     ~/.config/alacritty/alacritty.yml: alacritty.yml

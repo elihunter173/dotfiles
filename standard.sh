@@ -42,6 +42,10 @@ alias ls='ls --color=auto -F'
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.gitconfig
 
+if command -v xdg-open > /dev/null; then
+    alias o='xdg-open'
+fi
+
 # I have issues with xterm-termite cross platform
 if [[ $TERM == xterm-termite ]]; then
     export TERM='xterm-256color'

@@ -48,7 +48,7 @@ window:
   decorations: full
 
   # Options: Windowed, Maximized, Fullscreen
-  startup_mode: Windowed
+  startup_mode: Maximized
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
