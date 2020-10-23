@@ -153,4 +153,5 @@ nnoremap ]d <cmd>NextDiagnostic<CR>
 nnoremap [d <cmd>PrevDiagnostic<CR>
 
 " Manually highlight usages
-nnoremap S <Cmd>lua require'nvim-treesitter.refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>
+nnoremap S <Cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>
+" }}}

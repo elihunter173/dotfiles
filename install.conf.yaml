@@ -32,7 +32,6 @@
 
     # Misc
     ~/.config/git: git/
-    ~/.cron: cron
     ~/.hushlogin: hushlogin
     ~/.config/fontconfig: fontconfig/
     ~/.face: face

@@ -130,6 +130,9 @@ return packer.startup(function(use)
         on_attach = custom_attach,
         settings = {
           Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
             diagnostics = {
               globals = { "vim" },
             },
@@ -166,9 +169,6 @@ return packer.startup(function(use)
         ensure_installed = "all",
         highlight = {
           enable = true,
-        },
-        refactor = {
-          highlight_definitions = { enable = true },
         },
       }
     end,
