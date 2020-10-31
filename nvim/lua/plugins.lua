@@ -1,6 +1,9 @@
 -- Only required if you have packer in your `opt` pack
 local packer_exists = pcall(vim.cmd, "packadd packer.nvim")
 
+-- TODO: Make this local when https://github.com/wbthomason/packer.nvim/issues/77 is resolved
+map = vim.api.nvim_set_keymap
+
 if not packer_exists then
   -- TODO: Maybe handle windows better?
   if vim.fn.input("Download Packer? (y for yes)") ~= "y" then
@@ -20,7 +23,7 @@ if not packer_exists then
   return
 end
 
-local packer = require('packer')
+local packer = require("packer")
 
 -- Slightly improve performance
 packer.init {
@@ -49,7 +52,13 @@ return packer.startup(function(use)
   -- Never think about indentation
   use "tpope/vim-sleuth"
   -- https://EditorConfig.org
-  use "editorconfig/editorconfig-vim"
+  use {
+    "editorconfig/editorconfig-vim",
+    config = function()
+      -- EditorConfig + Fugitive
+      vim.g.EditorConfig_exclude_patterns = {"fugitive://.\\*"}
+    end,
+  }
 
   -- Enable editing of readonly files using sudo.
   -- Remove when https://github.com/neovim/neovim/pull/10842 gets merged
@@ -69,8 +78,17 @@ return packer.startup(function(use)
 
   -- Lightweight git wrapper
   -- TODO: Check out Gina.vim
-  -- TODO: Move configuration from init.vim to here
-  use "tpope/vim-fugitive"
+  use {
+    "tpope/vim-fugitive",
+    config = function()
+      --[[
+      nnoremap <leader>gs <cmd>Gstatus<CR>
+      nnoremap <leader>gp <cmd>Gpush<CR>
+      --]]
+      map("n", "<leader>gs", "<cmd>Gstatus<CR>", {noremap = true})
+      map("n", "<leader>gp", "<cmd>Gpush<CR>", {noremap = true})
+    end,
+  }
 
   -- Netrw but simpler and better
   use "justinmk/vim-dirvish"
@@ -98,12 +116,38 @@ return packer.startup(function(use)
   use "mbbill/undotree"
 
   -- TODO: Can I make fzf a dep?
-  use {"junegunn/fzf", run = "./install --all" }
-  use "junegunn/fzf.vim"
-  -- TODO: Move configuration from init.vim to here
+  -- use {"junegunn/fzf", run = "./install --all" }
+  use {
+    "junegunn/fzf.vim",
+    config = function()
+      -- Don't open unnecessary files
+      vim.g.fzf_buffers_jump = 1
+      vim.g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
+      vim.g.fzf_preview_window = ""
+
+      --[[
+      nnoremap <leader>o <cmd>Buffers<CR>
+      nnoremap <leader>O <cmd>Files<CR>
+      nnoremap <leader>h <cmd>BLines<CR>
+      nnoremap <leader>H <cmd>Rg<CR>
+      --]]
+      -- Nice keybindings
+      map("n", "<leader>o", "<cmd>Buffers<CR>", {noremap = true})
+      map("n", "<leader>O", "<cmd>Files<CR>", {noremap = true})
+      map("n", "<leader>h", "<cmd>BLines<CR>", {noremap = true})
+      map("n", "<leader>H", "<cmd>Rg<CR>", {noremap = true})
+    end,
+  }
 
   -- Floating terminal
-  use "voldikss/vim-floaterm"
+  use {
+    "voldikss/vim-floaterm",
+    config = function()
+      map("n", "<leader>t", "<cmd>FloatermToggle<CR>", {noremap = true})
+      vim.g.floaterm_width = 0.8
+      vim.g.floaterm_height = 0.8
+    end,
+  }
 
   -- TODO: Migrate full config over
   -- LSP
@@ -118,6 +162,45 @@ return packer.startup(function(use)
       local custom_attach = function()
         nvim_completion.on_attach()
         nvim_diagnostic.on_attach()
+
+        --[[
+        nnoremap <silent> gd        <cmd>lua vim.lsp.buf.declaration()<CR>
+        nnoremap <silent> <c-]>     <cmd>lua vim.lsp.buf.definition()<CR>
+        nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
+        nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>
+        nnoremap <silent> <C-s>     <cmd>lua vim.lsp.buf.signature_help()<CR>
+        inoremap <silent> <C-s>     <cmd>lua vim.lsp.buf.signature_help()<CR>
+        nnoremap <silent> 1gD       <cmd>lua vim.lsp.buf.type_definition()<CR>
+        nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
+        nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
+        nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.formatting()<CR>
+        nnoremap <silent> g0        <cmd>lua vim.lsp.buf.document_symbol()<CR>
+        nnoremap <silent> gW        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+        nnoremap <silent> ge        <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+        nnoremap <silent> ga        <cmd>lua vim.lsp.buf.code_action()<CR>
+        --]]
+        map("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {silent = true, noremap = true})
+        map("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {silent = true, noremap = true})
+        map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {silent = true, noremap = true})
+        map("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {silent = true, noremap = true})
+        map("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {silent = true, noremap = true})
+        map("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {silent = true, noremap = true})
+        map("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {silent = true, noremap = true})
+        map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {silent = true, noremap = true})
+        map("n", "<leader>r", "cmd>lua vim.lsp.buf.rename()<CR>", {silent = true, noremap = true})
+        map("n", "<leader>f", "cmd>lua vim.lsp.buf.formatting()<CR>", {silent = true, noremap = true})
+        map("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", {silent = true, noremap = true})
+        map("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", {silent = true, noremap = true})
+        map("n", "ge", "<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>", {silent = true, noremap = true})
+        map("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", {silent = true, noremap = true})
+
+        --[[
+        nnoremap ]d <cmd>NextDiagnostic<CR>
+        nnoremap [d <cmd>PrevDiagnostic<CR>
+        --]]
+        map("n", "]d", "<cmd>NextDiagnostic<CR>", {noremap = true})
+        map("n", "[d", "<cmd>PrevDiagnostic<CR>", {noremap = true})
+
         print("LSP Attached.")
       end
 
@@ -163,6 +246,7 @@ return packer.startup(function(use)
 
   use {
     "nvim-treesitter/nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter-refactor",
     config = function()
       require'nvim-treesitter.configs'.setup {
         -- one of "all", "language", or a list of languages
@@ -171,7 +255,12 @@ return packer.startup(function(use)
           enable = true,
         },
       }
-    end,
+
+      --[[
+      nnoremap S <cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>
+      --]]
+      map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>", {noremap = true, silent = true})
+      end,
   }
 
 end)

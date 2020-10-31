@@ -23,11 +23,11 @@ CFG
 cheatsheet
 codomain
 codomains
-Conciously
 config
 consult
 coset
 cosets
+creational
 CSS
 debatably
 deindustrialization
@@ -93,6 +93,8 @@ MAVProxy
 metadata
 microkernel
 microkernels
+microservices
+monomorphism
 multithreading
 mutex
 mutexes
@@ -126,7 +128,7 @@ proven
 PRs
 quantums
 recolorings
-Recompiler
+recompiler
 Reddit
 refactor
 refactors
@@ -160,10 +162,11 @@ unswitching
 username
 userspace
 variadic
-vertice
+VCS
 vertices
 virtualization
 virtualizes
+vtable
 wack
 walkthrough
 webpages
