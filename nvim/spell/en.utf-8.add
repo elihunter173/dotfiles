@@ -29,6 +29,7 @@ coset
 cosets
 creational
 CSS
+cyclomatic
 debatably
 deindustrialization
 denitrifying
@@ -53,6 +54,7 @@ epilog
 errored
 eutrophication
 Fagan
+flakey
 frontend
 frontends
 gimbal
@@ -94,6 +96,7 @@ metadata
 microkernel
 microkernels
 microservices
+middleware
 monomorphism
 multithreading
 mutex
@@ -145,10 +148,12 @@ Spotify
 struct
 structs
 subtyped
+subtyping
 supertype
 surjective
 syscall
 syscalls
+thruput
 timestamp
 transgender
 truthy
@@ -167,6 +172,7 @@ vertices
 virtualization
 virtualizes
 vtable
+vtables
 wack
 walkthrough
 webpages

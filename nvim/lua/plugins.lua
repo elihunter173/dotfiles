@@ -102,6 +102,7 @@ return packer.startup(function(use)
     -- For :TableFormat in markdown
     requires = "godlygeek/tabular",
     config = function()
+      -- Markdown shit
       vim.g.vim_markdown_folding_disabled = 1
       vim.g.vim_markdown_frontmatter = 1
       vim.g.vim_markdown_auto_insert_bullets = 0
@@ -115,8 +116,6 @@ return packer.startup(function(use)
   -- Vim undotree visualizer
   use "mbbill/undotree"
 
-  -- TODO: Can I make fzf a dep?
-  -- use {"junegunn/fzf", run = "./install --all" }
   use {
     "junegunn/fzf.vim",
     config = function()
@@ -124,18 +123,9 @@ return packer.startup(function(use)
       vim.g.fzf_buffers_jump = 1
       vim.g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
       vim.g.fzf_preview_window = ""
-
-      --[[
-      nnoremap <leader>o <cmd>Buffers<CR>
-      nnoremap <leader>O <cmd>Files<CR>
-      nnoremap <leader>h <cmd>BLines<CR>
-      nnoremap <leader>H <cmd>Rg<CR>
-      --]]
       -- Nice keybindings
-      map("n", "<leader>o", "<cmd>Buffers<CR>", {noremap = true})
+      map("n", "<leader>o", "<cmd>BLines<CR>", {noremap = true})
       map("n", "<leader>O", "<cmd>Files<CR>", {noremap = true})
-      map("n", "<leader>h", "<cmd>BLines<CR>", {noremap = true})
-      map("n", "<leader>H", "<cmd>Rg<CR>", {noremap = true})
     end,
   }
 
