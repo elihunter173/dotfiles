@@ -1,11 +1,13 @@
 -- Only required if you have packer in your `opt` pack
 local packer_exists = pcall(vim.cmd, "packadd packer.nvim")
 
--- TODO: Make this local when https://github.com/wbthomason/packer.nvim/issues/77 is resolved
 map = vim.api.nvim_set_keymap
+bufmap = function(mode, lhs, rhs, opts)
+  -- 0 means current buffer
+  vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, opts)
+end
 
 if not packer_exists then
-  -- TODO: Maybe handle windows better?
   if vim.fn.input("Download Packer? (y for yes)") ~= "y" then
     return
   end
@@ -22,6 +24,7 @@ if not packer_exists then
   print("Downloading packer.nvim...")
   return
 end
+
 
 local packer = require("packer")
 
@@ -62,13 +65,13 @@ return packer.startup(function(use)
 
   -- Enable editing of readonly files using sudo.
   -- Remove when https://github.com/neovim/neovim/pull/10842 gets merged
-  use {
-    "lambdalisue/suda.vim",
-    config = function()
-      -- Automatically open readonly files with sudo using suda.vim
-      vim.g.suda_smart_edit = 1
-    end,
-  }
+  -- use {
+  --   "lambdalisue/suda.vim",
+  --   config = function()
+  --     -- Automatically open readonly files with sudo using suda.vim
+  --     vim.g.suda_smart_edit = 1
+  --   end,
+  -- }
 
   -- Neovim's CursorHold is a little laggy right now. This fixes that.
   use "antoinemadec/FixCursorHold.nvim"
@@ -81,10 +84,6 @@ return packer.startup(function(use)
   use {
     "tpope/vim-fugitive",
     config = function()
-      --[[
-      nnoremap <leader>gs <cmd>Gstatus<CR>
-      nnoremap <leader>gp <cmd>Gpush<CR>
-      --]]
       map("n", "<leader>gs", "<cmd>Gstatus<CR>", {noremap = true})
       map("n", "<leader>gp", "<cmd>Gpush<CR>", {noremap = true})
     end,
@@ -139,67 +138,43 @@ return packer.startup(function(use)
     end,
   }
 
-  -- TODO: Migrate full config over
   -- LSP
   use {
     "neovim/nvim-lspconfig",
-    requires = { "nvim-lua/completion-nvim", "nvim-lua/diagnostic-nvim" },
+    requires = { "nvim-lua/completion-nvim" },
     config = function()
-      local nvim_lsp = require("nvim_lsp")
+      local lspconfig = require("lspconfig")
       local nvim_completion = require("completion")
-      local nvim_diagnostic = require("diagnostic")
 
       local custom_attach = function()
         nvim_completion.on_attach()
-        nvim_diagnostic.on_attach()
 
-        --[[
-        nnoremap <silent> gd        <cmd>lua vim.lsp.buf.declaration()<CR>
-        nnoremap <silent> <c-]>     <cmd>lua vim.lsp.buf.definition()<CR>
-        nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
-        nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>
-        nnoremap <silent> <C-s>     <cmd>lua vim.lsp.buf.signature_help()<CR>
-        inoremap <silent> <C-s>     <cmd>lua vim.lsp.buf.signature_help()<CR>
-        nnoremap <silent> 1gD       <cmd>lua vim.lsp.buf.type_definition()<CR>
-        nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
-        nnoremap <silent> <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
-        nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.formatting()<CR>
-        nnoremap <silent> g0        <cmd>lua vim.lsp.buf.document_symbol()<CR>
-        nnoremap <silent> gW        <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-        nnoremap <silent> ge        <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
-        nnoremap <silent> ga        <cmd>lua vim.lsp.buf.code_action()<CR>
-        --]]
-        map("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {silent = true, noremap = true})
-        map("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {silent = true, noremap = true})
-        map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {silent = true, noremap = true})
-        map("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {silent = true, noremap = true})
-        map("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {silent = true, noremap = true})
-        map("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {silent = true, noremap = true})
-        map("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {silent = true, noremap = true})
-        map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {silent = true, noremap = true})
-        map("n", "<leader>r", "cmd>lua vim.lsp.buf.rename()<CR>", {silent = true, noremap = true})
-        map("n", "<leader>f", "cmd>lua vim.lsp.buf.formatting()<CR>", {silent = true, noremap = true})
-        map("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", {silent = true, noremap = true})
-        map("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", {silent = true, noremap = true})
-        map("n", "ge", "<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>", {silent = true, noremap = true})
-        map("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", {silent = true, noremap = true})
-
-        --[[
-        nnoremap ]d <cmd>NextDiagnostic<CR>
-        nnoremap [d <cmd>PrevDiagnostic<CR>
-        --]]
-        map("n", "]d", "<cmd>NextDiagnostic<CR>", {noremap = true})
-        map("n", "[d", "<cmd>PrevDiagnostic<CR>", {noremap = true})
+        bufmap("n", "gd",        "<cmd>lua vim.lsp.buf.declaration()<CR>",                  {silent = true, noremap = true})
+        bufmap("n", "<c-]>",     "<cmd>lua vim.lsp.buf.definition()<CR>",                   {silent = true, noremap = true})
+        bufmap("n", "K",         "<cmd>lua vim.lsp.buf.hover()<CR>",                        {silent = true, noremap = true})
+        bufmap("n", "gD",        "<cmd>lua vim.lsp.buf.implementation()<CR>",               {silent = true, noremap = true})
+        bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true, noremap = true})
+        bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true, noremap = true})
+        bufmap("n", "1gD",       "<cmd>lua vim.lsp.buf.type_definition()<CR>",              {silent = true, noremap = true})
+        bufmap("n", "gr",        "<cmd>lua vim.lsp.buf.references()<CR>",                   {silent = true, noremap = true})
+        bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>",                       {silent = true, noremap = true})
+        bufmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>",                   {silent = true, noremap = true})
+        bufmap("n", "g0",        "<cmd>lua vim.lsp.buf.document_symbol()<CR>",              {silent = true, noremap = true})
+        bufmap("n", "gW",        "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>",             {silent = true, noremap = true})
+        bufmap("n", "ga",        "<cmd>lua vim.lsp.buf.code_action()<CR>",                  {silent = true, noremap = true})
+        bufmap("n", "ge",        "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", {silent = true, noremap = true})
+        bufmap("n", "]d",        "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",             {silent = true, noremap = true})
+        bufmap("n", "[d",        "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>",             {silent = true, noremap = true})
 
         print("LSP Attached.")
       end
 
-      nvim_lsp.pyls.setup{ on_attach = custom_attach }
-      nvim_lsp.jdtls.setup{ on_attach = custom_attach }
+      lspconfig.pyls.setup{ on_attach = custom_attach }
+      lspconfig.jdtls.setup{ on_attach = custom_attach }
 
-      nvim_lsp.vimls.setup{ on_attach = custom_attach }
-      nvim_lsp.sumneko_lua.setup {
-        cmd = { vim.fn.stdpath("cache") .. "/nvim_lsp/sumneko_lua/lua-language-server/bin/Linux/lua-language-server", "-E", vim.fn.stdpath("cache") .. "/nvim_lsp/sumneko_lua/lua-language-server/main.lua" },
+      lspconfig.vimls.setup{ on_attach = custom_attach }
+      lspconfig.sumneko_lua.setup {
+        cmd = { vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/bin/Linux/lua-language-server", "-E", vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/main.lua" },
         on_attach = custom_attach,
         settings = {
           Lua = {
@@ -213,16 +188,15 @@ return packer.startup(function(use)
         },
       }
 
-      nvim_lsp.yamlls.setup{ on_attach = custom_attach }
-      nvim_lsp.bashls.setup{ on_attach = custom_attach }
+      lspconfig.yamlls.setup{ on_attach = custom_attach }
+      lspconfig.bashls.setup{ on_attach = custom_attach }
 
-      nvim_lsp.texlab.setup{ on_attach = custom_attach }
+      lspconfig.texlab.setup{ on_attach = custom_attach }
 
-      nvim_lsp.clangd.setup{ on_attach = custom_attach }
-      nvim_lsp.rust_analyzer.setup{ on_attach = custom_attach }
+      lspconfig.clangd.setup{ on_attach = custom_attach }
+      lspconfig.rust_analyzer.setup{ on_attach = custom_attach }
     end,
   }
-  --
 
   -- A nice tagbar for LSP
   use {
@@ -242,13 +216,15 @@ return packer.startup(function(use)
         -- one of "all", "language", or a list of languages
         ensure_installed = "all",
         highlight = {
+          -- Enable nested language parsers
+          use_languagetree = false,
           enable = true,
+        },
+        indent = {
+          enable = true
         },
       }
 
-      --[[
-      nnoremap S <cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>
-      --]]
       map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>", {noremap = true, silent = true})
       end,
   }
