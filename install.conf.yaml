@@ -15,6 +15,7 @@
     ~/.config/i3status: i3status/
     ~/.config/picom.conf: picom.conf
     ~/.config/dunst: dunst/
+    ~/.config/kitty: kitty/
 
     # Shell Config
     ~/.config/standard.sh: standard.sh

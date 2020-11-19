@@ -43,11 +43,6 @@ zinit for \
   OMZ::lib/history.zsh \
   OMZ::lib/key-bindings.zsh
 
-# Turbo load what works well turbo-loaded
-zinit wait lucid for \
-  https://raw.githubusercontent.com/chriskempson/base16-shell/master/scripts/base16-solarized-dark.sh \
-  OMZ::plugins/extract/extract.plugin.zsh \
-
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
 fi

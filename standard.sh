@@ -39,6 +39,9 @@ fi
 if [[ $TERM == xterm-termite ]]; then
     export TERM='xterm-256color'
 fi
+if [[ $TERM == xterm-kitty ]]; then
+    alias icat="kitty +kitten icat"
+fi
 
 # Bookmarks
 export TRASH="$HOME/.local/share/Trash/files"
