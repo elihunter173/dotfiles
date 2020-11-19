@@ -38,7 +38,7 @@ return packer.startup(function(use)
   use {"wbthomason/packer.nvim", opt = true}
 
   -- Base16 colorscheme
-  use "chriskempson/base16-vim"
+  use "lifepillar/vim-solarized8"
   -- TODO: Take config from init.vim
 
   -- General editing

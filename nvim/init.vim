@@ -99,8 +99,8 @@ lua require("plugins")
 if has('termguicolors') && $TERM != "screen"
   set termguicolors
 endif
-let base16colorspace=256
-colorscheme base16-solarized-dark
+set background=dark
+colorscheme solarized8
 
 " TODO: Check out Gina.vim
 " EditorConfig + Fugitive
