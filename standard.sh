@@ -19,23 +19,12 @@ else
     export EDITOR='vi'
 fi
 
-# A more friendly ls
-if command -v exa > /dev/null; then
-    alias l='exa'
-    alias ll='exa --long --header --group --git'
-    alias la='exa --all'
-    alias lt='exa --tree'
-else
-    # The defaults are good IMO
-    unset LS_COLORS
-    alias l='ls'
-    alias ll='ls -lh'
-    alias la='ls -a'
-    command -v tree > /dev/null && alias lt="tree"
-fi
-# I put this after, so command doesn't get tricked into thinking exa and ls are
-# installed because we have aliases
-alias exa='exa --classify'
+# The defaults are good IMO
+unset LS_COLORS
+alias l='ls'
+alias ll='ls -lh'
+alias la='ls -a'
+command -v tree > /dev/null && alias lt="tree"
 alias ls='ls --color=auto -F'
 
 # Quick shortcuts
