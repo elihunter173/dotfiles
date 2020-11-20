@@ -49,7 +49,7 @@ return packer.startup(function(use)
   -- Surrounding text objects with any character
   use "machakann/vim-sandwich"
   -- Nice mappings
-  use "tpope/vim-unimpaired"
+  -- use "tpope/vim-unimpaired"
 
   -- Configuration stuff
   -- Never think about indentation
@@ -63,15 +63,17 @@ return packer.startup(function(use)
     end,
   }
 
-  -- Enable editing of readonly files using sudo.
-  -- Remove when https://github.com/neovim/neovim/pull/10842 gets merged
-  -- use {
-  --   "lambdalisue/suda.vim",
-  --   config = function()
-  --     -- Automatically open readonly files with sudo using suda.vim
-  --     vim.g.suda_smart_edit = 1
-  --   end,
-  -- }
+  -- Multi-cursor support!
+  use {
+    "mg979/vim-visual-multi",
+    config = function()
+      vim.g.VM_leader = "\\"
+      vim.g.VM_maps = {
+        ["Add Cursor Down"] = "<M-j>",
+        ["Add Cursor Up"] = "<M-k>",
+      }
+    end
+  }
 
   -- Neovim's CursorHold is a little laggy right now. This fixes that.
   use "antoinemadec/FixCursorHold.nvim"
@@ -97,7 +99,6 @@ return packer.startup(function(use)
   -- Syntax highlighting for more languages
   use {
     "plasticboy/vim-markdown",
-    -- "sheerun/vim-polyglot",
     -- For :TableFormat in markdown
     requires = "godlygeek/tabular",
     config = function()
@@ -115,6 +116,7 @@ return packer.startup(function(use)
   -- Vim undotree visualizer
   use "mbbill/undotree"
 
+  -- Fuzzy finding!
   use {
     "junegunn/fzf.vim",
     config = function()
@@ -127,6 +129,21 @@ return packer.startup(function(use)
       map("n", "<leader>O", "<cmd>Files<CR>", {noremap = true})
     end,
   }
+
+  use "jiangmiao/auto-pairs"
+  -- endwise isn't working for some reason
+  -- use {
+  --   "tpope/vim-endwise",
+  --   config = function()
+  --     vim.api.nvim_command [[
+  --     autocmd FileType tex
+  --     \ let b:endwise_addition = '\="\\end" . matchstr(submatch(0), "{.\\{-}}")' |
+  --     \ let b:endwise_words = 'begin' |
+  --     \ let b:endwise_pattern = '\\begin{.\{-}}' |
+  --     \ let b:endwise_syngroups = 'texSection,texBeginEnd,texBeginEndName,texStatement'
+  --     ]]
+  --   end,
+  -- }
 
   -- Floating terminal
   use {
@@ -220,9 +237,10 @@ return packer.startup(function(use)
           use_languagetree = false,
           enable = true,
         },
-        indent = {
-          enable = true
-        },
+        -- This doesn't work quite right
+        -- indent = {
+        --   enable = true
+        -- },
       }
 
       map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>", {noremap = true, silent = true})
