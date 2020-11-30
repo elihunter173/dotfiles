@@ -130,7 +130,7 @@ return packer.startup(function(use)
     end,
   }
 
-  use "jiangmiao/auto-pairs"
+  -- use "jiangmiao/auto-pairs"
   -- endwise isn't working for some reason
   -- use {
   --   "tpope/vim-endwise",

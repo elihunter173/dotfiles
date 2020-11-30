@@ -40,7 +40,9 @@ if [[ $TERM == xterm-termite ]]; then
     export TERM='xterm-256color'
 fi
 if [[ $TERM == xterm-kitty ]]; then
-    alias icat="kitty +kitten icat"
+    alias icat='kitty +kitten icat'
+    # xterm-kitty isn't supported everywhere
+    alias ssh='TERM=xterm-256color ssh'
 fi
 
 # Bookmarks
