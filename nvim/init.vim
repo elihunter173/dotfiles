@@ -56,12 +56,12 @@ nnoremap <Space> <NOP>
 nnoremap s <NOP>
 
 " Make saving and quitting easier and faster
-nnoremap <leader>w <cmd>write<CR>
-nnoremap <leader>d <cmd>bp\|bd #<CR>
+nnoremap <leader>w <cmd>write<cr>
+nnoremap <leader>d <cmd>bp\|bd #<cr>
 
 " Turn off search highlighting because vim doesn't do that by default for some
 " reason
-nnoremap <leader>s <cmd>nohlsearch<CR>
+nnoremap <leader>s <cmd>nohlsearch<cr>
 
 " Easier window navigation
 nnoremap <C-h> <C-w>h
@@ -69,9 +69,12 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
+nnoremap ]q <cmd>cnext<cr>
+nnoremap [q <cmd>cprev<cr>
+
 " Terminal settings
 " Easier terminal opening. L for shell
-nnoremap <leader>l <cmd>terminal<CR>
+nnoremap <leader>l <cmd>terminal<cr>
 " Easier escape
 tnoremap <ESC> <C-\><C-n>
 " Easier window navigation
@@ -89,8 +92,8 @@ augroup END
 " Replace the current line with todo comment. Have to do nmap because gcc is a
 " <Plug> mapping from 'tpope/vim-commentary'
 " nmap <leader>c ccTODO:<ESC>gcc0f:a<SPACE>
-nnoremap <leader>c <cmd>call append('.', substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<CR>j==f:la
-nnoremap <leader>C <cmd>call append(line('.')-1, substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<CR>k==f:la
+nnoremap <leader>c <cmd>call append('.', substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<cr>j==f:la
+nnoremap <leader>C <cmd>call append(line('.')-1, substitute(&commentstring, '\s*%s\s*', ' TODO: ', ''))<cr>k==f:la
 
 lua require("plugins")
 " lua require("config")
