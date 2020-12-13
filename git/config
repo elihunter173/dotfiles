@@ -10,6 +10,7 @@
 	hs = hist -16
 	d = diff
 	p = push
+	pf = push --force-with-lease
 	l = pull
 	cl = clone --recurse-submodules
 	a = add --verbose --all
