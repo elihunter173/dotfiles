@@ -25,7 +25,6 @@ if not packer_exists then
   return
 end
 
-
 local packer = require("packer")
 
 -- Slightly improve performance
@@ -79,7 +78,7 @@ return packer.startup(function(use)
   use "antoinemadec/FixCursorHold.nvim"
 
   -- Nice start screen
-  use "mhinz/vim-startify"
+  -- use "mhinz/vim-startify"
 
   -- Lightweight git wrapper
   -- TODO: Check out Gina.vim
@@ -191,7 +190,11 @@ return packer.startup(function(use)
 
       lspconfig.vimls.setup{ on_attach = custom_attach }
       lspconfig.sumneko_lua.setup {
-        cmd = { vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/bin/Linux/lua-language-server", "-E", vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/main.lua" },
+        cmd = {
+          vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/bin/Linux/lua-language-server",
+          "-E",
+          vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/main.lua",
+        },
         on_attach = custom_attach,
         settings = {
           Lua = {
@@ -199,7 +202,12 @@ return packer.startup(function(use)
               version = "LuaJIT",
             },
             diagnostics = {
-              globals = { "vim" },
+              globals = {
+                -- vim
+                "vim",
+                -- busted
+                "describe", "it",
+              },
             },
           },
         },

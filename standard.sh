@@ -19,6 +19,8 @@ else
     export EDITOR='vi'
 fi
 
+export FZF_DEFAULT_COMMAND='fd --type f'
+
 # The defaults are good IMO
 unset LS_COLORS
 alias l='ls'
