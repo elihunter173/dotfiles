@@ -234,8 +234,8 @@ lspconfig.jdtls.setup {on_attach = custom_attach}
 lspconfig.vimls.setup {on_attach = custom_attach}
 lspconfig.sumneko_lua.setup {
   cmd = {
-    os.getenv("HOME") .. "/build/lua-language-server/bin/Linux/lua-language-server",
-    "-E",
+    os.getenv("HOME") ..
+        "/build/lua-language-server/bin/Linux/lua-language-server", "-E",
     os.getenv("HOME") .. "/build/lua-language-server/main.lua",
   },
   on_attach = custom_attach,
