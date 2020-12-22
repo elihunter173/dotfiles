@@ -1,5 +1,0 @@
-# My standard interactive shell config files
-source ~/.config/standard.sh
-
-# Default Ubuntu prompt is good enough for me
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '

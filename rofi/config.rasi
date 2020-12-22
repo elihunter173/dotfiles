@@ -1,8 +1,0 @@
-configuration {
-	modi: "run,drun";
-	lines: 8;
-	show-icons: true;
-	theme: "slate";
-	display-run: "Execute";
-	display-drun: "Launch";
-}
