@@ -38,16 +38,6 @@ if command -v ruby > /dev/null; then
     export GEM_HOME=$HOME/.gem
 fi
 
-if command -v nnn > /dev/null; then
-    export NNN_USE_EDITOR=1
+if command -v luarocks > /dev/null; then
+    export PATH="$PATH:$HOME/.luarocks/bin"
 fi
-
-if [ -d "$HOME/.linuxbrew" ]; then
-    eval $(~/.linuxbrew/bin/brew shellenv)
-fi
-
-[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-# To support multiple glibcLocales, nixpkgs patches everything which uses them
-# to look at LOCALE_ARCHIVE
-# https://nixos.org/nixpkgs/manual/#locales
-[ -e "$HOME/.nix-profile/lib/locale" ] && export LOCALE_ARCHIVE="$(readlink ~/.nix-profile/lib/locale)/locale-archive"
