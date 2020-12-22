@@ -1,4 +1,8 @@
 local map = vim.api.nvim_set_keymap
+local bufmap = function(mode, lhs, rhs, opts)
+  -- 0 means current buffer
+  vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, opts)
+end
 
 ---------- Options ----------
 -- Enable line numbers and ruler
@@ -42,7 +46,6 @@ vim.o.guifont = "Hack:h12"
 vim.o.grepprg = "rg --vimgrep"
 
 -- Statusline
--- TODO: Colors?
 vim.o.laststatus = 2
 vim.o.statusline = "%f%m%r%w%q%=%{FugitiveHead()}"
 
@@ -51,8 +54,6 @@ if os.getenv("TERM") ~= "screen" then
   vim.o.termguicolors = true
 end
 vim.o.background = "dark"
--- TODO: Figure out if there's a better way to set colorschemes in lua
-vim.cmd "colorscheme solarized8"
 
 ---------- Mappings ----------
 -- TODO: How do I do this more natively?
@@ -111,21 +112,189 @@ map(
   {noremap = true})
 
 ---------- Plugins ----------
--- TODO: Inline me with paq-nvim
-require("plugins")
+vim.cmd "packadd paq-nvim"
+local paq = require("paq-nvim").paq
+-- Let paq manage itself
+paq {"savq/paq-nvim", opt = true}
 
---[[
-local paq_exists = pcall(vim.cmd, "packadd paq-nvim")
-if not paq_exists then
-  local directory = vim.fn.stdpath("data") .. "/site/pack/paqs/opt"
+-- Colorscheme
+paq "lifepillar/vim-solarized8"
+-- TODO: Figure out if there's a better way to set colorschemes in lua
+vim.cmd "colorscheme solarized8"
 
-  vim.fn.mkdir(directory, "p")
-  local out = vim.fn.system(string.format(
-      "git clone %s %s",
-      "https://github.com/savq/paq-nvim.git",
-      directory .. "/paq-nvim"
-    ))
-  print(out)
-  print("Downloading pac-nvim...")
+-- General editing
+-- Easier commenting for any language
+paq "tpope/vim-commentary"
+-- Additional text objects
+paq "wellle/targets.vim"
+-- Surrounding text objects with any character
+paq "machakann/vim-sandwich"
+
+-- Configuration stuff
+-- Never think about indentation
+paq "tpope/vim-sleuth"
+
+-- https://EditorConfig.org
+paq "editorconfig/editorconfig-vim"
+-- EditorConfig + Fugitive
+vim.g.EditorConfig_exclude_patterns = {"fugitive://.\\*"}
+
+-- Multi-cursor support!
+paq "mg979/vim-visual-multi"
+vim.g.VM_leader = "\\"
+vim.g.VM_maps = {
+  ["Add Cursor Down"] = "<M-j>",
+  ["Add Cursor Up"] = "<M-k>",
+}
+
+-- Neovim's CursorHold is a little laggy right now. This fixes that.
+paq "antoinemadec/FixCursorHold.nvim"
+
+-- Lightweight git wrapper
+-- TODO: Check out Gina.vim
+paq "tpope/vim-fugitive"
+map("n", "<leader>gs", "<cmd>Gstatus<CR>", {noremap = true})
+map("n", "<leader>gp", "<cmd>Gpush<CR>", {noremap = true})
+
+-- Netrw but simpler and better
+paq "justinmk/vim-dirvish"
+-- Disable netrw becapaq I use Dirvish
+vim.g.loaded_netrwPlugin = 1
+
+-- Syntax highlighting for more languages
+paq "plasticboy/vim-markdown"
+-- For :TableFormat in markdown
+paq "godlygeek/tabular"
+-- Markdown shit
+vim.g.vim_markdown_folding_disabled = 1
+vim.g.vim_markdown_frontmatter = 1
+vim.g.vim_markdown_auto_insert_bullets = 0
+vim.g.vim_markdown_new_list_item_indent = 2
+-- LaTeX with no concealing
+vim.g.tex_conceal = ""
+vim.g.vim_markdown_math = 1
+
+-- Vim undotree visualizer
+paq "mbbill/undotree"
+
+-- Fuzzy finding!
+paq "junegunn/fzf.vim"
+-- Don't open unnecessary files
+vim.g.fzf_buffers_jump = 1
+vim.g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
+vim.g.fzf_preview_window = ""
+-- Nice keybindings
+map("n", "<leader>o", "<cmd>BLines<CR>", {noremap = true})
+map("n", "<leader>O", "<cmd>Files<CR>", {noremap = true})
+
+-- paq "jiangmiao/auto-pairs"
+-- endwise isn't working for some reason
+-- paq {
+--   "tpope/vim-endwise",
+--   config = function()
+--     vim.api.nvim_command [[
+--     autocmd FileType tex
+--     \ let b:endwise_addition = '\="\\end" . matchstr(submatch(0), "{.\\{-}}")' |
+--     \ let b:endwise_words = 'begin' |
+--     \ let b:endwise_pattern = '\\begin{.\{-}}' |
+--     \ let b:endwise_syngroups = 'texSection,texBeginEnd,texBeginEndName,texStatement'
+--     ]]
+--   end,
+-- }
+
+-- Floating terminal
+paq "voldikss/vim-floaterm"
+map("n", "<leader>t", "<cmd>FloatermToggle<CR>", {noremap = true})
+vim.g.floaterm_width = 0.8
+vim.g.floaterm_height = 0.8
+
+-- LSP
+---------- LSP ----------
+paq "neovim/nvim-lspconfig"
+paq "nvim-lua/completion-nvim"
+local lspconfig = require("lspconfig")
+local nvim_completion = require("completion")
+
+local custom_attach = function()
+  nvim_completion.on_attach()
+
+  bufmap("n", "gd",        "<cmd>lua vim.lsp.buf.declaration()<CR>",                  {silent = true, noremap = true})
+  bufmap("n", "<c-]>",     "<cmd>lua vim.lsp.buf.definition()<CR>",                   {silent = true, noremap = true})
+  bufmap("n", "K",         "<cmd>lua vim.lsp.buf.hover()<CR>",                        {silent = true, noremap = true})
+  bufmap("n", "gD",        "<cmd>lua vim.lsp.buf.implementation()<CR>",               {silent = true, noremap = true})
+  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true, noremap = true})
+  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true, noremap = true})
+  bufmap("n", "1gD",       "<cmd>lua vim.lsp.buf.type_definition()<CR>",              {silent = true, noremap = true})
+  bufmap("n", "gr",        "<cmd>lua vim.lsp.buf.references()<CR>",                   {silent = true, noremap = true})
+  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>",                       {silent = true, noremap = true})
+  bufmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>",                   {silent = true, noremap = true})
+  bufmap("n", "g0",        "<cmd>lua vim.lsp.buf.document_symbol()<CR>",              {silent = true, noremap = true})
+  bufmap("n", "gW",        "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>",             {silent = true, noremap = true})
+  bufmap("n", "ga",        "<cmd>lua vim.lsp.buf.code_action()<CR>",                  {silent = true, noremap = true})
+  bufmap("n", "ge",        "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", {silent = true, noremap = true})
+  bufmap("n", "]d",        "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",             {silent = true, noremap = true})
+  bufmap("n", "[d",        "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>",             {silent = true, noremap = true})
+
+  print("LSP Attached.")
 end
---]]
+
+lspconfig.pyls.setup{ on_attach = custom_attach }
+lspconfig.jdtls.setup{ on_attach = custom_attach }
+
+lspconfig.vimls.setup{ on_attach = custom_attach }
+lspconfig.sumneko_lua.setup {
+  cmd = {
+    vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/bin/Linux/lua-language-server",
+    "-E",
+    vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/main.lua",
+  },
+  on_attach = custom_attach,
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        globals = {
+          -- vim
+          "vim",
+          -- busted
+          "describe", "it",
+        },
+      },
+    },
+  },
+}
+
+lspconfig.yamlls.setup{ on_attach = custom_attach }
+lspconfig.bashls.setup{ on_attach = custom_attach }
+
+lspconfig.texlab.setup{ on_attach = custom_attach }
+
+lspconfig.clangd.setup{ on_attach = custom_attach }
+lspconfig.rust_analyzer.setup{ on_attach = custom_attach }
+
+-- A nice tagbar for LSP
+paq "liuchengxu/vista.vim"
+-- Pretty icons don't work everywhere and are idiosyncratic IMO
+vim.g["vista#renderer#enable_icon"] = 0
+vim.g.vista_fold_toggle_icons = {"-", "+"}
+
+---------- TreeSitter ----------
+paq "nvim-treesitter/nvim-treesitter"
+paq "nvim-treesitter/nvim-treesitter-refactor"
+require'nvim-treesitter.configs'.setup {
+  -- one of "all", "language", or a list of languages
+  ensure_installed = "all",
+  highlight = {
+    -- Enable nested language parsers
+    use_languagetree = true,
+    enable = true,
+  },
+  -- This doesn't work quite right
+  -- indent = {
+  --   enable = true
+  -- },
+}
+-- This is kinda illegal. I took this from the CursorHold autocmd
+map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>", {noremap = true, silent = true})
