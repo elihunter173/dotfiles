@@ -1,5 +1,4 @@
 scripts
 qmk
-standard\.sh
 \.stowrc
-\.git
+\.git(ignore)?
