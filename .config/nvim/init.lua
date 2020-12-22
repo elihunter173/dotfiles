@@ -1,3 +1,6 @@
+-- Short aliases
+local g = vim.g
+local cmd = vim.cmd
 local map = vim.api.nvim_set_keymap
 local bufmap = function(mode, lhs, rhs, opts)
   -- 0 means current buffer
@@ -57,7 +60,7 @@ vim.o.background = "dark"
 
 ---------- Mappings ----------
 -- TODO: How do I do this more natively?
-vim.cmd "let mapleader = ' '"
+cmd "let mapleader = ' '"
 -- Prevent space from moving forward in normal mode
 map("n", " ", "<NOP>", {noremap = true})
 
@@ -95,10 +98,10 @@ map("t", "<C-l>", "<C-\\><C-n><C-w>l", {noremap = true})
 -- Make terminals always open in insert mode and no linenumbers in
 -- terminals.
 -- TODO: Use augroup API when it gets finished
-vim.cmd "augroup TermSettings"
-vim.cmd "  autocmd!"
-vim.cmd "  autocmd TermOpen * startinsert | setlocal norelativenumber nonumber"
-vim.cmd "augroup END"
+cmd "augroup TermSettings"
+cmd "  autocmd!"
+cmd "  autocmd TermOpen * startinsert | setlocal norelativenumber nonumber"
+cmd "augroup END"
 
 -- Replace the current line with todo comment
 -- TODO: Make this less hacky
@@ -112,7 +115,7 @@ map(
   {noremap = true})
 
 ---------- Plugins ----------
-vim.cmd "packadd paq-nvim"
+cmd "packadd paq-nvim"
 local paq = require("paq-nvim").paq
 -- Let paq manage itself
 paq {"savq/paq-nvim", opt = true}
@@ -120,7 +123,7 @@ paq {"savq/paq-nvim", opt = true}
 -- Colorscheme
 paq "lifepillar/vim-solarized8"
 -- TODO: Figure out if there's a better way to set colorschemes in lua
-vim.cmd "colorscheme solarized8"
+cmd "colorscheme solarized8"
 
 -- General editing
 -- Easier commenting for any language
@@ -137,12 +140,12 @@ paq "tpope/vim-sleuth"
 -- https://EditorConfig.org
 paq "editorconfig/editorconfig-vim"
 -- EditorConfig + Fugitive
-vim.g.EditorConfig_exclude_patterns = {"fugitive://.\\*"}
+g.EditorConfig_exclude_patterns = {"fugitive://.\\*"}
 
 -- Multi-cursor support!
 paq "mg979/vim-visual-multi"
-vim.g.VM_leader = "\\"
-vim.g.VM_maps = {
+g.VM_leader = "\\"
+g.VM_maps = {
   ["Add Cursor Down"] = "<M-j>",
   ["Add Cursor Up"] = "<M-k>",
 }
@@ -159,20 +162,20 @@ map("n", "<leader>gp", "<cmd>Gpush<CR>", {noremap = true})
 -- Netrw but simpler and better
 paq "justinmk/vim-dirvish"
 -- Disable netrw becapaq I use Dirvish
-vim.g.loaded_netrwPlugin = 1
+g.loaded_netrwPlugin = 1
 
 -- Syntax highlighting for more languages
 paq "plasticboy/vim-markdown"
 -- For :TableFormat in markdown
 paq "godlygeek/tabular"
 -- Markdown shit
-vim.g.vim_markdown_folding_disabled = 1
-vim.g.vim_markdown_frontmatter = 1
-vim.g.vim_markdown_auto_insert_bullets = 0
-vim.g.vim_markdown_new_list_item_indent = 2
+g.vim_markdown_folding_disabled = 1
+g.vim_markdown_frontmatter = 1
+g.vim_markdown_auto_insert_bullets = 0
+g.vim_markdown_new_list_item_indent = 2
 -- LaTeX with no concealing
-vim.g.tex_conceal = ""
-vim.g.vim_markdown_math = 1
+g.tex_conceal = ""
+g.vim_markdown_math = 1
 
 -- Vim undotree visualizer
 paq "mbbill/undotree"
@@ -180,9 +183,9 @@ paq "mbbill/undotree"
 -- Fuzzy finding!
 paq "junegunn/fzf.vim"
 -- Don't open unnecessary files
-vim.g.fzf_buffers_jump = 1
-vim.g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
-vim.g.fzf_preview_window = ""
+g.fzf_buffers_jump = 1
+g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
+g.fzf_preview_window = ""
 -- Nice keybindings
 map("n", "<leader>o", "<cmd>BLines<CR>", {noremap = true})
 map("n", "<leader>O", "<cmd>Files<CR>", {noremap = true})
@@ -205,8 +208,8 @@ map("n", "<leader>O", "<cmd>Files<CR>", {noremap = true})
 -- Floating terminal
 paq "voldikss/vim-floaterm"
 map("n", "<leader>t", "<cmd>FloatermToggle<CR>", {noremap = true})
-vim.g.floaterm_width = 0.8
-vim.g.floaterm_height = 0.8
+g.floaterm_width = 0.8
+g.floaterm_height = 0.8
 
 -- LSP
 ---------- LSP ----------
@@ -277,8 +280,8 @@ lspconfig.rust_analyzer.setup{ on_attach = custom_attach }
 -- A nice tagbar for LSP
 paq "liuchengxu/vista.vim"
 -- Pretty icons don't work everywhere and are idiosyncratic IMO
-vim.g["vista#renderer#enable_icon"] = 0
-vim.g.vista_fold_toggle_icons = {"-", "+"}
+g["vista#renderer#enable_icon"] = 0
+g.vista_fold_toggle_icons = {"-", "+"}
 
 ---------- TreeSitter ----------
 paq "nvim-treesitter/nvim-treesitter"
