@@ -1,10 +1,14 @@
 -- Short aliases
 local g = vim.g
 local cmd = vim.cmd
-local map = vim.api.nvim_set_keymap
-local bufmap = function(mode, lhs, rhs, opts)
+
+local MAP_DEFAULTS = {noremap = true}
+local function map(mode, lhs, rhs, opts)
+  vim.api.nvim_set_keymap(mode, lhs, rhs, vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
+end
+local function bufmap(mode, lhs, rhs, opts)
   -- 0 means current buffer
-  vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, opts)
+  vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
 
 ---------- Options ----------
@@ -62,39 +66,39 @@ vim.o.background = "dark"
 -- TODO: How do I do this more natively?
 cmd "let mapleader = ' '"
 -- Prevent space from moving forward in normal mode
-map("n", " ", "<NOP>", {noremap = true})
+map("n", " ", "<NOP>")
 
 -- I like using s for other mappings
-map("n", "s", "<NOP>", {noremap = true})
+map("n", "s", "<NOP>")
 
 -- Make saving and quitting easier and faster
-map("n", "<leader>w", "<cmd>write<cr>", {noremap = true})
+map("n", "<leader>w", "<cmd>write<cr>")
 
 -- Turn off search highlighting because vim doesn't do that by default for some
 -- reason
-map("n", "<leader>s", "<cmd>nohlsearch<cr>", {noremap = true})
+map("n", "<leader>s", "<cmd>nohlsearch<cr>")
 
 -- Easier window navigation
-map("n", "<C-h>", "<C-w>h", {noremap = true})
-map("n", "<C-l>", "<C-w>l", {noremap = true})
-map("n", "<C-j>", "<C-w>j", {noremap = true})
-map("n", "<C-k>", "<C-w>k", {noremap = true})
+map("n", "<C-h>", "<C-w>h")
+map("n", "<C-l>", "<C-w>l")
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
 
 -- Quickfix mapping. Taken from tpope/vim-unimpaired. I used to have the whole
 -- plugin but this is all I used.
-map("n", "]q", "<cmd>cnext<cr>", {noremap = true})
-map("n", "]q", "<cmd>cnext<cr>", {noremap = true})
+map("n", "]q", "<cmd>cnext<cr>")
+map("n", "]q", "<cmd>cnext<cr>")
 
 --- Terminal settings
 -- Easier terminal opening. L for shell
-map("n", "<leader>l", "<cmd>terminal<cr>", {noremap = true})
+map("n", "<leader>l", "<cmd>terminal<cr>")
 -- Easier escape
-map("t", "<esc>", "<C-\\><C-n>", {noremap = true})
+map("t", "<esc>", "<C-\\><C-n>")
 -- Easier window navigation
-map("t", "<C-h>", "<C-\\><C-n><C-w>h", {noremap = true})
-map("t", "<C-j>", "<C-\\><C-n><C-w>j", {noremap = true})
-map("t", "<C-k>", "<C-\\><C-n><C-w>k", {noremap = true})
-map("t", "<C-l>", "<C-\\><C-n><C-w>l", {noremap = true})
+map("t", "<C-h>", "<C-\\><C-n><C-w>h")
+map("t", "<C-j>", "<C-\\><C-n><C-w>j")
+map("t", "<C-k>", "<C-\\><C-n><C-w>k")
+map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 -- Make terminals always open in insert mode and no linenumbers in
 -- terminals.
 -- TODO: Use augroup API when it gets finished
@@ -107,12 +111,10 @@ cmd "augroup END"
 -- TODO: Make this less hacky
 map(
   "n", "<leader>c",
-  "<cmd>call append('.', substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>j==f:la",
-  {noremap = true})
+  "<cmd>call append('.', substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>j==f:la")
 map(
   "n", "<leader>C",
-  "<cmd>call append(line('.')-1, substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>k==f:la",
-  {noremap = true})
+  "<cmd>call append(line('.')-1, substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>k==f:la")
 
 ---------- Plugins ----------
 cmd "packadd paq-nvim"
@@ -156,8 +158,8 @@ paq "antoinemadec/FixCursorHold.nvim"
 -- Lightweight git wrapper
 -- TODO: Check out Gina.vim
 paq "tpope/vim-fugitive"
-map("n", "<leader>gs", "<cmd>Gstatus<CR>", {noremap = true})
-map("n", "<leader>gp", "<cmd>Gpush<CR>", {noremap = true})
+map("n", "<leader>gs", "<cmd>Gstatus<CR>")
+map("n", "<leader>gp", "<cmd>Gpush<CR>")
 
 -- Netrw but simpler and better
 paq "justinmk/vim-dirvish"
@@ -187,8 +189,8 @@ g.fzf_buffers_jump = 1
 g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
 g.fzf_preview_window = ""
 -- Nice keybindings
-map("n", "<leader>o", "<cmd>BLines<CR>", {noremap = true})
-map("n", "<leader>O", "<cmd>Files<CR>", {noremap = true})
+map("n", "<leader>o", "<cmd>BLines<CR>")
+map("n", "<leader>O", "<cmd>Files<CR>")
 
 -- paq "jiangmiao/auto-pairs"
 -- endwise isn't working for some reason
@@ -207,7 +209,7 @@ map("n", "<leader>O", "<cmd>Files<CR>", {noremap = true})
 
 -- Floating terminal
 paq "voldikss/vim-floaterm"
-map("n", "<leader>t", "<cmd>FloatermToggle<CR>", {noremap = true})
+map("n", "<leader>t", "<cmd>FloatermToggle<CR>")
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 
@@ -221,22 +223,22 @@ local nvim_completion = require("completion")
 local custom_attach = function()
   nvim_completion.on_attach()
 
-  bufmap("n", "gd",        "<cmd>lua vim.lsp.buf.declaration()<CR>",                  {silent = true, noremap = true})
-  bufmap("n", "<c-]>",     "<cmd>lua vim.lsp.buf.definition()<CR>",                   {silent = true, noremap = true})
-  bufmap("n", "K",         "<cmd>lua vim.lsp.buf.hover()<CR>",                        {silent = true, noremap = true})
-  bufmap("n", "gD",        "<cmd>lua vim.lsp.buf.implementation()<CR>",               {silent = true, noremap = true})
-  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true, noremap = true})
-  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true, noremap = true})
-  bufmap("n", "1gD",       "<cmd>lua vim.lsp.buf.type_definition()<CR>",              {silent = true, noremap = true})
-  bufmap("n", "gr",        "<cmd>lua vim.lsp.buf.references()<CR>",                   {silent = true, noremap = true})
-  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>",                       {silent = true, noremap = true})
-  bufmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>",                   {silent = true, noremap = true})
-  bufmap("n", "g0",        "<cmd>lua vim.lsp.buf.document_symbol()<CR>",              {silent = true, noremap = true})
-  bufmap("n", "gW",        "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>",             {silent = true, noremap = true})
-  bufmap("n", "ga",        "<cmd>lua vim.lsp.buf.code_action()<CR>",                  {silent = true, noremap = true})
-  bufmap("n", "ge",        "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", {silent = true, noremap = true})
-  bufmap("n", "]d",        "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",             {silent = true, noremap = true})
-  bufmap("n", "[d",        "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>",             {silent = true, noremap = true})
+  bufmap("n", "gd",        "<cmd>lua vim.lsp.buf.declaration()<CR>",                  {silent = true})
+  bufmap("n", "<c-]>",     "<cmd>lua vim.lsp.buf.definition()<CR>",                   {silent = true})
+  bufmap("n", "K",         "<cmd>lua vim.lsp.buf.hover()<CR>",                        {silent = true})
+  bufmap("n", "gD",        "<cmd>lua vim.lsp.buf.implementation()<CR>",               {silent = true})
+  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true})
+  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true})
+  bufmap("n", "1gD",       "<cmd>lua vim.lsp.buf.type_definition()<CR>",              {silent = true})
+  bufmap("n", "gr",        "<cmd>lua vim.lsp.buf.references()<CR>",                   {silent = true})
+  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>",                       {silent = true})
+  bufmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>",                   {silent = true})
+  bufmap("n", "g0",        "<cmd>lua vim.lsp.buf.document_symbol()<CR>",              {silent = true})
+  bufmap("n", "gW",        "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>",             {silent = true})
+  bufmap("n", "ga",        "<cmd>lua vim.lsp.buf.code_action()<CR>",                  {silent = true})
+  bufmap("n", "ge",        "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", {silent = true})
+  bufmap("n", "]d",        "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",             {silent = true})
+  bufmap("n", "[d",        "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>",             {silent = true})
 
   print("LSP Attached.")
 end
@@ -300,4 +302,4 @@ require'nvim-treesitter.configs'.setup {
   -- },
 }
 -- This is kinda illegal. I took this from the CursorHold autocmd
-map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>", {noremap = true, silent = true})
+map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>", {silent = true})
