@@ -215,7 +215,6 @@ local custom_attach = function()
   bufmap("n", "1gD",       "<cmd>lua vim.lsp.buf.type_definition()<cr>",              {silent = true})
   bufmap("n", "gr",        "<cmd>lua vim.lsp.buf.references()<cr>",                   {silent = true})
   bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",                       {silent = true})
-  bufmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<cr>",                   {silent = true})
   bufmap("n", "g0",        "<cmd>lua vim.lsp.buf.document_symbol()<cr>",              {silent = true})
   bufmap("n", "gW",        "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",             {silent = true})
   bufmap("n", "ga",        "<cmd>lua vim.lsp.buf.code_action()<cr>",                  {silent = true})
@@ -286,3 +285,39 @@ require'nvim-treesitter.configs'.setup {
 }
 -- This is kinda illegal. I took this from the CursorHold autocmd
 map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<cr>", {silent = true})
+
+---------- Formatting ----------
+paq "mhartington/formatter.nvim"
+require("formatter").setup {
+  logging = false,
+  filetype = {
+    javascript = {
+      function()
+        return {
+          exe = "prettier",
+          args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+          stdin = true,
+        }
+      end
+    },
+    rust = {
+      function()
+        return {
+          exe = "rustfmt",
+          args = {"--emit=stdout"},
+          stdin = true,
+        }
+      end
+    },
+    lua = {
+      function()
+        return {
+          exe = "luafmt",
+          args = {"--indent-count", 2, "--stdin"},
+          stdin = true,
+        }
+      end
+    }
+  }
+}
+map("n", "<leader>f", "<cmd>Format<cr>")
