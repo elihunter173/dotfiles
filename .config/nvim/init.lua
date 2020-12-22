@@ -1,6 +1,5 @@
 -- Short aliases
-local g = vim.g
-local cmd = vim.cmd
+local cmd, g = vim.cmd, vim.g
 
 local MAP_DEFAULTS = {noremap = true}
 local function map(mode, lhs, rhs, opts)
@@ -66,10 +65,10 @@ vim.o.background = "dark"
 -- TODO: How do I do this more natively?
 cmd "let mapleader = ' '"
 -- Prevent space from moving forward in normal mode
-map("n", " ", "<NOP>")
+map("n", " ", "")
 
 -- I like using s for other mappings
-map("n", "s", "<NOP>")
+map("n", "s", "")
 
 -- Make saving and quitting easier and faster
 map("n", "<leader>w", "<cmd>write<cr>")
@@ -158,8 +157,8 @@ paq "antoinemadec/FixCursorHold.nvim"
 -- Lightweight git wrapper
 -- TODO: Check out Gina.vim
 paq "tpope/vim-fugitive"
-map("n", "<leader>gs", "<cmd>Gstatus<CR>")
-map("n", "<leader>gp", "<cmd>Gpush<CR>")
+map("n", "<leader>gs", "<cmd>Gstatus<cr>")
+map("n", "<leader>gp", "<cmd>Gpush<cr>")
 
 -- Netrw but simpler and better
 paq "justinmk/vim-dirvish"
@@ -189,31 +188,15 @@ g.fzf_buffers_jump = 1
 g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
 g.fzf_preview_window = ""
 -- Nice keybindings
-map("n", "<leader>o", "<cmd>BLines<CR>")
-map("n", "<leader>O", "<cmd>Files<CR>")
-
--- paq "jiangmiao/auto-pairs"
--- endwise isn't working for some reason
--- paq {
---   "tpope/vim-endwise",
---   config = function()
---     vim.api.nvim_command [[
---     autocmd FileType tex
---     \ let b:endwise_addition = '\="\\end" . matchstr(submatch(0), "{.\\{-}}")' |
---     \ let b:endwise_words = 'begin' |
---     \ let b:endwise_pattern = '\\begin{.\{-}}' |
---     \ let b:endwise_syngroups = 'texSection,texBeginEnd,texBeginEndName,texStatement'
---     ]]
---   end,
--- }
+map("n", "<leader>o", "<cmd>BLines<cr>")
+map("n", "<leader>O", "<cmd>Files<cr>")
 
 -- Floating terminal
 paq "voldikss/vim-floaterm"
-map("n", "<leader>t", "<cmd>FloatermToggle<CR>")
+map("n", "<leader>t", "<cmd>FloatermToggle<cr>")
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 
--- LSP
 ---------- LSP ----------
 paq "neovim/nvim-lspconfig"
 paq "nvim-lua/completion-nvim"
@@ -223,22 +206,22 @@ local nvim_completion = require("completion")
 local custom_attach = function()
   nvim_completion.on_attach()
 
-  bufmap("n", "gd",        "<cmd>lua vim.lsp.buf.declaration()<CR>",                  {silent = true})
-  bufmap("n", "<c-]>",     "<cmd>lua vim.lsp.buf.definition()<CR>",                   {silent = true})
-  bufmap("n", "K",         "<cmd>lua vim.lsp.buf.hover()<CR>",                        {silent = true})
-  bufmap("n", "gD",        "<cmd>lua vim.lsp.buf.implementation()<CR>",               {silent = true})
-  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true})
-  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<CR>",               {silent = true})
-  bufmap("n", "1gD",       "<cmd>lua vim.lsp.buf.type_definition()<CR>",              {silent = true})
-  bufmap("n", "gr",        "<cmd>lua vim.lsp.buf.references()<CR>",                   {silent = true})
-  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>",                       {silent = true})
-  bufmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>",                   {silent = true})
-  bufmap("n", "g0",        "<cmd>lua vim.lsp.buf.document_symbol()<CR>",              {silent = true})
-  bufmap("n", "gW",        "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>",             {silent = true})
-  bufmap("n", "ga",        "<cmd>lua vim.lsp.buf.code_action()<CR>",                  {silent = true})
-  bufmap("n", "ge",        "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", {silent = true})
-  bufmap("n", "]d",        "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",             {silent = true})
-  bufmap("n", "[d",        "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>",             {silent = true})
+  bufmap("n", "gd",        "<cmd>lua vim.lsp.buf.declaration()<cr>",                  {silent = true})
+  bufmap("n", "<c-]>",     "<cmd>lua vim.lsp.buf.definition()<cr>",                   {silent = true})
+  bufmap("n", "K",         "<cmd>lua vim.lsp.buf.hover()<cr>",                        {silent = true})
+  bufmap("n", "gD",        "<cmd>lua vim.lsp.buf.implementation()<cr>",               {silent = true})
+  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<cr>",               {silent = true})
+  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<cr>",               {silent = true})
+  bufmap("n", "1gD",       "<cmd>lua vim.lsp.buf.type_definition()<cr>",              {silent = true})
+  bufmap("n", "gr",        "<cmd>lua vim.lsp.buf.references()<cr>",                   {silent = true})
+  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",                       {silent = true})
+  bufmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<cr>",                   {silent = true})
+  bufmap("n", "g0",        "<cmd>lua vim.lsp.buf.document_symbol()<cr>",              {silent = true})
+  bufmap("n", "gW",        "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",             {silent = true})
+  bufmap("n", "ga",        "<cmd>lua vim.lsp.buf.code_action()<cr>",                  {silent = true})
+  bufmap("n", "ge",        "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", {silent = true})
+  bufmap("n", "]d",        "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",             {silent = true})
+  bufmap("n", "[d",        "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",             {silent = true})
 
   print("LSP Attached.")
 end
@@ -302,4 +285,4 @@ require'nvim-treesitter.configs'.setup {
   -- },
 }
 -- This is kinda illegal. I took this from the CursorHold autocmd
-map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<CR>", {silent = true})
+map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<cr>", {silent = true})
