@@ -3,11 +3,13 @@ local cmd, g = vim.cmd, vim.g
 
 local MAP_DEFAULTS = {noremap = true}
 local function map(mode, lhs, rhs, opts)
-  vim.api.nvim_set_keymap(mode, lhs, rhs, vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
+  vim.api.nvim_set_keymap(mode, lhs, rhs,
+                          vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
 local function bufmap(mode, lhs, rhs, opts)
   -- 0 means current buffer
-  vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
+  vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs,
+                              vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
 
 ---------- Options ----------
@@ -56,9 +58,7 @@ vim.o.laststatus = 2
 vim.o.statusline = "%f%m%r%w%q%=%{FugitiveHead()}"
 
 -- Colorscheme
-if os.getenv("TERM") ~= "screen" then
-  vim.o.termguicolors = true
-end
+if os.getenv("TERM") ~= "screen" then vim.o.termguicolors = true end
 vim.o.background = "dark"
 
 ---------- Mappings ----------
@@ -108,12 +108,10 @@ cmd "augroup END"
 
 -- Replace the current line with todo comment
 -- TODO: Make this less hacky
-map(
-  "n", "<leader>c",
-  "<cmd>call append('.', substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>j==f:la")
-map(
-  "n", "<leader>C",
-  "<cmd>call append(line('.')-1, substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>k==f:la")
+map("n", "<leader>c",
+    "<cmd>call append('.', substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>j==f:la")
+map("n", "<leader>C",
+    "<cmd>call append(line('.')-1, substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>k==f:la")
 
 ---------- Plugins ----------
 cmd "packadd paq-nvim"
@@ -146,10 +144,7 @@ g.EditorConfig_exclude_patterns = {"fugitive://.\\*"}
 -- Multi-cursor support!
 paq "mg979/vim-visual-multi"
 g.VM_leader = "\\"
-g.VM_maps = {
-  ["Add Cursor Down"] = "<M-j>",
-  ["Add Cursor Up"] = "<M-k>",
-}
+g.VM_maps = {["Add Cursor Down"] = "<M-j>", ["Add Cursor Up"] = "<M-k>"}
 
 -- Neovim's CursorHold is a little laggy right now. This fixes that.
 paq "antoinemadec/FixCursorHold.nvim"
@@ -185,7 +180,7 @@ paq "mbbill/undotree"
 paq "junegunn/fzf.vim"
 -- Don't open unnecessary files
 g.fzf_buffers_jump = 1
-g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
+g.fzf_layout = {window = {width = 0.85, height = 0.8}}
 g.fzf_preview_window = ""
 -- Nice keybindings
 map("n", "<leader>o", "<cmd>BLines<cr>")
@@ -206,60 +201,64 @@ local nvim_completion = require("completion")
 local custom_attach = function()
   nvim_completion.on_attach()
 
-  bufmap("n", "gd",        "<cmd>lua vim.lsp.buf.declaration()<cr>",                  {silent = true})
-  bufmap("n", "<c-]>",     "<cmd>lua vim.lsp.buf.definition()<cr>",                   {silent = true})
-  bufmap("n", "K",         "<cmd>lua vim.lsp.buf.hover()<cr>",                        {silent = true})
-  bufmap("n", "gD",        "<cmd>lua vim.lsp.buf.implementation()<cr>",               {silent = true})
-  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<cr>",               {silent = true})
-  bufmap("n", "<C-s>",     "<cmd>lua vim.lsp.buf.signature_help()<cr>",               {silent = true})
-  bufmap("n", "1gD",       "<cmd>lua vim.lsp.buf.type_definition()<cr>",              {silent = true})
-  bufmap("n", "gr",        "<cmd>lua vim.lsp.buf.references()<cr>",                   {silent = true})
-  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",                       {silent = true})
-  bufmap("n", "g0",        "<cmd>lua vim.lsp.buf.document_symbol()<cr>",              {silent = true})
-  bufmap("n", "gW",        "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",             {silent = true})
-  bufmap("n", "ga",        "<cmd>lua vim.lsp.buf.code_action()<cr>",                  {silent = true})
-  bufmap("n", "ge",        "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", {silent = true})
-  bufmap("n", "]d",        "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",             {silent = true})
-  bufmap("n", "[d",        "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",             {silent = true})
+  bufmap("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>", {silent = true})
+  bufmap("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>", {silent = true})
+  bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", {silent = true})
+  bufmap("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>", {silent = true})
+  bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+         {silent = true})
+  bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+         {silent = true})
+  bufmap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
+         {silent = true})
+  bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", {silent = true})
+  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", {silent = true})
+  bufmap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>",
+         {silent = true})
+  bufmap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",
+         {silent = true})
+  bufmap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>", {silent = true})
+  bufmap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",
+         {silent = true})
+  bufmap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
+         {silent = true})
+  bufmap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+         {silent = true})
 
   print("LSP Attached.")
 end
 
-lspconfig.pyls.setup{ on_attach = custom_attach }
-lspconfig.jdtls.setup{ on_attach = custom_attach }
+lspconfig.pyls.setup {on_attach = custom_attach}
+lspconfig.jdtls.setup {on_attach = custom_attach}
 
-lspconfig.vimls.setup{ on_attach = custom_attach }
+lspconfig.vimls.setup {on_attach = custom_attach}
 lspconfig.sumneko_lua.setup {
   cmd = {
-    vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/bin/Linux/lua-language-server",
-    "-E",
-    vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/main.lua",
+    os.getenv("HOME") ..
+        "/build/lua-language-server/bin/Linux/lua-language-server", "-E",
+    os.getenv("HOME") .. "/build/lua-language-server/main.lua",
   },
   on_attach = custom_attach,
   settings = {
     Lua = {
-      runtime = {
-        version = "LuaJIT",
-      },
+      runtime = {version = "LuaJIT"},
       diagnostics = {
         globals = {
-          -- vim
-          "vim",
-          -- busted
-          "describe", "it",
+          "vim", -- vim
+          "describe", "it", -- busted
         },
       },
     },
   },
 }
 
-lspconfig.yamlls.setup{ on_attach = custom_attach }
-lspconfig.bashls.setup{ on_attach = custom_attach }
+lspconfig.yamlls.setup {on_attach = custom_attach}
+lspconfig.bashls.setup {on_attach = custom_attach}
 
-lspconfig.texlab.setup{ on_attach = custom_attach }
+lspconfig.texlab.setup {on_attach = custom_attach}
 
-lspconfig.clangd.setup{ on_attach = custom_attach }
-lspconfig.rust_analyzer.setup{ on_attach = custom_attach }
+lspconfig.clangd.setup {on_attach = custom_attach}
+lspconfig.rust_analyzer.setup {on_attach = custom_attach}
 
 -- A nice tagbar for LSP
 paq "liuchengxu/vista.vim"
@@ -284,7 +283,9 @@ require'nvim-treesitter.configs'.setup {
   -- },
 }
 -- This is kinda illegal. I took this from the CursorHold autocmd
-map("n", "S", "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<cr>", {silent = true})
+map("n", "S",
+    "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<cr>",
+    {silent = true})
 
 ---------- Formatting ----------
 paq "mhartington/formatter.nvim"
@@ -298,26 +299,24 @@ require("formatter").setup {
           args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
           stdin = true,
         }
-      end
+      end,
     },
     rust = {
       function()
-        return {
-          exe = "rustfmt",
-          args = {"--emit=stdout"},
-          stdin = true,
-        }
-      end
+        return {exe = "rustfmt", args = {"--emit=stdout"}, stdin = true}
+      end,
     },
     lua = {
       function()
         return {
-          exe = "luafmt",
-          args = {"--indent-count", 2, "--stdin"},
+          exe = "lua-format",
+          args = {
+            "--indent-width=2", "--column-limit=80", "--extra-sep-at-table-end",
+          },
           stdin = true,
         }
-      end
-    }
-  }
+      end,
+    },
+  },
 }
 map("n", "<leader>f", "<cmd>Format<cr>")
