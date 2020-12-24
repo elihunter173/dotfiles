@@ -58,7 +58,9 @@ vim.o.laststatus = 2
 vim.o.statusline = "%f%m%r%w%q%=%{FugitiveHead()}"
 
 -- Colorscheme
-if os.getenv("TERM") ~= "screen" then vim.o.termguicolors = true end
+if os.getenv("TERM") ~= "screen" then
+  vim.o.termguicolors = true
+end
 vim.o.background = "dark"
 
 ---------- Mappings ----------
@@ -311,7 +313,10 @@ require("formatter").setup {
         return {
           exe = "lua-format",
           args = {
-            "--indent-width=2", "--column-limit=80", "--extra-sep-at-table-end",
+            "--indent-width=2", "--extra-sep-at-table-end",
+            "--no-keep-simple-control-block-one-line",
+            "--no-keep-simple-function-one-line",
+            "--single-quote-to-double-quote",
           },
           stdin = true,
         }
