@@ -86,7 +86,7 @@ map("n", "<C-k>", "<C-w>k")
 -- Quickfix mapping. Taken from tpope/vim-unimpaired. I used to have the whole
 -- plugin but this is all I used.
 map("n", "]q", "<cmd>cnext<cr>")
-map("n", "]q", "<cmd>cnext<cr>")
+map("n", "[q", "<cmd>cprev<cr>")
 
 --- Terminal settings
 -- Easier terminal opening. L for shell
