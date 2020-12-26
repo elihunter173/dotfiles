@@ -24,8 +24,8 @@ vim.o.mouse = "a"
 vim.o.scrolloff = 1
 vim.o.sidescrolloff = 5
 -- Show hidden characters
-vim.o.listchars = "tab:>\\ ,trail:-,extends:>,precedes:<,nbsp:+"
-vim.o.list = true
+vim.o.listchars = "tab:> ,trail:-,extends:>,precedes:<,nbsp:+"
+vim.wo.list = true
 -- Make splitting make more sense
 vim.o.splitbelow = true
 vim.o.splitright = true
@@ -158,7 +158,7 @@ map("n", "<leader>gs", "<cmd>Gstatus<cr>")
 map("n", "<leader>gp", "<cmd>Gpush<cr>")
 
 -- Netrw but simpler and better
-paq "justinmk/vim-dirvish"
+-- paq "justinmk/vim-dirvish"
 -- Disable netrw becapaq I use Dirvish
 g.loaded_netrwPlugin = 1
 
