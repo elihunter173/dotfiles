@@ -45,7 +45,7 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 -- Avoid showing message extra message when using completion
 vim.o.shortmess = vim.o.shortmess .. "c"
 -- Persistent undo
-vim.o.undofile = true
+vim.bo.undofile = true
 -- Incremental :substitute preview in same buffer
 vim.o.inccommand = "nosplit"
 -- GUI Font settings
@@ -159,8 +159,9 @@ map("n", "<leader>gp", "<cmd>Gpush<cr>")
 
 -- Netrw but simpler and better
 -- paq "justinmk/vim-dirvish"
--- Disable netrw becapaq I use Dirvish
+-- Disable netrw because I use Dirvish
 g.loaded_netrwPlugin = 1
+g.loaded_netrw = 1
 
 -- Syntax highlighting for more languages
 paq "plasticboy/vim-markdown"
@@ -271,7 +272,7 @@ g.vista_fold_toggle_icons = {"-", "+"}
 ---------- TreeSitter ----------
 paq "nvim-treesitter/nvim-treesitter"
 paq "nvim-treesitter/nvim-treesitter-refactor"
-require'nvim-treesitter.configs'.setup {
+require"nvim-treesitter.configs".setup {
   -- one of "all", "language", or a list of languages
   ensure_installed = "all",
   highlight = {
@@ -303,11 +304,6 @@ require("formatter").setup {
         }
       end,
     },
-    rust = {
-      function()
-        return {exe = "rustfmt", args = {"--emit=stdout"}, stdin = true}
-      end,
-    },
     lua = {
       function()
         return {
@@ -320,6 +316,16 @@ require("formatter").setup {
           },
           stdin = true,
         }
+      end,
+    },
+    python = {
+      function()
+        return {exe = "black", args = {"-"}, stdin = true}
+      end,
+    },
+    rust = {
+      function()
+        return {exe = "rustfmt", args = {"--emit=stdout"}, stdin = true}
       end,
     },
   },
