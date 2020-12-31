@@ -12,8 +12,51 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
-# My standard interactive shell config files
-source ~/.config/standard.sh
+has() {
+  command -v "$1" > /dev/null
+  return $?
+}
+
+# Tell GNUPG to use the terminal and no GUI
+export GPG_TTY=$(tty)
+
+if has nvr && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    export EDITOR='nvr -cc FloatermHide'
+elif has code && [ "$TERM_PROGRAM" = vscode ]; then
+    export EDITOR='code'
+elif has nvim; then
+    export EDITOR='nvim'
+elif has vim; then
+    export EDITOR='vim'
+else
+    export EDITOR='vi'
+fi
+
+has fd && export FZF_DEFAULT_COMMAND='fd --type f'
+
+# The defaults are good IMO
+unset LS_COLORS
+alias l='ls'
+alias ll='ls -lh'
+alias la='ls -a'
+has tree && alias lt='tree'
+alias ls='ls --color=auto -F'
+
+# Quick shortcuts
+alias e="$EDITOR"
+alias g='git' # further shortcuts in ~/.gitconfig
+alias o='xdg-open'
+
+# I have issues with xterm-termite cross platform
+if [[ $TERM == xterm-termite ]]; then
+    export TERM='xterm-256color'
+fi
+
+if [[ $TERM == xterm-kitty ]]; then
+    alias icat='kitty +kitten icat'
+    # xterm-kitty isn't supported everywhere
+    alias ssh='TERM=xterm-256color ssh'
+fi
 
 # I'm a traitor in the shell. I like emacs bindings there
 bindkey -e
@@ -42,10 +85,6 @@ zinit for \
   OMZ::lib/completion.zsh \
   OMZ::lib/history.zsh \
   OMZ::lib/key-bindings.zsh
-
-if command -v direnv &>/dev/null; then
-  eval "$(direnv hook zsh)"
-fi
 
 # Load nice prompt
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
