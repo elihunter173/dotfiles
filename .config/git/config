@@ -21,6 +21,7 @@
 	co = checkout
 	sw = switch
 	rs = restore
+	rb = rebase
 [status]
 	branch = true
 	short = true
