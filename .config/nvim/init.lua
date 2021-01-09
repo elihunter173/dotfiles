@@ -12,56 +12,71 @@ local function bufmap(mode, lhs, rhs, opts)
                               vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
 
+-- TODO: Remove when https://github.com/neovim/neovim/pull/13479 lands
+local opts_info = vim.api.nvim_get_all_options_info()
+local opt = setmetatable({}, {
+  __index = vim.o,
+  __newindex = function(_, key, value)
+    vim.o[key] = value
+    local scope = opts_info[key].scope
+    if scope == "win" then
+      vim.wo[key] = value
+    elseif scope == "buf" then
+      vim.bo[key] = value
+    end
+  end,
+})
+
 ---------- Options ----------
 -- Enable line numbers and ruler
-vim.wo.number = true
-vim.wo.relativenumber = true
+opt.number = true
+opt.relativenumber = true
 -- Enable ftplugins for everything
 -- filetype plugin indent on is default in Neovim
 -- Enable mouse support for all modes
-vim.o.mouse = "a"
+opt.mouse = "a"
 -- Pad cursor when scrolling
-vim.o.scrolloff = 1
-vim.o.sidescrolloff = 5
+opt.scrolloff = 1
+opt.sidescrolloff = 5
 -- Show hidden characters
-vim.o.listchars = "tab:> ,trail:-,extends:>,precedes:<,nbsp:+"
-vim.wo.list = true
+opt.listchars = "tab:> ,trail:-,extends:>,precedes:<,nbsp:+"
+opt.list = true
 -- Make splitting make more sense
-vim.o.splitbelow = true
-vim.o.splitright = true
+opt.splitbelow = true
+opt.splitright = true
 -- No annoying sound or blink on errors
-vim.o.errorbells = false
-vim.o.visualbell = false
+opt.errorbells = false
+opt.visualbell = false
 -- Why would you ever put 2 spaces after punctuation??
-vim.o.joinspaces = false
+opt.joinspaces = false
 -- Give yourself a useful name in the terminal
-vim.o.title = true
+opt.title = true
 -- A more civilized tab
-vim.o.tabstop = 4
+opt.tabstop = 4
 -- Don't redraw during macros (for performance)
-vim.o.lazyredraw = true
+opt.lazyredraw = true
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noinsert,noselect"
+opt.completeopt = "menuone,noinsert,noselect"
 -- Avoid showing message extra message when using completion
-vim.o.shortmess = vim.o.shortmess .. "c"
+opt.shortmess = opt.shortmess .. "c"
 -- Persistent undo
-vim.bo.undofile = true
+opt.undofile = true
 -- Incremental :substitute preview in same buffer
-vim.o.inccommand = "nosplit"
+opt.inccommand = "nosplit"
 -- GUI Font settings
-vim.o.guifont = "Hack:h12"
+opt.guifont = "Hack:h12"
 -- ripgrep >> grep
-vim.o.grepprg = "rg --vimgrep"
+opt.grepprg = "rg --vimgrep"
 
 -- Statusline
-vim.o.laststatus = 2
-vim.o.statusline = "%f%m%r%w%q%=%{FugitiveHead()}"
+opt.laststatus = 2
+opt.statusline = "%f%m%r%w%q%=%{FugitiveHead()}"
 
 -- Colorscheme
 if os.getenv("TERM") ~= "screen" then
-  vim.o.termguicolors = true
+  opt.termguicolors = true
 end
-vim.o.background = "dark"
+opt.background = "dark"
 
 ---------- Mappings ----------
 -- TODO: How do I do this more natively?
