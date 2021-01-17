@@ -186,8 +186,7 @@ g.fzf_buffers_jump = 1
 g.fzf_layout = {window = {width = 0.85, height = 0.8}}
 g.fzf_preview_window = ""
 -- Nice keybindings
-map("n", "<leader>o", "<cmd>BLines<cr>")
-map("n", "<leader>O", "<cmd>Files<cr>")
+map("n", "<leader>o", "<cmd>Files<cr>")
 
 -- Floating terminal
 paq "voldikss/vim-floaterm"
@@ -272,6 +271,9 @@ g.vista_fold_toggle_icons = {"-", "+"}
 ---------- TreeSitter ----------
 paq "nvim-treesitter/nvim-treesitter"
 paq "nvim-treesitter/nvim-treesitter-refactor"
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+cmd "autocmd BufRead,BufNewFile *.lalrpop set filetype=lalrpop"
+parser_config.rust.used_by = "lalrpop"
 require"nvim-treesitter.configs".setup {
   -- one of "all", "language", or a list of languages
   ensure_installed = "all",
@@ -291,19 +293,25 @@ map("n", "S",
     {silent = true})
 
 ---------- Formatting ----------
+local prettier = function()
+  return {
+    exe = "prettier",
+    args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+    stdin = true,
+  }
+end
+local clang_format = function()
+  return {exe = "clang-format", args = {}, stdin = true}
+end
 paq "mhartington/formatter.nvim"
 require("formatter").setup {
   logging = false,
   filetype = {
-    javascript = {
-      function()
-        return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
-          stdin = true,
-        }
-      end,
-    },
+    html = {prettier},
+    css = {prettier},
+    scss = {prettier},
+    javascript = {prettier},
+    typescript = {prettier},
     lua = {
       function()
         return {
@@ -332,6 +340,8 @@ require("formatter").setup {
         }
       end,
     },
+    c = {clang_format},
+    cpp = {clang_format},
   },
 }
 map("n", "<leader>f", "<cmd>Format<cr>")
