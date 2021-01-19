@@ -41,3 +41,6 @@ fi
 if command -v luarocks > /dev/null; then
     export PATH="$PATH:$HOME/.luarocks/bin"
 fi
+
+export ARC_GROUNDPC_SHARED_DIR="$HOME/src/arc"
+export ARC_FLIGHTPC_SHARED_DIR="$HOME/src/arc"
