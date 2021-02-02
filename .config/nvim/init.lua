@@ -78,6 +78,11 @@ if os.getenv("TERM") ~= "screen" then
 end
 opt.background = "dark"
 
+-- Automatically enable spelling on certain files
+cmd "autocmd FileType tex,latex setlocal spell"
+-- Use single-line comments for C and C++
+cmd "autocmd FileType c,cpp set commentstring=//%s"
+
 ---------- Mappings ----------
 -- TODO: How do I do this more natively?
 cmd "let mapleader = ' '"
