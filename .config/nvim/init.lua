@@ -221,6 +221,17 @@ g.floaterm_height = 0.8
 paq "neovim/nvim-lspconfig"
 paq "hrsh7th/nvim-compe"
 paq "norcalli/snippets.nvim"
+
+-- HACK: Until nvim-compe lazily registers providers, I force these to not laod
+local force_unload_compe = {
+  -- "nvim_lsp", "snippets_nvim"
+  "buffer", "calc", "nvim_lua", "path", "spell", "tags", "treesitter",
+  "ultisnips", "vim_lsc", "vim_lsp", "vsnip",
+}
+for _, provider in ipairs(force_unload_compe) do
+  g["loaded_compe_" .. provider] = true
+end
+
 local lspconfig = require("lspconfig")
 local compe = require("compe")
 local snippets = require("snippets")
