@@ -6,9 +6,9 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs,
                           vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
-local function bufmap(mode, lhs, rhs, opts)
+local function bufmap(bufnr, mode, lhs, rhs, opts)
   -- 0 means current buffer
-  vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs,
+  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs,
                               vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
 
@@ -56,7 +56,7 @@ opt.tabstop = 4
 -- Don't redraw during macros (for performance)
 opt.lazyredraw = true
 -- Set completeopt to have a better completion experience
-opt.completeopt = "menuone,noinsert,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 -- Avoid showing message extra message when using completion
 opt.shortmess = opt.shortmess .. "c"
 -- Persistent undo
@@ -146,6 +146,9 @@ paq "lifepillar/vim-solarized8"
 -- TODO: Figure out if there's a better way to set colorschemes in lua
 cmd "colorscheme solarized8"
 
+-- Custom filetypes
+paq "chr4/nginx.vim"
+
 -- General editing
 -- Easier commenting for any language
 paq "tpope/vim-commentary"
@@ -216,35 +219,66 @@ g.floaterm_height = 0.8
 
 ---------- LSP ----------
 paq "neovim/nvim-lspconfig"
-paq "nvim-lua/completion-nvim"
+paq "hrsh7th/nvim-compe"
+paq "norcalli/snippets.nvim"
 local lspconfig = require("lspconfig")
-local nvim_completion = require("completion")
+local compe = require("compe")
+local snippets = require("snippets")
 
-local custom_attach = function()
-  nvim_completion.on_attach()
+compe.setup {
+  source = {
+    -- TODO: Only enable this in custom_attach?
+    nvim_lsp = true,
+    -- TODO: Make snippets higher priorty than nvim_lsp?
+    snippets_nvim = true,
+  },
+}
+map("i", "<C-Space>", "compe#complete()", {silent = true, expr = true})
+map("i", "<CR>", "compe#confirm('<CR>')", {silent = true, expr = true})
+map("i", "<C-e>", "compe#close('<C-e>')", {silent = true, expr = true})
 
-  bufmap("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>", {silent = true})
-  bufmap("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>", {silent = true})
-  bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", {silent = true})
-  bufmap("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>", {silent = true})
-  bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+snippets.set_ux(require("snippets.inserters.vim_input"))
+map("i", "<C-j>", "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
+map("i", "<C-k>", "<cmd>lua return require'snippets'.advance_snippet(-1)<CR>")
+local tex_snips = {
+  env = [[
+\begin{$1}
+  $0
+\end{$1}
+]],
+}
+snippets.snippets = {tex = tex_snips, latex = tex_snips}
+
+local custom_attach = function(_, bufnr)
+  bufmap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>",
          {silent = true})
-  bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+  bufmap(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>",
          {silent = true})
-  bufmap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
+  bufmap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", {silent = true})
+  bufmap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>",
          {silent = true})
-  bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", {silent = true})
-  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", {silent = true})
-  bufmap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>",
+  bufmap(bufnr, "n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
          {silent = true})
-  bufmap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",
+  bufmap(bufnr, "n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
          {silent = true})
-  bufmap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>", {silent = true})
-  bufmap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",
+  bufmap(bufnr, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
          {silent = true})
-  bufmap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
+  bufmap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>",
          {silent = true})
-  bufmap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+  bufmap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",
+         {silent = true})
+  bufmap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>",
+         {silent = true})
+  bufmap(bufnr, "n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",
+         {silent = true})
+  bufmap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>",
+         {silent = true})
+  bufmap(bufnr, "n", "ge",
+         "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",
+         {silent = true})
+  bufmap(bufnr, "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
+         {silent = true})
+  bufmap(bufnr, "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
          {silent = true})
 
   print("LSP Attached.")
