@@ -89,6 +89,8 @@ zinit for \
 # Load nice prompt
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
+# Magenta and red are hard to tell apart in solarized
+zstyle :prompt:pure:prompt:success color blue
 
 # Do ROS setup
 if [[ -f /opt/ros/melodic/setup.zsh ]]; then
