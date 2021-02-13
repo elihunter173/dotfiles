@@ -100,6 +100,7 @@ microkernels
 microservices
 middleware
 monomorphism
+multiset
 multithreading
 mutex
 mutexes
@@ -147,6 +148,7 @@ righthand
 RPC
 runtimes
 sandboxing
+seximal
 Spotify
 struct
 structs
@@ -186,4 +188,3 @@ wildcard
 wildcards
 YouTube
 ZMQ
-seximal

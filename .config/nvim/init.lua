@@ -79,7 +79,7 @@ end
 opt.background = "dark"
 
 -- Automatically enable spelling on certain files
-cmd "autocmd FileType tex,latex setlocal spell"
+cmd "autocmd FileType tex setlocal spell"
 -- Use single-line comments for C and C++
 cmd "autocmd FileType c,cpp set commentstring=//%s"
 
@@ -235,6 +235,7 @@ end
 local lspconfig = require("lspconfig")
 local compe = require("compe")
 local snippets = require("snippets")
+local sniputil = require("snippets.utils")
 
 compe.setup {
   source = {
@@ -248,17 +249,17 @@ map("i", "<C-Space>", "compe#complete()", {silent = true, expr = true})
 map("i", "<CR>", "compe#confirm('<CR>')", {silent = true, expr = true})
 map("i", "<C-e>", "compe#close('<C-e>')", {silent = true, expr = true})
 
-snippets.set_ux(require("snippets.inserters.vim_input"))
+snippets.set_ux(require("snippets.inserters.text_markers"))
 map("i", "<C-j>", "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
 map("i", "<C-k>", "<cmd>lua return require'snippets'.advance_snippet(-1)<CR>")
-local tex_snips = {
-  env = [[
+snippets.snippets = {
+  tex = {
+    env = sniputil.match_indentation [[
 \begin{$1}
   $0
-\end{$1}
-]],
+\end{$1}]],
+  },
 }
-snippets.snippets = {tex = tex_snips, latex = tex_snips}
 
 local custom_attach = function(_, bufnr)
   bufmap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>",
@@ -338,6 +339,7 @@ paq "nvim-treesitter/nvim-treesitter"
 paq "nvim-treesitter/nvim-treesitter-refactor"
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 cmd "autocmd BufRead,BufNewFile *.lalrpop set filetype=lalrpop"
+cmd "autocmd FileType lalrpop set commentstring=//%s"
 parser_config.rust.used_by = "lalrpop"
 require"nvim-treesitter.configs".setup {
   -- one of "all", "language", or a list of languages
@@ -391,6 +393,7 @@ require("formatter").setup {
         }
       end,
     },
+    -- TODO: Add isort
     python = {
       function()
         return {exe = "black", args = {"-"}, stdin = true}
