@@ -35,12 +35,15 @@ fi
 has fd && export FZF_DEFAULT_COMMAND='fd --type f'
 
 # The defaults are good IMO
-unset LS_COLORS
-alias l='ls'
-alias ll='ls -lh'
-alias la='ls -a'
-has tree && alias lt='tree'
-alias ls='ls --color=auto -F'
+if has exa; then
+  alias l='exa --classify'
+  alias ll='l --long --header'
+  alias la='l --all'
+else
+  alias l='ls --color=auto -F'
+  alias ll='l -lh'
+  alias la='l -a'
+fi
 
 # Quick shortcuts
 alias e="$EDITOR"
