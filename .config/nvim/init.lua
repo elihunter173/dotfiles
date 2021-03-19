@@ -79,7 +79,7 @@ end
 opt.background = "dark"
 
 -- Automatically enable spelling on certain files
-cmd "autocmd FileType tex setlocal spell"
+cmd "autocmd FileType tex,markdown setlocal spell"
 -- Use single-line comments for C and C++
 cmd "autocmd FileType c,cpp set commentstring=//%s"
 
@@ -177,8 +177,8 @@ paq "antoinemadec/FixCursorHold.nvim"
 -- Lightweight git wrapper
 -- TODO: Check out Gina.vim
 paq "tpope/vim-fugitive"
-map("n", "<leader>gs", "<cmd>Gstatus<cr>")
-map("n", "<leader>gp", "<cmd>Gpush<cr>")
+map("n", "<leader>gs", "<cmd>Git<cr>")
+map("n", "<leader>gp", "<cmd>Git push<cr>")
 
 -- Netrw but simpler and better
 -- paq "justinmk/vim-dirvish"
@@ -220,6 +220,7 @@ g.floaterm_height = 0.8
 ---------- LSP ----------
 paq "neovim/nvim-lspconfig"
 paq "hrsh7th/nvim-compe"
+-- TODO: Move snippets elsewhere
 paq "norcalli/snippets.nvim"
 
 -- HACK: Until nvim-compe lazily registers providers, I force these to not laod
@@ -232,11 +233,7 @@ for _, provider in ipairs(force_unload_compe) do
   g["loaded_compe_" .. provider] = true
 end
 
-local lspconfig = require("lspconfig")
 local compe = require("compe")
-local snippets = require("snippets")
-local sniputil = require("snippets.utils")
-
 compe.setup {
   source = {
     -- TODO: Only enable this in custom_attach?
@@ -249,6 +246,8 @@ map("i", "<C-Space>", "compe#complete()", {silent = true, expr = true})
 map("i", "<CR>", "compe#confirm('<CR>')", {silent = true, expr = true})
 map("i", "<C-e>", "compe#close('<C-e>')", {silent = true, expr = true})
 
+local snippets = require("snippets")
+local sniputil = require("snippets.utils")
 snippets.set_ux(require("snippets.inserters.text_markers"))
 map("i", "<C-j>", "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
 map("i", "<C-k>", "<cmd>lua return require'snippets'.advance_snippet(-1)<CR>")
@@ -261,52 +260,55 @@ snippets.snippets = {
   },
 }
 
-local custom_attach = function(_, bufnr)
-  bufmap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", {silent = true})
-  bufmap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "ge",
-         "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
-         {silent = true})
-  bufmap(bufnr, "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
-         {silent = true})
+local lspconfig = require("lspconfig")
+lspconfig.util.default_config = vim.tbl_extend("force",
+                                               lspconfig.util.default_config, {
+  on_attach = function(_, bufnr)
+    bufmap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", {silent = true})
+    bufmap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "ge",
+           "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
+           {silent = true})
+    bufmap(bufnr, "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+           {silent = true})
 
-  print("LSP Attached.")
-end
+    print("LSP Attached.")
+  end,
+})
 
-lspconfig.pyls.setup {on_attach = custom_attach}
-lspconfig.jdtls.setup {on_attach = custom_attach}
+lspconfig.pyls.setup {}
+lspconfig.jdtls.setup {}
 
-lspconfig.vimls.setup {on_attach = custom_attach}
+lspconfig.vimls.setup {}
 lspconfig.sumneko_lua.setup {
   cmd = {
     os.getenv("HOME") ..
         "/build/lua-language-server/bin/Linux/lua-language-server", "-E",
     os.getenv("HOME") .. "/build/lua-language-server/main.lua",
   },
-  on_attach = custom_attach,
   settings = {
     Lua = {
       runtime = {version = "LuaJIT"},
@@ -320,13 +322,13 @@ lspconfig.sumneko_lua.setup {
   },
 }
 
-lspconfig.yamlls.setup {on_attach = custom_attach}
-lspconfig.bashls.setup {on_attach = custom_attach}
+lspconfig.yamlls.setup {}
+lspconfig.bashls.setup {}
 
-lspconfig.texlab.setup {on_attach = custom_attach}
+lspconfig.texlab.setup {}
 
-lspconfig.clangd.setup {on_attach = custom_attach}
-lspconfig.rust_analyzer.setup {on_attach = custom_attach}
+lspconfig.clangd.setup {}
+lspconfig.rust_analyzer.setup {}
 
 -- A nice tagbar for LSP
 paq "liuchengxu/vista.vim"

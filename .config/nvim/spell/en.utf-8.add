@@ -25,6 +25,7 @@ codomain
 codomains
 config
 consult
+contraposition
 coset
 cosets
 creational
@@ -44,9 +45,11 @@ desugaring
 diagonalization
 diff
 diffs
+Dilworth's
 distro
 DNS
 dropdown
+elses
 embarrassingly
 endian
 endianness
@@ -58,6 +61,7 @@ Fagan
 flakey
 frontend
 frontends
+GiB
 gimbal
 GitHub
 globalization
@@ -83,6 +87,7 @@ ISAs
 iterable
 iterables
 JSON
+Jupyter
 kanban
 lefthand
 lexer
@@ -99,6 +104,7 @@ microkernel
 microkernels
 microservices
 middleware
+Mirsky's
 monomorphism
 multiset
 multithreading
@@ -108,6 +114,7 @@ nadired
 namespace
 namespaces
 nanoscience
+NCSU
 nitrifying
 NPC
 offline
@@ -121,7 +128,9 @@ Pixhawk
 playlist
 plugin
 plugins
+PMF
 polymorphism
+poset
 POSIX
 POV
 prepend
@@ -152,6 +161,7 @@ seximal
 Spotify
 struct
 structs
+subcover
 subtyped
 subtyping
 supertype
@@ -160,6 +170,7 @@ surjective
 syscall
 syscalls
 thruput
+TiB
 timestamp
 transgender
 truthy

@@ -103,3 +103,6 @@ fi
 function texwatch() {
   echo $@ | entr tectonic $@
 }
+function collate() {
+  pdftk A="$1" B="$2" shuffle A Bend-1 output "$3"
+}
