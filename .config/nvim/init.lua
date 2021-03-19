@@ -258,6 +258,19 @@ snippets.snippets = {
   $0
 \end{$1}]],
   },
+  rust = {
+    macro = sniputil.match_indentation [[
+macro_rules! $1 {
+  ($2) => {
+    $0
+  };
+}]],
+    test = sniputil.match_indentation [[
+#[test]
+fn test_$1() {
+  $0
+}]],
+  },
 }
 
 local lspconfig = require("lspconfig")
@@ -399,6 +412,8 @@ require("formatter").setup {
     python = {
       function()
         return {exe = "black", args = {"-"}, stdin = true}
+      end, function()
+        return {exe = "isort", args = {"-"}, stdin = true}
       end,
     },
     rust = {
