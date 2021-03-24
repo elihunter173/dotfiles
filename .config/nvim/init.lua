@@ -68,6 +68,9 @@ opt.guifont = "Hack:h12"
 -- ripgrep >> grep
 opt.grepprg = "rg --vimgrep"
 
+-- Use system clipboard
+opt.clipboard = "unnamedplus"
+
 -- Statusline
 opt.laststatus = 2
 opt.statusline = "%f%m%r%w%q%=%{FugitiveHead()}"
@@ -91,6 +94,12 @@ map("n", " ", "")
 
 -- I like using s for other mappings
 map("n", "s", "")
+
+-- Send c, x, etc. to black hole
+map("n", "c", '"_c')
+map("n", "C", '"_C')
+map("n", "x", '"_x')
+map("n", "X", '"_X')
 
 -- Make saving and quitting easier and faster
 map("n", "<leader>w", "<cmd>write<cr>")
