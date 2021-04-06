@@ -95,11 +95,11 @@ map("n", " ", "")
 -- I like using s for other mappings
 map("n", "s", "")
 
--- Send c, x, etc. to black hole
+-- Send c to black hole
 map("n", "c", '"_c')
 map("n", "C", '"_C')
-map("n", "x", '"_x')
-map("n", "X", '"_X')
+map("v", "c", '"_c')
+map("v", "C", '"_C')
 
 -- Make saving and quitting easier and faster
 map("n", "<leader>w", "<cmd>write<cr>")
