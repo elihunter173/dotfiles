@@ -157,6 +157,7 @@ cmd "colorscheme solarized8"
 
 -- Custom filetypes
 paq "chr4/nginx.vim"
+paq "JuliaEditorSupport/julia-vim"
 
 -- General editing
 -- Easier commenting for any language
