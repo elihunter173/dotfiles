@@ -19,7 +19,7 @@ if command -v go > /dev/null; then
 fi
 
 if [ -d "$HOME/.cargo" ]; then
-    export PATH="$HOME/.cargo/bin:$PATH"
+    . "$HOME/.cargo/env"
 fi
 
 if command -v npm > /dev/null; then
