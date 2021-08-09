@@ -1,5 +1,5 @@
 -- Short aliases
-local cmd, g = vim.cmd, vim.g
+local cmd, g, opt = vim.cmd, vim.g, vim.opt
 
 local MAP_DEFAULTS = {noremap = true}
 local function map(mode, lhs, rhs, opts)
@@ -11,21 +11,6 @@ local function bufmap(bufnr, mode, lhs, rhs, opts)
   vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs,
                               vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
-
--- TODO: Remove when https://github.com/neovim/neovim/pull/13479 lands
-local opts_info = vim.api.nvim_get_all_options_info()
-local opt = setmetatable({}, {
-  __index = vim.o,
-  __newindex = function(_, key, value)
-    vim.o[key] = value
-    local scope = opts_info[key].scope
-    if scope == "win" then
-      vim.wo[key] = value
-    elseif scope == "buf" then
-      vim.bo[key] = value
-    end
-  end,
-})
 
 ---------- Options ----------
 -- Enable line numbers and ruler
@@ -39,7 +24,7 @@ opt.mouse = "a"
 opt.scrolloff = 1
 opt.sidescrolloff = 5
 -- Show hidden characters
-opt.listchars = "tab:> ,trail:-,extends:>,precedes:<,nbsp:+"
+opt.listchars = { tab = "> ", trail = "-", extends = ">", precedes = "<", nbsp = "+" }
 opt.list = true
 -- Make splitting make more sense
 opt.splitbelow = true
@@ -56,9 +41,9 @@ opt.tabstop = 4
 -- Don't redraw during macros (for performance)
 opt.lazyredraw = true
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = "menu,menuone,noselect"
+opt.completeopt = { "menu", "menuone", "noselect" }
 -- Avoid showing message extra message when using completion
-opt.shortmess = opt.shortmess .. "c"
+opt.shortmess:append("c")
 -- Persistent undo
 opt.undofile = true
 -- Incremental :substitute preview in same buffer
@@ -322,7 +307,7 @@ lspconfig.util.default_config = vim.tbl_extend("force",
   end,
 })
 
-lspconfig.pyls.setup {}
+lspconfig.pylsp.setup {}
 lspconfig.jdtls.setup {}
 
 lspconfig.vimls.setup {}
