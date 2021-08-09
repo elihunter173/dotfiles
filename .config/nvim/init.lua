@@ -1,5 +1,5 @@
 -- Short aliases
-local cmd, g, opt = vim.cmd, vim.g, vim.opt
+local cmd, fn, g, opt = vim.cmd, vim.fn, vim.g, vim.opt
 
 local MAP_DEFAULTS = {noremap = true}
 local function map(mode, lhs, rhs, opts)
@@ -12,7 +12,9 @@ local function bufmap(bufnr, mode, lhs, rhs, opts)
                               vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
 
+-----------------------------
 ---------- Options ----------
+-----------------------------
 -- Enable line numbers and ruler
 opt.number = true
 opt.relativenumber = true
@@ -24,7 +26,13 @@ opt.mouse = "a"
 opt.scrolloff = 1
 opt.sidescrolloff = 5
 -- Show hidden characters
-opt.listchars = { tab = "> ", trail = "-", extends = ">", precedes = "<", nbsp = "+" }
+opt.listchars = {
+  tab = "> ",
+  trail = "-",
+  extends = ">",
+  precedes = "<",
+  nbsp = "+",
+}
 opt.list = true
 -- Make splitting make more sense
 opt.splitbelow = true
@@ -41,7 +49,7 @@ opt.tabstop = 4
 -- Don't redraw during macros (for performance)
 opt.lazyredraw = true
 -- Set completeopt to have a better completion experience
-opt.completeopt = { "menu", "menuone", "noselect" }
+opt.completeopt = {"menu", "menuone", "noselect"}
 -- Avoid showing message extra message when using completion
 opt.shortmess:append("c")
 -- Persistent undo
@@ -71,7 +79,9 @@ cmd "autocmd FileType tex,markdown setlocal spell"
 -- Use single-line comments for C and C++
 cmd "autocmd FileType c,cpp set commentstring=//%s"
 
+-----------------------------
 ---------- Mappings ----------
+-----------------------------
 -- TODO: How do I do this more natively?
 cmd "let mapleader = ' '"
 -- Prevent space from moving forward in normal mode
@@ -81,10 +91,10 @@ map("n", " ", "")
 map("n", "s", "")
 
 -- Send c to black hole
-map("n", "c", '"_c')
-map("n", "C", '"_C')
-map("v", "c", '"_c')
-map("v", "C", '"_C')
+map("n", "c", "\"_c")
+map("n", "C", "\"_C")
+map("v", "c", "\"_c")
+map("v", "C", "\"_C")
 
 -- Make saving and quitting easier and faster
 map("n", "<leader>w", "<cmd>write<cr>")
@@ -129,62 +139,74 @@ map("n", "<leader>c",
 map("n", "<leader>C",
     "<cmd>call append(line('.')-1, substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>k==f:la")
 
+-----------------------------
 ---------- Plugins ----------
-cmd "packadd paq-nvim"
-local paq = require("paq-nvim").paq
--- Let paq manage itself
-paq {"savq/paq-nvim", opt = true}
+-----------------------------
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+
+if fn.isdirectory(install_path) == 0 then
+  fn.system {
+    "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path,
+  }
+end
+cmd "packadd packer.nvim"
+local packer = require("packer")
+packer.init()
+packer.reset()
+local use = packer.use
+-- Let packer manage itself
+use 'wbthomason/packer.nvim'
 
 -- Colorscheme
-paq "lifepillar/vim-solarized8"
+use "lifepillar/vim-solarized8"
 -- TODO: Figure out if there's a better way to set colorschemes in lua
 cmd "colorscheme solarized8"
 
 -- Custom filetypes
-paq "chr4/nginx.vim"
-paq "JuliaEditorSupport/julia-vim"
+use "chr4/nginx.vim"
+use "JuliaEditorSupport/julia-vim"
 
 -- General editing
 -- Easier commenting for any language
-paq "tpope/vim-commentary"
+use "tpope/vim-commentary"
 -- Additional text objects
-paq "wellle/targets.vim"
+use "wellle/targets.vim"
 -- Surrounding text objects with any character
-paq "machakann/vim-sandwich"
+use "machakann/vim-sandwich"
 
 -- Configuration stuff
 -- Never think about indentation
-paq "tpope/vim-sleuth"
+use "tpope/vim-sleuth"
 
 -- https://EditorConfig.org
-paq "editorconfig/editorconfig-vim"
+use "editorconfig/editorconfig-vim"
 -- EditorConfig + Fugitive
 g.EditorConfig_exclude_patterns = {"fugitive://.\\*"}
 
 -- Multi-cursor support!
-paq "mg979/vim-visual-multi"
+use "mg979/vim-visual-multi"
 g.VM_leader = "\\"
 g.VM_maps = {["Add Cursor Down"] = "<M-j>", ["Add Cursor Up"] = "<M-k>"}
 
 -- Neovim's CursorHold is a little laggy right now. This fixes that.
-paq "antoinemadec/FixCursorHold.nvim"
+use "antoinemadec/FixCursorHold.nvim"
 
 -- Lightweight git wrapper
 -- TODO: Check out Gina.vim
-paq "tpope/vim-fugitive"
+use "tpope/vim-fugitive"
 map("n", "<leader>gs", "<cmd>Git<cr>")
 map("n", "<leader>gp", "<cmd>Git push<cr>")
 
 -- Netrw but simpler and better
--- paq "justinmk/vim-dirvish"
+-- use "justinmk/vim-dirvish"
 -- Disable netrw because I use Dirvish
 g.loaded_netrwPlugin = 1
 g.loaded_netrw = 1
 
 -- Syntax highlighting for more languages
-paq "plasticboy/vim-markdown"
+use "plasticboy/vim-markdown"
 -- For :TableFormat in markdown
-paq "godlygeek/tabular"
+use "godlygeek/tabular"
 -- Markdown shit
 g.vim_markdown_folding_disabled = 1
 g.vim_markdown_frontmatter = 1
@@ -195,10 +217,10 @@ g.tex_conceal = ""
 g.vim_markdown_math = 1
 
 -- Vim undotree visualizer
-paq "mbbill/undotree"
+use "mbbill/undotree"
 
 -- Fuzzy finding!
-paq "junegunn/fzf.vim"
+use "junegunn/fzf.vim"
 -- Don't open unnecessary files
 g.fzf_buffers_jump = 1
 g.fzf_layout = {window = {width = 0.85, height = 0.8}}
@@ -207,16 +229,18 @@ g.fzf_preview_window = ""
 map("n", "<leader>o", "<cmd>Files<cr>")
 
 -- Floating terminal
-paq "voldikss/vim-floaterm"
+use "voldikss/vim-floaterm"
 map("n", "<leader>t", "<cmd>FloatermToggle<cr>")
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 
+-------------------------
 ---------- LSP ----------
-paq "neovim/nvim-lspconfig"
-paq "hrsh7th/nvim-compe"
+-------------------------
+use "neovim/nvim-lspconfig"
+use "hrsh7th/nvim-compe"
 -- TODO: Move snippets elsewhere
-paq "norcalli/snippets.nvim"
+use "norcalli/snippets.nvim"
 
 -- HACK: Until nvim-compe lazily registers providers, I force these to not laod
 local force_unload_compe = {
@@ -330,7 +354,6 @@ lspconfig.sumneko_lua.setup {
   },
 }
 
-lspconfig.yamlls.setup {}
 lspconfig.bashls.setup {}
 
 lspconfig.texlab.setup {}
@@ -339,14 +362,16 @@ lspconfig.clangd.setup {}
 lspconfig.rust_analyzer.setup {}
 
 -- A nice tagbar for LSP
-paq "liuchengxu/vista.vim"
+use "liuchengxu/vista.vim"
 -- Pretty icons don't work everywhere and are idiosyncratic IMO
 g["vista#renderer#enable_icon"] = 0
 g.vista_fold_toggle_icons = {"-", "+"}
 
+--------------------------------
 ---------- TreeSitter ----------
-paq "nvim-treesitter/nvim-treesitter"
-paq "nvim-treesitter/nvim-treesitter-refactor"
+--------------------------------
+use "nvim-treesitter/nvim-treesitter"
+use "nvim-treesitter/nvim-treesitter-refactor"
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 cmd "autocmd BufRead,BufNewFile *.lalrpop set filetype=lalrpop"
 cmd "autocmd FileType lalrpop set commentstring=//%s"
@@ -369,7 +394,9 @@ map("n", "S",
     "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<cr>",
     {silent = true})
 
+--------------------------------
 ---------- Formatting ----------
+--------------------------------
 local prettier = function()
   return {
     exe = "prettier",
@@ -380,7 +407,7 @@ end
 local clang_format = function()
   return {exe = "clang-format", args = {}, stdin = true}
 end
-paq "mhartington/formatter.nvim"
+use "mhartington/formatter.nvim"
 require("formatter").setup {
   logging = false,
   filetype = {
