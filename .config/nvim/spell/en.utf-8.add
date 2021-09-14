@@ -2,6 +2,7 @@ abelian
 ABI
 accessor
 admin
+Administrivia
 Amhill
 AngularJS
 API
@@ -14,13 +15,17 @@ backend
 backends
 backflow
 balanceable
+Bézier
 biconnectivity
 biomolecular
 bitcode
+Blinn
 blog
 bootloaders
+Bui
 bytecode
 cacheable
+Catmull
 CFG
 cheatsheet
 Clemmons
@@ -33,6 +38,7 @@ coset
 cosets
 COVID
 creational
+CSC
 CSS
 cyclomatic
 debatably
@@ -61,6 +67,7 @@ enqueuing
 epilog
 errored
 eutrophication
+Ewald
 Fagan
 flakey
 frontend
@@ -73,6 +80,7 @@ greather
 hacky
 HCI
 healthcare
+Hering
 heteronormativity
 heterosexism
 iff
@@ -90,6 +98,7 @@ IRs
 ISAs
 iterable
 iterables
+Jenison
 JSON
 Jupyter
 kanban
@@ -113,6 +122,7 @@ Mirsky's
 monomino
 monominoes
 monomorphism
+multiplicativity
 multiset
 multithreading
 mutex
@@ -125,6 +135,7 @@ NCSU
 nitrifying
 Noregon
 NPC
+obscura
 offline
 okay
 onboarding
@@ -132,6 +143,7 @@ online
 overcorrections
 parallelizable
 performant
+Phong
 Pixhawk
 playlist
 plugin
@@ -150,6 +162,7 @@ prolog
 proven
 PRs
 quantums
+rasterized
 recolorings
 recompiler
 Reddit
@@ -174,6 +187,7 @@ subtyped
 subtyping
 supertype
 supremum
+supremums
 surjective
 syscall
 syscalls
@@ -202,9 +216,11 @@ vtable
 vtables
 wack
 walkthrough
+WebGL
 webpages
 webserver
 whitelist
+Whitted
 wildcard
 wildcards
 YouTube

@@ -155,7 +155,7 @@ packer.init()
 packer.reset()
 local use = packer.use
 -- Let packer manage itself
-use 'wbthomason/packer.nvim'
+use "wbthomason/packer.nvim"
 
 -- Colorscheme
 use "lifepillar/vim-solarized8"
@@ -227,6 +227,8 @@ g.fzf_layout = {window = {width = 0.85, height = 0.8}}
 g.fzf_preview_window = ""
 -- Nice keybindings
 map("n", "<leader>o", "<cmd>Files<cr>")
+map("n", "<leader>i", "<cmd>BLines<cr>")
+map("n", "<leader>p", "<cmd>Rg<cr>")
 
 -- Floating terminal
 use "voldikss/vim-floaterm"
@@ -333,6 +335,7 @@ lspconfig.util.default_config = vim.tbl_extend("force",
 
 lspconfig.pylsp.setup {}
 lspconfig.jdtls.setup {}
+lspconfig.tsserver.setup {}
 
 lspconfig.vimls.setup {}
 lspconfig.sumneko_lua.setup {
@@ -400,7 +403,7 @@ map("n", "S",
 local prettier = function()
   return {
     exe = "prettier",
-    args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+    args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--trailing-comma=all"},
     stdin = true,
   }
 end
