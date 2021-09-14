@@ -34,3 +34,5 @@
 	ui = auto
 [push]
 	default = simple
+[init]
+	defaultBranch = main
