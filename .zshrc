@@ -48,6 +48,7 @@ fi
 # Quick shortcuts
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.gitconfig
+alias p='pueue'
 alias o='xdg-open'
 
 # I have issues with xterm-termite cross platform
@@ -96,9 +97,7 @@ zinit light sindresorhus/pure
 zstyle :prompt:pure:prompt:success color blue
 
 # Do ROS setup
-if [[ -f /opt/ros/melodic/setup.zsh ]]; then
-  source /opt/ros/melodic/setup.zsh
-fi
+[[ -f /opt/ros/melodic/setup.zsh ]] && source /opt/ros/melodic/setup.zsh
 
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
