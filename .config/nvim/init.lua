@@ -66,7 +66,17 @@ opt.clipboard = "unnamedplus"
 
 -- Statusline
 opt.laststatus = 2
-opt.statusline = "%f%m%r%w%q%=%{FugitiveHead()}"
+function MYFILENAME()
+  local name = vim.fn.expand("%")
+  if name == "" then
+    return "[No Name]"
+  elseif vim.fn.isdirectory(name) then
+    return name
+  else
+    return vim.fn.fnamemodify(name, ":~:.")
+  end
+end
+opt.statusline = "%{v:lua.MYFILENAME()}%m%r%w%q%=%{FugitiveHead()}"
 
 -- Colorscheme
 if os.getenv("TERM") ~= "screen" then
@@ -236,6 +246,9 @@ map("n", "<leader>t", "<cmd>FloatermToggle<cr>")
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 
+-- Async commands to quickfix
+use "skywind3000/asyncrun.vim"
+
 -------------------------
 ---------- LSP ----------
 -------------------------
@@ -403,7 +416,9 @@ map("n", "S",
 local prettier = function()
   return {
     exe = "prettier",
-    args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--trailing-comma=all"},
+    args = {
+      "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--trailing-comma=all",
+    },
     stdin = true,
   }
 end
