@@ -70,7 +70,7 @@ function MYFILENAME()
   local name = vim.fn.expand("%")
   if name == "" then
     return "[No Name]"
-  elseif vim.fn.isdirectory(name) then
+  elseif vim.fn.isdirectory(name) == 1 then
     return name
   else
     return vim.fn.fnamemodify(name, ":~:.")
@@ -249,62 +249,63 @@ g.floaterm_height = 0.8
 -- Async commands to quickfix
 use "skywind3000/asyncrun.vim"
 
--------------------------
----------- LSP ----------
--------------------------
-use "neovim/nvim-lspconfig"
-use "hrsh7th/nvim-compe"
--- TODO: Move snippets elsewhere
-use "norcalli/snippets.nvim"
+--------------------------------
+---------- Snippets ------------
+--------------------------------
+use "L3MON4D3/LuaSnip"
 
--- HACK: Until nvim-compe lazily registers providers, I force these to not laod
-local force_unload_compe = {
-  -- "nvim_lsp", "snippets_nvim"
-  "buffer", "calc", "nvim_lua", "path", "spell", "tags", "treesitter",
-  "ultisnips", "vim_lsc", "vim_lsp", "vsnip",
+local luasnip = require("luasnip")
+luasnip.snippets = {
+  tex = {
+    luasnip.parser.parse_snippet("env", [[
+\begin{$1}
+  $0
+\end{$1}]]),
+  },
+  rust = {
+    luasnip.parser.parse_snippet("macro", [[
+macro_rules! $1 {
+  ($2) => {
+    $0
+  };
+}]]), luasnip.parser.parse_snippet("test", [[
+#[test]
+fn test_$1() {
+  $0
+}]]),
+  },
 }
-for _, provider in ipairs(force_unload_compe) do
-  g["loaded_compe_" .. provider] = true
-end
 
-local compe = require("compe")
-compe.setup {
+--------------------------------
+------ LSP & Autocomplete ------
+--------------------------------
+use "neovim/nvim-lspconfig"
+use "hrsh7th/nvim-cmp"
+use "hrsh7th/cmp-nvim-lsp"
+use "hrsh7th/cmp-buffer"
+use "saadparwaiz1/cmp_luasnip"
+
+local cmp = require("cmp")
+cmp.setup {
   source = {
     -- TODO: Only enable this in custom_attach?
     nvim_lsp = true,
     -- TODO: Make snippets higher priorty than nvim_lsp?
     snippets_nvim = true,
   },
-}
-map("i", "<C-Space>", "compe#complete()", {silent = true, expr = true})
-map("i", "<CR>", "compe#confirm('<CR>')", {silent = true, expr = true})
-map("i", "<C-e>", "compe#close('<C-e>')", {silent = true, expr = true})
-
-local snippets = require("snippets")
-local sniputil = require("snippets.utils")
-snippets.set_ux(require("snippets.inserters.text_markers"))
-map("i", "<C-j>", "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>")
-map("i", "<C-k>", "<cmd>lua return require'snippets'.advance_snippet(-1)<CR>")
-snippets.snippets = {
-  tex = {
-    env = sniputil.match_indentation [[
-\begin{$1}
-  $0
-\end{$1}]],
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end,
   },
-  rust = {
-    macro = sniputil.match_indentation [[
-macro_rules! $1 {
-  ($2) => {
-    $0
-  };
-}]],
-    test = sniputil.match_indentation [[
-#[test]
-fn test_$1() {
-  $0
-}]],
+  mapping = {
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm({select = true}),
   },
+  sources = {{name = "nvim_lsp"}, {name = "luasnip"}, {name = "buffer"}},
 }
 
 local lspconfig = require("lspconfig")
@@ -344,6 +345,9 @@ lspconfig.util.default_config = vim.tbl_extend("force",
 
     print("LSP Attached.")
   end,
+
+  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol
+                                                                 .make_client_capabilities()),
 })
 
 lspconfig.pylsp.setup {}
@@ -363,7 +367,7 @@ lspconfig.sumneko_lua.setup {
       diagnostics = {
         globals = {
           "vim", -- vim
-          "describe", "it", -- busted
+          "describe", "it", "pending", -- busted
         },
       },
     },
@@ -392,7 +396,7 @@ local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 cmd "autocmd BufRead,BufNewFile *.lalrpop set filetype=lalrpop"
 cmd "autocmd FileType lalrpop set commentstring=//%s"
 parser_config.rust.used_by = "lalrpop"
-require"nvim-treesitter.configs".setup {
+require("nvim-treesitter.configs").setup {
   -- one of "all", "language", or a list of languages
   ensure_installed = "all",
   highlight = {
@@ -434,6 +438,7 @@ require("formatter").setup {
     scss = {prettier},
     javascript = {prettier},
     typescript = {prettier},
+    json = {prettier},
     lua = {
       function()
         return {

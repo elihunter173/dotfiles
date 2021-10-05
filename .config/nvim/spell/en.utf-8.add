@@ -3,6 +3,7 @@ ABI
 accessor
 admin
 Administrivia
+Ahrens
 Amhill
 AngularJS
 API
@@ -69,9 +70,11 @@ errored
 eutrophication
 Ewald
 Fagan
+filesystem
 flakey
 frontend
 frontends
+frontmost
 GiB
 gimbal
 GitHub
@@ -111,6 +114,8 @@ LTO
 lumpenproletariat
 malformatted
 malware
+matrixes
+Matuschak
 MAVProxy
 metadata
 Metcalf
@@ -134,6 +139,8 @@ nanoscience
 NCSU
 nitrifying
 Noregon
+notecards
+notetaking
 NPC
 obscura
 offline
@@ -162,7 +169,9 @@ prolog
 proven
 PRs
 quantums
+rasterization
 rasterized
+rasterizer
 recolorings
 recompiler
 Reddit
@@ -178,7 +187,12 @@ righthand
 RPC
 runtimes
 sandboxing
+selfs
 seximal
+shader
+shaders
+Sheehy
+Sönke
 Spotify
 struct
 structs
@@ -192,6 +206,7 @@ surjective
 syscall
 syscalls
 thruput
+Tiago
 TiB
 timestamp
 TODO
@@ -207,6 +222,7 @@ unswitching
 username
 userspace
 variadic
+varyings
 VCS
 vertices
 virtualization
@@ -214,6 +230,7 @@ virtualizes
 Voronoi
 vtable
 vtables
+Vulkan
 wack
 walkthrough
 WebGL
@@ -224,4 +241,5 @@ Whitted
 wildcard
 wildcards
 YouTube
+Zettelkasten
 ZMQ

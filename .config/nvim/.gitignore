@@ -3,3 +3,6 @@
 
 # Ignore spelling file
 *.spl
+
+# Packer-compiled file
+plugin/
