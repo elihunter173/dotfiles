@@ -169,8 +169,15 @@ use "wbthomason/packer.nvim"
 
 -- Colorscheme
 use "lifepillar/vim-solarized8"
--- TODO: Figure out if there's a better way to set colorschemes in lua
 cmd "colorscheme solarized8"
+-- Override solarize8 terminal colors
+cmd [[
+autocmd ColorScheme solarized8
+  \ let g:terminal_color_0 = '#586e75'
+  \ | let g:terminal_ansi_colors[0] = g:terminal_color_0
+  \ | let g:terminal_color_8 = '#657b83'
+  \ | let g:terminal_ansi_colors[8] = g:terminal_color_8
+]]
 
 -- Custom filetypes
 use "chr4/nginx.vim"
