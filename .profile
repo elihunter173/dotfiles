@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Add local binary files (used by pip)
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
