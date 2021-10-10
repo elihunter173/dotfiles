@@ -269,6 +269,12 @@ luasnip.snippets = {
   $0
 \end{$1}]]),
   },
+  markdown = {
+    luasnip.parser.parse_snippet("env", [[
+\begin{$1}
+  $0
+\end{$1}]]),
+  },
   rust = {
     luasnip.parser.parse_snippet("macro", [[
 macro_rules! $1 {
@@ -312,7 +318,10 @@ cmp.setup {
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm({select = true}),
   },
-  sources = {{name = "nvim_lsp"}, {name = "luasnip"}, {name = "buffer"}},
+  sources = {
+    {name = "nvim_lsp"}, {name = "luasnip"},
+    -- {name = "buffer"}
+  },
 }
 
 local lspconfig = require("lspconfig")
@@ -445,6 +454,7 @@ require("formatter").setup {
     scss = {prettier},
     javascript = {prettier},
     typescript = {prettier},
+    vue = {prettier},
     json = {prettier},
     lua = {
       function()
