@@ -198,6 +198,9 @@ use "mg979/vim-visual-multi"
 g.VM_leader = "\\"
 g.VM_maps = {["Add Cursor Down"] = "<M-j>", ["Add Cursor Up"] = "<M-k>"}
 
+-- Discord presence for Neovim just for fun :)
+use "andweeb/presence.nvim"
+
 -- Neovim's CursorHold is a little laggy right now. This fixes that.
 use "antoinemadec/FixCursorHold.nvim"
 
