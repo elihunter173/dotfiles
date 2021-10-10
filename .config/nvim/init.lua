@@ -168,16 +168,9 @@ local use = packer.use
 use "wbthomason/packer.nvim"
 
 -- Colorscheme
-use "lifepillar/vim-solarized8"
-cmd "colorscheme solarized8"
--- Override solarize8 terminal colors
-cmd [[
-autocmd ColorScheme solarized8
-  \ let g:terminal_color_0 = '#586e75'
-  \ | let g:terminal_ansi_colors[0] = g:terminal_color_0
-  \ | let g:terminal_color_8 = '#657b83'
-  \ | let g:terminal_ansi_colors[8] = g:terminal_color_8
-]]
+use "lifepillar/vim-gruvbox8"
+g.gruvbox_italicize_strings = 0
+cmd "colorscheme gruvbox8"
 
 -- Custom filetypes
 use "chr4/nginx.vim"

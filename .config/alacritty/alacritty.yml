@@ -175,12 +175,12 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night)
+# Colors
 colors:
   # Default colors
   primary:
-    background: '#002b36'
-    foreground: '#93a1a1'
+    background: '#282828'
+    foreground: '#ebdbb2'
 
     # Bright and dim foreground colors
     #
@@ -217,16 +217,18 @@ colors:
   search:
     # Allowed values are CellForeground and CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
+    # From Search
     matches:
-      foreground: '#000000'
-      background: '#ffffff'
+      background: '#fabd2f'
+      foreground: '#282828'
+    # From IncSearch
     focused_match:
-      foreground: CellBackground
-      background: CellForeground
+      background: '#cb4b16'
+      foreground: '#282828'
 
     bar:
-      background: '#c5c8c6'
-      foreground: '#1d1f21'
+      foreground: '#ebdbb2'
+      background: '#282828'
 
   # Line indicator
   #
@@ -248,29 +250,25 @@ colors:
     text: CellBackground
     background: CellForeground
 
-  # Normal colors
   normal:
-    # black:   '#073642'
-    black:   '#586e75'
-    red:     '#dc322f'
-    green:   '#859900'
-    yellow:  '#b58900'
-    blue:    '#268bd2'
-    magenta: '#d33682'
-    cyan:    '#2aa198'
-    white:   '#eee8d5'
+    black: '#282828'
+    red: '#cc241d'
+    green: '#98971a'
+    yellow: '#d79921'
+    blue: '#458588'
+    magenta: '#b16286'
+    cyan: '#689d6a'
+    white: '#a89984'
 
-  # Bright colors
   bright:
-    # black:   '#002b36'
-    black:   '#657b83'
-    red:     '#cb4b16'
-    green:   '#586e75'
-    yellow:  '#657b83'
-    blue:    '#839496'
-    magenta: '#6c71c4'
-    cyan:    '#93a1a1'
-    white:   '#fdf6e3'
+    black: '#928374'
+    red: '#fb4934'
+    green: '#b8bb26'
+    yellow: '#fabd2f'
+    blue: '#83a598'
+    magenta: '#d3869b'
+    cyan: '#8ec07c'
+    white: '#ebdbb2'
 
   # Dim colors
   #
