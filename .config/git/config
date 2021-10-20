@@ -3,14 +3,15 @@
 	name = Eli W. Hunter
 [alias]
 	; Custom "commands"
-	hist = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	hist = log --graph --all --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	; Nice aliases
 	; Force st to use my config settings, even on old versions
 	st = status --short --branch
-	hs = hist -16
+	hs = hist -20
 	d = diff
 	p = push
 	pf = push --force-with-lease
+	f = fetch --prune
 	l = pull
 	cl = clone --recurse-submodules
 	a = add --verbose --all
