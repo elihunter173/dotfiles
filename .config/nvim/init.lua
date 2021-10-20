@@ -211,9 +211,9 @@ use "tpope/vim-fugitive"
 map("n", "<leader>gs", "<cmd>Git<cr>")
 map("n", "<leader>gp", "<cmd>Git push<cr>")
 
--- Netrw but simpler and better
--- use "justinmk/vim-dirvish"
--- Disable netrw because I use Dirvish
+-- The file manager I made. I normally just symlink it.
+-- use "elihunter173/dirbuf.nvim"
+-- Disable netrw because I use dirbuf.nvim
 g.loaded_netrwPlugin = 1
 g.loaded_netrw = 1
 
@@ -249,7 +249,12 @@ g.fzf_layout = {
 }
 g.fzf_preview_window = ""
 -- Nice keybindings
+cmd [[
+command! -nargs=? -complete=dir Directories
+  \ call fzf#run(fzf#wrap({'source': 'fd --type d'}))
+]]
 map("n", "<leader>o", "<cmd>Files<cr>")
+map("n", "<leader>O", "<cmd>Directories<cr>")
 map("n", "<leader>i", "<cmd>BLines<cr>")
 map("n", "<leader>p", "<cmd>Rg<cr>")
 
@@ -410,7 +415,8 @@ lspconfig.sumneko_lua.setup {
       },
       diagnostics = {
         globals = {
-          "vim", -- vim
+          "vim", -- neovim
+          "awesome", "client", "screen", -- awesome
           "describe", "it", "pending", -- busted
         },
       },
@@ -497,6 +503,8 @@ require("formatter").setup {
     json = {prettier},
     lua = {
       fmt_call("lua-format", "--indent-width=2", "--extra-sep-at-table-end",
+               "--no-keep-simple-control-block-one-line",
+               "--no-keep-simple-function-one-line",
                "--single-quote-to-double-quote"),
     },
     python = {fmt_call("black", "-"), fmt_call("isort", "-")},
