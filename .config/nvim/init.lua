@@ -250,13 +250,17 @@ g.fzf_layout = {
 g.fzf_preview_window = ""
 -- Nice keybindings
 cmd [[
-command! -nargs=? -complete=dir Directories
-  \ call fzf#run(fzf#wrap({'source': 'fd --type d'}))
+command! -bang -nargs=? -complete=dir Directories
+  \ call fzf#run(fzf#wrap({'source': 'fd --type directory' . ('<bang>' == '!' ? ' --hidden' : '')}))
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#run(fzf#wrap({'source': 'fd --type file' . ('<bang>' == '!' ? ' --hidden' : '')}))
 ]]
 map("n", "<leader>o", "<cmd>Files<cr>")
-map("n", "<leader>O", "<cmd>Directories<cr>")
+map("n", "<leader>O", "<cmd>Files!<cr>")
+map("n", "<leader>p", "<cmd>Directories<cr>")
+map("n", "<leader>P", "<cmd>Directories!<cr>")
 map("n", "<leader>i", "<cmd>BLines<cr>")
-map("n", "<leader>p", "<cmd>Rg<cr>")
+map("n", "<leader>I", "<cmd>Rg<cr>")
 
 -- Floating terminal
 use "voldikss/vim-floaterm"
