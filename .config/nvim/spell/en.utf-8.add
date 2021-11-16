@@ -59,7 +59,9 @@ diffs
 Dilworth's
 distro
 DNS
+donut
 dropdown
+editably
 elses
 embarrassingly
 endian
@@ -79,6 +81,7 @@ GiB
 gimbal
 GitHub
 globalization
+Gouraud
 greather
 hacky
 HCI
@@ -86,6 +89,7 @@ healthcare
 Hering
 heteronormativity
 heterosexism
+honeypot's
 iff
 immediates
 impactful
@@ -109,6 +113,8 @@ lefthand
 lexer
 lifecycle
 LinkedIn
+linter
+linters
 LLVM
 LTO
 lumpenproletariat
@@ -123,6 +129,7 @@ microkernel
 microkernels
 microservices
 middleware
+mipmapping
 Mirsky's
 monomino
 monominoes
@@ -151,6 +158,7 @@ overcorrections
 parallelizable
 performant
 Phong
+pixelated
 Pixhawk
 playlist
 plugin
@@ -168,12 +176,15 @@ programmatically
 prolog
 proven
 PRs
+Pytest
 quantums
 rasterization
 rasterized
 rasterizer
 recolorings
+recommenders
 recompiler
+recurse
 Reddit
 redzone
 refactor
@@ -197,6 +208,8 @@ Spotify
 struct
 structs
 subcover
+subtree
+subtrees
 subtyped
 subtyping
 supertype
@@ -205,6 +218,8 @@ supremums
 surjective
 syscall
 syscalls
+texel
+texels
 thruput
 Tiago
 TiB
@@ -224,6 +239,7 @@ userspace
 variadic
 varyings
 VCS
+venv
 vertices
 virtualization
 virtualizes
