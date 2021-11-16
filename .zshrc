@@ -108,3 +108,19 @@ function texwatch() {
 function collate() {
   pdftk A="$1" B="$2" shuffle A Bend-1 output "$3"
 }
+
+BOOKMARKS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/eli/bookmarks"
+function jump-bookmark() {
+  if [[ -n "$1" ]]; then
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$1:" | sed 's/[_a-zA-Z0-9]\+://')
+    if [[ -z "$bookmark" ]]; then
+      echo "No such bookmark '$1'" >&2
+      return 1
+    fi
+  else
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='50%' --reverse | sed 's/[_a-zA-Z0-9]\+://')
+  fi
+
+  cd ${bookmark/#\~/$HOME}
+}
+alias j="jump-bookmark"
