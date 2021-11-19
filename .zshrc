@@ -118,7 +118,9 @@ function jump-bookmark() {
       return 1
     fi
   else
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='50%' --reverse | sed 's/[_a-zA-Z0-9]\+://')
+    # These options were taken from
+    # https://github.com/junegunn/fzf/blob/e4c3ecc57e99f4037199f11b384a7f8758d1a0ff/shell/key-bindings.zsh#L49
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sed 's/[_a-zA-Z0-9]\+://')
   fi
 
   cd ${bookmark/#\~/$HOME}
