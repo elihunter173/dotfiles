@@ -28,7 +28,10 @@ ExecStart=/usr/bin/rclone mount %i: %h/mnt/%i \
     # Allow users other than the user running rclone access to the mount
     # (including root)
     --umask 022 \
-    --allow-other
+    --allow-other \
+    # Exclude files
+    --exclude-from %h/.config/eli/rclone-exclude \
+    --delete-excluded
 ExecStop=/usr/bin/fusermount -u %h/mnt/%i
 
 [Install]
