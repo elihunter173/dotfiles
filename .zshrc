@@ -112,15 +112,15 @@ function collate() {
 BOOKMARKS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/eli/bookmarks"
 function jump-bookmark() {
   if [[ -n "$1" ]]; then
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$1:" | sed 's/[_a-zA-Z0-9]\+://')
-    if [[ -z "$bookmark" ]]; then
-      echo "No such bookmark '$1'" >&2
-      return 1
-    fi
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$*:" | sed 's/[-_ a-zA-Z0-9]\+://')
   else
     # These options were taken from
     # https://github.com/junegunn/fzf/blob/e4c3ecc57e99f4037199f11b384a7f8758d1a0ff/shell/key-bindings.zsh#L49
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sed 's/[_a-zA-Z0-9]\+://')
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sed 's/[-_ a-zA-Z0-9]\+://')
+  fi
+  if [[ -z "$bookmark" ]]; then
+    echo "No such bookmark '$*'" >&2
+    return 1
   fi
 
   cd ${bookmark/#\~/$HOME}
