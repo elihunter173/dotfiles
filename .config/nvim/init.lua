@@ -78,7 +78,7 @@ function MYFILENAME()
     return vim.fn.fnamemodify(name, ":~:.")
   end
 end
-opt.statusline = "%{v:lua.MYFILENAME()}%m%r%w%q%=%{FugitiveHead()}"
+opt.statusline = "%{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c%{' '.FugitiveHead()}"
 
 -- Colorscheme
 if os.getenv("TERM") ~= "screen" then
@@ -455,6 +455,7 @@ local prettier = function()
     exe = "prettier",
     args = {
       "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--trailing-comma=all",
+      "--print-width=100",
     },
     stdin = true,
   }
