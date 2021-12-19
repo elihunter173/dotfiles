@@ -34,7 +34,7 @@ fi
 
 has fd && export FZF_DEFAULT_COMMAND='fd --type f'
 
-# The defaults are good IMO
+# Quick shortcuts
 if has exa; then
   alias l='exa --classify'
   alias ll='l --long --header'
@@ -45,11 +45,15 @@ else
   alias la='l -a'
 fi
 
-# Quick shortcuts
+if has wsl-open; then
+  alias o='wsl-open'
+else
+  alias o='xdg-open'
+fi
+
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.gitconfig
 alias p='pueue'
-alias o='xdg-open'
 
 # I have issues with xterm-termite cross platform
 if [[ $TERM == xterm-termite ]]; then
@@ -93,15 +97,16 @@ zinit for \
 # Load nice prompt
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
-# Magenta and red are hard to tell apart in solarized
+# Magenta and red are hard to tell apart
 zstyle :prompt:pure:prompt:success color blue
 
 # Do ROS setup
 [[ -f /opt/ros/melodic/setup.zsh ]] && source /opt/ros/melodic/setup.zsh
 
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh'
+zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh'
 
+# Utility functions
 function texwatch() {
   echo $@ | entr tectonic $@
 }
