@@ -16,7 +16,6 @@ backend
 backends
 backflow
 balanceable
-Bézier
 biconnectivity
 biomolecular
 bitcode
@@ -25,6 +24,7 @@ blog
 bootloaders
 Bui
 bytecode
+Bézier
 cacheable
 Catmull
 CFG
@@ -75,6 +75,7 @@ Ewald
 Fagan
 filesystem
 flakey
+FreeSync
 frontend
 frontends
 frontmost
@@ -86,6 +87,7 @@ Gouraud
 greather
 hacky
 HCI
+HDR
 healthcare
 Hering
 heteronormativity
@@ -112,6 +114,7 @@ JSON
 Jupyter
 kanban
 lefthand
+lense
 lexer
 lifecycle
 LinkedIn
@@ -147,10 +150,12 @@ namespaces
 nanoscience
 NCSU
 nitrifying
+Nmap
 Noregon
 notecards
 notetaking
 NPC
+Nvidia
 obscura
 offline
 okay
@@ -197,6 +202,7 @@ resocialization
 respawned
 RESTful
 reusability
+RGBA
 righthand
 RPC
 runtimes
@@ -206,7 +212,6 @@ seximal
 shader
 shaders
 Sheehy
-Sönke
 Spotify
 struct
 structs
@@ -221,6 +226,8 @@ supremums
 surjective
 syscall
 syscalls
+syslog
+Sönke
 texel
 texels
 thruput
@@ -243,10 +250,13 @@ variadic
 varyings
 VCS
 venv
+vergence
 vertices
 virtualization
 virtualizes
 Voronoi
+VR
+vsync
 vtable
 vtables
 Vulkan
@@ -259,6 +269,7 @@ whitelist
 Whitted
 wildcard
 wildcards
+Wireshark
 YouTube
 Zettelkasten
 ZMQ
