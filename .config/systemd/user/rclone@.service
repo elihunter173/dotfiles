@@ -33,6 +33,7 @@ ExecStart=/usr/bin/rclone mount %i: %h/mnt/%i \
     --exclude-from %h/.config/eli/rclone-exclude \
     --delete-excluded
 ExecStop=/usr/bin/fusermount -u %h/mnt/%i
+Restart=on-failure
 
 [Install]
 WantedBy=default.target
