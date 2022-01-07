@@ -6,18 +6,11 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs,
                           vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
-local function bufmap(bufnr, mode, lhs, rhs, opts)
-  -- 0 means current buffer
-  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs,
-                              vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
-end
-
 -----------------------------
 ---------- Options ----------
 -----------------------------
 -- Enable line numbers and ruler
 opt.number = true
-opt.relativenumber = true
 -- Enable ftplugins for everything
 -- filetype plugin indent on is default in Neovim
 -- Enable mouse support for all modes
@@ -341,36 +334,27 @@ local lspconfig = require("lspconfig")
 lspconfig.util.default_config = vim.tbl_extend("force",
                                                lspconfig.util.default_config, {
   on_attach = function(_, bufnr)
-    bufmap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", {silent = true})
-    bufmap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "ge",
-           "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
-           {silent = true})
-    bufmap(bufnr, "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
-           {silent = true})
+    local function bufmap(mode, lhs, rhs)
+      -- 0 means current buffer
+      local opts = vim.tbl_extend("force", MAP_DEFAULTS, {silent = true})
+      vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+    end
+
+    bufmap("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>")
+    bufmap("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>")
+    bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
+    bufmap("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>")
+    bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+    bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+    bufmap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
+    bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+    bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
+    bufmap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>")
+    bufmap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>")
+    bufmap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+    bufmap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
+    bufmap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>")
+    bufmap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>")
 
     print("LSP Attached.")
   end,
