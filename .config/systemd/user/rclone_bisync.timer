@@ -1,0 +1,11 @@
+[Unit]
+Description=Run rclone_bisync.service every 3 hours
+
+[Timer]
+# Every 3 hours
+OnCalendar=00/3:00
+Unit=rclone_bisync.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target
