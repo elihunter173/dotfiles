@@ -13,3 +13,4 @@ ExecStart=/usr/bin/rclone bisync "%h/Documents/ncsu" "elihunter173:/ncsu" --excl
 ExecStart=/usr/bin/rclone bisync "%h/Documents/personal" "elihunter173:/personal" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
 ExecStart=/usr/bin/rclone bisync "%h/Documents/textbooks" "elihunter173:/textbooks" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
 ExecStart=/usr/bin/rclone bisync "%h/Pictures" "elihunter173:/Pictures" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
+ExecStart=/usr/bin/rclone bisync "%h/Videos" "elihunter173:/Videos" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
