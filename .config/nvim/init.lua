@@ -370,9 +370,8 @@ lspconfig.tsserver.setup {}
 lspconfig.vimls.setup {}
 lspconfig.sumneko_lua.setup {
   cmd = {
-    os.getenv("HOME") ..
-        "/build/lua-language-server/bin/Linux/lua-language-server", "-E",
-    os.getenv("HOME") .. "/build/lua-language-server/main.lua",
+    os.getenv("HOME") .. "/bin/lua-language-server", "-E",
+    os.getenv("HOME") .. "/src/build/lua-language-server/main.lua",
   },
   settings = {
     Lua = {
