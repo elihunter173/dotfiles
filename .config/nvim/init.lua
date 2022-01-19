@@ -205,9 +205,6 @@ map("n", "<leader>gp", "<cmd>Git push<cr>")
 
 -- The file manager I made. I normally just symlink it.
 -- use "elihunter173/dirbuf.nvim"
--- Disable netrw because I use dirbuf.nvim
-g.loaded_netrwPlugin = 1
-g.loaded_netrw = 1
 
 -- Syntax highlighting for more languages
 use "plasticboy/vim-markdown"
