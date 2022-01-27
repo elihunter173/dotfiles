@@ -6,6 +6,96 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs,
                           vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
 end
+
+-----------------------------
+---------- Plugins ----------
+-----------------------------
+local install_path = vim.fn.stdpath("data") ..
+                         "/site/pack/packer/start/packer.nvim"
+if vim.fn.isdirectory(install_path) == 0 then
+  packer_bootstrap = vim.fn.system {
+    "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  }
+end
+require("packer").startup(function(use)
+  -- Let packer manage itself
+  use "wbthomason/packer.nvim"
+
+  use "lifepillar/vim-gruvbox8"
+
+  -- Custom filetypes
+  use "chr4/nginx.vim"
+  use "JuliaEditorSupport/julia-vim"
+  use "plasticboy/vim-markdown"
+  -- For :TableFormat in markdown
+  use "godlygeek/tabular"
+
+  -- General editing
+  -- Easier commenting for any language
+  use "tpope/vim-commentary"
+  -- Additional text objects
+  use "wellle/targets.vim"
+  -- Surrounding text objects with any character
+  use "machakann/vim-sandwich"
+  -- Vim undotree visualizer
+  use "mbbill/undotree"
+  -- Never think about indentation
+  use "tpope/vim-sleuth"
+  -- https://EditorConfig.org
+  use "editorconfig/editorconfig-vim"
+
+  -- Git
+  -- TODO: Check out Gina.vim
+  use "tpope/vim-fugitive"
+
+  -- Multi-cursor support!
+  -- use "mg979/vim-visual-multi"
+  -- g.VM_leader = "\\"
+  -- g.VM_maps = {["Add Cursor Down"] = "<M-j>", ["Add Cursor Up"] = "<M-k>"}
+
+  -- The file manager I made. I normally just symlink it
+  -- use "elihunter173/dirbuf.nvim"
+
+  -- Fuzzy finding!
+  use {
+    "junegunn/fzf",
+    run = function()
+      vim.fn["fzf#install"]()
+    end,
+  }
+  use "junegunn/fzf.vim"
+
+  -- Floating terminal
+  use "voldikss/vim-floaterm"
+
+  -- Zettelkasten notes
+  use "mickael-menu/zk-nvim"
+
+  -- Snippets
+  use "L3MON4D3/LuaSnip"
+
+  -- Lsp & autocomplete
+  use "neovim/nvim-lspconfig"
+  -- TODO: Check out coq.nvim?
+  use "hrsh7th/nvim-cmp"
+  use "hrsh7th/cmp-nvim-lsp"
+  use "saadparwaiz1/cmp_luasnip"
+
+  -- TreeSitter
+  use "nvim-treesitter/nvim-treesitter"
+  use "nvim-treesitter/nvim-treesitter-refactor"
+
+  -- Formatting
+  use "mhartington/formatter.nvim"
+end)
+
+if packer_bootstrap then
+  require("packer").sync()
+  cmd "autocmd User PackerComplete echo 'Initial bootstrap done. Run :quitall and restart'"
+  return
+end
+
 -----------------------------
 ---------- Options ----------
 -----------------------------
@@ -145,73 +235,23 @@ map("n", "<leader>C",
     "<cmd>call append(line('.')-1, substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>k==f:la")
 
 -----------------------------
----------- Plugins ----------
+------- Plugin Config -------
 -----------------------------
-local install_path = vim.fn.stdpath("data") ..
-                         "/site/pack/packer/start/packer.nvim"
-
-if vim.fn.isdirectory(install_path) == 0 then
-  vim.fn.system {
-    "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path,
-  }
-end
-cmd "packadd packer.nvim"
-local packer = require("packer")
-packer.init()
-packer.reset()
-local use = packer.use
--- Let packer manage itself
-use "wbthomason/packer.nvim"
-
 -- Colorscheme
-use "lifepillar/vim-gruvbox8"
 g.gruvbox_italicize_strings = 0
 cmd "colorscheme gruvbox8"
 
--- Custom filetypes
-use "chr4/nginx.vim"
-use "JuliaEditorSupport/julia-vim"
-
--- General editing
--- Easier commenting for any language
-use "tpope/vim-commentary"
--- Additional text objects
-use "wellle/targets.vim"
--- Surrounding text objects with any character
-use "machakann/vim-sandwich"
-
--- Configuration stuff
--- Never think about indentation
-use "tpope/vim-sleuth"
-
--- https://EditorConfig.org
-use "editorconfig/editorconfig-vim"
 -- EditorConfig + Fugitive
 g.EditorConfig_exclude_patterns = {"fugitive://.\\*"}
 
--- Multi-cursor support!
-use "mg979/vim-visual-multi"
-g.VM_leader = "\\"
-g.VM_maps = {["Add Cursor Down"] = "<M-j>", ["Add Cursor Up"] = "<M-k>"}
-
--- Neovim's CursorHold is a little laggy right now. This fixes that.
-use "antoinemadec/FixCursorHold.nvim"
-
--- Lightweight git wrapper
--- TODO: Check out Gina.vim
-use "tpope/vim-fugitive"
+-- Fugitive
 map("n", "<leader>gs", "<cmd>Git<cr>")
 map("n", "<leader>gp", "<cmd>Git push<cr>")
 
--- The file manager I made. I normally just symlink it.
--- use "elihunter173/dirbuf.nvim"
+-- Disable Netrw because of dirbuf.nvim + packer.nvim annoyance
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 
--- Syntax highlighting for more languages
-use "plasticboy/vim-markdown"
--- For :TableFormat in markdown
-use "godlygeek/tabular"
 -- Markdown shit
 g.vim_markdown_folding_disabled = 1
 g.vim_markdown_frontmatter = 1
@@ -221,19 +261,7 @@ g.vim_markdown_new_list_item_indent = 2
 g.tex_conceal = ""
 g.vim_markdown_math = 1
 
-use "andweeb/presence.nvim"
-
--- Vim undotree visualizer
-use "mbbill/undotree"
-
 -- Fuzzy finding!
-use {
-  "junegunn/fzf",
-  run = function()
-    vim.fn["fzf#install"]()
-  end,
-}
-use "junegunn/fzf.vim"
 -- Don't open unnecessary files
 g.fzf_buffers_jump = 1
 g.fzf_layout = {window = {width = 0.85, height = 0.8}}
@@ -252,26 +280,79 @@ map("n", "<leader>P", "<cmd>Directories!<cr>")
 map("n", "<leader>i", "<cmd>BLines<cr>")
 map("n", "<leader>I", "<cmd>Rg<cr>")
 
--- Floating terminal
-use "voldikss/vim-floaterm"
+-- Floaterm
 map("n", "<leader>t", "<cmd>FloatermToggle<cr>")
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 
--- Async commands to quickfix
-use "skywind3000/asyncrun.vim"
-
 -- Zettelkasten notes
-use "mickael-menu/zk-nvim"
-require("zk").setup {
-  picker = "fzf",
+require("zk").setup {picker = "fzf"}
+function MY_ZK()
+  -- TODO: This isn't getting a list of my notes
+  require("zk").pick_notes({}, {
+    fzf_options = {
+      -- [[--bind=Ctrl-N:abort+execute(nvr +'close | ZkNew { title = "{q}" }')]],
+      [[--bind=Ctrl-N:abort+execute(nvr +"close | ZkNew { title = {q} }")]],
+      [[--header='Ctrl-N: create a note with the query as title']],
+    },
+  }, function(notes)
+    for _, note in ipairs(notes) do
+      vim.cmd("e " .. note.absPath)
+    end
+  end)
+end
+cmd "command! ZkEdit call v:lua.MY_ZK()"
+map("n", "<leader>n", "<cmd>ZkEdit<cr>")
+
+--------------------------------
+---------- Formatting ----------
+--------------------------------
+-- TODO: Remove all command line configuration in favor of config files?
+local prettier = function()
+  return {
+    exe = "prettier",
+    args = {
+      "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--trailing-comma=all",
+      "--print-width=100",
+    },
+    stdin = true,
+  }
+end
+
+local function fmt_call(exe, ...)
+  local tbl = {exe = exe, args = {...}, stdin = true}
+  return function()
+    return tbl
+  end
+end
+
+require("formatter").setup {
+  logging = false,
+  filetype = {
+    html = {prettier},
+    css = {prettier},
+    scss = {prettier},
+    javascript = {prettier},
+    typescript = {prettier},
+    vue = {prettier},
+    json = {prettier},
+    lua = {
+      fmt_call("lua-format", "--indent-width=2", "--extra-sep-at-table-end",
+               "--no-keep-simple-control-block-one-line",
+               "--no-keep-simple-function-one-line",
+               "--single-quote-to-double-quote"),
+    },
+    python = {fmt_call("black", "-"), fmt_call("isort", "-")},
+    rust = {fmt_call("rustfmt", "--edition=2018", "--emit=stdout")},
+    c = {fmt_call("clang-format")},
+    cpp = {fmt_call("clang-format")},
+  },
 }
+map("n", "<leader>f", "<cmd>Format<cr>")
 
 --------------------------------
 ---------- Snippets ------------
 --------------------------------
-use "L3MON4D3/LuaSnip"
-
 local luasnip = require("luasnip")
 luasnip.snippets = {
   tex = {
@@ -303,12 +384,6 @@ fn test_$1() {
 --------------------------------
 ------ LSP & Autocomplete ------
 --------------------------------
-use "neovim/nvim-lspconfig"
-use "hrsh7th/nvim-cmp"
-use "hrsh7th/cmp-nvim-lsp"
-use "hrsh7th/cmp-buffer"
-use "saadparwaiz1/cmp_luasnip"
-
 local cmp = require("cmp")
 cmp.setup {
   source = {
@@ -329,10 +404,7 @@ cmp.setup {
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm({select = true}),
   },
-  sources = {
-    {name = "nvim_lsp"}, {name = "luasnip"},
-    -- {name = "buffer"}
-  },
+  sources = {{name = "nvim_lsp"}, {name = "luasnip"}},
 }
 
 local lspconfig = require("lspconfig")
@@ -396,20 +468,13 @@ lspconfig.bashls.setup {}
 
 lspconfig.texlab.setup {}
 
+lspconfig.gopls.setup {}
 lspconfig.clangd.setup {}
 lspconfig.rust_analyzer.setup {}
-
--- A nice tagbar for LSP
-use "liuchengxu/vista.vim"
--- Pretty icons don't work everywhere and are idiosyncratic IMO
-g["vista#renderer#enable_icon"] = 0
-g.vista_fold_toggle_icons = {"-", "+"}
 
 --------------------------------
 ---------- TreeSitter ----------
 --------------------------------
-use "nvim-treesitter/nvim-treesitter"
-use "nvim-treesitter/nvim-treesitter-refactor"
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 cmd "autocmd BufRead,BufNewFile *.lalrpop set filetype=lalrpop"
 cmd "autocmd FileType lalrpop set commentstring=//%s"
@@ -431,51 +496,3 @@ require("nvim-treesitter.configs").setup {
 map("n", "S",
     "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<cr>",
     {silent = true})
-
---------------------------------
----------- Formatting ----------
---------------------------------
--- TODO: Remove all command line configuration in favor of config files
-use "mhartington/formatter.nvim"
-
-local prettier = function()
-  return {
-    exe = "prettier",
-    args = {
-      "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--trailing-comma=all",
-      "--print-width=100",
-    },
-    stdin = true,
-  }
-end
-
-local function fmt_call(exe, ...)
-  local tbl = {exe = exe, args = {...}, stdin = true}
-  return function()
-    return tbl
-  end
-end
-
-require("formatter").setup {
-  logging = false,
-  filetype = {
-    html = {prettier},
-    css = {prettier},
-    scss = {prettier},
-    javascript = {prettier},
-    typescript = {prettier},
-    vue = {prettier},
-    json = {prettier},
-    lua = {
-      fmt_call("lua-format", "--indent-width=2", "--extra-sep-at-table-end",
-               "--no-keep-simple-control-block-one-line",
-               "--no-keep-simple-function-one-line",
-               "--single-quote-to-double-quote"),
-    },
-    python = {fmt_call("black", "-"), fmt_call("isort", "-")},
-    rust = {fmt_call("rustfmt", "--edition=2018", "--emit=stdout")},
-    c = {fmt_call("clang-format")},
-    cpp = {fmt_call("clang-format")},
-  },
-}
-map("n", "<leader>f", "<cmd>Format<cr>")
