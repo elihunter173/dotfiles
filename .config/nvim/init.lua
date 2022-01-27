@@ -262,6 +262,12 @@ g.floaterm_height = 0.8
 -- Async commands to quickfix
 use "skywind3000/asyncrun.vim"
 
+-- Zettelkasten notes
+use "mickael-menu/zk-nvim"
+require("zk").setup {
+  picker = "fzf",
+}
+
 --------------------------------
 ---------- Snippets ------------
 --------------------------------

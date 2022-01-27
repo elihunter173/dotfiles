@@ -42,4 +42,9 @@ if command -v luarocks > /dev/null; then
     export PATH="$PATH:$HOME/.luarocks/bin"
 fi
 
+# Add go installation to path
+export PATH="$PATH:/usr/local/go/bin"
+
+export ZK_NOTEBOOK_DIR="$HOME/Documents/zk"
+
 export TRASH="$HOME/.local/share/Trash/files"
