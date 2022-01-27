@@ -288,12 +288,10 @@ g.floaterm_height = 0.8
 -- Zettelkasten notes
 require("zk").setup {picker = "fzf"}
 function MY_ZK()
-  -- TODO: This isn't getting a list of my notes
   require("zk").pick_notes({}, {
     fzf_options = {
-      -- [[--bind=Ctrl-N:abort+execute(nvr +'close | ZkNew { title = "{q}" }')]],
       [[--bind=Ctrl-N:abort+execute(nvr +"close | ZkNew { title = {q} }")]],
-      [[--header='Ctrl-N: create a note with the query as title']],
+      [[--header=Ctrl-N: create a note with the query as title]],
     },
   }, function(notes)
     for _, note in ipairs(notes) do
