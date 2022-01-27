@@ -19,6 +19,7 @@ balanceable
 biconnectivity
 biomolecular
 bitcode
+bitrot
 Blinn
 blog
 bootloaders
@@ -43,6 +44,7 @@ CSC
 CSS
 cyclomatic
 debatably
+deduplicating
 definedness
 deindustrialization
 denitrifying
@@ -124,6 +126,8 @@ linter
 linters
 LLVM
 LTO
+Lua
+Lua's
 lumpenproletariat
 malformatted
 malware
@@ -152,6 +156,8 @@ namespaces
 nanoscience
 NCSU
 Neovim
+NFT
+NFTs
 nitrifying
 Nmap
 Noregon
