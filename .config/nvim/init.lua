@@ -205,6 +205,8 @@ map("n", "<leader>gp", "<cmd>Git push<cr>")
 
 -- The file manager I made. I normally just symlink it.
 -- use "elihunter173/dirbuf.nvim"
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
 
 -- Syntax highlighting for more languages
 use "plasticboy/vim-markdown"
@@ -414,7 +416,7 @@ cmd "autocmd FileType lalrpop set commentstring=//%s"
 parser_config.rust.used_by = "lalrpop"
 require("nvim-treesitter.configs").setup {
   -- one of "all", "language", or a list of languages
-  ensure_installed = "all",
+  ensure_installed = "maintained",
   highlight = {
     -- Enable nested language parsers
     use_languagetree = true,
