@@ -16,7 +16,6 @@ backend
 backends
 backflow
 balanceable
-Bézier
 biconnectivity
 biomolecular
 bitcode
@@ -25,6 +24,7 @@ blog
 bootloaders
 Bui
 bytecode
+Bézier
 cacheable
 Catmull
 CFG
@@ -58,6 +58,7 @@ diagonalization
 diff
 diffs
 Dilworth's
+Dirbuf
 distro
 DNS
 donut
@@ -150,6 +151,7 @@ namespace
 namespaces
 nanoscience
 NCSU
+Neovim
 nitrifying
 Nmap
 Noregon
@@ -213,7 +215,6 @@ seximal
 shader
 shaders
 Sheehy
-Sönke
 Spotify
 struct
 structs
@@ -229,6 +230,7 @@ surjective
 syscall
 syscalls
 syslog
+Sönke
 texel
 texels
 thruput
@@ -253,6 +255,7 @@ VCS
 venv
 vergence
 vertices
+Vimscript
 virtualization
 virtualizes
 Voronoi
