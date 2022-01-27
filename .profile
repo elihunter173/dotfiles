@@ -45,6 +45,6 @@ fi
 # Add go installation to path
 export PATH="$PATH:/usr/local/go/bin"
 
-export ZK_NOTEBOOK_DIR="$HOME/Documents/zk"
+export ZK_NOTEBOOK_DIR="$HOME/zk"
 
 export TRASH="$HOME/.local/share/Trash/files"
