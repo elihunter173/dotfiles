@@ -16,6 +16,7 @@ backend
 backends
 backflow
 balanceable
+Bézier
 biconnectivity
 biomolecular
 bitcode
@@ -25,7 +26,6 @@ blog
 bootloaders
 Bui
 bytecode
-Bézier
 cacheable
 Catmull
 CFG
@@ -221,6 +221,7 @@ seximal
 shader
 shaders
 Sheehy
+Sönke
 Spotify
 struct
 structs
@@ -236,7 +237,6 @@ surjective
 syscall
 syscalls
 syslog
-Sönke
 texel
 texels
 thruput
@@ -244,6 +244,7 @@ Tiago
 TiB
 timestamp
 TODO
+trackable
 transgender
 truthy
 Ubuntu

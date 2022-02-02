@@ -1,10 +1,9 @@
--- Short aliases
 local cmd, g, opt = vim.cmd, vim.g, vim.opt
 
 local MAP_DEFAULTS = {noremap = true}
 local function map(mode, lhs, rhs, opts)
-  vim.api.nvim_set_keymap(mode, lhs, rhs,
-                          vim.tbl_extend("force", MAP_DEFAULTS, opts or {}))
+  opts = vim.tbl_extend("force", MAP_DEFAULTS, opts or {})
+  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 
 -----------------------------
@@ -12,14 +11,16 @@ end
 -----------------------------
 local install_path = vim.fn.stdpath("data") ..
                          "/site/pack/packer/start/packer.nvim"
+
+local packer_bootstrap = false
 if vim.fn.isdirectory(install_path) == 0 then
-  packer_bootstrap = vim.fn.system {
-    "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
+  vim.fn.system {
+    "git", "clone", "--depth=1", "https://github.com/wbthomason/packer.nvim",
     install_path,
   }
+  packer_bootstrap = true
 end
 require("packer").startup(function(use)
-  -- Let packer manage itself
   use "wbthomason/packer.nvim"
 
   use "lifepillar/vim-gruvbox8"
@@ -44,12 +45,10 @@ require("packer").startup(function(use)
   use "tpope/vim-sleuth"
   -- https://EditorConfig.org
   use "editorconfig/editorconfig-vim"
-
   -- Git
-  -- TODO: Check out Gina.vim
   use "tpope/vim-fugitive"
 
-  -- Multi-cursor support!
+  -- Multi-cursor
   -- use "mg979/vim-visual-multi"
   -- g.VM_leader = "\\"
   -- g.VM_maps = {["Add Cursor Down"] = "<M-j>", ["Add Cursor Up"] = "<M-k>"}
@@ -57,8 +56,12 @@ require("packer").startup(function(use)
   -- The file manager I made. I normally just symlink it
   -- use "elihunter173/dirbuf.nvim"
 
-  -- Fuzzy finding!
+  -- Floating terminal
+  use "voldikss/vim-floaterm"
+
+  -- Fuzzy finding
   use {
+    "junegunn/fzf",
     "junegunn/fzf",
     run = function()
       vim.fn["fzf#install"]()
@@ -66,25 +69,20 @@ require("packer").startup(function(use)
   }
   use "junegunn/fzf.vim"
 
-  -- Floating terminal
-  use "voldikss/vim-floaterm"
-
   -- Zettelkasten notes
   use "mickael-menu/zk-nvim"
 
-  -- Snippets
-  use "L3MON4D3/LuaSnip"
-
-  -- Lsp & autocomplete
+  -- LSP, snippets, and autocomplete
   use "neovim/nvim-lspconfig"
+  use "L3MON4D3/LuaSnip"
   -- TODO: Check out coq.nvim?
-  use "hrsh7th/nvim-cmp"
-  use "hrsh7th/cmp-nvim-lsp"
-  use "saadparwaiz1/cmp_luasnip"
+  use {"hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip"}
 
   -- TreeSitter
-  use "nvim-treesitter/nvim-treesitter"
-  use "nvim-treesitter/nvim-treesitter-refactor"
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter-refactor",
+  }
 
   -- Formatting
   use "mhartington/formatter.nvim"
@@ -99,14 +97,12 @@ end
 -----------------------------
 ---------- Options ----------
 -----------------------------
--- Enable line numbers and ruler
 opt.number = true
--- Enable ftplugins for everything
+opt.wrap = false
+opt.tabstop = 4
 -- filetype plugin indent on is default in Neovim
 -- Enable mouse support for all modes
 opt.mouse = "a"
--- Don't wrap lines
-opt.wrap = false
 -- Pad cursor when scrolling
 opt.scrolloff = 1
 opt.sidescrolloff = 0
@@ -127,25 +123,19 @@ opt.errorbells = false
 opt.visualbell = false
 -- Why would you ever put 2 spaces after punctuation??
 opt.joinspaces = false
--- Give yourself a useful name in the terminal
+-- Useful name in terminal
 opt.title = true
--- A more civilized tab
-opt.tabstop = 4
--- Don't redraw during macros (for performance)
+-- Don't redraw during macros and more (for performance)
 opt.lazyredraw = true
--- Set completeopt to have a better completion experience
+-- Better completion experience
 opt.completeopt = {"menu", "menuone", "noselect"}
--- Avoid showing message extra message when using completion
 opt.shortmess:append("c")
 -- Persistent undo
 opt.undofile = true
 -- Incremental :substitute preview in same buffer
 opt.inccommand = "nosplit"
--- GUI Font settings
-opt.guifont = "Hack:h12"
 -- ripgrep >> grep
 opt.grepprg = "rg --vimgrep"
-
 -- Use system clipboard
 opt.clipboard = "unnamedplus"
 
@@ -177,12 +167,12 @@ cmd "autocmd FileType c,cpp set commentstring=//%s"
 -----------------------------
 ---------- Mappings ----------
 -----------------------------
--- TODO: How do I do this more natively?
+-- TODO: See if theres a Lua native way to do this
 cmd "let mapleader = ' '"
--- Prevent space from moving forward in normal mode
+map("n", "<leader>w", "<cmd>write<cr>")
+-- Make leader keybindings less awkward
 map("n", " ", "")
-
--- I like using s for other mappings
+-- s is used by vim sandwich
 map("n", "s", "")
 
 -- Send c to black hole
@@ -190,9 +180,6 @@ map("n", "c", "\"_c")
 map("n", "C", "\"_C")
 map("v", "c", "\"_c")
 map("v", "C", "\"_C")
-
--- Make saving and quitting easier and faster
-map("n", "<leader>w", "<cmd>write<cr>")
 
 -- Turn off search highlighting because vim doesn't do that by default for some
 -- reason
@@ -204,12 +191,10 @@ map("n", "<C-l>", "<C-w>l")
 map("n", "<C-j>", "<C-w>j")
 map("n", "<C-k>", "<C-w>k")
 
--- Quickfix mapping. Taken from tpope/vim-unimpaired. I used to have the whole
--- plugin but this is all I used.
+-- Quickfix mapping. Taken from tpope/vim-unimpaired
 map("n", "]q", "<cmd>cnext<cr>")
 map("n", "[q", "<cmd>cprev<cr>")
 
---- Terminal settings
 -- Easier terminal opening. L for shell
 map("n", "<leader>l", "<cmd>terminal<cr>")
 -- Easier escape
@@ -219,15 +204,11 @@ map("t", "<C-h>", "<C-\\><C-n><C-w>h")
 map("t", "<C-j>", "<C-\\><C-n><C-w>j")
 map("t", "<C-k>", "<C-\\><C-n><C-w>k")
 map("t", "<C-l>", "<C-\\><C-n><C-w>l")
--- Make terminals always open in insert mode and no linenumbers in
--- terminals.
--- TODO: Use augroup API when it gets finished
-cmd "augroup TermSettings"
-cmd "  autocmd!"
-cmd "  autocmd TermOpen * startinsert | setlocal norelativenumber nonumber"
-cmd "augroup END"
+-- Make terminals always open in insert mode with no linenumbers.
+-- TODO: Use autocmd API when it gets finished
+cmd "autocmd TermOpen * startinsert | setlocal norelativenumber nonumber"
 
--- Replace the current line with todo comment
+-- Add todo comments
 -- TODO: Make this less hacky
 map("n", "<leader>c",
     "<cmd>call append('.', substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>j==f:la")
@@ -257,16 +238,15 @@ g.vim_markdown_folding_disabled = 1
 g.vim_markdown_frontmatter = 1
 g.vim_markdown_auto_insert_bullets = 0
 g.vim_markdown_new_list_item_indent = 2
--- LaTeX with no concealing
-g.tex_conceal = ""
 g.vim_markdown_math = 1
+-- Don't conceal in LaTeX
+g.tex_conceal = ""
 
--- Fuzzy finding!
 -- Don't open unnecessary files
 g.fzf_buffers_jump = 1
 g.fzf_layout = {window = {width = 0.85, height = 0.8}}
 g.fzf_preview_window = ""
--- Nice keybindings
+-- Nice fzf keybindings
 cmd [[
 command! -bang -nargs=? -complete=dir Directories
   \ call fzf#run(fzf#wrap({'source': 'fd --type directory' . ('<bang>' == '!' ? ' --hidden' : '')}))
@@ -284,23 +264,6 @@ map("n", "<leader>I", "<cmd>Rg<cr>")
 map("n", "<leader>t", "<cmd>FloatermToggle<cr>")
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
-
--- Zettelkasten notes
-require("zk").setup {picker = "fzf"}
-function MY_ZK()
-  require("zk").pick_notes({}, {
-    fzf_options = {
-      [[--bind=Ctrl-N:abort+execute(nvr +"close | ZkNew { title = {q} }")]],
-      [[--header=Ctrl-N: create a note with the query as title]],
-    },
-  }, function(notes)
-    for _, note in ipairs(notes) do
-      vim.cmd("e " .. note.absPath)
-    end
-  end)
-end
-cmd "command! ZkEdit call v:lua.MY_ZK()"
-map("n", "<leader>n", "<cmd>ZkEdit<cr>")
 
 --------------------------------
 ---------- Formatting ----------
@@ -352,19 +315,13 @@ map("n", "<leader>f", "<cmd>Format<cr>")
 ---------- Snippets ------------
 --------------------------------
 local luasnip = require("luasnip")
+local env_snippet = luasnip.parser.parse_snippet("env", [[
+\begin{$1}
+  $0
+\end{$1}]])
 luasnip.snippets = {
-  tex = {
-    luasnip.parser.parse_snippet("env", [[
-\begin{$1}
-  $0
-\end{$1}]]),
-  },
-  markdown = {
-    luasnip.parser.parse_snippet("env", [[
-\begin{$1}
-  $0
-\end{$1}]]),
-  },
+  tex = {env_snippet},
+  markdown = {env_snippet},
   rust = {
     luasnip.parser.parse_snippet("macro", [[
 macro_rules! $1 {
@@ -405,35 +362,35 @@ cmp.setup {
   sources = {{name = "nvim_lsp"}, {name = "luasnip"}},
 }
 
+local function lsp_attach(_, bufnr)
+  local function bufmap(mode, lhs, rhs)
+    local opts = vim.tbl_extend("force", MAP_DEFAULTS, {silent = true})
+    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+  end
+
+  bufmap("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>")
+  bufmap("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>")
+  bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
+  bufmap("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>")
+  bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+  bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+  bufmap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
+  bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+  bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
+  bufmap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>")
+  bufmap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>")
+  bufmap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+  bufmap("n", "ge", "<cmd>lua vim.diagnostic.show_line_diagnostics()<cr>")
+  bufmap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+  bufmap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+
+  print("LSP Attached.")
+end
+
 local lspconfig = require("lspconfig")
 lspconfig.util.default_config = vim.tbl_extend("force",
                                                lspconfig.util.default_config, {
-  on_attach = function(_, bufnr)
-    local function bufmap(mode, lhs, rhs)
-      -- 0 means current buffer
-      local opts = vim.tbl_extend("force", MAP_DEFAULTS, {silent = true})
-      vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-    end
-
-    bufmap("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<cr>")
-    bufmap("n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<cr>")
-    bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
-    bufmap("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<cr>")
-    bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
-    bufmap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
-    bufmap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
-    bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
-    bufmap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
-    bufmap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>")
-    bufmap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>")
-    bufmap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>")
-    bufmap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
-    bufmap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>")
-    bufmap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>")
-
-    print("LSP Attached.")
-  end,
-
+  on_attach = lsp_attach,
   capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol
                                                                  .make_client_capabilities()),
 })
@@ -441,7 +398,6 @@ lspconfig.util.default_config = vim.tbl_extend("force",
 lspconfig.pylsp.setup {}
 lspconfig.jdtls.setup {}
 lspconfig.tsserver.setup {}
-
 lspconfig.vimls.setup {}
 lspconfig.sumneko_lua.setup {
   cmd = {
@@ -461,14 +417,65 @@ lspconfig.sumneko_lua.setup {
     },
   },
 }
-
 lspconfig.bashls.setup {}
-
 lspconfig.texlab.setup {}
-
 lspconfig.gopls.setup {}
 lspconfig.clangd.setup {}
 lspconfig.rust_analyzer.setup {}
+
+--------------------------------
+------ Zettelkasten notes ------
+--------------------------------
+require("zk").setup {picker = "fzf", lsp = {config = {on_attach = lsp_attach}}}
+
+require("zk.commands").add("ZkEdit", function()
+  require("zk").edit({}, {
+    fzf_options = {
+      [[--bind=Ctrl-N:abort+execute(nvr +"close | ZkNew { title = {q} }")]],
+      [[--header=Ctrl-N: create a note with the query as title]],
+    },
+  })
+end)
+
+require("zk.commands").add("ZkLink", function(options)
+  if options == nil then
+    options = {}
+  end
+  local picker_options = {title = "Zk Insert Link"}
+  require("zk").pick_notes(options, picker_options, function(notes)
+    for _, note in ipairs(notes) do
+      local link = "[" .. note.title .. "](" .. note.path .. ")"
+      vim.api.nvim_put({link}, "c", true, true)
+    end
+  end)
+end)
+
+require("zk.commands").add("ZkLinkSelection", function(options)
+  -- TODO: This boilerplate is necessary until
+  -- https://github.com/neovim/neovim/pull/13896 is merged
+  -- This was taken from the ZkMatch implementation
+  local range = require("zk.util").get_selected_range()
+  local text = require("zk.util").get_text_in_range(range)
+  assert(text ~= nil, "No selected text")
+  options = vim.tbl_extend("force", {match = text}, options or {})
+  local picker_options = {
+    title = "Zk Insert Link matching " .. vim.inspect(text),
+  }
+
+  require("zk").pick_notes(options, picker_options, function(notes)
+    assert(#notes == 1, "Only select one note")
+    local note = notes[1]
+    local link = "[" .. text .. "](" .. note.path .. ")"
+    vim.api.nvim_buf_set_text(0, range.start.line, range.start.character,
+                              range["end"].line, range["end"].character, {link})
+  end)
+end, {needs_selection = true})
+
+map("n", "<leader>n", "<cmd>ZkEdit<cr>")
+map("v", "<leader>n", "<cmd>'<,'>ZkNewFromTitleSelection<cr>")
+map("n", "<leader>m", "<cmd>ZkLink<cr>")
+map("v", "<leader>m", ":ZkLinkSelection<cr>")
+cmd "command! ZkUpdate !zk update"
 
 --------------------------------
 ---------- TreeSitter ----------
@@ -478,17 +485,12 @@ cmd "autocmd BufRead,BufNewFile *.lalrpop set filetype=lalrpop"
 cmd "autocmd FileType lalrpop set commentstring=//%s"
 parser_config.rust.used_by = "lalrpop"
 require("nvim-treesitter.configs").setup {
-  -- one of "all", "language", or a list of languages
   ensure_installed = "maintained",
   highlight = {
     -- Enable nested language parsers
     use_languagetree = true,
     enable = true,
   },
-  -- This doesn't work quite right
-  -- indent = {
-  --   enable = true
-  -- },
 }
 -- This is kinda illegal. I took this from the CursorHold autocmd
 map("n", "S",
