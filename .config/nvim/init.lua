@@ -49,9 +49,7 @@ require("packer").startup(function(use)
   use "tpope/vim-fugitive"
 
   -- Multi-cursor
-  -- use "mg979/vim-visual-multi"
-  -- g.VM_leader = "\\"
-  -- g.VM_maps = {["Add Cursor Down"] = "<M-j>", ["Add Cursor Up"] = "<M-k>"}
+  use "mg979/vim-visual-multi"
 
   -- The file manager I made. I normally just symlink it
   -- use "elihunter173/dirbuf.nvim"
@@ -62,12 +60,11 @@ require("packer").startup(function(use)
   -- Fuzzy finding
   use {
     "junegunn/fzf",
-    "junegunn/fzf",
+    "junegunn/fzf.vim",
     run = function()
       vim.fn["fzf#install"]()
     end,
   }
-  use "junegunn/fzf.vim"
 
   -- Zettelkasten notes
   use "mickael-menu/zk-nvim"
@@ -242,6 +239,10 @@ g.vim_markdown_math = 1
 -- Don't conceal in LaTeX
 g.tex_conceal = ""
 
+-- Multi-cursor
+g.VM_leader = "\\"
+g.VM_maps = {["Add Cursor Down"] = "<M-j>", ["Add Cursor Up"] = "<M-k>"}
+
 -- Don't open unnecessary files
 g.fzf_buffers_jump = 1
 g.fzf_layout = {window = {width = 0.85, height = 0.8}}
@@ -307,6 +308,7 @@ require("formatter").setup {
     rust = {fmt_call("rustfmt", "--edition=2018", "--emit=stdout")},
     c = {fmt_call("clang-format")},
     cpp = {fmt_call("clang-format")},
+    go = {fmt_call("gofmt")},
   },
 }
 map("n", "<leader>f", "<cmd>Format<cr>")
@@ -480,10 +482,6 @@ cmd "command! ZkUpdate !zk update"
 --------------------------------
 ---------- TreeSitter ----------
 --------------------------------
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-cmd "autocmd BufRead,BufNewFile *.lalrpop set filetype=lalrpop"
-cmd "autocmd FileType lalrpop set commentstring=//%s"
-parser_config.rust.used_by = "lalrpop"
 require("nvim-treesitter.configs").setup {
   ensure_installed = "maintained",
   highlight = {
