@@ -42,6 +42,10 @@ if command -v luarocks > /dev/null; then
     export PATH="$PATH:$HOME/.luarocks/bin"
 fi
 
+if [ -d "$HOME/.dotnet" ]; then
+    export PATH="$PATH:$HOME/.dotnet/tools"
+fi
+
 # Add go installation to path
 export PATH="$PATH:/usr/local/go/bin"
 
