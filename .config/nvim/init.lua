@@ -238,6 +238,7 @@ g.vim_markdown_new_list_item_indent = 2
 g.vim_markdown_math = 1
 -- Don't conceal in LaTeX
 g.tex_conceal = ""
+cmd "autocmd FileType markdown set textwidth=80"
 
 -- Multi-cursor
 g.VM_leader = "\\"
