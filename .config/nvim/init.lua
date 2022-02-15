@@ -27,6 +27,9 @@ require("packer").startup(function(use)
 
   use("lifepillar/vim-gruvbox8")
 
+  -- Faster filetype
+  use("nathom/filetype.nvim")
+
   -- Custom filetypes
   use("chr4/nginx.vim")
   use("JuliaEditorSupport/julia-vim")
@@ -140,6 +143,7 @@ opt.clipboard = "unnamedplus"
 
 -- Statusline
 opt.laststatus = 2
+-- Always have filenames be relative
 function MYFILENAME()
   local name = vim.fn.expand("%")
   if name == "" then
@@ -153,9 +157,7 @@ end
 opt.statusline = "%{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c%{' '.FugitiveHead()}"
 
 -- Colorscheme
-if os.getenv("TERM") ~= "screen" then
-  opt.termguicolors = true
-end
+opt.termguicolors = os.getenv("TERM") ~= "screen"
 opt.background = "dark"
 
 -- Automatically enable spelling on certain files
@@ -219,6 +221,9 @@ map(
 -----------------------------
 ------- Plugin Config -------
 -----------------------------
+-- Replace filetype.vim with nathom/filetype.nvim
+g.did_load_filetypes = 1
+
 -- Colorscheme
 g.gruvbox_italicize_strings = 0
 cmd("colorscheme gruvbox8")
@@ -242,7 +247,7 @@ g.vim_markdown_new_list_item_indent = 2
 g.vim_markdown_math = 1
 -- Don't conceal in LaTeX
 g.tex_conceal = ""
-cmd "autocmd FileType markdown set textwidth=80"
+cmd("autocmd FileType markdown set textwidth=80")
 
 -- Multi-cursor
 g.VM_leader = "\\"
@@ -268,6 +273,7 @@ map("n", "<leader>I", "<cmd>Rg<cr>")
 
 -- Floaterm
 map("n", "<leader>t", "<cmd>FloatermToggle<cr>")
+-- Bigger floaterm
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 
@@ -355,7 +361,8 @@ local function lsp_attach(_, bufnr)
   -- bufmap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
   -- bufmap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
   bufmap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-  bufmap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+  -- bufmap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+  bufmap("n", "<space>r", "<cmd>lua vim.lsp.buf.rename()<CR>")
   bufmap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
   bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
   bufmap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
@@ -387,13 +394,12 @@ lspconfig.sumneko_lua.setup {
       runtime = { version = "LuaJIT" },
       diagnostics = {
         globals = {
-          "vim", -- neovim
-          "awesome",
-          "client",
-          "screen", -- awesome
+          -- neovim
+          "vim",
+          -- busted
           "describe",
           "it",
-          "pending", -- busted
+          "pending",
         },
       },
     },
@@ -415,8 +421,8 @@ null_ls.setup {
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.gofmt,
     null_ls.builtins.formatting.black,
-    null_ls.builtins.formatting.rustfmt,
-    null_ls.builtins.formatting.clang_format,
+    -- null_ls.builtins.formatting.rustfmt,
+    -- null_ls.builtins.formatting.clang_format,
   },
 }
 

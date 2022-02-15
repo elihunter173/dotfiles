@@ -12,13 +12,13 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
+# Tell GNUPG to use the terminal and no GUI
+export GPG_TTY=$(tty)
+
 has() {
   command -v "$1" > /dev/null
   return $?
 }
-
-# Tell GNUPG to use the terminal and no GUI
-export GPG_TTY=$(tty)
 
 if has nvr && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     export EDITOR='nvr -cc FloatermHide'
@@ -48,7 +48,7 @@ fi
 if has wsl-open; then
   alias o='wsl-open'
 else
-  alias o='xdg-open'
+  alias o='xdg-open 2>/dev/null'
 fi
 
 alias e="$EDITOR"
