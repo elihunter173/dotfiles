@@ -5,6 +5,9 @@ export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# Connect to ssh-agent running as systemd user service
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 if command -v poetry > /dev/null; then
     export PATH="$HOME/.poetry/bin:$PATH"
 fi
