@@ -84,10 +84,7 @@ require("packer").startup(function(use)
   use { "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" }
 
   -- TreeSitter
-  use {
-    "nvim-treesitter/nvim-treesitter",
-    "nvim-treesitter/nvim-treesitter-refactor",
-  }
+  use("nvim-treesitter/nvim-treesitter")
 end)
 
 if packer_bootstrap then
@@ -355,7 +352,7 @@ local function lsp_attach(_, bufnr)
   bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
   bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
   bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  bufmap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+  -- bufmap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
   -- This conflicts with my :write binding
   -- bufmap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
   -- bufmap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
@@ -368,7 +365,7 @@ local function lsp_attach(_, bufnr)
   bufmap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 
   -- My settings
-  bufmap("n", "ge", "<cmd>lua vim.diagnostic.show_line_diagnostics()<cr>")
+  bufmap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
 
   print("LSP Attached.")
 end
@@ -418,8 +415,10 @@ local null_ls = require("null-ls")
 null_ls.setup {
   sources = {
     null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.prettier,
-    null_ls.builtins.formatting.gofmt,
+    null_ls.builtins.formatting.prettier.with {
+      filetypes = { "html", "css", "scss", "json", "yaml" },
+    },
+    -- null_ls.builtins.formatting.gofmt,
     null_ls.builtins.formatting.black,
     -- null_ls.builtins.formatting.rustfmt,
     -- null_ls.builtins.formatting.clang_format,
@@ -497,10 +496,3 @@ require("nvim-treesitter.configs").setup {
     enable = true,
   },
 }
--- This is kinda illegal. I took this from the CursorHold autocmd
-map(
-  "n",
-  "S",
-  "<cmd>lua require'nvim-treesitter-refactor.highlight_definitions'.highlight_usages(vim.fn.bufnr())<cr>",
-  { silent = true }
-)
