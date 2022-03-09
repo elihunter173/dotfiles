@@ -1,5 +1,6 @@
 local cmd, g, opt = vim.cmd, vim.g, vim.opt
 
+-- TODO: Use new vim.keymap api
 local MAP_DEFAULTS = { noremap = true }
 local function map(mode, lhs, rhs, opts)
   opts = vim.tbl_extend("force", MAP_DEFAULTS, opts or {})
@@ -10,7 +11,6 @@ end
 ---------- Plugins ----------
 -----------------------------
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
 local packer_bootstrap = false
 if vim.fn.isdirectory(install_path) == 0 then
   vim.fn.system {
@@ -27,7 +27,7 @@ require("packer").startup(function(use)
 
   use("lifepillar/vim-gruvbox8")
 
-  -- Faster filetype
+  -- Faster filetype. TODO: Remove when built-in filetype.lua is better
   use("nathom/filetype.nvim")
 
   -- Custom filetypes
@@ -40,7 +40,7 @@ require("packer").startup(function(use)
   -- General editing
   -- Easier commenting for any language
   use("tpope/vim-commentary")
-  -- Additional text objects
+  -- Additional text objects. TODO: Maybe replace with treesitter stuff
   use("wellle/targets.vim")
   -- Surrounding text objects with any character
   use("machakann/vim-sandwich")
@@ -52,16 +52,12 @@ require("packer").startup(function(use)
   use("editorconfig/editorconfig-vim")
   -- Git
   use("tpope/vim-fugitive")
-
   -- Multi-cursor
   use("mg979/vim-visual-multi")
-
   -- The file manager I made. I normally just symlink it
-  -- use "elihunter173/dirbuf.nvim"
-
+  -- use("elihunter173/dirbuf.nvim")
   -- Floating terminal
   use("voldikss/vim-floaterm")
-
   -- Fuzzy finding
   use {
     "junegunn/fzf",
@@ -165,7 +161,6 @@ cmd("autocmd FileType c,cpp set commentstring=//%s")
 -----------------------------
 ---------- Mappings ----------
 -----------------------------
--- TODO: See if theres a Lua native way to do this
 cmd("let mapleader = ' '")
 map("n", "<leader>w", "<cmd>write<cr>")
 -- Make leader keybindings less awkward
@@ -207,7 +202,6 @@ map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 cmd("autocmd TermOpen * startinsert | setlocal norelativenumber nonumber")
 
 -- Add todo comments
--- TODO: Make this less hacky
 map("n", "<leader>c", "<cmd>call append('.', substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>j==f:la")
 map(
   "n",
@@ -335,6 +329,7 @@ cmp.setup {
   sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
 }
 
+-- Recommended settings
 map("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
 map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
@@ -353,19 +348,19 @@ local function lsp_attach(_, bufnr)
   bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
   bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
   -- bufmap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-  -- This conflicts with my :write binding
+  -- These conflict with my :write binding
   -- bufmap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
   -- bufmap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
   -- bufmap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
   bufmap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
   -- bufmap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  bufmap("n", "<space>r", "<cmd>lua vim.lsp.buf.rename()<CR>")
   bufmap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
   bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
   bufmap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 
   -- My settings
   bufmap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
+  bufmap("n", "<space>r", "<cmd>lua vim.lsp.buf.rename()<CR>")
 
   print("LSP Attached.")
 end
@@ -377,6 +372,7 @@ lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_c
 })
 
 lspconfig.pylsp.setup {}
+-- TODO: Figure out setup for jdtls
 lspconfig.jdtls.setup {}
 lspconfig.tsserver.setup {}
 lspconfig.vimls.setup {}
@@ -418,10 +414,7 @@ null_ls.setup {
     null_ls.builtins.formatting.prettier.with {
       filetypes = { "html", "css", "scss", "json", "yaml" },
     },
-    -- null_ls.builtins.formatting.gofmt,
     null_ls.builtins.formatting.black,
-    -- null_ls.builtins.formatting.rustfmt,
-    -- null_ls.builtins.formatting.clang_format,
   },
 }
 
@@ -452,37 +445,9 @@ require("zk.commands").add("ZkLink", function(options)
   end)
 end)
 
-require("zk.commands").add("ZkLinkSelection", function(options)
-  -- TODO: This boilerplate is necessary until
-  -- https://github.com/neovim/neovim/pull/13896 is merged
-  -- This was taken from the ZkMatch implementation
-  local range = require("zk.util").get_selected_range()
-  local text = require("zk.util").get_text_in_range(range)
-  assert(text ~= nil, "No selected text")
-  options = vim.tbl_extend("force", { match = text }, options or {})
-  local picker_options = {
-    title = "Zk Insert Link matching " .. vim.inspect(text),
-  }
-
-  require("zk").pick_notes(options, picker_options, function(notes)
-    assert(#notes == 1, "Only select one note")
-    local note = notes[1]
-    local link = "[" .. text .. "](" .. note.path .. ")"
-    vim.api.nvim_buf_set_text(
-      0,
-      range.start.line,
-      range.start.character,
-      range["end"].line,
-      range["end"].character,
-      { link }
-    )
-  end)
-end, { needs_selection = true })
-
 map("n", "<leader>n", "<cmd>ZkEdit<cr>")
 map("v", "<leader>n", "<cmd>'<,'>ZkNewFromTitleSelection<cr>")
 map("n", "<leader>m", "<cmd>ZkLink<cr>")
-map("v", "<leader>m", ":ZkLinkSelection<cr>")
 cmd("command! ZkUpdate !zk update")
 
 --------------------------------
