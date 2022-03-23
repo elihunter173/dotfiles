@@ -55,7 +55,8 @@ require("packer").startup(function(use)
   -- Multi-cursor
   use("mg979/vim-visual-multi")
   -- The file manager I made. I normally just symlink it
-  -- use("elihunter173/dirbuf.nvim")
+  -- use "elihunter173/dirbuf.nvim"
+
   -- Floating terminal
   use("voldikss/vim-floaterm")
   -- Fuzzy finding
@@ -362,6 +363,8 @@ local function lsp_attach(_, bufnr)
   bufmap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
   bufmap("n", "<space>r", "<cmd>lua vim.lsp.buf.rename()<CR>")
 
+  vim.opt.tagfunc = "v:lua.vim.lsp.tagfunc"
+
   print("LSP Attached.")
 end
 
@@ -371,8 +374,17 @@ lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_c
   capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
-lspconfig.pylsp.setup {}
--- TODO: Figure out setup for jdtls
+lspconfig.pylsp.setup {
+  settings = {
+    pylsp = {
+      plugins = {
+        autopep8 = { enabled = false },
+        yapf = { enabled = false },
+        black = { enabled = true },
+      },
+    },
+  },
+}
 lspconfig.jdtls.setup {}
 lspconfig.tsserver.setup {}
 lspconfig.vimls.setup {}
@@ -414,7 +426,6 @@ null_ls.setup {
     null_ls.builtins.formatting.prettier.with {
       filetypes = { "html", "css", "scss", "json", "yaml" },
     },
-    null_ls.builtins.formatting.black,
   },
 }
 
@@ -460,4 +471,22 @@ require("nvim-treesitter.configs").setup {
     use_languagetree = true,
     enable = true,
   },
+}
+cmd([[
+augroup just
+  autocmd!
+  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile *.just setlocal filetype=just
+  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile justfile setlocal filetype=just
+  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile Justfile setlocal filetype=just
+  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile .justfile setlocal filetype=just
+  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile .Justfile setlocal filetype=just
+augroup END
+]])
+require("nvim-treesitter.parsers").get_parser_configs().just = {
+  install_info = {
+    url = "https://github.com/IndianBoy42/tree-sitter-just",
+    files = { "src/parser.c", "src/scanner.cc" },
+    branch = "main",
+  },
+  maintainers = { "@IndianBoy42" },
 }

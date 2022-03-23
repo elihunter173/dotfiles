@@ -5,6 +5,9 @@ export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# Qt5
+export QT_QPA_PLATFORMTHEME=qt5ct
+
 # Connect to ssh-agent running as systemd user service
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
@@ -47,6 +50,14 @@ fi
 
 if [ -d "$HOME/.dotnet" ]; then
     export PATH="$PATH:$HOME/.dotnet/tools"
+fi
+
+# Setup ghc and cabal
+if [ -d "$HOME/.ghcup" ]; then
+    export PATH="$PATH:$HOME/.ghcup/bin"
+fi
+if [ -d "$HOME/.cabal" ]; then
+    export PATH="$PATH:$HOME/.cabal/bin"
 fi
 
 # Add go installation to path
