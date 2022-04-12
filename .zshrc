@@ -53,6 +53,7 @@ fi
 
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.gitconfig
+alias d='rip'
 alias p='pueue'
 
 # I have issues with xterm-termite cross platform

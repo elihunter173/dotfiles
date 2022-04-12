@@ -44,14 +44,18 @@ output * bg /home/eli/Pictures/wallpapers/low_poly_mountains.png fill
 # Autostart
 # We need to daemonize so swayidle can appropriately suspend after awhile
 set $lock swaylock --daemonize --color 004041
-exec mako
+exec --no-startup-id mako
 exec nm-applet
 exec blueman-applet
-exec xss-lock --transfer-sleep-lock -- $lock
-exec swayidle -w \
+exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock
+exec --no-startup-id swayidle -w \
     timeout 300 '[[ -f ~/.config/eli/caffeine ]] && $lock' \
     timeout 900 '[[ -f ~/.config/eli/caffeine ]] && systemctl suspend' \
     before-sleep '[[ -f ~/.config/eli/caffeine ]] && $lock'
+# Required for geoclue to work
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
+# TODO: Work on moving stuff to systemd services?
+exec_always "systemctl --user import-environment; systemctl --user start sway-session.target"
 
 ### Input configuration
 #

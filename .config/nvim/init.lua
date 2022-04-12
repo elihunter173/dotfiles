@@ -55,7 +55,7 @@ require("packer").startup(function(use)
   -- Multi-cursor
   use("mg979/vim-visual-multi")
   -- The file manager I made. I normally just symlink it
-  -- use "elihunter173/dirbuf.nvim"
+  -- use("elihunter173/dirbuf.nvim")
 
   -- Floating terminal
   use("voldikss/vim-floaterm")
@@ -74,7 +74,6 @@ require("packer").startup(function(use)
   -- LSP, snippets, and autocomplete
   use("neovim/nvim-lspconfig")
   use("L3MON4D3/LuaSnip")
-  -- TODO: Check out coq.nvim?
   use { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip" }
 
   -- LSP integration for generic things (e.g. formatters)
@@ -309,12 +308,12 @@ fn test_$1() {
 --------------------------------
 local cmp = require("cmp")
 cmp.setup {
-  source = {
-    -- TODO: Only enable this in custom_attach?
-    nvim_lsp = true,
-    -- TODO: Make snippets higher priorty than nvim_lsp?
-    snippets_nvim = true,
-  },
+  sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+  }, {
+    { name = "buffer" },
+  }),
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
@@ -327,7 +326,6 @@ cmp.setup {
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm { select = true },
   },
-  sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
 }
 
 -- Recommended settings
@@ -465,7 +463,7 @@ cmd("command! ZkUpdate !zk update")
 ---------- TreeSitter ----------
 --------------------------------
 require("nvim-treesitter.configs").setup {
-  ensure_installed = "maintained",
+  ensure_installed = "all",
   highlight = {
     -- Enable nested language parsers
     use_languagetree = true,
