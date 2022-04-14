@@ -1,11 +1,4 @@
-local cmd, g, opt = vim.cmd, vim.g, vim.opt
-
--- TODO: Use new vim.keymap api
-local MAP_DEFAULTS = { noremap = true }
-local function map(mode, lhs, rhs, opts)
-  opts = vim.tbl_extend("force", MAP_DEFAULTS, opts or {})
-  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
-end
+local cmd, g, opt, map = vim.cmd, vim.g, vim.opt, vim.keymap.set
 
 -----------------------------
 ---------- Plugins ----------
@@ -52,8 +45,11 @@ require("packer").startup(function(use)
   use("editorconfig/editorconfig-vim")
   -- Git
   use("tpope/vim-fugitive")
+  use("lewis6991/gitsigns.nvim")
   -- Multi-cursor
   use("mg979/vim-visual-multi")
+  -- Indent marks
+  use("lukas-reineke/indent-blankline.nvim")
   -- The file manager I made. I normally just symlink it
   -- use("elihunter173/dirbuf.nvim")
 
@@ -147,7 +143,7 @@ function MYFILENAME()
     return vim.fn.fnamemodify(name, ":~:.")
   end
 end
-opt.statusline = "%{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c%{' '.FugitiveHead()}"
+opt.statusline = "%{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c%{' '.get(b:,'gitsigns_head','')}"
 
 -- Colorscheme
 opt.termguicolors = os.getenv("TERM") ~= "screen"
@@ -159,7 +155,7 @@ cmd("autocmd FileType tex,markdown setlocal spell")
 cmd("autocmd FileType c,cpp set commentstring=//%s")
 
 -----------------------------
----------- Mappings ----------
+--------- Mappings ----------
 -----------------------------
 cmd("let mapleader = ' '")
 map("n", "<leader>w", "<cmd>write<cr>")
@@ -268,6 +264,54 @@ map("n", "<leader>t", "<cmd>FloatermToggle<cr>")
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 
+-- Git
+require("gitsigns").setup {
+  on_attach = function(bufnr)
+    local gs = require("gitsigns")
+
+    local function bufmap(mode, l, r, opts)
+      opts = vim.tbl_extend("force", { buffer = bufnr, silent = true }, opts or {})
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    bufmap("n", "]c", function()
+      if vim.wo.diff then
+        return "]c"
+      end
+      vim.schedule(gs.next_hunk)
+      return "<Ignore>"
+    end, { expr = true })
+    bufmap("n", "[c", function()
+      if vim.wo.diff then
+        return "[c"
+      end
+      vim.schedule(gs.prev_hunk)
+      return "<Ignore>"
+    end, { expr = true })
+
+    -- Actions
+    map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>")
+    map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>")
+    map("n", "<leader>hS", gs.stage_buffer)
+    map("n", "<leader>hu", gs.undo_stage_hunk)
+    map("n", "<leader>hR", gs.reset_buffer)
+    map("n", "<leader>hp", gs.preview_hunk)
+    map("n", "<leader>hb", function()
+      gs.blame_line { full = true }
+    end)
+    map("n", "<leader>tb", gs.toggle_current_line_blame)
+    map("n", "<leader>hd", gs.diffthis)
+    map("n", "<leader>hD", function()
+      gs.diffthis("~")
+    end)
+    map("n", "<leader>td", gs.toggle_deleted)
+
+    -- Text object
+    map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+  end,
+}
+
 --------------------------------
 ---------- Snippets ------------
 --------------------------------
@@ -336,8 +380,7 @@ map("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
 
 local function lsp_attach(_, bufnr)
   local function bufmap(mode, lhs, rhs)
-    local opts = vim.tbl_extend("force", MAP_DEFAULTS, { silent = true })
-    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+    vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
   end
 
   -- Recommended settings
