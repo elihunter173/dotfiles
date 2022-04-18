@@ -18,21 +18,14 @@ end
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
 
+  -- Colorscheme
   use("lifepillar/vim-gruvbox8")
-
   -- Faster filetype. TODO: Remove when built-in filetype.lua is better
   use("nathom/filetype.nvim")
-
-  -- Custom filetypes
-  use("chr4/nginx.vim")
-  use("JuliaEditorSupport/julia-vim")
-  use("plasticboy/vim-markdown")
-  -- For :TableFormat in markdown
-  use("godlygeek/tabular")
-
-  -- General editing
+  -- Markdown
+  use { "plasticboy/vim-markdown", requires = "godlygeek/tabular" }
   -- Easier commenting for any language
-  use("tpope/vim-commentary")
+  use("numToStr/Comment.nvim")
   -- Additional text objects. TODO: Maybe replace with treesitter stuff
   use("wellle/targets.vim")
   -- Surrounding text objects with any character
@@ -45,7 +38,7 @@ require("packer").startup(function(use)
   use("editorconfig/editorconfig-vim")
   -- Git
   use("tpope/vim-fugitive")
-  use("lewis6991/gitsigns.nvim")
+  use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
   -- Multi-cursor
   use("mg979/vim-visual-multi")
   -- Indent marks
@@ -69,8 +62,7 @@ require("packer").startup(function(use)
 
   -- LSP, snippets, and autocomplete
   use("neovim/nvim-lspconfig")
-  use("L3MON4D3/LuaSnip")
-  use { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip" }
+  use { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp" }
 
   -- LSP integration for generic things (e.g. formatters)
   use { "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" }
@@ -121,6 +113,8 @@ opt.lazyredraw = true
 -- Better completion experience
 opt.completeopt = { "menu", "menuone", "noselect" }
 opt.shortmess:append("c")
+-- Better diff
+opt.diffopt:append { "iwhiteall", "iblank", "algorithm:histogram" }
 -- Persistent undo
 opt.undofile = true
 -- Incremental :substitute preview in same buffer
@@ -157,7 +151,7 @@ cmd("autocmd FileType c,cpp set commentstring=//%s")
 -----------------------------
 --------- Mappings ----------
 -----------------------------
-cmd("let mapleader = ' '")
+g.mapleader = " "
 map("n", "<leader>w", "<cmd>write<cr>")
 -- Make leader keybindings less awkward
 map("n", " ", "")
@@ -213,10 +207,13 @@ g.did_load_filetypes = 1
 
 -- Colorscheme
 g.gruvbox_italicize_strings = 0
+g.gruvbox_transp_bg = 1
 cmd("colorscheme gruvbox8")
 
 -- EditorConfig + Fugitive
 g.EditorConfig_exclude_patterns = { "fugitive://.\\*" }
+
+require("Comment").setup()
 
 -- Fugitive
 map("n", "<leader>gs", "<cmd>Git<cr>")
@@ -313,57 +310,13 @@ require("gitsigns").setup {
 }
 
 --------------------------------
----------- Snippets ------------
---------------------------------
-local luasnip = require("luasnip")
-local env_snippet = luasnip.parser.parse_snippet(
-  "env",
-  [[
-\begin{$1}
-  $0
-\end{$1}]]
-)
-luasnip.snippets = {
-  tex = { env_snippet },
-  markdown = { env_snippet },
-  rust = {
-    luasnip.parser.parse_snippet(
-      "macro",
-      [[
-macro_rules! $1 {
-  ($2) => {
-    $0
-  };
-}]]
-    ),
-    luasnip.parser.parse_snippet(
-      "test",
-      [[
-#[test]
-fn test_$1() {
-  $0
-}]]
-    ),
-  },
-}
-
---------------------------------
 ------ LSP & Autocomplete ------
 --------------------------------
 local cmp = require("cmp")
 cmp.setup {
-  sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-  }, {
-    { name = "buffer" },
-  }),
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
-  mapping = {
+  sources = cmp.config.sources({ { name = "nvim_lsp" } }, { { name = "buffer" } }),
+  -- TODO: Look into new mappings
+  mapping = cmp.mapping.preset.insert {
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
@@ -372,39 +325,38 @@ cmp.setup {
   },
 }
 
--- Recommended settings
-map("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
-map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
-map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-map("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
+-- Recommended diagnostic settings
+map("n", "<space>e", vim.diagnostic.open_float)
+map("n", "]d", vim.diagnostic.goto_next)
+map("n", "[d", vim.diagnostic.goto_prev)
+map("n", "<space>e", vim.diagnostic.open_float)
 
 local function lsp_attach(_, bufnr)
   local function bufmap(mode, lhs, rhs)
-    vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
+    map(mode, lhs, rhs, { buffer = bufnr, silent = true })
   end
 
-  -- Recommended settings
+  -- Recommended LSP settings
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  bufmap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-  bufmap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  bufmap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  -- bufmap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+  bufmap("n", "gD", vim.lsp.buf.declaration)
+  bufmap("n", "gd", vim.lsp.buf.definition)
+  bufmap("n", "K", vim.lsp.buf.hover)
+  bufmap("n", "gi", vim.lsp.buf.implementation)
+  -- bufmap("n", "<C-k>", vim.lsp.buf.signature_help)
   -- These conflict with my :write binding
-  -- bufmap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
-  -- bufmap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
+  -- bufmap("n", "<space>wa", vim.lsp.buf.add_workspace_folder)
+  -- bufmap("n", "<space>wr", vim.lsp.buf.remove_workspace_folder)
   -- bufmap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
-  bufmap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-  -- bufmap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  bufmap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-  bufmap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+  bufmap("n", "<space>D", vim.lsp.buf.type_definition)
+  -- bufmap("n", "<space>rn", vim.lsp.buf.rename)
+  bufmap("n", "<space>ca", vim.lsp.buf.code_action)
+  bufmap("n", "gr", vim.lsp.buf.references)
+  bufmap("n", "<space>f", vim.lsp.buf.formatting)
 
   -- My settings
-  bufmap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
-  bufmap("n", "<space>r", "<cmd>lua vim.lsp.buf.rename()<CR>")
-
-  vim.opt.tagfunc = "v:lua.vim.lsp.tagfunc"
+  vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+  bufmap("n", "ge", vim.lsp.diagnostic.show_line_diagnostics)
+  bufmap("n", "<space>r", vim.lsp.buf.rename)
 
   print("LSP Attached.")
 end
@@ -415,6 +367,10 @@ lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_c
   capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
+lspconfig.bashls.setup {}
+lspconfig.clangd.setup {}
+lspconfig.gopls.setup {}
+lspconfig.jdtls.setup {}
 lspconfig.pylsp.setup {
   settings = {
     pylsp = {
@@ -426,9 +382,7 @@ lspconfig.pylsp.setup {
     },
   },
 }
-lspconfig.jdtls.setup {}
-lspconfig.tsserver.setup {}
-lspconfig.vimls.setup {}
+lspconfig.rust_analyzer.setup {}
 lspconfig.sumneko_lua.setup {
   cmd = {
     os.getenv("HOME") .. "/bin/lua-language-server",
@@ -439,23 +393,15 @@ lspconfig.sumneko_lua.setup {
     Lua = {
       runtime = { version = "LuaJIT" },
       diagnostics = {
-        globals = {
-          -- neovim
-          "vim",
-          -- busted
-          "describe",
-          "it",
-          "pending",
-        },
+        -- Vim + Busted
+        globals = { "vim", "describe", "it", "pending" },
       },
     },
   },
 }
-lspconfig.bashls.setup {}
 lspconfig.texlab.setup {}
-lspconfig.gopls.setup {}
-lspconfig.clangd.setup {}
-lspconfig.rust_analyzer.setup {}
+lspconfig.tsserver.setup {}
+lspconfig.vimls.setup {}
 
 --------------------------------
 ----------- Null-ls ------------
@@ -508,21 +454,10 @@ cmd("command! ZkUpdate !zk update")
 require("nvim-treesitter.configs").setup {
   ensure_installed = "all",
   highlight = {
-    -- Enable nested language parsers
     use_languagetree = true,
     enable = true,
   },
 }
-cmd([[
-augroup just
-  autocmd!
-  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile *.just setlocal filetype=just
-  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile justfile setlocal filetype=just
-  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile Justfile setlocal filetype=just
-  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile .justfile setlocal filetype=just
-  autocmd VimEnter,BufWinEnter,BufRead,BufNewFile .Justfile setlocal filetype=just
-augroup END
-]])
 require("nvim-treesitter.parsers").get_parser_configs().just = {
   install_info = {
     url = "https://github.com/IndianBoy42/tree-sitter-just",
@@ -530,4 +465,15 @@ require("nvim-treesitter.parsers").get_parser_configs().just = {
     branch = "main",
   },
   maintainers = { "@IndianBoy42" },
+}
+require("filetype").setup {
+  overrides = {
+    extensions = { just = "just" },
+    literals = {
+      Justfile = "just",
+      justfile = "just",
+      [".Justfile"] = "just",
+      [".justfile"] = "just",
+    },
+  },
 }
