@@ -12,8 +12,35 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
+# I'm a traitor in the shell. I like emacs bindings there
+bindkey -e
 # Tell GNUPG to use the terminal and no GUI
 export GPG_TTY=$(tty)
+
+# Utility functions
+function texwatch() {
+  echo $@ | entr tectonic $@
+}
+function collate() {
+  pdftk A="$1" B="$2" shuffle A Bend-1 output "$3"
+}
+
+BOOKMARKS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/eli/bookmarks"
+function jump-bookmark() {
+  if [[ -n "$1" ]]; then
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$*:" | sed 's/[-_ a-zA-Z0-9]\+://')
+  else
+    # These options were taken from
+    # https://github.com/junegunn/fzf/blob/e4c3ecc57e99f4037199f11b384a7f8758d1a0ff/shell/key-bindings.zsh#L49
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sed 's/[-_ a-zA-Z0-9]\+://')
+  fi
+  if [[ -z "$bookmark" ]]; then
+    echo "No such bookmark '$*'" >&2
+    return 1
+  fi
+
+  cd ${bookmark/#\~/$HOME}
+}
 
 has() {
   command -v "$1" > /dev/null
@@ -30,6 +57,16 @@ elif has vim; then
     export EDITOR='vim'
 else
     export EDITOR='vi'
+fi
+
+# I have issues with xterm-termite cross platform
+if [[ $TERM == xterm-termite ]]; then
+    export TERM='xterm-256color'
+fi
+if [[ $TERM == xterm-kitty ]]; then
+    alias icat='kitty +kitten icat'
+    # xterm-kitty isn't supported everywhere
+    alias ssh='TERM=xterm-256color ssh'
 fi
 
 has fd && export FZF_DEFAULT_COMMAND='fd --type f'
@@ -51,24 +88,11 @@ else
   alias o='xdg-open 2>/dev/null'
 fi
 
-alias e="$EDITOR"
-alias g='git' # further shortcuts in ~/.gitconfig
 alias d='rip'
+alias e="$EDITOR"
+alias g='git' # further shortcuts in ~/.config/git/config
+alias j="jump-bookmark"
 alias p='pueue'
-
-# I have issues with xterm-termite cross platform
-if [[ $TERM == xterm-termite ]]; then
-    export TERM='xterm-256color'
-fi
-
-if [[ $TERM == xterm-kitty ]]; then
-    alias icat='kitty +kitten icat'
-    # xterm-kitty isn't supported everywhere
-    alias ssh='TERM=xterm-256color ssh'
-fi
-
-# I'm a traitor in the shell. I like emacs bindings there
-bindkey -e
 
 # Easier history searching
 # This has issues if you turbo load
@@ -101,34 +125,5 @@ zinit light sindresorhus/pure
 # Magenta and red are hard to tell apart
 zstyle :prompt:pure:prompt:success color blue
 
-# Do ROS setup
-[[ -f /opt/ros/melodic/setup.zsh ]] && source /opt/ros/melodic/setup.zsh
-
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh'
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh'
-
-# Utility functions
-function texwatch() {
-  echo $@ | entr tectonic $@
-}
-function collate() {
-  pdftk A="$1" B="$2" shuffle A Bend-1 output "$3"
-}
-
-BOOKMARKS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/eli/bookmarks"
-function jump-bookmark() {
-  if [[ -n "$1" ]]; then
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$*:" | sed 's/[-_ a-zA-Z0-9]\+://')
-  else
-    # These options were taken from
-    # https://github.com/junegunn/fzf/blob/e4c3ecc57e99f4037199f11b384a7f8758d1a0ff/shell/key-bindings.zsh#L49
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sed 's/[-_ a-zA-Z0-9]\+://')
-  fi
-  if [[ -z "$bookmark" ]]; then
-    echo "No such bookmark '$*'" >&2
-    return 1
-  fi
-
-  cd ${bookmark/#\~/$HOME}
-}
-alias j="jump-bookmark"
