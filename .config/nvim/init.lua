@@ -24,8 +24,6 @@ require("packer").startup(function(use)
   use("lewis6991/impatient.nvim")
   -- Colorscheme
   use("ellisonleao/gruvbox.nvim")
-  -- Faster filetype. TODO: Remove when built-in filetype.lua is better
-  use("nathom/filetype.nvim")
   -- Markdown
   use { "plasticboy/vim-markdown", requires = "godlygeek/tabular" }
   -- Easier commenting for any language
@@ -201,8 +199,9 @@ map(
 -----------------------------
 ------- Plugin Config -------
 -----------------------------
--- Replace filetype.vim with nathom/filetype.nvim
-g.did_load_filetypes = 1
+-- Replace filetype.vim with filetype.lua
+g.do_filetype_lua = 1
+g.did_load_filetypes = 0
 
 -- Colorscheme
 g.gruvbox_sign_column = "bg0"
@@ -454,24 +453,5 @@ require("nvim-treesitter.configs").setup {
   highlight = {
     use_languagetree = true,
     enable = true,
-  },
-}
-require("nvim-treesitter.parsers").get_parser_configs().just = {
-  install_info = {
-    url = "https://github.com/IndianBoy42/tree-sitter-just",
-    files = { "src/parser.c", "src/scanner.cc" },
-    branch = "main",
-  },
-  maintainers = { "@IndianBoy42" },
-}
-require("filetype").setup {
-  overrides = {
-    extensions = { just = "just" },
-    literals = {
-      Justfile = "just",
-      justfile = "just",
-      [".Justfile"] = "just",
-      [".justfile"] = "just",
-    },
   },
 }
