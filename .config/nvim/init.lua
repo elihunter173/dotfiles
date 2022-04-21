@@ -1,10 +1,13 @@
 local cmd, g, opt, map = vim.cmd, vim.g, vim.opt, vim.keymap.set
 
+-- Load impatient.nvim for faster load time
+pcall(require, "impatient")
+
 -----------------------------
 ---------- Plugins ----------
 -----------------------------
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local packer_bootstrap = false
+local bootstrapping = false
 if vim.fn.isdirectory(install_path) == 0 then
   vim.fn.system {
     "git",
@@ -13,13 +16,14 @@ if vim.fn.isdirectory(install_path) == 0 then
     "https://github.com/wbthomason/packer.nvim",
     install_path,
   }
-  packer_bootstrap = true
+  bootstrapping = true
 end
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
-
+  -- Faster load time
+  use("lewis6991/impatient.nvim")
   -- Colorscheme
-  use("lifepillar/vim-gruvbox8")
+  use("ellisonleao/gruvbox.nvim")
   -- Faster filetype. TODO: Remove when built-in filetype.lua is better
   use("nathom/filetype.nvim")
   -- Markdown
@@ -45,7 +49,8 @@ require("packer").startup(function(use)
   use("lukas-reineke/indent-blankline.nvim")
   -- The file manager I made. I normally just symlink it
   -- use("elihunter173/dirbuf.nvim")
-
+  -- Zettelkasten notes
+  use("mickael-menu/zk-nvim")
   -- Floating terminal
   use("voldikss/vim-floaterm")
   -- Fuzzy finding
@@ -57,21 +62,17 @@ require("packer").startup(function(use)
     end,
   }
 
-  -- Zettelkasten notes
-  use("mickael-menu/zk-nvim")
-
-  -- LSP, snippets, and autocomplete
+  -- LSP and autocomplete
   use("neovim/nvim-lspconfig")
   use { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp" }
-
-  -- LSP integration for generic things (e.g. formatters)
+  -- LSP integration for generic things (formatters)
   use { "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" }
 
   -- TreeSitter
   use("nvim-treesitter/nvim-treesitter")
 end)
 
-if packer_bootstrap then
+if bootstrapping then
   require("packer").sync()
   cmd("autocmd User PackerComplete echo 'Initial bootstrap done. Run :quitall and restart'")
   return
@@ -121,8 +122,6 @@ opt.undofile = true
 opt.inccommand = "nosplit"
 -- ripgrep >> grep
 opt.grepprg = "rg --vimgrep"
--- Use system clipboard
-opt.clipboard = "unnamedplus"
 
 -- Statusline
 opt.laststatus = 2
@@ -206,9 +205,8 @@ map(
 g.did_load_filetypes = 1
 
 -- Colorscheme
-g.gruvbox_italicize_strings = 0
-g.gruvbox_transp_bg = 1
-cmd("colorscheme gruvbox8")
+g.gruvbox_sign_column = "bg0"
+cmd("colorscheme gruvbox")
 
 -- EditorConfig + Fugitive
 g.EditorConfig_exclude_patterns = { "fugitive://.\\*" }
@@ -370,7 +368,6 @@ lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_c
 lspconfig.bashls.setup {}
 lspconfig.clangd.setup {}
 lspconfig.gopls.setup {}
-lspconfig.jdtls.setup {}
 lspconfig.pylsp.setup {
   settings = {
     pylsp = {
@@ -452,7 +449,8 @@ cmd("command! ZkUpdate !zk update")
 ---------- TreeSitter ----------
 --------------------------------
 require("nvim-treesitter.configs").setup {
-  ensure_installed = "all",
+  -- No `ensure_installed` I manually install language parsers, since verifying
+  -- is really slow on WSL
   highlight = {
     use_languagetree = true,
     enable = true,
