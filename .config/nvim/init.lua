@@ -63,6 +63,7 @@ require("packer").startup(function(use)
   -- LSP and autocomplete
   use("neovim/nvim-lspconfig")
   use { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp" }
+  use { "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" }
   -- LSP integration for generic things (formatters)
   use { "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" }
 
@@ -284,7 +285,7 @@ require("gitsigns").setup {
       return "<Ignore>"
     end, { expr = true })
 
-    -- Actions
+    -- Local (hunk) actions
     map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>")
     map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>")
     map("n", "<leader>hS", gs.stage_buffer)
@@ -294,12 +295,13 @@ require("gitsigns").setup {
     map("n", "<leader>hb", function()
       gs.blame_line { full = true }
     end)
-    map("n", "<leader>tb", gs.toggle_current_line_blame)
-    map("n", "<leader>hd", gs.diffthis)
-    map("n", "<leader>hD", function()
+    map("n", "<leader>hd", gs.toggle_deleted)
+    -- Global actions
+    map("n", "<leader>gb", gs.toggle_current_line_blame)
+    map("n", "<leader>gd", gs.diffthis)
+    map("n", "<leader>gD", function()
       gs.diffthis("~")
     end)
-    map("n", "<leader>td", gs.toggle_deleted)
 
     -- Text object
     map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
@@ -311,7 +313,12 @@ require("gitsigns").setup {
 --------------------------------
 local cmp = require("cmp")
 cmp.setup {
-  sources = cmp.config.sources({ { name = "nvim_lsp" } }, { { name = "buffer" } }),
+  sources = cmp.config.sources({ { name = "nvim_lsp" }, { name = "luasnip" } }, { { name = "buffer" } }),
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end,
+  },
   -- TODO: Look into new mappings
   mapping = cmp.mapping.preset.insert {
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -455,3 +462,6 @@ require("nvim-treesitter.configs").setup {
     enable = true,
   },
 }
+
+-- cmd([[autocmd OptionSet binary echo 'hi']])
+-- cmd([[autocmd VimEnter if &binary | echo 'hi' | endif]])
