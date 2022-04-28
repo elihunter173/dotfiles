@@ -335,7 +335,7 @@ map("n", "]d", vim.diagnostic.goto_next)
 map("n", "[d", vim.diagnostic.goto_prev)
 map("n", "<space>e", vim.diagnostic.open_float)
 
-local function lsp_attach(_, bufnr)
+local function lsp_attach(client, bufnr)
   local function bufmap(mode, lhs, rhs)
     map(mode, lhs, rhs, { buffer = bufnr, silent = true })
   end
@@ -355,7 +355,14 @@ local function lsp_attach(_, bufnr)
   -- bufmap("n", "<space>rn", vim.lsp.buf.rename)
   bufmap("n", "<space>ca", vim.lsp.buf.code_action)
   bufmap("n", "gr", vim.lsp.buf.references)
-  bufmap("n", "<space>f", vim.lsp.buf.formatting)
+  -- TODO: Use vim.lsp.buf.format with filter argument once this PR is merged:
+  -- https://github.com/neovim/neovim/pull/18193
+  if client.name ~= "tsserver" and client.name ~= "sumneko_lua" then
+    bufmap("n", "<space>f", function()
+      local params = vim.lsp.util.make_formatting_params {}
+      client.request("textDocument/formatting", params, nil, bufnr)
+    end)
+  end
 
   -- My settings
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
