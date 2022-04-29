@@ -330,10 +330,10 @@ cmp.setup {
 }
 
 -- Recommended diagnostic settings
-map("n", "<space>e", vim.diagnostic.open_float)
+map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "]d", vim.diagnostic.goto_next)
 map("n", "[d", vim.diagnostic.goto_prev)
-map("n", "<space>e", vim.diagnostic.open_float)
+map("n", "<leader>e", vim.diagnostic.open_float)
 
 local function lsp_attach(client, bufnr)
   local function bufmap(mode, lhs, rhs)
@@ -367,7 +367,7 @@ local function lsp_attach(client, bufnr)
   -- My settings
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   bufmap("n", "ge", vim.lsp.diagnostic.show_line_diagnostics)
-  bufmap("n", "<space>r", vim.lsp.buf.rename)
+  bufmap("n", "<leader>r", vim.lsp.buf.rename)
 
   print("LSP Attached.")
 end
@@ -418,6 +418,7 @@ lspconfig.vimls.setup {}
 --------------------------------
 local null_ls = require("null-ls")
 null_ls.setup {
+  on_attach = lsp_attach,
   sources = {
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.prettier.with {
