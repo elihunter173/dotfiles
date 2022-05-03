@@ -121,6 +121,8 @@ opt.undofile = true
 opt.inccommand = "nosplit"
 -- ripgrep >> grep
 opt.grepprg = "rg --vimgrep"
+-- I have my mode in my statusline
+opt.showmode = false
 
 -- Statusline
 opt.laststatus = 2
@@ -135,7 +137,7 @@ function MYFILENAME()
     return vim.fn.fnamemodify(name, ":~:.")
   end
 end
-opt.statusline = "%{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c%{' '.get(b:,'gitsigns_head','')}"
+opt.statusline = "[%{toupper(mode())}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'gitsigns_head','')}"
 
 -- Colorscheme
 opt.termguicolors = os.getenv("TERM") ~= "screen"
@@ -473,3 +475,38 @@ require("nvim-treesitter.configs").setup {
 
 -- cmd([[autocmd OptionSet binary echo 'hi']])
 -- cmd([[autocmd VimEnter if &binary | echo 'hi' | endif]])
+
+-- AMONG US??
+local sussy_ns = vim.api.nvim_create_namespace("sussy")
+function place_amongus_men_callback(_lines, buf, _changed_tick, first_line, last_line)
+  -- Delete all old extmarks
+  local extmarks = vim.api.nvim_buf_get_extmarks(buf, sussy_ns, { first_line, 0 }, { last_line, 0 }, {})
+  for _, extmark in ipairs(extmarks) do
+    local extmark_id, _row, _col = unpack(extmark)
+    vim.api.nvim_buf_del_extmark(buf, sussy_ns, extmark_id)
+  end
+
+  -- Place new extmarks
+  local lines = vim.api.nvim_buf_get_lines(buf, first_line, last_line, false)
+  for idx, line in ipairs(lines) do
+    local col = line:find("sus", 1, true)
+    if col ~= nil then
+      vim.api.nvim_buf_set_extmark(buf, sussy_ns, first_line + idx - 1, col - 1, {
+        virt_text = { { "ඞ", "Float" } },
+        virt_text_pos = "right_align",
+        -- TODO: Figure out if there's a way to have the annotations hide if
+        -- real text is trying to display there
+        virt_text_hide = true,
+        priority = 0,
+      })
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    place_amongus_men_callback("lines", 0, vim.b.changedtick, 0, vim.api.nvim_buf_line_count(0))
+    vim.api.nvim_buf_attach(0, true, { on_lines = place_amongus_men_callback })
+  end,
+})
