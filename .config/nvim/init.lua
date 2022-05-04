@@ -137,7 +137,7 @@ function MYFILENAME()
     return vim.fn.fnamemodify(name, ":~:.")
   end
 end
-opt.statusline = "[%{toupper(mode())}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'gitsigns_head','')}"
+opt.statusline = "[%{mode()}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'gitsigns_head','')}"
 
 -- Colorscheme
 opt.termguicolors = os.getenv("TERM") ~= "screen"
