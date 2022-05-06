@@ -91,7 +91,7 @@ fi
 alias d='rip'
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.config/git/config
-alias j="jump-bookmark"
+alias j='jump-bookmark'
 alias p='pueue'
 
 # Easier history searching

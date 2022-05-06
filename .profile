@@ -1,9 +1,7 @@
 #!/usr/bin/env sh
 
-# Add local binary files (used by pip)
+# Add local binary files (also used by pip)
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-
-export XDG_CONFIG_HOME="$HOME/.config"
 
 # Qt5
 export QT_QPA_PLATFORMTHEME=qt5ct

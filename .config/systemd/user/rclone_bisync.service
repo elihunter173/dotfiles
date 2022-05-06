@@ -2,17 +2,8 @@
 Description=rclone: Regular bisync-ing between local and cloud storage
 Documentation=man:rclone(1)
 After=network-online.target
-Wants=network-online.target 
+Wants=network-online.target
 
 [Service]
 Type=oneshot
-# TODO: Make this be a @ templated service
-ExecStart=/usr/bin/rclone bisync "%h/Documents/fun_stuff" "elihunter173:/fun_stuff" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
-ExecStart=/usr/bin/rclone bisync "%h/Documents/graduate_applications" "elihunter173:/graduate_applications" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
-ExecStart=/usr/bin/rclone bisync "%h/Documents/jobs" "elihunter173:/jobs" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
-ExecStart=/usr/bin/rclone bisync "%h/Documents/jupyter" "elihunter173:/jupyter" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
-ExecStart=/usr/bin/rclone bisync "%h/Documents/ncsu" "elihunter173:/ncsu" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
-ExecStart=/usr/bin/rclone bisync "%h/Documents/personal" "elihunter173:/personal" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
-ExecStart=/usr/bin/rclone bisync "%h/Documents/textbooks" "elihunter173:/textbooks" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
-ExecStart=/usr/bin/rclone bisync "%h/Pictures" "elihunter173:/Pictures" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
-ExecStart=/usr/bin/rclone bisync "%h/Videos/movies" "elihunter173:/movies" --exclude-from %h/.config/eli/rclone-exclude --log-level INFO
+ExecStart=%h/.config/eli/rclone_bisync.sh
