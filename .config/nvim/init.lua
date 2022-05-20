@@ -59,6 +59,8 @@ require("packer").startup(function(use)
       vim.fn["fzf#install"]()
     end,
   }
+  -- Spelling but it actually works in code
+  use("lewis6991/spellsitter.nvim")
 
   -- LSP and autocomplete
   use("neovim/nvim-lspconfig")
@@ -68,7 +70,7 @@ require("packer").startup(function(use)
   use { "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" }
 
   -- TreeSitter
-  use("nvim-treesitter/nvim-treesitter")
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
 end)
 
 if bootstrapping then
@@ -123,6 +125,8 @@ opt.inccommand = "nosplit"
 opt.grepprg = "rg --vimgrep"
 -- I have my mode in my statusline
 opt.showmode = false
+-- Spell always
+opt.spell = true
 
 -- Statusline
 opt.laststatus = 2
@@ -142,11 +146,6 @@ opt.statusline = "[%{mode()}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'git
 -- Colorscheme
 opt.termguicolors = os.getenv("TERM") ~= "screen"
 opt.background = "dark"
-
--- Automatically enable spelling on certain files
-cmd("autocmd FileType tex,markdown setlocal spell")
--- Use single-line comments for C and C++
-cmd("autocmd FileType c,cpp set commentstring=//%s")
 
 -----------------------------
 --------- Mappings ----------
@@ -191,14 +190,6 @@ map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 -- TODO: Use autocmd API when it gets finished
 cmd("autocmd TermOpen * startinsert | setlocal norelativenumber nonumber")
 
--- Add todo comments
-map("n", "<leader>c", "<cmd>call append('.', substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>j==f:la")
-map(
-  "n",
-  "<leader>C",
-  "<cmd>call append(line('.')-1, substitute(&commentstring, '\\s*%s\\s*', ' TODO: ', ''))<cr>k==f:la"
-)
-
 -----------------------------
 ------- Plugin Config -------
 -----------------------------
@@ -213,7 +204,12 @@ cmd("colorscheme gruvbox")
 -- EditorConfig + Fugitive
 g.EditorConfig_exclude_patterns = { "fugitive://.\\*" }
 
+require("spellsitter").setup()
 require("Comment").setup()
+
+-- Add todo comments
+map("n", "<leader>c", "<cmd>lua require('Comment.api').insert_linewise_below()<cr>TODO: ")
+map("n", "<leader>C", "<cmd>lua require('Comment.api').insert_linewise_above()<cr>TODO: ")
 
 -- Fugitive
 map("n", "<leader>gs", "<cmd>Git<cr>")
@@ -315,7 +311,7 @@ require("gitsigns").setup {
 --------------------------------
 local cmp = require("cmp")
 cmp.setup {
-  sources = cmp.config.sources({ { name = "nvim_lsp" }, { name = "luasnip" } }, { { name = "buffer" } }),
+  sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
@@ -355,7 +351,7 @@ local function lsp_attach(client, bufnr)
   -- bufmap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
   bufmap("n", "<space>D", vim.lsp.buf.type_definition)
   -- bufmap("n", "<space>rn", vim.lsp.buf.rename)
-  bufmap("n", "<space>ca", vim.lsp.buf.code_action)
+  -- bufmap("n", "<space>ca", vim.lsp.buf.code_action)
   bufmap("n", "gr", vim.lsp.buf.references)
   -- TODO: Use vim.lsp.buf.format with filter argument once this PR is merged:
   -- https://github.com/neovim/neovim/pull/18193
@@ -368,6 +364,7 @@ local function lsp_attach(client, bufnr)
 
   -- My settings
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+  bufmap("n", "<leader>x", vim.lsp.buf.code_action)
   bufmap("n", "ge", vim.lsp.diagnostic.show_line_diagnostics)
   bufmap("n", "<leader>r", vim.lsp.buf.rename)
 
@@ -406,7 +403,7 @@ lspconfig.sumneko_lua.setup {
       runtime = { version = "LuaJIT" },
       diagnostics = {
         -- Vim + Busted
-        globals = { "vim", "describe", "it", "pending" },
+        globals = { "vim", "describe", "it", "pending", "before_each" },
       },
     },
   },
@@ -468,7 +465,6 @@ require("nvim-treesitter.configs").setup {
   -- No `ensure_installed` I manually install language parsers, since verifying
   -- is really slow on WSL
   highlight = {
-    use_languagetree = true,
     enable = true,
   },
 }

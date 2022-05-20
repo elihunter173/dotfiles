@@ -47,10 +47,10 @@ has() {
   return $?
 }
 
-if has nvr && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    export EDITOR='nvr -cc FloatermHide'
-elif has code && [ "$TERM_PROGRAM" = vscode ]; then
+if has code && [ "$TERM_PROGRAM" = vscode ]; then
     export EDITOR='code'
+elif has nvim && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    export EDITOR='nvim --server $NVIM_LISTEN_ADDRESS --remote --cmd FloatermHide'
 elif has nvim; then
     export EDITOR='nvim'
 elif has vim; then

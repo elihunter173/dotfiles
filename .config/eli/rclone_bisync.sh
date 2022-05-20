@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+set -e
+
 bisync() {
+  echo $ rclone bisync "$1" "$2" --exclude-from ~/.config/eli/rclone-exclude --log-level INFO "${@:3}"
   rclone bisync "$1" "$2" --exclude-from ~/.config/eli/rclone-exclude --log-level INFO "${@:3}"
 }
 
