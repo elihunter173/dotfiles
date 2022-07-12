@@ -23,7 +23,8 @@ require("packer").startup(function(use)
   -- Faster load time
   use("lewis6991/impatient.nvim")
   -- Colorscheme
-  use("ellisonleao/gruvbox.nvim")
+  -- New config system forces italic strings and breaks bg0
+  use{"ellisonleao/gruvbox.nvim", commit = "3352c12c083d0ab6285a9738b7679e24e7602411"}
   -- Markdown
   use { "plasticboy/vim-markdown", requires = "godlygeek/tabular" }
   -- Easier commenting for any language
@@ -59,8 +60,6 @@ require("packer").startup(function(use)
       vim.fn["fzf#install"]()
     end,
   }
-  -- Spelling but it actually works in code
-  use("lewis6991/spellsitter.nvim")
 
   -- LSP and autocomplete
   use("neovim/nvim-lspconfig")
@@ -126,7 +125,7 @@ opt.grepprg = "rg --vimgrep"
 -- I have my mode in my statusline
 opt.showmode = false
 -- Spell always
-opt.spell = true
+vim.api.nvim_create_autocmd("FileType", { pattern = { "markdown" }, command = "setlocal spell" })
 
 -- Statusline
 opt.laststatus = 2
@@ -193,10 +192,6 @@ cmd("autocmd TermOpen * startinsert | setlocal norelativenumber nonumber")
 -----------------------------
 ------- Plugin Config -------
 -----------------------------
--- Replace filetype.vim with filetype.lua
-g.do_filetype_lua = 1
-g.did_load_filetypes = 0
-
 -- Colorscheme
 g.gruvbox_sign_column = "bg0"
 cmd("colorscheme gruvbox")
@@ -204,7 +199,6 @@ cmd("colorscheme gruvbox")
 -- EditorConfig + Fugitive
 g.EditorConfig_exclude_patterns = { "fugitive://.\\*" }
 
-require("spellsitter").setup()
 require("Comment").setup()
 
 -- Add todo comments
@@ -365,7 +359,9 @@ local function lsp_attach(client, bufnr)
   -- My settings
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   bufmap("n", "<leader>x", vim.lsp.buf.code_action)
-  bufmap("n", "ge", vim.lsp.diagnostic.show_line_diagnostics)
+  bufmap("n", "ge", function()
+    vim.lsp.diagnostic.show(nil, 0)
+  end)
   bufmap("n", "<leader>r", vim.lsp.buf.rename)
 
   print("LSP Attached.")
