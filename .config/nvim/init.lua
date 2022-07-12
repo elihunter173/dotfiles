@@ -209,10 +209,6 @@ map("n", "<leader>C", "<cmd>lua require('Comment.api').insert_linewise_above()<c
 map("n", "<leader>gs", "<cmd>Git<cr>")
 map("n", "<leader>gp", "<cmd>Git push<cr>")
 
--- Disable Netrw because of dirbuf.nvim + packer.nvim annoyance
-g.loaded_netrw = 1
-g.loaded_netrwPlugin = 1
-
 -- Markdown shit
 g.vim_markdown_folding_disabled = 1
 g.vim_markdown_frontmatter = 1
