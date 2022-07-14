@@ -62,11 +62,11 @@ volume capture {
     # device = "pulse:source"
 }
 
-tztime local {
-    format = "%R %F"
-}
-
 read_file caffeine {
     path = "/home/eli/.config/eli/caffeine"
     format_bad = ""
+}
+
+tztime local {
+    format = "%R %F"
 }

@@ -24,7 +24,7 @@ require("packer").startup(function(use)
   use("lewis6991/impatient.nvim")
   -- Colorscheme
   -- New config system forces italic strings and breaks bg0
-  use{"ellisonleao/gruvbox.nvim", commit = "3352c12c083d0ab6285a9738b7679e24e7602411"}
+  use { "ellisonleao/gruvbox.nvim", commit = "3352c12c083d0ab6285a9738b7679e24e7602411" }
   -- Markdown
   use { "plasticboy/vim-markdown", requires = "godlygeek/tabular" }
   -- Easier commenting for any language
@@ -126,6 +126,8 @@ opt.grepprg = "rg --vimgrep"
 opt.showmode = false
 -- Spell always
 vim.api.nvim_create_autocmd("FileType", { pattern = { "markdown" }, command = "setlocal spell" })
+-- I often leave the first word in a sentence lowercase
+opt.spellcapcheck = ""
 
 -- Statusline
 opt.laststatus = 2
@@ -426,8 +428,8 @@ require("zk").setup { picker = "fzf", lsp = { config = { on_attach = lsp_attach 
 require("zk.commands").add("ZkEdit", function()
   require("zk").edit({}, {
     fzf_options = {
-      [[--bind=Ctrl-N:abort+execute(nvr +"close | ZkNew { title = {q} }")]],
-      [[--header=Ctrl-N: create a note with the query as title]],
+      [[--bind=Ctrl-E:abort+execute(nvr +"close | ZkNew { title = {q} }")]],
+      [[--header=Ctrl-E: create a note with the query as title]],
     },
   })
 end)
@@ -448,6 +450,7 @@ end)
 map("n", "<leader>n", "<cmd>ZkEdit<cr>")
 map("v", "<leader>n", "<cmd>'<,'>ZkNewFromTitleSelection<cr>")
 map("n", "<leader>m", "<cmd>ZkLink<cr>")
+map("i", "<ctrl-m>", "<cmd>ZkLink<cr>")
 cmd("command! ZkUpdate !zk update")
 
 --------------------------------

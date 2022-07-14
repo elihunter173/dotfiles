@@ -27,12 +27,13 @@ function collate() {
 
 BOOKMARKS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/eli/bookmarks"
 function jump-bookmark() {
+  # I use sd at the end because I couldn't get sed character classes to work on MacOS
   if [[ -n "$1" ]]; then
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$*:" | sed 's/[-_ a-zA-Z0-9]\+://')
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$*:" | sd '[a-zA-Z0-9]+:' '' -p)
   else
     # These options were taken from
     # https://github.com/junegunn/fzf/blob/e4c3ecc57e99f4037199f11b384a7f8758d1a0ff/shell/key-bindings.zsh#L49
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sed 's/[-_ a-zA-Z0-9]\+://')
+    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sd '[a-zA-Z0-9]+:' '' -p)
   fi
   if [[ -z "$bookmark" ]]; then
     echo "No such bookmark '$*'" >&2

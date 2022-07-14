@@ -74,10 +74,12 @@ exec_always "systemctl --user import-environment; systemctl --user start sway-se
 ########################
 #    Basic Bindings    #
 ########################
-bindsym $mod+Return exec rofi -show drun
-bindsym $mod+t      exec alacritty
-bindsym $mod+b      exec firefox
-bindsym $mod+f      exec dolphin
+bindsym $mod+Return  exec rofi -show drun
+bindsym $mod+t       exec alacritty
+bindsym $mod+b       exec chromium
+bindsym $mod+f       exec dolphin
+bindsym $mod+n       exec alacritty --command zk edit --interactive
+bindsym $mod+Shift+n exec alacritty --command nvim ~/zk/TODO.md
 
 bindsym $mod+c exec ~/.config/eli/toggle_caffeine.sh
 
@@ -115,8 +117,10 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl prev
 
-bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 1%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 1%-
+bindsym Shift+XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym Shift+XF86MonBrightnessDown exec brightnessctl set 5%-
 
 # Toggle wdisplays
 bindsym XF86Display exec pkill wdisplays || wdisplays
