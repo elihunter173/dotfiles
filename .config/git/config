@@ -35,7 +35,11 @@
 	ui = auto
 [push]
 	default = simple
+	autoSetupRemote = true
 [init]
 	defaultBranch = main
 [diff]
 	algorithm = histogram
+; For Datadog I believe for building Go libraries
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/

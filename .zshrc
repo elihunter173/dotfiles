@@ -29,18 +29,23 @@ BOOKMARKS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/eli/bookmarks"
 function jump-bookmark() {
   # I use sd at the end because I couldn't get sed character classes to work on MacOS
   if [[ -n "$1" ]]; then
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$*:" | sd '[a-zA-Z0-9]+:' '' -p)
+    dest=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$*:" | sd '[a-zA-Z0-9]+:' '' -p)
   else
     # These options were taken from
     # https://github.com/junegunn/fzf/blob/e4c3ecc57e99f4037199f11b384a7f8758d1a0ff/shell/key-bindings.zsh#L49
-    bookmark=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sd '[a-zA-Z0-9]+:' '' -p)
+    dest=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sd '[a-zA-Z0-9]+:' '' -p)
   fi
-  if [[ -z "$bookmark" ]]; then
-    echo "No such bookmark '$*'" >&2
+  if [[ -z "$dest" ]]; then
+    guess=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --filter "$1" | head -1 | sd ':.*' '' -p)
+    if [[ -n "$guess" ]]; then
+      echo "No such bookmark '$1'. Did you mean '$guess'?" >&2
+    else
+      echo "No such bookmark '$1'." >&2
+    fi
     return 1
   fi
 
-  cd ${bookmark/#\~/$HOME}
+  cd ${dest/#\~/$HOME}
 }
 
 has() {
@@ -50,8 +55,8 @@ has() {
 
 if has code && [ "$TERM_PROGRAM" = vscode ]; then
     export EDITOR='code'
-elif has nvim && [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    export EDITOR='nvim --server $NVIM_LISTEN_ADDRESS --remote --cmd FloatermHide'
+elif has floaterm; then
+    export EDITOR='floaterm'
 elif has nvim; then
     export EDITOR='nvim'
 elif has vim; then
@@ -94,6 +99,7 @@ alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.config/git/config
 alias j='jump-bookmark'
 alias p='pueue'
+alias k='kubectl'
 
 # Easier history searching
 # This has issues if you turbo load
@@ -128,3 +134,5 @@ zstyle :prompt:pure:prompt:success color blue
 
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh'
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh'
+
+[[ -f ~/.config/eli/local_zshrc.zsh ]] && source ~/.config/eli/local_zshrc.zsh

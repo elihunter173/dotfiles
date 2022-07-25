@@ -1,4 +1,4 @@
-alt + shift + ctrl - n : open -na 'Alacritty' --args --command nvim ~/zk/TODO.md
-alt + shift - n        : open -na 'Alacritty' --args --command sh --login -c 'zk edit --interactive'
+alt + shift + ctrl - n : open -na 'Alacritty' --args --command zsh --login -c 'nvim ~/zk/WORK_TODO.md'
+alt + shift - n        : open -na 'Alacritty' --args --command zsh --login -c 'zk edit --interactive'
 alt + shift - t        : open -na 'Alacritty'
 alt + shift - b        : open -na 'Google Chrome'

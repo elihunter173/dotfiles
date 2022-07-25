@@ -61,6 +61,8 @@ require("packer").startup(function(use)
     end,
   }
 
+  use("https://gitlab.com/yorickpeterse/nvim-pqf.git")
+
   -- LSP and autocomplete
   use("neovim/nvim-lspconfig")
   use { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp" }
@@ -82,6 +84,7 @@ end
 ---------- Options ----------
 -----------------------------
 opt.number = true
+opt.relativenumber = true
 opt.wrap = false
 opt.tabstop = 4
 -- filetype plugin indent on is default in Neovim
@@ -124,8 +127,8 @@ opt.inccommand = "nosplit"
 opt.grepprg = "rg --vimgrep"
 -- I have my mode in my statusline
 opt.showmode = false
--- Spell always
-vim.api.nvim_create_autocmd("FileType", { pattern = { "markdown" }, command = "setlocal spell" })
+-- Writing settings
+vim.api.nvim_create_autocmd("FileType", { pattern = { "markdown" }, command = "setlocal spell wrap linebreak breakindent" })
 -- I often leave the first word in a sentence lowercase
 opt.spellcapcheck = ""
 
@@ -154,9 +157,13 @@ opt.background = "dark"
 g.mapleader = " "
 map("n", "<leader>w", "<cmd>write<cr>")
 -- Make leader keybindings less awkward
-map("n", " ", "")
+map({ "n", "v" }, " ", "")
 -- s is used by vim sandwich
 map("n", "s", "")
+
+-- Go make j/k move soft lines rather than hard lines, except for with counts
+map({ "n", "v" }, "j", "v:count ? v:count . 'j' : 'gj'", {expr = true})
+map({ "n", "v" }, "k", "v:count ? v:count . 'k' : 'gk'", {expr = true})
 
 -- Send c to black hole
 map("n", "c", '"_c')
@@ -219,7 +226,6 @@ g.vim_markdown_new_list_item_indent = 2
 g.vim_markdown_math = 1
 -- Don't conceal in LaTeX
 g.tex_conceal = ""
-cmd("autocmd FileType markdown set textwidth=80")
 
 -- Multi-cursor
 g.VM_leader = "\\"
@@ -248,6 +254,9 @@ map("n", "<leader>t", "<cmd>FloatermToggle<cr>")
 -- Bigger floaterm
 g.floaterm_width = 0.8
 g.floaterm_height = 0.8
+g.floaterm_opener = "edit"
+
+require("pqf").setup()
 
 -- Git
 require("gitsigns").setup {
@@ -425,33 +434,22 @@ null_ls.setup {
 --------------------------------
 require("zk").setup { picker = "fzf", lsp = { config = { on_attach = lsp_attach } } }
 
-require("zk.commands").add("ZkEdit", function()
-  require("zk").edit({}, {
-    fzf_options = {
-      [[--bind=Ctrl-E:abort+execute(nvr +"close | ZkNew { title = {q} }")]],
-      [[--header=Ctrl-E: create a note with the query as title]],
-    },
-  })
-end)
-
 require("zk.commands").add("ZkLink", function(options)
-  if options == nil then
-    options = {}
-  end
-  local picker_options = { title = "Zk Insert Link" }
-  require("zk").pick_notes(options, picker_options, function(notes)
-    for _, note in ipairs(notes) do
-      local link = "[" .. note.title .. "](" .. note.path .. ")"
-      vim.api.nvim_put({ link }, "c", true, true)
-    end
+  require("zk").pick_notes(options or {}, { title = "Zk Insert Link" }, function(notes)
+    vim.schedule(function()
+      for _, note in ipairs(notes) do
+        -- strip off extension
+        local link = "[" .. note.title .. "](" .. note.path:sub(1, -4) .. ")"
+        vim.api.nvim_put({ link }, "c", true, true)
+      end
+    end)
   end)
 end)
 
+cmd("command! ZkEdit FloatermNew ZK_EDITOR=floaterm zk edit --interactive")
 map("n", "<leader>n", "<cmd>ZkEdit<cr>")
 map("v", "<leader>n", "<cmd>'<,'>ZkNewFromTitleSelection<cr>")
 map("n", "<leader>m", "<cmd>ZkLink<cr>")
-map("i", "<ctrl-m>", "<cmd>ZkLink<cr>")
-cmd("command! ZkUpdate !zk update")
 
 --------------------------------
 ---------- TreeSitter ----------
