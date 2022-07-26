@@ -48,18 +48,13 @@ function jump-bookmark() {
   cd ${dest/#\~/$HOME}
 }
 
-has() {
-  command -v "$1" > /dev/null
-  return $?
-}
-
-if has code && [ "$TERM_PROGRAM" = vscode ]; then
+if [[ $commands[code] ]] && [ "$TERM_PROGRAM" = vscode ]; then
     export EDITOR='code'
-elif has floaterm; then
+elif [[ $commands[floaterm] ]]; then
     export EDITOR='floaterm'
-elif has nvim; then
+elif [[ $commands[nvim] ]]; then
     export EDITOR='nvim'
-elif has vim; then
+elif [[ $commands[vim] ]]; then
     export EDITOR='vim'
 else
     export EDITOR='vi'
@@ -75,10 +70,10 @@ if [[ $TERM == xterm-kitty ]]; then
     alias ssh='TERM=xterm-256color ssh'
 fi
 
-has fd && export FZF_DEFAULT_COMMAND='fd --type f'
+[[ $commands[fd] ]] && export FZF_DEFAULT_COMMAND='fd --type f'
 
 # Quick shortcuts
-if has exa; then
+if [[ $commands[exa] ]]; then
   alias l='exa --classify'
   alias ll='l --long --header'
   alias la='l --all'
@@ -88,8 +83,10 @@ else
   alias la='l -a'
 fi
 
-if has wsl-open; then
+if [[ $commands[wsl-open] ]]; then
   alias o='wsl-open'
+elif [[ $commands[open] ]]; then
+  alias o='open'
 else
   alias o='xdg-open 2>/dev/null'
 fi
