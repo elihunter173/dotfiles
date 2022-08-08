@@ -1,4 +1,4 @@
-local cmd, g, opt, map = vim.cmd, vim.g, vim.opt, vim.keymap.set
+local cmd, g, opt, map, autocmd = vim.cmd, vim.g, vim.opt, vim.keymap.set, vim.api.nvim_create_autocmd
 
 -- Load impatient.nvim for faster load time
 pcall(require, "impatient")
@@ -60,7 +60,10 @@ require("packer").startup(function(use)
       vim.fn["fzf#install"]()
     end,
   }
+  -- Justfile support
+  use("NoahTheDuke/vim-just")
 
+  -- TODO: See if I actually want this
   use("https://gitlab.com/yorickpeterse/nvim-pqf.git")
 
   -- LSP and autocomplete
@@ -128,7 +131,7 @@ opt.grepprg = "rg --vimgrep"
 -- I have my mode in my statusline
 opt.showmode = false
 -- Writing settings
-vim.api.nvim_create_autocmd("FileType", { pattern = { "markdown" }, command = "setlocal spell wrap linebreak breakindent" })
+autocmd("FileType", { pattern = { "markdown" }, command = "setlocal spell wrap linebreak breakindent" })
 -- I often leave the first word in a sentence lowercase
 opt.spellcapcheck = ""
 
@@ -162,8 +165,8 @@ map({ "n", "v" }, " ", "")
 map("n", "s", "")
 
 -- Go make j/k move soft lines rather than hard lines, except for with counts
-map({ "n", "v" }, "j", "v:count ? v:count . 'j' : 'gj'", {expr = true})
-map({ "n", "v" }, "k", "v:count ? v:count . 'k' : 'gk'", {expr = true})
+map({ "n", "v" }, "j", "v:count ? 'j' : 'gj'", { expr = true })
+map({ "n", "v" }, "k", "v:count ? 'k' : 'gk'", { expr = true })
 
 -- Send c to black hole
 map("n", "c", '"_c')
@@ -182,8 +185,8 @@ map("n", "<C-j>", "<C-w>j")
 map("n", "<C-k>", "<C-w>k")
 
 -- Quickfix mapping. Taken from tpope/vim-unimpaired
-map("n", "]q", "<cmd>cnext<cr>")
-map("n", "[q", "<cmd>cprev<cr>")
+map("n", "]q", "<cmd>cnext<cr>zz")
+map("n", "[q", "<cmd>cprev<cr>zz")
 
 -- Easier terminal opening. L for shell
 map("n", "<leader>l", "<cmd>terminal<cr>")
@@ -226,6 +229,9 @@ g.vim_markdown_new_list_item_indent = 2
 g.vim_markdown_math = 1
 -- Don't conceal in LaTeX
 g.tex_conceal = ""
+
+-- Dirbuf keycombo
+autocmd("FileType", { pattern = "dirbuf", command = "nnoremap <buffer> <C-LeftMouse> <LeftMouse><Plug>(dirbuf_enter)" })
 
 -- Multi-cursor
 g.VM_leader = "\\"
@@ -434,22 +440,29 @@ null_ls.setup {
 --------------------------------
 require("zk").setup { picker = "fzf", lsp = { config = { on_attach = lsp_attach } } }
 
-require("zk.commands").add("ZkLink", function(options)
+local function zk_link(after)
   require("zk").pick_notes(options or {}, { title = "Zk Insert Link" }, function(notes)
     vim.schedule(function()
       for _, note in ipairs(notes) do
         -- strip off extension
         local link = "[" .. note.title .. "](" .. note.path:sub(1, -4) .. ")"
-        vim.api.nvim_put({ link }, "c", true, true)
+        vim.api.nvim_put({ link }, "c", after, true)
       end
     end)
   end)
-end)
+end
+
+require("zk.commands").add("ZkLink", function(options) end)
 
 cmd("command! ZkEdit FloatermNew ZK_EDITOR=floaterm zk edit --interactive")
 map("n", "<leader>n", "<cmd>ZkEdit<cr>")
 map("v", "<leader>n", "<cmd>'<,'>ZkNewFromTitleSelection<cr>")
-map("n", "<leader>m", "<cmd>ZkLink<cr>")
+map("n", "<leader>m", function()
+  zk_link(true)
+end)
+map("n", "<leader>M", function()
+  zk_link(false)
+end)
 
 --------------------------------
 ---------- TreeSitter ----------

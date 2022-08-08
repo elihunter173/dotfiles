@@ -48,6 +48,12 @@ function jump-bookmark() {
   cd ${dest/#\~/$HOME}
 }
 
+function in() {
+  t=$1
+  shift
+  (sleep $t && say $@) &
+}
+
 if [[ $commands[code] ]] && [ "$TERM_PROGRAM" = vscode ]; then
     export EDITOR='code'
 elif [[ $commands[floaterm] ]]; then
@@ -97,6 +103,9 @@ alias g='git' # further shortcuts in ~/.config/git/config
 alias j='jump-bookmark'
 alias p='pueue'
 alias k='kubectl'
+alias kn='kubens'
+alias kx='kubectx'
+alias kme='kubectx --current; kubens --current'
 
 # Easier history searching
 # This has issues if you turbo load
@@ -131,5 +140,9 @@ zstyle :prompt:pure:prompt:success color blue
 
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh'
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh'
+
+comp_path="$HOME/.zinit/completions"
+[[ ! -f "$comp_path/_kubectl" && $commands[kubectl] ]] && kubectl completion zsh > "$comp_path/_kubectl"
+[[ ! -f "$comp_path/_just" ]] && just --completions zsh > "$comp_path/_just"
 
 [[ -f ~/.config/eli/local_zshrc.zsh ]] && source ~/.config/eli/local_zshrc.zsh
