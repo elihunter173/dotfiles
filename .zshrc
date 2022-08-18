@@ -100,8 +100,8 @@ fi
 alias d='rip'
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.config/git/config
-alias j='jump-bookmark'
-alias p='pueue'
+alias j='just'
+alias bm='jump-bookmark'
 alias k='kubectl'
 alias kn='kubens'
 alias kx='kubectx'

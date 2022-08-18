@@ -377,7 +377,7 @@ local function lsp_attach(client, bufnr)
   end)
   bufmap("n", "<leader>r", vim.lsp.buf.rename)
 
-  print("LSP Attached.")
+  -- print("LSP Attached.")
 end
 
 local lspconfig = require("lspconfig")
@@ -403,9 +403,7 @@ lspconfig.pylsp.setup {
 lspconfig.rust_analyzer.setup {}
 lspconfig.sumneko_lua.setup {
   cmd = {
-    os.getenv("HOME") .. "/bin/lua-language-server",
-    "-E",
-    os.getenv("HOME") .. "/src/build/lua-language-server/main.lua",
+    os.getenv("HOME") .. "/src/build/lua-language-server/bin/lua-language-server",
   },
   settings = {
     Lua = {
@@ -480,35 +478,46 @@ require("nvim-treesitter.configs").setup {
 
 -- AMONG US??
 local sussy_ns = vim.api.nvim_create_namespace("sussy")
-function place_amongus_men_callback(_lines, buf, _changed_tick, first_line, last_line)
+vim.cmd("highlight SussyImposter ctermfg=Cyan guifg=Cyan")
+vim.cmd("highlight SussyText cterm=bold,italic gui=bold,italic")
+local function sussify_cb(_, buf, _changed_tick, first_line, last_line_prechange, last_line_postchange)
+  local last_line = math.max(last_line_prechange, last_line_postchange)
+
   -- Delete all old extmarks
   local extmarks = vim.api.nvim_buf_get_extmarks(buf, sussy_ns, { first_line, 0 }, { last_line, 0 }, {})
   for _, extmark in ipairs(extmarks) do
-    local extmark_id, _row, _col = unpack(extmark)
+    local extmark_id, _, _ = unpack(extmark)
     vim.api.nvim_buf_del_extmark(buf, sussy_ns, extmark_id)
   end
 
   -- Place new extmarks
   local lines = vim.api.nvim_buf_get_lines(buf, first_line, last_line, false)
   for idx, line in ipairs(lines) do
-    local col = line:find("sus", 1, true)
-    if col ~= nil then
+    local col = line:find("[Ss][Uu][Ss]")
+    while col ~= nil do
       vim.api.nvim_buf_set_extmark(buf, sussy_ns, first_line + idx - 1, col - 1, {
-        virt_text = { { "ඞ", "Float" } },
-        virt_text_pos = "right_align",
-        -- TODO: Figure out if there's a way to have the annotations hide if
-        -- real text is trying to display there
-        virt_text_hide = true,
+        end_col = col - 1 + #"sus",
+        hl_group = "SussyText",
+        sign_text = "ඞ",
+        sign_hl_group = "SussyImposter",
         priority = 0,
       })
+      -- Start at col + 2 so we can find susus
+      col = line:find("[Ss][Uu][Ss]", col + 2)
     end
   end
 end
 
-vim.api.nvim_create_autocmd("BufReadPost", {
+vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
   callback = function()
-    place_amongus_men_callback("lines", 0, vim.b.changedtick, 0, vim.api.nvim_buf_line_count(0))
-    vim.api.nvim_buf_attach(0, true, { on_lines = place_amongus_men_callback })
+    if vim.b.sussy_sussed then
+      return
+    end
+    sussify_cb("lines", 0, vim.b.changedtick, 0, vim.api.nvim_buf_line_count(0), vim.api.nvim_buf_line_count(0))
+    -- We schedule_wrap() the callback because calling the extmark API after
+    -- e.g. undoing will cause issues with extmarks not appearing where you expect
+    vim.api.nvim_buf_attach(0, true, { on_lines = vim.schedule_wrap(sussify_cb) })
+    vim.b.sussy_sussed = true
   end,
 })
