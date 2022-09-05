@@ -145,4 +145,4 @@ comp_path="$HOME/.zinit/completions"
 [[ ! -f "$comp_path/_kubectl" && $commands[kubectl] ]] && kubectl completion zsh > "$comp_path/_kubectl"
 [[ ! -f "$comp_path/_just" ]] && just --completions zsh > "$comp_path/_just"
 
-[[ -f ~/.config/eli/local_zshrc.zsh ]] && source ~/.config/eli/local_zshrc.zsh
+[[ -f ~/.config/eli/local_zshrc.zsh ]] && source ~/.config/eli/local_zshrc.zsh || true
