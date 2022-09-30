@@ -97,15 +97,21 @@ else
   alias o='xdg-open 2>/dev/null'
 fi
 
+alias bm='jump-bookmark'
+alias c='cargo'
 alias d='rip'
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.config/git/config
 alias j='just'
-alias bm='jump-bookmark'
-alias k='kubectl'
+
 alias kn='kubens'
 alias kx='kubectx'
-alias kme='kubectx --current; kubens --current'
+function k() {
+  context=$(kubectx --current)
+  namespace=$(kubens --current)
+  printf '\033[1mkubectl --context %s --namespace %s %s\033[m\n' "$context" "$namespace" "$*"
+  kubectl --context "$context" --namespace "$namespace" $@
+}
 
 # Easier history searching
 # This has issues if you turbo load

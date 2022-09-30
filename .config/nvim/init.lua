@@ -162,7 +162,7 @@ map("n", "<leader>w", "<cmd>write<cr>")
 -- Make leader keybindings less awkward
 map({ "n", "v" }, " ", "")
 -- s is used by vim sandwich
-map("n", "s", "")
+map({ "n", "v" }, "s", "")
 
 -- Go make j/k move soft lines rather than hard lines, except for with counts
 map({ "n", "v" }, "j", "v:count ? 'j' : 'gj'", { expr = true })
@@ -199,7 +199,7 @@ map("t", "<C-k>", "<C-\\><C-n><C-w>k")
 map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 -- Make terminals always open in insert mode with no linenumbers.
 -- TODO: Use autocmd API when it gets finished
-cmd("autocmd TermOpen * startinsert | setlocal norelativenumber nonumber")
+cmd("autocmd TermOpen * startinsert | setlocal norelativenumber nonumber signcolumn=no")
 
 -----------------------------
 ------- Plugin Config -------
@@ -400,7 +400,18 @@ lspconfig.pylsp.setup {
     },
   },
 }
-lspconfig.rust_analyzer.setup {}
+
+lspconfig.rust_analyzer.setup {
+  settings = {
+    -- to enable rust-analyzer settings visit:
+    -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+    ["rust-analyzer"] = {
+      rustfmt = {
+        extraArgs = { "+nightly" },
+      },
+    },
+  },
+}
 lspconfig.sumneko_lua.setup {
   cmd = {
     os.getenv("HOME") .. "/src/build/lua-language-server/bin/lua-language-server",
@@ -439,7 +450,7 @@ null_ls.setup {
 require("zk").setup { picker = "fzf", lsp = { config = { on_attach = lsp_attach } } }
 
 local function zk_link(after)
-  require("zk").pick_notes(options or {}, { title = "Zk Insert Link" }, function(notes)
+  require("zk").pick_notes({}, { title = "Zk Insert Link" }, function(notes)
     vim.schedule(function()
       for _, note in ipairs(notes) do
         -- strip off extension
