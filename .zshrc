@@ -99,6 +99,7 @@ fi
 
 alias bm='jump-bookmark'
 alias c='cargo'
+alias cn='cargo +nightly'
 alias d='rip'
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.config/git/config
@@ -109,9 +110,10 @@ alias kx='kubectx'
 function k() {
   context=$(kubectx --current)
   namespace=$(kubens --current)
-  printf '\033[1mkubectl --context %s --namespace %s %s\033[m\n' "$context" "$namespace" "$*"
+  printf '\033[1mkubectl --context %s --namespace %s %s\033[m\n' "$context" "$namespace" "$*" >&2
   kubectl --context "$context" --namespace "$namespace" $@
 }
+alias ws="ssh -t workspace-elihunter 'tmux new -A -s auto'"
 
 # Easier history searching
 # This has issues if you turbo load
