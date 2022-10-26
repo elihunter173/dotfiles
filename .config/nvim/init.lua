@@ -383,7 +383,7 @@ end
 local lspconfig = require("lspconfig")
 lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
   on_attach = lsp_attach,
-  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
 
 lspconfig.bashls.setup {}
