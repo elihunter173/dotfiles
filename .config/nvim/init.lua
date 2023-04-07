@@ -40,7 +40,7 @@ require("packer").startup(function(use)
   -- https://EditorConfig.org
   use("editorconfig/editorconfig-vim")
   -- Git
-  use("tpope/vim-fugitive")
+  use({"tpope/vim-fugitive", "tpope/vim-rhubarb"})
   use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
   -- Multi-cursor
   use("mg979/vim-visual-multi")
@@ -108,6 +108,7 @@ opt.list = true
 -- Make splitting make more sense
 opt.splitbelow = true
 opt.splitright = true
+opt.clipboard:append("unnamedplus")
 -- No annoying sound or blink on errors
 opt.errorbells = false
 opt.visualbell = false
@@ -229,6 +230,9 @@ g.vim_markdown_new_list_item_indent = 2
 g.vim_markdown_math = 1
 -- Don't conceal in LaTeX
 g.tex_conceal = ""
+
+-- TODO: I think I can do this with some lua native thing
+autocmd({"BufNewFile","BufRead"}, { pattern=  "*.bazel", command = "set filetype=python"})
 
 -- Dirbuf keycombo
 autocmd("FileType", { pattern = "dirbuf", command = "nnoremap <buffer> <C-LeftMouse> <LeftMouse><Plug>(dirbuf_enter)" })
@@ -360,8 +364,6 @@ local function lsp_attach(_, bufnr)
   -- bufmap("n", "<space>rn", vim.lsp.buf.rename)
   -- bufmap("n", "<space>ca", vim.lsp.buf.code_action)
   bufmap("n", "gr", vim.lsp.buf.references)
-  -- TODO: Use vim.lsp.buf.format with filter argument once this PR is merged:
-  -- https://github.com/neovim/neovim/pull/18193
   bufmap("n", "<space>f", function()
     vim.lsp.buf.format {
       async = true,
@@ -414,7 +416,7 @@ lspconfig.rust_analyzer.setup {
     },
   },
 }
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
   cmd = {
     os.getenv("HOME") .. "/src/build/lua-language-server/bin/lua-language-server",
   },
