@@ -24,7 +24,8 @@ require("packer").startup(function(use)
   use("lewis6991/impatient.nvim")
   -- Colorscheme
   -- New config system forces italic strings and breaks bg0
-  use { "ellisonleao/gruvbox.nvim", commit = "3352c12c083d0ab6285a9738b7679e24e7602411" }
+  -- use { "ellisonleao/gruvbox.nvim", commit = "3352c12c083d0ab6285a9738b7679e24e7602411" }
+  use { "ellisonleao/gruvbox.nvim" }
   -- Markdown
   use { "plasticboy/vim-markdown", requires = "godlygeek/tabular" }
   -- Easier commenting for any language
@@ -40,7 +41,7 @@ require("packer").startup(function(use)
   -- https://EditorConfig.org
   use("editorconfig/editorconfig-vim")
   -- Git
-  use({"tpope/vim-fugitive", "tpope/vim-rhubarb"})
+  use({ "tpope/vim-fugitive", "tpope/vim-rhubarb" })
   use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
   -- Multi-cursor
   use("mg979/vim-visual-multi")
@@ -68,10 +69,12 @@ require("packer").startup(function(use)
 
   -- LSP and autocomplete
   use("neovim/nvim-lspconfig")
+  use { 'simrat39/rust-tools.nvim', requires = { "neovim/nvim-lspconfig" } }
   use { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp" }
   use { "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" }
   -- LSP integration for generic things (formatters)
   use { "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" }
+  use { "rcarriga/nvim-dap-ui", "mfussenegger/nvim-dap" }
 
   -- TreeSitter
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
@@ -149,6 +152,7 @@ function MYFILENAME()
     return vim.fn.fnamemodify(name, ":~:.")
   end
 end
+
 opt.statusline = "[%{mode()}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'gitsigns_head','')}"
 
 -- Colorscheme
@@ -207,6 +211,9 @@ cmd("autocmd TermOpen * startinsert | setlocal norelativenumber nonumber signcol
 -----------------------------
 -- Colorscheme
 g.gruvbox_sign_column = "bg0"
+require("gruvbox").setup {
+  italic = { strings = false },
+}
 cmd("colorscheme gruvbox")
 
 -- EditorConfig + Fugitive
@@ -232,7 +239,7 @@ g.vim_markdown_math = 1
 g.tex_conceal = ""
 
 -- TODO: I think I can do this with some lua native thing
-autocmd({"BufNewFile","BufRead"}, { pattern=  "*.bazel", command = "set filetype=python"})
+autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.bazel", command = "set filetype=python" })
 
 -- Dirbuf keycombo
 autocmd("FileType", { pattern = "dirbuf", command = "nnoremap <buffer> <C-LeftMouse> <LeftMouse><Plug>(dirbuf_enter)" })
@@ -344,7 +351,7 @@ map("n", "]d", vim.diagnostic.goto_next)
 map("n", "[d", vim.diagnostic.goto_prev)
 map("n", "<leader>e", vim.diagnostic.open_float)
 
-local function lsp_attach(_, bufnr)
+local function lsp_attach(client, bufnr)
   local function bufmap(mode, lhs, rhs)
     map(mode, lhs, rhs, { buffer = bufnr, silent = true })
   end
@@ -381,7 +388,7 @@ local function lsp_attach(_, bufnr)
   end)
   bufmap("n", "<leader>r", vim.lsp.buf.rename)
 
-  -- print("LSP Attached.")
+  print(client.name .. " attached")
 end
 
 local lspconfig = require("lspconfig")
@@ -405,17 +412,35 @@ lspconfig.pylsp.setup {
   },
 }
 
-lspconfig.rust_analyzer.setup {
-  settings = {
-    -- to enable rust-analyzer settings visit:
-    -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-    ["rust-analyzer"] = {
-      rustfmt = {
-        extraArgs = { "+nightly" },
+local rt = require("rust-tools")
+rt.setup {
+  server = {
+    on_attach = function(client, bufnr)
+      lsp_attach(client, bufnr)
+
+      -- Overrides
+      local function bufmap(mode, l, r, opts)
+        opts = vim.tbl_extend("force", { buffer = bufnr, silent = true }, opts or {})
+        vim.keymap.set(mode, l, r, opts)
+      end
+
+      -- Hover actions
+      bufmap("n", "<leader>x", vim.lsp.buf.code_action)
+      -- Code action groups
+      bufmap("n", "<leader>X", rt.code_action_group.code_action_group)
+    end,
+    settings = {
+      -- to enable rust-analyzer settings visit:
+      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+      ["rust-analyzer"] = {
+        rustfmt = {
+          extraArgs = { "+nightly" },
+        },
       },
     },
-  },
+  }
 }
+
 lspconfig.lua_ls.setup {
   cmd = {
     os.getenv("HOME") .. "/src/build/lua-language-server/bin/lua-language-server",
