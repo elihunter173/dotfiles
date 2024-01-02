@@ -48,11 +48,42 @@ function jump-bookmark() {
   cd ${dest/#\~/$HOME}
 }
 
-function in() {
-  t=$1
+function every() {
+  t="$1"
   shift
-  (sleep $t && say $@) &
+  while :; do
+    eval $@
+    sleep $t
+  done
 }
+
+function review {
+  pr="$1"
+  git fetch
+
+  base="$(gh pr view "$pr" --json baseRefName --jq '.baseRefName')"
+  head="$(gh pr view "$pr" --json headRefName --jq '.headRefName')"
+  ancestor_commit="$(git merge-base "origin/$head" "origin/$base")"
+
+  git checkout "origin/$head" >/dev/null
+  git reset "$ancestor_commit" >/dev/null
+  echo "Reviewing $pr ($base <- $head)"
+  git diff --stat "origin/$base" "origin/$head"
+  alias fin=review-done
+}
+
+function review-done {
+  git reset --hard
+  git clean -fd
+  git checkout -
+  unalias fin
+}
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# source ~/dd/dd-source/domains/eee/apps/ddr/autocomplete/zsh_autocomplete
 
 if [[ $commands[code] ]] && [ "$TERM_PROGRAM" = vscode ]; then
     export EDITOR='code'
@@ -104,16 +135,7 @@ alias d='rip'
 alias e="$EDITOR"
 alias g='git' # further shortcuts in ~/.config/git/config
 alias j='just'
-
-alias kn='kubens'
-alias kx='kubectx'
-function k() {
-  context=$(kubectx --current)
-  namespace=$(kubens --current)
-  printf '\033[1mkubectl --context %s --namespace %s %s\033[m\n' "$context" "$namespace" "$*" >&2
-  kubectl --context "$context" --namespace "$namespace" $@
-}
-alias ws="ssh -t workspace-elihunter 'tmux new -A -s auto'"
+alias jd='just --dry-run'
 
 # Easier history searching
 # This has issues if you turbo load
@@ -141,10 +163,12 @@ zinit for \
   OMZ::lib/key-bindings.zsh
 
 # Load nice prompt
+PURE_PROMPT_SYMBOL=';'
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 # Magenta and red are hard to tell apart
 zstyle :prompt:pure:prompt:success color blue
+# precmd() { print -rP "# %~ \\\$?=$?" }
 
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh'
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh'
@@ -152,5 +176,51 @@ zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/compl
 comp_path="$HOME/.zinit/completions"
 [[ ! -f "$comp_path/_kubectl" && $commands[kubectl] ]] && kubectl completion zsh > "$comp_path/_kubectl"
 [[ ! -f "$comp_path/_just" ]] && just --completions zsh > "$comp_path/_just"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#
+# Echo the given command to stderr formatted in bold with a $
+function peval {
+  printf '\033[1m$ ' >&2
+  echo -n $@ >&2
+  printf '\033[m\n' >&2
+  eval $@
+}
+
+alias kn='kubens'
+alias kx='kubectx'
+function k() {
+  context=$(kubectx --current)
+  namespace=$(kubens --current)
+  peval kubectl --context "$context" --namespace "$namespace" $@
+}
+alias kg='k get'
+
+function verget() {
+  k get pod -o jsonpath='{.metadata.labels.version}' $@
+  echo
+}
+
+function bquery () {
+  eval "bzl query //k8s/$1/... 2> /dev/null" | fzf --tac --height 40%
+}
+
+# Make a git-worktree
+function mktree {
+  if git rev-parse --verify "eli/$1" &>/dev/null; then
+    peval git worktree add ~/b/"$1" "eli/$1"
+  else
+    # Create new branch
+    peval git worktree add ~/b/"$1" -b "eli/$1"
+  fi
+}
+
+# Make a git-worktree
+function rmtree {
+  peval git worktree remove ~/b/"$1"
+  peval git branch -d "eli/$1"
+}
 
 [[ -f ~/.config/eli/local_zshrc.zsh ]] && source ~/.config/eli/local_zshrc.zsh || true
