@@ -11,3 +11,6 @@ shell.nix
 
 # pyls generated stuff
 .mypy_cache/
+
+# MacOS
+.DS_Store
