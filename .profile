@@ -3,6 +3,8 @@
 # Add local binary files (also used by pip)
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
+export STEEL_HOME="$HOME/.config/steel"
+
 # Qt5
 export QT_QPA_PLATFORMTHEME=qt5ct
 
