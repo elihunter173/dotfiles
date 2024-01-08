@@ -41,7 +41,7 @@ require("packer").startup(function(use)
   -- https://EditorConfig.org
   use("editorconfig/editorconfig-vim")
   -- Git
-  use({ "tpope/vim-fugitive", "tpope/vim-rhubarb" })
+  use("tpope/vim-fugitive")
   use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
   -- Multi-cursor
   use("mg979/vim-visual-multi")
@@ -203,8 +203,24 @@ map("t", "<C-j>", "<C-\\><C-n><C-w>j")
 map("t", "<C-k>", "<C-\\><C-n><C-w>k")
 map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 -- Make terminals always open in insert mode with no linenumbers.
--- TODO: Use autocmd API when it gets finished
-cmd("autocmd TermOpen * startinsert | setlocal norelativenumber nonumber signcolumn=no")
+-- cmd("autocmd TermOpen * startinsert | setlocal norelativenumber nonumber signcolumn=no")
+autocmd({ "TermOpen" }, { pattern = "*", command = "startinsert | setlocal norelativenumber nonumber signcolumn=no" })
+
+-----------------------------
+------ Custom Commands ------
+-----------------------------
+local function gh_copy_permalink(args)
+  -- Trim whitespace (i.e. \n) from commit
+  local commit = vim.fn.system("git rev-parse HEAD"):gsub("%s+", "")
+  local filename = vim.api.nvim_buf_get_name(0)
+  local file_with_range = string.format("%s:%d-%d", filename, args.line1, args.line2)
+  local permalink = vim.fn.system(string.format("gh browse '%s' --no-browser --commit=%s", file_with_range, commit)):
+      gsub("%s+", "")
+  vim.fn.setreg("+", permalink)
+  print("Copied", permalink)
+end
+
+vim.api.nvim_create_user_command("GhCopy", gh_copy_permalink, { range = 1 })
 
 -----------------------------
 ------- Plugin Config -------
