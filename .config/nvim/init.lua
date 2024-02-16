@@ -1,90 +1,178 @@
-local cmd, g, opt, map, autocmd = vim.cmd, vim.g, vim.opt, vim.keymap.set, vim.api.nvim_create_autocmd
+local g, opt, map, autocmd = vim.g, vim.opt, vim.keymap.set, vim.api.nvim_create_autocmd
 
--- Load impatient.nvim for faster load time
-pcall(require, "impatient")
+-- Faster load time
+vim.loader.enable()
+
+-- Make sure to set `mapleader` before lazy so your mappings are correct
+g.mapleader = " "
 
 -----------------------------
 ---------- Plugins ----------
 -----------------------------
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local bootstrapping = false
-if vim.fn.isdirectory(install_path) == 0 then
-  vim.fn.system {
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
     "git",
     "clone",
-    "--depth=1",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
-  }
-  bootstrapping = true
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
-require("packer").startup(function(use)
-  use("wbthomason/packer.nvim")
-  -- Faster load time
-  use("lewis6991/impatient.nvim")
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup {
   -- Colorscheme
-  -- New config system forces italic strings and breaks bg0
-  -- use { "ellisonleao/gruvbox.nvim", commit = "3352c12c083d0ab6285a9738b7679e24e7602411" }
-  use { "ellisonleao/gruvbox.nvim" }
+  {
+    "ellisonleao/gruvbox.nvim",
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+  },
   -- Markdown
-  use { "plasticboy/vim-markdown", requires = "godlygeek/tabular" }
+  {
+    "plasticboy/vim-markdown",
+    dependencies = "godlygeek/tabular",
+    ft = "markdown",
+  },
   -- Easier commenting for any language
-  use("numToStr/Comment.nvim")
-  -- Additional text objects. TODO: Maybe replace with treesitter stuff
-  use("wellle/targets.vim")
-  -- Surrounding text objects with any character
-  use("machakann/vim-sandwich")
+  "numToStr/Comment.nvim",
+  -- Additional text objects. TODO: Maybe replace with treesitter stuff: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        textobjects = {
+          select = {
+            enable = true,
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
+            keymaps = {
+              -- You can use the capture groups defined in textobjects.scm
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              -- TODO: In rust this is not just definition
+              ["as"] = "@class.outer",
+              ["is"] = "@class.inner",
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+              -- You can also use captures from other query groups like `locals.scm`
+              -- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+            },
+            -- You can choose the select mode (default is charwise 'v')
+            --
+            -- Can also be a function which gets passed a table with the keys
+            -- * query_string: eg '@function.inner'
+            -- * method: eg 'v' or 'o'
+            -- and should return the mode ('v', 'V', or '<c-v>') or a table
+            -- mapping query_strings to modes.
+            selection_modes = {
+              ["@function.outer"] = "V",
+              ["@function.inner"] = "V",
+              ["@class.outer"] = "V",
+              ["@class.inner"] = "V",
+              ["@parameter.outer"] = "v",
+              ["@parameter.inner"] = "v",
+            },
+            -- If you set this to `true` (default is `false`) then any textobject is
+            -- extended to include preceding or succeeding whitespace. Succeeding
+            -- whitespace has priority in order to act similarly to eg the built-in
+            -- `ap`.
+            --
+            -- Can also be a function which gets passed a table with the keys
+            -- * query_string: eg '@function.inner'
+            -- * selection_mode: eg 'v'
+            -- and should return true of false
+            include_surrounding_whitespace = true,
+          },
+          move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              ["]f"] = "@function.outer",
+              ["]s"] = { query = "@class.outer", desc = "Next class start" },
+              ["]a"] = "@parameter.outer",
+              -- ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
+            },
+            goto_next_end = {
+              ["]F"] = "@function.outer",
+              ["]S"] = "@class.outer",
+              ["]A"] = "@parameter.outer",
+            },
+            goto_previous_start = {
+              ["[f"] = "@function.outer",
+              ["[s"] = "@class.outer",
+              ["[a"] = "@parameter.outer",
+              -- ["[s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
+            },
+            goto_previous_end = {
+              ["[F"] = "@function.outer",
+              ["[S"] = "@class.outer",
+              ["[A"] = "@parameter.outer",
+            },
+          },
+        },
+      }
+    end
+  },
+  -- Surrounding text objects with any character. TODO Maybe replace with neovim stuff: https://github.com/kylechui/nvim-surround?tab=readme-ov-file
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
   -- Vim undotree visualizer
-  use("mbbill/undotree")
+  "mbbill/undotree",
   -- Never think about indentation
-  use("tpope/vim-sleuth")
+  "tpope/vim-sleuth",
   -- https://EditorConfig.org
-  use("editorconfig/editorconfig-vim")
+  "editorconfig/editorconfig-vim",
   -- Git
-  use("tpope/vim-fugitive")
-  use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
+  "tpope/vim-fugitive",
+  { "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
   -- Multi-cursor
-  use("mg979/vim-visual-multi")
+  -- TODO: Check out https://github.com/smoka7/multicursors.nvim
+  "mg979/vim-visual-multi",
   -- Indent marks
-  use("lukas-reineke/indent-blankline.nvim")
-  -- The file manager I made. I normally just symlink it
-  -- use("elihunter173/dirbuf.nvim")
+  "lukas-reineke/indent-blankline.nvim",
+  -- The file manager I made
+  "elihunter173/dirbuf.nvim",
   -- Zettelkasten notes
-  use("mickael-menu/zk-nvim")
+  "mickael-menu/zk-nvim",
   -- Floating terminal
-  use("voldikss/vim-floaterm")
+  "voldikss/vim-floaterm",
   -- Fuzzy finding
-  use {
+  {
     "junegunn/fzf",
     "junegunn/fzf.vim",
     run = function()
       vim.fn["fzf#install"]()
     end,
-  }
+  },
   -- Justfile support
-  use("NoahTheDuke/vim-just")
+  "NoahTheDuke/vim-just",
 
   -- TODO: See if I actually want this
-  use("https://gitlab.com/yorickpeterse/nvim-pqf.git")
+  "yorickpeterse/nvim-pqf",
 
   -- LSP and autocomplete
-  use("neovim/nvim-lspconfig")
-  use { 'simrat39/rust-tools.nvim', requires = { "neovim/nvim-lspconfig" } }
-  use { "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp" }
-  use { "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" }
-  -- LSP integration for generic things (formatters)
-  use { "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" }
-  use { "rcarriga/nvim-dap-ui", "mfussenegger/nvim-dap" }
+  "neovim/nvim-lspconfig",
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^4',
+    ft = { 'rust' },
+  },
+
 
   -- TreeSitter
-  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-end)
-
-if bootstrapping then
-  require("packer").sync()
-  cmd("autocmd User PackerComplete echo 'Initial bootstrap done. Run :quitall and restart'")
-  return
-end
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+}
 
 -----------------------------
 ---------- Options ----------
@@ -135,7 +223,7 @@ opt.grepprg = "rg --vimgrep"
 -- I have my mode in my statusline
 opt.showmode = false
 -- Writing settings
-autocmd("FileType", { pattern = { "markdown" }, command = "setlocal spell wrap linebreak breakindent" })
+autocmd("FileType", { pattern = { "markdown,text" }, command = "setlocal spell wrap linebreak breakindent" })
 -- I often leave the first word in a sentence lowercase
 opt.spellcapcheck = ""
 
@@ -159,10 +247,11 @@ opt.statusline = "[%{mode()}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'git
 opt.termguicolors = os.getenv("TERM") ~= "screen"
 opt.background = "dark"
 
+-- opt.shell = "/opt/homebrew/bin/nu"
+
 -----------------------------
 --------- Mappings ----------
 -----------------------------
-g.mapleader = " "
 map("n", "<leader>w", "<cmd>write<cr>")
 -- Make leader keybindings less awkward
 map({ "n", "v" }, " ", "")
@@ -212,10 +301,11 @@ autocmd({ "TermOpen" }, { pattern = "*", command = "startinsert | setlocal norel
 local function gh_copy_permalink(args)
   -- Trim whitespace (i.e. \n) from commit
   local commit = vim.fn.system("git rev-parse HEAD"):gsub("%s+", "")
-  local filename = vim.api.nvim_buf_get_name(0)
+  local filename = vim.fn.expand("%:.")
   local file_with_range = string.format("%s:%d-%d", filename, args.line1, args.line2)
-  local permalink = vim.fn.system(string.format("gh browse '%s' --no-browser --commit=%s", file_with_range, commit)):
-      gsub("%s+", "")
+  local permalink = vim.fn.system(string.format("gh browse '%s' --no-browser --commit=%s", file_with_range, commit))
+      :gsub("%s+", "")
+      :gsub("?plain=1", "") -- This just looks ugly imo
   vim.fn.setreg("+", permalink)
   print("Copied", permalink)
 end
@@ -230,7 +320,7 @@ g.gruvbox_sign_column = "bg0"
 require("gruvbox").setup {
   italic = { strings = false },
 }
-cmd("colorscheme gruvbox")
+vim.cmd("colorscheme gruvbox")
 
 -- EditorConfig + Fugitive
 g.EditorConfig_exclude_patterns = { "fugitive://.\\*" }
@@ -269,7 +359,7 @@ g.fzf_buffers_jump = 1
 g.fzf_layout = { window = { width = 0.85, height = 0.8 } }
 g.fzf_preview_window = ""
 -- Nice fzf keybindings
-cmd([[
+vim.cmd([[
 command! -bang -nargs=? -complete=dir Directories
   \ call fzf#run(fzf#wrap({'source': 'fd --type directory' . ('<bang>' == '!' ? ' --hidden' : '')}))
 command! -bang -nargs=? -complete=dir Files
@@ -343,34 +433,36 @@ require("gitsigns").setup {
 --------------------------------
 ------ LSP & Autocomplete ------
 --------------------------------
-local cmp = require("cmp")
-cmp.setup {
-  sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
-  -- TODO: Look into new mappings
-  mapping = cmp.mapping.preset.insert {
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm { select = true },
-  },
-}
+-- local cmp = require("cmp")
+-- cmp.setup {
+--   sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
+--   snippet = {
+--     expand = function(args)
+--       require("luasnip").lsp_expand(args.body)
+--     end,
+--   },
+--   -- TODO: Look into new mappings
+--   mapping = cmp.mapping.preset.insert {
+--     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+--     ["<C-f>"] = cmp.mapping.scroll_docs(4),
+--     ["<C-Space>"] = cmp.mapping.complete(),
+--     ["<C-e>"] = cmp.mapping.close(),
+--     ["<CR>"] = cmp.mapping.confirm { select = true },
+--   },
+-- }
 
 -- Recommended diagnostic settings
 map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "]d", vim.diagnostic.goto_next)
 map("n", "[d", vim.diagnostic.goto_prev)
-map("n", "<leader>e", vim.diagnostic.open_float)
 
 local function lsp_attach(client, bufnr)
   local function bufmap(mode, lhs, rhs)
     map(mode, lhs, rhs, { buffer = bufnr, silent = true })
   end
+
+  -- TODO: Maybe I find the LSP syntax highlighting annoying?
+  client.server_capabilities.semanticTokensProvider = nil
 
   -- Recommended LSP settings
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -378,18 +470,11 @@ local function lsp_attach(client, bufnr)
   bufmap("n", "gd", vim.lsp.buf.definition)
   bufmap("n", "K", vim.lsp.buf.hover)
   bufmap("n", "gi", vim.lsp.buf.implementation)
-  -- bufmap("n", "<C-k>", vim.lsp.buf.signature_help)
-  -- These conflict with my :write binding
-  -- bufmap("n", "<space>wa", vim.lsp.buf.add_workspace_folder)
-  -- bufmap("n", "<space>wr", vim.lsp.buf.remove_workspace_folder)
-  -- bufmap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
   bufmap("n", "<space>D", vim.lsp.buf.type_definition)
-  -- bufmap("n", "<space>rn", vim.lsp.buf.rename)
-  -- bufmap("n", "<space>ca", vim.lsp.buf.code_action)
   bufmap("n", "gr", vim.lsp.buf.references)
   bufmap("n", "<space>f", function()
     vim.lsp.buf.format {
-      async = true,
+      -- async = true,
       filter = function(c)
         return c.name ~= "tsserver" and c.name ~= "sumneko_lua"
       end,
@@ -410,7 +495,7 @@ end
 local lspconfig = require("lspconfig")
 lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
   on_attach = lsp_attach,
-  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  -- capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
 
 lspconfig.bashls.setup {}
@@ -428,8 +513,11 @@ lspconfig.pylsp.setup {
   },
 }
 
-local rt = require("rust-tools")
-rt.setup {
+vim.g.rustaceanvim = {
+  -- Plugin configuration
+  tools = {
+  },
+  -- LSP configuration
   server = {
     on_attach = function(client, bufnr)
       lsp_attach(client, bufnr)
@@ -440,21 +528,33 @@ rt.setup {
         vim.keymap.set(mode, l, r, opts)
       end
 
-      -- Hover actions
-      bufmap("n", "<leader>x", vim.lsp.buf.code_action)
-      -- Code action groups
-      bufmap("n", "<leader>X", rt.code_action_group.code_action_group)
+      -- Grouped code actions
+      bufmap("n", "<leader>x", function()
+        vim.cmd.RustLsp("codeAction")
+      end)
+      -- Longer errors
+      bufmap("n", "<leader>e", function()
+        vim.cmd.RustLsp("renderDiagnostic")
+      end)
     end,
-    settings = {
-      -- to enable rust-analyzer settings visit:
-      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+    default_settings = {
+      -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
+        server = {
+          path = "~/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
+        },
         rustfmt = {
           extraArgs = { "+nightly" },
         },
+        cargo = {
+          features = "all",
+        },
       },
     },
-  }
+  },
+  -- DAP configuration
+  dap = {
+  },
 }
 
 lspconfig.lua_ls.setup {
@@ -476,20 +576,6 @@ lspconfig.tsserver.setup {}
 lspconfig.vimls.setup {}
 
 --------------------------------
------------ Null-ls ------------
---------------------------------
-local null_ls = require("null-ls")
-null_ls.setup {
-  on_attach = lsp_attach,
-  sources = {
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.prettier.with {
-      filetypes = { "html", "css", "scss", "json", "yaml" },
-    },
-  },
-}
-
---------------------------------
 ------ Zettelkasten notes ------
 --------------------------------
 require("zk").setup { picker = "fzf", lsp = { config = { on_attach = lsp_attach } } }
@@ -506,11 +592,9 @@ local function zk_link(after)
   end)
 end
 
-require("zk.commands").add("ZkLink", function(options) end)
-
-cmd("command! ZkEdit FloatermNew ZK_EDITOR=floaterm zk edit --interactive")
-map("n", "<leader>n", "<cmd>ZkEdit<cr>")
-map("v", "<leader>n", "<cmd>'<,'>ZkNewFromTitleSelection<cr>")
+map("n", "<leader>n", "<cmd>ZkNotes<cr>")
+map("n", "<leader>N", "<cmd>ZkNew<cr>")
+map("v", "<leader>N", "<cmd>'<,'>ZkNewFromTitleSelection<cr>")
 map("n", "<leader>m", function()
   zk_link(true)
 end)
@@ -522,12 +606,10 @@ end)
 ---------- TreeSitter ----------
 --------------------------------
 require("nvim-treesitter.configs").setup {
+  ensure_installed = { "rust", "toml", "lua", "go", "python" },
   -- No `ensure_installed` I manually install language parsers, since verifying
   -- is really slow on WSL
   highlight = {
     enable = true,
   },
 }
-
--- cmd([[autocmd OptionSet binary echo 'hi']])
--- cmd([[autocmd VimEnter if &binary | echo 'hi' | endif]])
