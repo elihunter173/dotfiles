@@ -17,6 +17,9 @@ bindkey -e
 # Tell GNUPG to use the terminal and no GUI
 export GPG_TTY=$(tty)
 
+# Allow comments interactively
+setopt interactivecomments
+
 # Utility functions
 function texwatch() {
   echo $@ | entr tectonic $@
@@ -69,14 +72,12 @@ function review {
   git reset "$ancestor_commit" >/dev/null
   echo "Reviewing $pr ($base <- $head)"
   git diff --stat "origin/$base" "origin/$head"
-  alias fin=review-done
 }
 
 function review-done {
   git reset --hard
   git clean -fd
   git checkout -
-  unalias fin
 }
 
 export NVM_DIR="$HOME/.nvm"
@@ -110,15 +111,9 @@ fi
 [[ $commands[fd] ]] && export FZF_DEFAULT_COMMAND='fd --type f'
 
 # Quick shortcuts
-if [[ $commands[exa] ]]; then
-  alias l='exa --classify'
-  alias ll='l --long --header'
-  alias la='l --all'
-else
-  alias l='ls --color=auto -F'
-  alias ll='l -lh'
-  alias la='l -a'
-fi
+alias l='ls --color=auto -F'
+alias ll='l -lh'
+alias la='l -a'
 
 if [[ $commands[wsl-open] ]]; then
   alias o='wsl-open'
@@ -174,13 +169,13 @@ zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-b
 zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh'
 
 comp_path="$HOME/.zinit/completions"
-[[ ! -f "$comp_path/_kubectl" && $commands[kubectl] ]] && kubectl completion zsh > "$comp_path/_kubectl"
+# [[ ! -f "$comp_path/_kubectl" && $commands[kubectl] ]] && kubectl completion zsh > "$comp_path/_kubectl"
 [[ ! -f "$comp_path/_just" ]] && just --completions zsh > "$comp_path/_just"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Echo the given command to stderr formatted in bold with a $
 function peval {
   printf '\033[1m$ ' >&2
@@ -224,3 +219,6 @@ function rmtree {
 }
 
 [[ -f ~/.config/eli/local_zshrc.zsh ]] && source ~/.config/eli/local_zshrc.zsh || true
+
+# Add krew for kubectl plugins
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

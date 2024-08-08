@@ -1,3 +1,5 @@
+# shell = "/opt/homebrew/bin/nu"
+
 [colors.bright]
 black = "#928374"
 blue = "#83a598"
@@ -50,7 +52,7 @@ text = "CellBackground"
 TERM = "xterm-256color"
 
 [font]
-size = 13
+size = 12
 
 [font.normal]
 family = "Hack Nerd Font"

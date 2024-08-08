@@ -12,7 +12,7 @@
 	p = push
 	pf = push --force-with-lease
 	f = fetch --prune
-	l = pull
+	l = pull --prune
 	cl = clone --recurse-submodules
 	a = add --verbose --all
 	ae = add --edit --all
@@ -40,6 +40,14 @@
 	defaultBranch = main
 [diff]
 	algorithm = histogram
+	tool = difftastic
+[difftool]
+        prompt = false
+[difftool "difftastic"]
+        cmd = difft --display inline "$LOCAL" "$REMOTE"
+[pager]
+        difftool = true
+
 ; For Datadog I believe for building Go libraries
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/

@@ -91,7 +91,7 @@ require("lazy").setup {
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
               ["]f"] = "@function.outer",
-              ["]s"] = { query = "@class.outer", desc = "Next class start" },
+              -- ["]s"] = { query = "@class.outer", desc = "Next class start" },
               ["]a"] = "@parameter.outer",
               -- ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
             },
@@ -102,7 +102,7 @@ require("lazy").setup {
             },
             goto_previous_start = {
               ["[f"] = "@function.outer",
-              ["[s"] = "@class.outer",
+              -- ["[s"] = "@class.outer",
               ["[a"] = "@parameter.outer",
               -- ["[s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
             },
@@ -116,7 +116,7 @@ require("lazy").setup {
       }
     end
   },
-  -- Surrounding text objects with any character. TODO Maybe replace with neovim stuff: https://github.com/kylechui/nvim-surround?tab=readme-ov-file
+  -- Surrounding text objects with any characte
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -164,11 +164,40 @@ require("lazy").setup {
   -- LSP and autocomplete
   "neovim/nvim-lspconfig",
   {
-    'mrcjkb/rustaceanvim',
-    version = '^4',
-    ft = { 'rust' },
+    "mrcjkb/rustaceanvim",
+    version = "^4",
   },
-
+  -- Autocompletion
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+    },
+    config = function()
+      local cmp = require("cmp")
+      cmp.setup {
+        sources = { { name = "nvim_lsp" }, { name = 'luasnip' } },
+        snippet = {
+          -- REQUIRED - you must specify a snippet engine
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+          end,
+        },
+        -- TODO: Look into new mappings
+        mapping = cmp.mapping.preset.insert {
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.close(),
+          ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
+        },
+      }
+    end,
+  },
 
   -- TreeSitter
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
@@ -433,24 +462,6 @@ require("gitsigns").setup {
 --------------------------------
 ------ LSP & Autocomplete ------
 --------------------------------
--- local cmp = require("cmp")
--- cmp.setup {
---   sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
---   snippet = {
---     expand = function(args)
---       require("luasnip").lsp_expand(args.body)
---     end,
---   },
---   -- TODO: Look into new mappings
---   mapping = cmp.mapping.preset.insert {
---     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
---     ["<C-f>"] = cmp.mapping.scroll_docs(4),
---     ["<C-Space>"] = cmp.mapping.complete(),
---     ["<C-e>"] = cmp.mapping.close(),
---     ["<CR>"] = cmp.mapping.confirm { select = true },
---   },
--- }
-
 -- Recommended diagnostic settings
 map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "]d", vim.diagnostic.goto_next)
@@ -468,8 +479,8 @@ local function lsp_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   bufmap("n", "gD", vim.lsp.buf.declaration)
   bufmap("n", "gd", vim.lsp.buf.definition)
-  bufmap("n", "K", vim.lsp.buf.hover)
   bufmap("n", "gi", vim.lsp.buf.implementation)
+  bufmap("n", "K", vim.lsp.buf.hover)
   bufmap("n", "<space>D", vim.lsp.buf.type_definition)
   bufmap("n", "gr", vim.lsp.buf.references)
   bufmap("n", "<space>f", function()
@@ -484,9 +495,6 @@ local function lsp_attach(client, bufnr)
   -- My settings
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   bufmap("n", "<leader>x", vim.lsp.buf.code_action)
-  bufmap("n", "ge", function()
-    vim.lsp.diagnostic.show(nil, 0)
-  end)
   bufmap("n", "<leader>r", vim.lsp.buf.rename)
 
   print(client.name .. " attached")
@@ -549,6 +557,7 @@ vim.g.rustaceanvim = {
         cargo = {
           features = "all",
         },
+        references = { excludeTests = true },
       },
     },
   },
@@ -601,6 +610,11 @@ end)
 map("n", "<leader>M", function()
   zk_link(false)
 end)
+
+local config_path = vim.fn.stdpath("config")
+vim.cmd(string.format([[
+command! ScheduleWeek .!%s/schedule_week.py
+]], config_path))
 
 --------------------------------
 ---------- TreeSitter ----------
