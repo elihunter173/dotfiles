@@ -613,7 +613,7 @@ end)
 
 local config_path = vim.fn.stdpath("config")
 vim.cmd(string.format([[
-command! ScheduleWeek .!%s/schedule_week.py
+command! ScheduleWeek .-1read !%s/schedule_week.py
 ]], config_path))
 
 --------------------------------
