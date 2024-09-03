@@ -330,9 +330,17 @@ autocmd({ "TermOpen" }, { pattern = "*", command = "startinsert | setlocal norel
 local function gh_copy_permalink(args)
   -- Trim whitespace (i.e. \n) from commit
   local commit = vim.fn.system("git rev-parse HEAD"):gsub("%s+", "")
-  local filename = vim.fn.expand("%:.")
-  local file_with_range = string.format("%s:%d-%d", filename, args.line1, args.line2)
-  local permalink = vim.fn.system(string.format("gh browse '%s' --no-browser --commit=%s", file_with_range, commit))
+  local location = vim.fn.expand("%:.")
+  if args.range == 0 then
+    -- No range, select entire file
+  elseif args.range == 1 then
+    -- One item in range, select that line
+    location = string.format("%s:%d", location, args.line1)
+  else
+    -- Two items in range, select that range
+    location = string.format("%s:%d-%d", location, args.line1, args.line2)
+  end
+  local permalink = vim.fn.system(string.format("gh browse '%s' --no-browser --commit=%s", location, commit))
       :gsub("%s+", "")
       :gsub("?plain=1", "") -- This just looks ugly imo
   vim.fn.setreg("+", permalink)
