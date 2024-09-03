@@ -51,8 +51,8 @@ def known():
 # This is for use with https://www.chinesecalligrapher.com/
 def worksheet():
     # There are 10 characters per sheet and in my experience the app starts struggling
-    # around 50+ pages. So I do 28 pages at a time since that's 8 weeks worth of worksheets if I do one every day
-    BATCH_SIZE = 560
+    # around 50+ pages. So I do 28 pages at a time since that's 4 weeks worth of worksheets if I do one every day
+    BATCH_SIZE = 280
     seen = set()
     hanzi_list = list()
     for line in sys.stdin:
