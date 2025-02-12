@@ -267,7 +267,9 @@ require("lazy").setup {
   "neovim/nvim-lspconfig",
   {
     "mrcjkb/rustaceanvim",
-    version = "^4",
+    version = '^5',
+    -- This plugin is already lazy
+    lazy = false,
   },
   -- Autocompletion
   {
@@ -608,7 +610,7 @@ local function lsp_attach(client, bufnr)
   bufmap("n", "g.", vim.lsp.buf.code_action)
   bufmap("n", "<leader>r", vim.lsp.buf.rename)
 
-  -- print(client.name .. " attached")
+  print(client.name .. " attached")
 end
 
 local lspconfig = require("lspconfig")
@@ -660,7 +662,7 @@ vim.g.rustaceanvim = {
       -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
         server = {
-          path = "~/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
+          path = "/Users/eli.hunter/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
         },
         rustfmt = {
           extraArgs = { "+nightly-2024-11-28" },
