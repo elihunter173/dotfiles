@@ -1,5 +1,18 @@
 # shell = "/opt/homebrew/bin/nu"
 
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 11
+
+[font.normal]
+family = "Hack Nerd Font"
+
+[window]
+startup_mode = "Maximized"
+
+# Colors (gruvbox)
 [colors.bright]
 black = "#928374"
 blue = "#83a598"
@@ -48,15 +61,7 @@ text = "CellForeground"
 cursor = "#ebdbb2"
 text = "CellBackground"
 
-[env]
-TERM = "xterm-256color"
-
-[font]
-size = 11
-
-[font.normal]
-family = "Hack Nerd Font"
-
+# Bindings
 [[keyboard.bindings]]
 chars = "\u001Ba"
 key = "A"
@@ -481,6 +486,3 @@ mods = "Alt|Shift"
 chars = "\u0000"
 key = "Space"
 mods = "Control"
-
-[window]
-startup_mode = "Maximized"

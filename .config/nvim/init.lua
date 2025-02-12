@@ -451,9 +451,15 @@ vim.api.nvim_create_user_command("GhCopy", gh_copy_permalink, { range = 1 })
 ------- Plugin Config -------
 -----------------------------
 -- Colorscheme
-g.gruvbox_sign_column = "bg0"
-require("gruvbox").setup {
+local gruvbox = require("gruvbox")
+gruvbox.setup {
   italic = { strings = false },
+  overrides = {
+    -- Make indent-blankline scope brighter
+    IblScope = { fg = gruvbox.palette.gray },
+    -- SignColumn = bg0
+    SignColumn = { bg = gruvbox.palette.dark0 },
+  }
 }
 vim.cmd("colorscheme gruvbox")
 
