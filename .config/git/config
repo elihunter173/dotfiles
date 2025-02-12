@@ -1,28 +1,29 @@
 [user]
-	email = elihunter173@gmail.com
+	email = eli.hunter@datadoghq.com
 	name = Eli W. Hunter
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGmTzCxV3pMSVPfy8iVQXP/db2uSxunl/x6RL0DfUbxR eli.hunter+git-commit-signing@datadoghq.com
 [alias]
 	; Custom "commands"
 	hist = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	; Nice aliases
 	; Force st to use my config settings, even on old versions
-	st = status --short --branch
-	hs = hist -20
-	d = diff
-	p = push
-	pf = push --force-with-lease
-	f = fetch --prune
-	l = pull --prune
-	cl = clone --recurse-submodules
-	a = add --verbose --all
-	ae = add --edit --all
-	c = commit
-	ca = commit --amend
-	ce = commit --amend --no-edit
-	co = checkout
-	sw = switch
-	rs = restore
-	rb = rebase
+	; st = status --short --branch
+	; hs = hist -20
+	; d = diff
+	; p = push
+	; pf = push --force-with-lease
+	; f = fetch --prune
+	; l = pull --prune
+	; cl = clone --recurse-submodules
+	; a = add --verbose --all
+	; ae = add --edit --all
+	; c = commit
+	; ca = commit --amend
+	; ce = commit --amend --no-edit
+	; co = checkout
+	; sw = switch
+	; rs = restore
+	; rb = rebase
 [status]
 	branch = true
 	short = true
@@ -51,3 +52,13 @@
 ; For Datadog I believe for building Go libraries
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
+[core]
+	hooksPath = /usr/local/dd/global_hooks
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[advice]
+	detachedHead = false
+[interactive]
+	singlekey = true

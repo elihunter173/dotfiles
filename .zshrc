@@ -1,224 +1,172 @@
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
+# Personal Zsh configuration file. It is strongly recommended to keep all
+# shell customization and configuration (including exported environment
+# variables such as PATH) in this file or in files sourced from it.
+#
+# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit's installer chunk
+# Periodic auto-update on Zsh startup: 'ask' or 'no'.
+# You can manually run `z4h update` to update everything.
+zstyle ':z4h:' auto-update      'no'
+# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
+zstyle ':z4h:' auto-update-days '28'
 
-# I'm a traitor in the shell. I like emacs bindings there
-bindkey -e
-# Tell GNUPG to use the terminal and no GUI
-export GPG_TTY=$(tty)
+# Keyboard type: 'mac' or 'pc'.
+zstyle ':z4h:bindkey' keyboard  'mac'
 
-# Allow comments interactively
-setopt interactivecomments
+# Don't start tmux.
+zstyle ':z4h:' start-tmux       no
 
-# Utility functions
-function texwatch() {
-  echo $@ | entr tectonic $@
+# Mark up shell's output with semantic information.
+zstyle ':z4h:' term-shell-integration 'yes'
+
+# Right-arrow key accepts one character ('partial-accept') from
+# command autosuggestions or the whole thing ('accept')?
+zstyle ':z4h:autosuggestions' forward-char 'accept'
+
+# Recursively traverse directories when TAB-completing files.
+zstyle ':z4h:fzf-complete' recurse-dirs 'no'
+
+# Enable direnv to automatically source .envrc files.
+zstyle ':z4h:direnv'         enable 'no'
+# Show "loading" and "unloading" notifications from direnv.
+zstyle ':z4h:direnv:success' notify 'yes'
+
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# SSH when connecting to these hosts.
+zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
+zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
+# The default value if none of the overrides above match the hostname.
+zstyle ':z4h:ssh:*'                   enable 'no'
+
+# Send these files over to the remote host when connecting over SSH to the
+# enabled hosts.
+zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
+
+# Clone additional Git repositories from GitHub.
+#
+# This doesn't do anything apart from cloning the repository and keeping it
+# up-to-date. Cloned files can be used after `z4h init`. This is just an
+# example. If you don't plan to use Oh My Zsh, delete this line.
+z4h install ohmyzsh/ohmyzsh || return
+
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
+
+# Extend PATH.
+path=(~/bin $path)
+
+# Export environment variables.
+export GPG_TTY=$TTY
+
+# Source additional local files if they exist.
+z4h source ~/.env.zsh
+
+# Use additional Git repositories pulled in with `z4h install`.
+#
+# This is just an example that you should delete. It does nothing useful.
+# z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
+# z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
+
+# Define key bindings.
+z4h bindkey undo Ctrl+/   Shift+Tab  # undo the last command line change
+z4h bindkey redo Option+/            # redo the last undone command line change
+
+z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+
+# # Autoload functions.
+# autoload -Uz zmv
+
+# # Define named directories: ~w <=> Windows home directory on WSL.
+# [[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
+
+# Define aliases.
+alias ls='ls --color=auto --classify'
+
+# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+setopt glob_dots     # no special treatment for file names with a leading dot
+setopt no_auto_menu  # require an extra TAB press to open the completion menu
+
+# Installed zsh-abbr via homebrew https://zsh-abbr.olets.dev/installation.html
+# ```
+# To activate abbreviations, add the following at the end of your .zshrc:
+#
+#     source /opt/homebrew/share/zsh-abbr/zsh-abbr.zsh
+# "kn"="--namespace"
+# "knb"="--namespace busly"
+# "knbs"="--namespace busly-shadow"
+# "knd"="--namespace rtdb-dist"
+# "knds"="--namespace rtdb-dist-shadow"
+# "knh"="--namespace rtdb-hll"
+# "knhs"="--namespace rtdb-hll-shadow"
+# "knp"="--namespace rtdb-points"
+# "knps"="--namespace rtdb-points-shadow"
+# "kx"="--context"
+# "kxap1a"="--context brionne-a.ap1.prod.dog"
+# "kxap1c"="--context brionne-c.ap1.prod.dog"
+# "kxap1d"="--context brionne-d.ap1.prod.dog"
+# "kxeu1a"="--context staryu-a.eu1.prod.dog"
+# "kxeu1b"="--context staryu-b.eu1.prod.dog"
+# "kxeu1c"="--context staryu-c.eu1.prod.dog"
+# "kxgov"="--context plain1.us1.fed.dog"
+# "kxsa"="--context oddish-a.us1.staging.dog"
+# "kxsb"="--context oddish-b.us1.staging.dog"
+# "kxsc"="--context oddish-c.us1.staging.dog"
+# "kxus1a"="--context metrics1a.us1.prod.dog"
+# "kxus1b"="--context metrics1b.us1.prod.dog"
+# "kxus1e"="--context metrics1e.us1.prod.dog"
+# "kxus31"="--context trotro-1.us3.prod.dog"
+# "kxus32"="--context trotro-2.us3.prod.dog"
+# "kxus33"="--context trotro-3.us3.prod.dog"
+# "kxus5a"="--context zorua-a.us5.prod.dog"
+# "kxus5c"="--context zorua-c.us5.prod.dog"
+# "kxus5f"="--context zorua-f.us5.prod.dog"
+# "c"="cargo"
+# "cargo c"="cargo check"
+# "cargo t"="cargo test"
+# "e"="nvim"
+# "g"="git"
+# "git a"="git add --verbose --all"
+# "git ae"="git add --edit --all"
+# "git c"="git commit"
+# "git ca"="git commit --amend"
+# "git ce"="git commit --amend --no-edit"
+# "git cl"="git clone --recurse-submodules"
+# "git co"="git checkout"
+# "git d"="git diff"
+# "git f"="git fetch --prune"
+# "git hs"="git hist -20"
+# "git l"="git pull --prune"
+# "git p"="git push"
+# "git pf"="git push --force-with-lease"
+# "git rb"="git rebase"
+# "git rs"="git restore"
+# "git st"="git status"
+# "git sw"="git switch"
+# "j"="just"
+# "k"="kubectl"
+# "kg"="kubectl get"
+# "kgp"="kubectl get pods"
+# "l"="ls"
+# "o"="open"
+z4h source /opt/homebrew/share/zsh-abbr/zsh-abbr.zsh
+
+z4h source ~/.config/eli/local_zshrc.zsh
+
+export EDITOR=nvim
+
+# A really expensive command not found handler get inserted somewhere. This overrides it
+command_not_found_handler() {
+    echo "zsh: command not found: $@"
+    return 127
 }
-function collate() {
-  pdftk A="$1" B="$2" shuffle A Bend-1 output "$3"
-}
-
-BOOKMARKS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/eli/bookmarks"
-function jump-bookmark() {
-  # I use sd at the end because I couldn't get sed character classes to work on MacOS
-  if [[ -n "$1" ]]; then
-    dest=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | grep --fixed-strings "$*:" | sd '[a-zA-Z0-9]+:' '' -p)
-  else
-    # These options were taken from
-    # https://github.com/junegunn/fzf/blob/e4c3ecc57e99f4037199f11b384a7f8758d1a0ff/shell/key-bindings.zsh#L49
-    dest=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --height='40%' --reverse --bind=ctrl-z:ignore | sd '[a-zA-Z0-9]+:' '' -p)
-  fi
-  if [[ -z "$dest" ]]; then
-    guess=$(sed -e 's/#.*//g' -e '/^\s*$/d' "$BOOKMARKS_FILE" | fzf --filter "$1" | head -1 | sd ':.*' '' -p)
-    if [[ -n "$guess" ]]; then
-      echo "No such bookmark '$1'. Did you mean '$guess'?" >&2
-    else
-      echo "No such bookmark '$1'." >&2
-    fi
-    return 1
-  fi
-
-  cd ${dest/#\~/$HOME}
-}
-
-function every() {
-  t="$1"
-  shift
-  while :; do
-    eval $@
-    sleep $t
-  done
-}
-
-function review {
-  pr="$1"
-  git fetch
-
-  base="$(gh pr view "$pr" --json baseRefName --jq '.baseRefName')"
-  head="$(gh pr view "$pr" --json headRefName --jq '.headRefName')"
-  ancestor_commit="$(git merge-base "origin/$head" "origin/$base")"
-
-  git checkout "origin/$head" >/dev/null
-  git reset "$ancestor_commit" >/dev/null
-  echo "Reviewing $pr ($base <- $head)"
-  git diff --stat "origin/$base" "origin/$head"
-}
-
-function review-done {
-  git reset --hard
-  git clean -fd
-  git checkout -
-}
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# source ~/dd/dd-source/domains/eee/apps/ddr/autocomplete/zsh_autocomplete
-
-if [[ $commands[code] ]] && [ "$TERM_PROGRAM" = vscode ]; then
-    export EDITOR='code'
-elif [[ $commands[floaterm] ]]; then
-    export EDITOR='floaterm'
-elif [[ $commands[nvim] ]]; then
-    export EDITOR='nvim'
-elif [[ $commands[vim] ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='vi'
-fi
-
-# I have issues with xterm-termite cross platform
-if [[ $TERM == xterm-termite ]]; then
-    export TERM='xterm-256color'
-fi
-if [[ $TERM == xterm-kitty ]]; then
-    alias icat='kitty +kitten icat'
-    # xterm-kitty isn't supported everywhere
-    alias ssh='TERM=xterm-256color ssh'
-fi
-
-[[ $commands[fd] ]] && export FZF_DEFAULT_COMMAND='fd --type f'
-
-# Quick shortcuts
-alias l='ls --color=auto -F'
-alias ll='l -lh'
-alias la='l -a'
-
-if [[ $commands[wsl-open] ]]; then
-  alias o='wsl-open'
-elif [[ $commands[open] ]]; then
-  alias o='open'
-else
-  alias o='xdg-open 2>/dev/null'
-fi
-
-alias bm='jump-bookmark'
-alias c='cargo'
-alias cn='cargo +nightly'
-alias d='rip'
-alias e="$EDITOR"
-alias g='git' # further shortcuts in ~/.config/git/config
-alias j='just'
-alias jd='just --dry-run'
-
-# Easier history searching
-# This has issues if you turbo load
-zinit light zsh-users/zsh-history-substring-search
-bindkey 'OA' history-substring-search-up
-bindkey 'OB' history-substring-search-down
-bindkey '^P'   history-substring-search-up
-bindkey '^N'   history-substring-search-down
-
-# Add syntax highlighting. We zpcompinit and zcpdreplay at init because syntax
-# highlighters expect to be loaded last
-zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
-zinit light zsh-users/zsh-syntax-highlighting
-
-# Turbo load more completions. Use blockf and zinit creinstall to use zinit
-# to handle completions
-zinit ice wait lucid blockf atpull'zinit creinstall -q .'
-zinit light zsh-users/zsh-completions
-
-# These cannot be turboloaded because they don't work as expected
-zinit for \
-  jreese/zsh-titles \
-  OMZ::lib/completion.zsh \
-  OMZ::lib/history.zsh \
-  OMZ::lib/key-bindings.zsh
-
-# Load nice prompt
-PURE_PROMPT_SYMBOL=';'
-zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
-zinit light sindresorhus/pure
-# Magenta and red are hard to tell apart
-zstyle :prompt:pure:prompt:success color blue
-# precmd() { print -rP "# %~ \\\$?=$?" }
-
-zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh'
-zinit snippet 'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh'
-
-comp_path="$HOME/.zinit/completions"
-# [[ ! -f "$comp_path/_kubectl" && $commands[kubectl] ]] && kubectl completion zsh > "$comp_path/_kubectl"
-[[ ! -f "$comp_path/_just" ]] && just --completions zsh > "$comp_path/_just"
-
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Echo the given command to stderr formatted in bold with a $
-function peval {
-  printf '\033[1m$ ' >&2
-  echo -n $@ >&2
-  printf '\033[m\n' >&2
-  eval $@
-}
-
-alias kn='kubens'
-alias kx='kubectx'
-function k() {
-  context=$(kubectx --current)
-  namespace=$(kubens --current)
-  peval kubectl --context "$context" --namespace "$namespace" $@
-}
-alias kg='k get'
 
 function verget() {
-  k get pod -o jsonpath='{.metadata.labels.version}' $@
+  kubectl get pod -o jsonpath='{.metadata.labels.version}' $@
   echo
 }
-
-function bquery () {
-  eval "bzl query //k8s/$1/... 2> /dev/null" | fzf --tac --height 40%
-}
-
-# Make a git-worktree
-function mktree {
-  if git rev-parse --verify "eli/$1" &>/dev/null; then
-    peval git worktree add ~/b/"$1" "eli/$1"
-  else
-    # Create new branch
-    peval git worktree add ~/b/"$1" -b "eli/$1"
-  fi
-}
-
-# Make a git-worktree
-function rmtree {
-  peval git worktree remove ~/b/"$1"
-  peval git branch -d "eli/$1"
-}
-
-[[ -f ~/.config/eli/local_zshrc.zsh ]] && source ~/.config/eli/local_zshrc.zsh || true
-
-# Add krew for kubectl plugins
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
