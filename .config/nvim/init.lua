@@ -26,7 +26,7 @@ require("lazy").setup {
   -- Colorscheme
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
   },
   -- Markdown
@@ -37,7 +37,7 @@ require("lazy").setup {
   },
   -- Easier commenting for any language
   "numToStr/Comment.nvim",
-  -- Additional text objects. TODO: Maybe replace with treesitter stuff: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  -- Additional text objects
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
@@ -117,16 +117,9 @@ require("lazy").setup {
     end
   },
   -- Surrounding text objects with any characte
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end
-  },
+  { "echasnovski/mini.surround", version = false, config = function()
+    require("mini.surround").setup()
+  end },
   -- Vim undotree visualizer
   "mbbill/undotree",
   -- Never think about indentation
@@ -139,14 +132,118 @@ require("lazy").setup {
   -- Multi-cursor
   -- TODO: Check out https://github.com/smoka7/multicursors.nvim
   "mg979/vim-visual-multi",
+  {
+    "jake-stewart/multicursor.nvim",
+    branch = "1.0",
+    config = function()
+      local mc = require("multicursor-nvim")
+      mc.setup()
+      local set = vim.keymap.set
+      -- Add or skip cursor above/below the main cursor.
+      set({ "n", "x" }, "<up>", function() mc.lineAddCursor(-1) end)
+      set({ "n", "x" }, "<down>", function() mc.lineAddCursor(1) end)
+      set({ "n", "x" }, "<leader><up>", function() mc.lineSkipCursor(-1) end)
+      set({ "n", "x" }, "<leader><down>", function() mc.lineSkipCursor(1) end)
+
+      -- Add or skip adding a new cursor by matching word/selection
+      set({ "n", "x" }, "<leader>n", function() mc.matchAddCursor(1) end)
+      set({ "n", "x" }, "<leader>s", function() mc.matchSkipCursor(1) end)
+      set({ "n", "x" }, "<leader>N", function() mc.matchAddCursor(-1) end)
+      set({ "n", "x" }, "<leader>S", function() mc.matchSkipCursor(-1) end)
+
+      -- In normal/visual mode, press `mwap` will create a cursor in every match of
+      -- the word captured by `iw` (or visually selected range) inside the bigger
+      -- range specified by `ap`. Useful to replace a word inside a function, e.g. mwif.
+      -- This is short for mWiwXX
+      set({ "n", "x" }, "mw", function()
+        mc.operator({ motion = "iw", visual = true })
+        -- Or you can pass a pattern, press `mwi{` will select every \w,
+        -- basically every char in a `{ a, b, c, d }`.
+        -- mc.operator({ pattern = [[\<\w]] })
+      end)
+
+      -- Press `mWi"ap` will create a cursor in every match of string captured by `i"` inside range `ap`.
+      set("n", "mW", mc.operator)
+
+      -- Add all matches in the document
+      set({ "n", "x" }, "<leader>A", mc.matchAllAddCursors)
+
+      -- You can also add cursors with any motion you prefer:
+      -- set("n", "<right>", function()
+      --     mc.addCursor("w")
+      -- end)
+      -- set("n", "<leader><right>", function()
+      --     mc.skipCursor("w")
+      -- end)
+
+      -- Rotate the main cursor.
+      set({ "n", "x" }, "<left>", mc.nextCursor)
+      set({ "n", "x" }, "<right>", mc.prevCursor)
+
+      -- Delete the main cursor.
+      set({ "n", "x" }, "<leader>x", mc.deleteCursor)
+
+      -- Add and remove cursors with control + left click.
+      set("n", "<c-leftmouse>", mc.handleMouse)
+
+      -- Easy way to add and remove cursors using the main cursor.
+      set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+
+      -- Clone every cursor and disable the originals.
+      set({ "n", "x" }, "<leader><c-q>", mc.duplicateCursors)
+
+      set("n", "<esc>", function()
+        if not mc.cursorsEnabled() then
+          mc.enableCursors()
+        elseif mc.hasCursors() then
+          mc.clearCursors()
+        else
+          -- Default <esc> handler.
+        end
+      end)
+
+      -- bring back cursors if you accidentally clear them
+      set("n", "<leader>gv", mc.restoreCursors)
+
+      -- Align cursor columns.
+      set("n", "<leader>a", mc.alignCursors)
+
+      -- Split visual selections by regex.
+      set("x", "S", mc.splitCursors)
+
+      -- Append/insert for each line of visual selections.
+      set("x", "I", mc.insertVisual)
+      set("x", "A", mc.appendVisual)
+
+      -- match new cursors within visual selections by regex.
+      set("x", "M", mc.matchCursors)
+
+      -- Rotate visual selection contents.
+      set("x", "<leader>t", function() mc.transposeCursors(1) end)
+      set("x", "<leader>T", function() mc.transposeCursors(-1) end)
+
+      -- Jumplist support
+      set({ "x", "n" }, "<c-i>", mc.jumpForward)
+      set({ "x", "n" }, "<c-o>", mc.jumpBackward)
+
+      -- Customize how cursors look.
+      local hl = vim.api.nvim_set_hl
+      hl(0, "MultiCursorCursor", { link = "Cursor" })
+      hl(0, "MultiCursorVisual", { link = "Visual" })
+      hl(0, "MultiCursorSign", { link = "SignColumn" })
+      hl(0, "MultiCursorMatchPreview", { link = "Search" })
+      hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
+      hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+      hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
+    end
+  },
   -- Indent marks
-  "lukas-reineke/indent-blankline.nvim",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function() require("ibl").setup() end,
+  },
   -- The file manager I made
   "elihunter173/dirbuf.nvim",
-  -- Zettelkasten notes
-  "mickael-menu/zk-nvim",
-  -- Floating terminal
-  "voldikss/vim-floaterm",
   -- Fuzzy finding
   {
     "junegunn/fzf",
@@ -158,8 +255,13 @@ require("lazy").setup {
   -- Justfile support
   "NoahTheDuke/vim-just",
 
-  -- TODO: See if I actually want this
-  "yorickpeterse/nvim-pqf",
+  { "yorickpeterse/nvim-pqf",  config = function() require('pqf').setup() end },
+  {
+    "gabrielpoca/replacer.nvim",
+    config = function()
+      vim.keymap.set("n", "<leader>h", "<cmd>lua require('replacer').run()<cr>", { silent = true })
+    end,
+  },
 
   -- LSP and autocomplete
   "neovim/nvim-lspconfig",
@@ -276,16 +378,12 @@ opt.statusline = "[%{mode()}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'git
 opt.termguicolors = os.getenv("TERM") ~= "screen"
 opt.background = "dark"
 
--- opt.shell = "/opt/homebrew/bin/nu"
-
 -----------------------------
 --------- Mappings ----------
 -----------------------------
 map("n", "<leader>w", "<cmd>write<cr>")
 -- Make leader keybindings less awkward
 map({ "n", "v" }, " ", "")
--- s is used by vim sandwich
-map({ "n", "v" }, "s", "")
 
 -- Go make j/k move soft lines rather than hard lines, except for with counts
 map({ "n", "v" }, "j", "v:count ? 'j' : 'gj'", { expr = true })
@@ -416,8 +514,6 @@ g.floaterm_width = 0.8
 g.floaterm_height = 0.8
 g.floaterm_opener = "edit"
 
-require("pqf").setup()
-
 -- Git
 require("gitsigns").setup {
   on_attach = function(bufnr)
@@ -472,8 +568,9 @@ require("gitsigns").setup {
 --------------------------------
 -- Recommended diagnostic settings
 map("n", "<leader>e", vim.diagnostic.open_float)
-map("n", "]d", vim.diagnostic.goto_next)
-map("n", "[d", vim.diagnostic.goto_prev)
+map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end)
+map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end)
+map("n", "<leader>d", vim.diagnostic.setqflist)
 
 local function lsp_attach(client, bufnr)
   local function bufmap(mode, lhs, rhs)
@@ -495,17 +592,17 @@ local function lsp_attach(client, bufnr)
     vim.lsp.buf.format {
       -- async = true,
       filter = function(c)
-        return c.name ~= "tsserver" and c.name ~= "sumneko_lua"
+        return c.name ~= "sumneko_lua"
       end,
     }
   end)
 
   -- My settings
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-  bufmap("n", "<leader>x", vim.lsp.buf.code_action)
+  bufmap("n", "g.", vim.lsp.buf.code_action)
   bufmap("n", "<leader>r", vim.lsp.buf.rename)
 
-  print(client.name .. " attached")
+  -- print(client.name .. " attached")
 end
 
 local lspconfig = require("lspconfig")
@@ -545,7 +642,7 @@ vim.g.rustaceanvim = {
       end
 
       -- Grouped code actions
-      bufmap("n", "<leader>x", function()
+      bufmap("n", "g.", function()
         vim.cmd.RustLsp("codeAction")
       end)
       -- Longer errors
@@ -560,7 +657,7 @@ vim.g.rustaceanvim = {
           path = "~/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
         },
         rustfmt = {
-          extraArgs = { "+nightly" },
+          extraArgs = { "+nightly-2024-11-28" },
         },
         cargo = {
           features = "all",
@@ -576,7 +673,7 @@ vim.g.rustaceanvim = {
 
 lspconfig.lua_ls.setup {
   cmd = {
-    os.getenv("HOME") .. "/src/build/lua-language-server/bin/lua-language-server",
+    os.getenv("HOME") .. "/src/lua-language-server/bin/lua-language-server",
   },
   settings = {
     Lua = {
@@ -588,41 +685,6 @@ lspconfig.lua_ls.setup {
     },
   },
 }
-lspconfig.texlab.setup {}
-lspconfig.tsserver.setup {}
-lspconfig.vimls.setup {}
-
---------------------------------
------- Zettelkasten notes ------
---------------------------------
-require("zk").setup { picker = "fzf", lsp = { config = { on_attach = lsp_attach } } }
-
-local function zk_link(after)
-  require("zk").pick_notes({}, { title = "Zk Insert Link" }, function(notes)
-    vim.schedule(function()
-      for _, note in ipairs(notes) do
-        -- strip off extension
-        local link = "[" .. note.title .. "](" .. note.path:sub(1, -4) .. ")"
-        vim.api.nvim_put({ link }, "c", after, true)
-      end
-    end)
-  end)
-end
-
-map("n", "<leader>n", "<cmd>ZkNotes<cr>")
-map("n", "<leader>N", "<cmd>ZkNew<cr>")
-map("v", "<leader>N", "<cmd>'<,'>ZkNewFromTitleSelection<cr>")
-map("n", "<leader>m", function()
-  zk_link(true)
-end)
-map("n", "<leader>M", function()
-  zk_link(false)
-end)
-
-local config_path = vim.fn.stdpath("config")
-vim.cmd(string.format([[
-command! ScheduleWeek .-1read !%s/schedule_week.py
-]], config_path))
 
 --------------------------------
 ---------- TreeSitter ----------
