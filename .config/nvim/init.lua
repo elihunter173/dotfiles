@@ -259,7 +259,7 @@ require("lazy").setup {
   {
     "gabrielpoca/replacer.nvim",
     config = function()
-      vim.keymap.set("n", "<leader>h", "<cmd>lua require('replacer').run()<cr>", { silent = true })
+      vim.api.nvim_create_user_command("QfReplace", require("replacer").run, {})
     end,
   },
 
@@ -373,6 +373,71 @@ function MYFILENAME()
     return vim.fn.fnamemodify(name, ":~:.")
   end
 end
+
+-- My global namespace
+eli = {}
+
+local function longest_common_prefix(strs)
+  if #strs == 0 then return "" end
+
+  for i = 1, #strs[1] do
+    local char = strs[1]:sub(i, i)
+    for j = 2, #strs do
+      if i > #strs[j] or strs[j]:sub(i, i) ~= char then
+        return strs[1]:sub(1, i - 1)
+      end
+    end
+  end
+
+  return strs[1]
+end
+
+local function suggest_name(bufnames)
+  local common_prefix = longest_common_prefix(bufnames)
+  -- Try to shorten using well known locations
+  local well_known_locations = { { vim.fn.getcwd(), "" }, { vim.fn.expand("~"), "~" } }
+  for _, path_replace in ipairs(well_known_locations) do
+    local path, replace = table.unpack(path_replace)
+    local shorter = common_prefix:gsub("^" .. vim.pesc(path), replace)
+    if #shorter < #common_prefix then
+      return shorter
+    end
+  end
+  return common_prefix
+end
+
+local function suggested_name_for_tab(tab)
+  local windows = vim.api.nvim_tabpage_list_wins(tab)
+  local names = {}
+  for _, win in ipairs(windows) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local bufname = vim.api.nvim_buf_get_name(buf)
+    if bufname ~= "" then
+      table.insert(names, bufname)
+    end
+  end
+  return suggest_name(names)
+end
+
+function eli.tabinfo()
+  for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+    local suggested = suggested_name_for_tab(tab)
+    print(string.format("tab %d %s", tab, suggested))
+  end
+end
+
+-- Returns nil or tab (number)
+function eli.parse_tab_line(line)
+  -- TODO: This allows "tab 2foo" which I don't like
+  local num = line:match("^%s*tab (%d+)")
+  if num == nil then
+    return nil
+  else
+    return tonumber(num)
+  end
+end
+
+-- TODO: Figure out how to do floating window
 
 opt.statusline = "[%{mode()}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'gitsigns_head','')}"
 
@@ -578,7 +643,7 @@ require("gitsigns").setup {
 map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end)
 map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end)
-map("n", "<leader>d", vim.diagnostic.setqflist)
+map("n", "<leader>d", function() vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end)
 
 local function lsp_attach(client, bufnr)
   local function bufmap(mode, lhs, rhs)
@@ -654,9 +719,9 @@ vim.g.rustaceanvim = {
         vim.cmd.RustLsp("codeAction")
       end)
       -- Longer errors
-      bufmap("n", "<leader>e", function()
-        vim.cmd.RustLsp("renderDiagnostic")
-      end)
+      -- bufmap("n", "<leader>e", function()
+      --   vim.cmd.RustLsp("renderDiagnostic")
+      -- end)
     end,
     default_settings = {
       -- rust-analyzer language server configuration
