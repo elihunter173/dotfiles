@@ -1,5 +1,7 @@
 # VSCode
 .vscode/
+# Cursor
+.cursor/
 
 # Vim
 *.swp
@@ -14,3 +16,6 @@ shell.nix
 
 # MacOS
 .DS_Store
+
+**/.claude/settings.local.json
+CLAUDE.md
