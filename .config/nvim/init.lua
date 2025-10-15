@@ -130,8 +130,6 @@ require("lazy").setup {
   "tpope/vim-fugitive",
   { "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
   -- Multi-cursor
-  -- TODO: Check out https://github.com/smoka7/multicursors.nvim
-  "mg979/vim-visual-multi",
   {
     "jake-stewart/multicursor.nvim",
     branch = "1.0",
@@ -240,7 +238,15 @@ require("lazy").setup {
   -- Indent marks
   {
     "lukas-reineke/indent-blankline.nvim",
-    config = function() require("ibl").setup() end,
+    config = function()
+      require("ibl").setup({
+        scope = {
+          -- I don't like the underlining
+          show_start = false,
+          show_end = false,
+        }
+      })
+    end,
   },
   -- The file manager I made
   "elihunter173/dirbuf.nvim",
@@ -319,7 +325,7 @@ opt.tabstop = 4
 opt.mouse = "a"
 -- Pad cursor when scrolling
 opt.scrolloff = 1
-opt.sidescrolloff = 0
+opt.sidescrolloff = 12
 -- Show hidden characters
 opt.listchars = {
   tab = "> ",
@@ -451,6 +457,8 @@ opt.background = "dark"
 map("n", "<leader>w", "<cmd>write<cr>")
 -- Make leader keybindings less awkward
 map({ "n", "v" }, " ", "")
+
+map("n", "z.", "<cmd>normal! zszH<CR>")
 
 -- Go make j/k move soft lines rather than hard lines, except for with counts
 map({ "n", "v" }, "j", "v:count ? 'j' : 'gj'", { expr = true })
@@ -698,6 +706,7 @@ lspconfig.pylsp.setup {
     },
   },
 }
+lspconfig.zls.setup {}
 
 vim.g.rustaceanvim = {
   -- Plugin configuration
@@ -730,7 +739,7 @@ vim.g.rustaceanvim = {
           path = "/Users/eli.hunter/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
         },
         rustfmt = {
-          extraArgs = { "+nightly-2024-11-28" },
+          extraArgs = { "+nightly-2025-02-24" },
         },
         cargo = {
           features = "all",
@@ -754,6 +763,14 @@ lspconfig.lua_ls.setup {
       diagnostics = {
         -- Vim + Busted
         globals = { "vim", "describe", "it", "pending", "before_each" },
+      },
+      -- Configuration for love2d
+      workspace = {
+        checkThirdParty = false,
+        telemetry = { enable = false },
+        library = {
+          os.getenv("HOME") .. "/src/love2d/library",
+        },
       },
     },
   },
