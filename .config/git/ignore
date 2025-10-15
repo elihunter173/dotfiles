@@ -18,4 +18,3 @@ shell.nix
 .DS_Store
 
 **/.claude/settings.local.json
-CLAUDE.md

@@ -12,7 +12,11 @@ family = "Hack Nerd Font"
 [window]
 startup_mode = "Maximized"
 
-# Colors (gruvbox)
+##############################
+#          Colors            #
+##############################
+
+# Gruvbox
 [colors.bright]
 black = "#928374"
 blue = "#83a598"
@@ -61,7 +65,9 @@ text = "CellForeground"
 cursor = "#ebdbb2"
 text = "CellBackground"
 
-# Bindings
+##############################
+#         Bindings           #
+##############################
 [[keyboard.bindings]]
 chars = "\u001Ba"
 key = "A"

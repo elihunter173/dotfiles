@@ -4,6 +4,9 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
+# I don't like pushd all the time
+unsetopt AUTO_PUSHD
+
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
 zstyle ':z4h:' auto-update      'no'
@@ -24,7 +27,7 @@ zstyle ':z4h:' term-shell-integration 'yes'
 zstyle ':z4h:autosuggestions' forward-char 'accept'
 
 # Recursively traverse directories when TAB-completing files.
-zstyle ':z4h:fzf-complete' recurse-dirs 'no'
+zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
 
 # Enable direnv to automatically source .envrc files.
 zstyle ':z4h:direnv'         enable 'no'
@@ -87,6 +90,7 @@ z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
 # Define aliases.
 alias ls='ls --color=auto --classify'
+alias k='kubectl'
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
@@ -169,4 +173,13 @@ command_not_found_handler() {
 function verget() {
   kubectl get pod -o jsonpath='{.metadata.labels.version}' $@
   echo
+}
+
+function t() {
+  name="$1"
+  # I don't use colons because that causes issues with kubectl cp and also
+  # messes with a lot of word-breaking stuff
+  tmpdir="$HOME/tmp/$name-$(date -u +%Y-%m-%dT%H_%M_%SZ)"
+  mkdir -p "$tmpdir"
+  pushd "$tmpdir"
 }
