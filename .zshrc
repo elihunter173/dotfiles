@@ -94,7 +94,6 @@ z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 # [[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
 
 # Define aliases.
-alias ls='ls --color=auto --classify'
 alias k='kubectl'
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
