@@ -4,6 +4,11 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
+# Automatically set up zsh4humans if it doesn't exist already
+if ! command -v z4h >/dev/null 2>&1; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
+fi
+
 # I don't like pushd all the time
 unsetopt AUTO_PUSHD
 
@@ -30,7 +35,7 @@ zstyle ':z4h:autosuggestions' forward-char 'accept'
 zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
 
 # Enable direnv to automatically source .envrc files.
-zstyle ':z4h:direnv'         enable 'no'
+zstyle ':z4h:direnv'         enable 'yes'
 # Show "loading" and "unloading" notifications from direnv.
 zstyle ':z4h:direnv:success' notify 'yes'
 

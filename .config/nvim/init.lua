@@ -666,7 +666,8 @@ local function lsp_attach(client, bufnr)
   bufmap("n", "gD", vim.lsp.buf.declaration)
   bufmap("n", "gd", vim.lsp.buf.definition)
   bufmap("n", "gi", vim.lsp.buf.implementation)
-  bufmap("n", "K", vim.lsp.buf.hover)
+  -- This is default now. Nice!
+  -- bufmap("n", "K", vim.lsp.buf.hover)
   bufmap("n", "<space>D", vim.lsp.buf.type_definition)
   bufmap("n", "gr", vim.lsp.buf.references)
   bufmap("n", "<space>f", function()
@@ -686,16 +687,12 @@ local function lsp_attach(client, bufnr)
   print(client.name .. " attached")
 end
 
-local lspconfig = require("lspconfig")
-lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
+vim.lsp.config("*", {
   on_attach = lsp_attach,
   -- capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
 
-lspconfig.bashls.setup {}
-lspconfig.clangd.setup {}
-lspconfig.gopls.setup {}
-lspconfig.pylsp.setup {
+vim.lsp.config("pylsp", {
   settings = {
     pylsp = {
       plugins = {
@@ -705,8 +702,32 @@ lspconfig.pylsp.setup {
       },
     },
   },
-}
-lspconfig.zls.setup {}
+})
+
+vim.lsp.config("lua_ls", {
+  cmd = {
+    os.getenv("HOME") .. "/src/lua-language-server/bin/lua-language-server",
+  },
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = {
+        -- Vim + Busted
+        globals = { "vim", "describe", "it", "pending", "before_each" },
+      },
+      -- Configuration for love2d
+      workspace = {
+        checkThirdParty = false,
+        telemetry = { enable = false },
+        library = {
+          os.getenv("HOME") .. "/src/love2d/library",
+        },
+      },
+    },
+  },
+})
+
+vim.lsp.enable({ "bashls", "clangd", "gopls", "lua_ls", "pylsp", "zls" })
 
 vim.g.rustaceanvim = {
   -- Plugin configuration
@@ -735,6 +756,8 @@ vim.g.rustaceanvim = {
     default_settings = {
       -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
+        inlayHints = {
+        },
         server = {
           path = "/Users/eli.hunter/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
         },
@@ -743,6 +766,7 @@ vim.g.rustaceanvim = {
         },
         cargo = {
           features = "all",
+          targetDir = true,
         },
         references = { excludeTests = true },
       },
@@ -750,29 +774,6 @@ vim.g.rustaceanvim = {
   },
   -- DAP configuration
   dap = {
-  },
-}
-
-lspconfig.lua_ls.setup {
-  cmd = {
-    os.getenv("HOME") .. "/src/lua-language-server/bin/lua-language-server",
-  },
-  settings = {
-    Lua = {
-      runtime = { version = "LuaJIT" },
-      diagnostics = {
-        -- Vim + Busted
-        globals = { "vim", "describe", "it", "pending", "before_each" },
-      },
-      -- Configuration for love2d
-      workspace = {
-        checkThirdParty = false,
-        telemetry = { enable = false },
-        library = {
-          os.getenv("HOME") .. "/src/love2d/library",
-        },
-      },
-    },
   },
 }
 
