@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(cargo check:*)",
+      "Bash(cargo sort:*)",
+      "Bash(cargo clippy:*)",
+      "Bash(just check)",
+      "Bash(cargo test:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(just test-config:*)",
+      "Bash(mkdir:*)",
+      "Bash(just clippy:*)",
+      "Bash(just doc:*)",
+      "Bash(cat:*)",
+      "Bash(just fmt:*)",
+      "Bash(cargo fmt:*)",
+      "Bash(jq:*)"
+    ],
+    "deny": []
+  },
+  "alwaysThinkingEnabled": false,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754018416101
+  }
+}
