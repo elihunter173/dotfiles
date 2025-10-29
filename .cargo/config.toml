@@ -1,0 +1,7 @@
+[net]
+git-fetch-with-cli = true
+
+# Run rust-analyzer in a separate dir so it doesn't conflict with command line
+# tools
+[profile.rust-analyzer]
+inherits = "dev"
