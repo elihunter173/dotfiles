@@ -1,8 +1,5 @@
 #!/usr/bin/env sh
 
-# Add local binary files (also used by pip)
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-
 # For some reason my work laptop puts python binaries here :shrug:
 export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 
@@ -69,3 +66,6 @@ export PATH="$PATH:/usr/local/go/bin"
 export ZK_NOTEBOOK_DIR="$HOME/notes/zk"
 
 export TRASH="$HOME/.local/share/Trash/files"
+
+# Add local binary files (also used by pip)
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"

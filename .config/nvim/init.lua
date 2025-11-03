@@ -762,7 +762,7 @@ vim.g.rustaceanvim = {
           path = "/Users/eli.hunter/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
         },
         rustfmt = {
-          extraArgs = { "+nightly-2025-02-24" },
+          extraArgs = { "+nightly-2025-07-02" },
         },
         cargo = {
           features = "all",
