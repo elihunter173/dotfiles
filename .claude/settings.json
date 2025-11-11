@@ -3,21 +3,24 @@
   "permissions": {
     "allow": [
       "Bash(cargo check:*)",
-      "Bash(cargo sort:*)",
       "Bash(cargo clippy:*)",
-      "Bash(just check)",
+      "Bash(cargo fmt:*)",
+      "Bash(cargo sort:*)",
       "Bash(cargo test:*)",
+      "Bash(cat:*)",
       "Bash(find:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr view:*)",
+      "Bash(git log:*)",
       "Bash(grep:*)",
-      "Bash(rg:*)",
-      "Bash(just test-config:*)",
-      "Bash(mkdir:*)",
+      "Bash(jq:*)",
+      "Bash(just check)",
       "Bash(just clippy:*)",
       "Bash(just doc:*)",
-      "Bash(cat:*)",
       "Bash(just fmt:*)",
-      "Bash(cargo fmt:*)",
-      "Bash(jq:*)"
+      "Bash(just test-config:*)",
+      "Bash(mkdir:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   },

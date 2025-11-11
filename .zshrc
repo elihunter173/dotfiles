@@ -63,9 +63,6 @@ z4h install ohmyzsh/ohmyzsh || return
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
-# Extend PATH.
-path=(~/bin $path)
-
 # Export environment variables.
 export GPG_TTY=$TTY
 
@@ -188,3 +185,6 @@ function t() {
   mkdir -p "$tmpdir"
   pushd "$tmpdir"
 }
+
+# Extend PATH.
+export PATH="$HOME/bin:$PATH"
