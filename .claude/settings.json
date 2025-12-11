@@ -5,8 +5,10 @@
       "Bash(cargo check:*)",
       "Bash(cargo clippy:*)",
       "Bash(cargo fmt:*)",
+      "Bash(cargo generate-lockfile:*)",
       "Bash(cargo sort:*)",
       "Bash(cargo test:*)",
+      "Bash(cargo tree:*)",
       "Bash(cat:*)",
       "Bash(find:*)",
       "Bash(gh pr diff:*)",
@@ -20,7 +22,8 @@
       "Bash(just fmt:*)",
       "Bash(just test-config:*)",
       "Bash(mkdir:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "WebFetch(domain:docs.rs)"
     ],
     "deny": []
   },

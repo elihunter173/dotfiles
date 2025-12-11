@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-# For some reason my work laptop puts python binaries here :shrug:
-export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 
 export STEEL_HOME="$HOME/.config/steel"
 
