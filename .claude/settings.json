@@ -2,8 +2,12 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
+      "Bash(acli jira workitem:*)",
       "Bash(cargo check:*)",
       "Bash(cargo clippy:*)",
+      "Bash(cargo doc:*)",
+      "Bash(cargo expand:*)",
+      "Bash(cargo fetch:*)",
       "Bash(cargo fmt:*)",
       "Bash(cargo generate-lockfile:*)",
       "Bash(cargo sort:*)",
@@ -11,9 +15,14 @@
       "Bash(cargo tree:*)",
       "Bash(cat:*)",
       "Bash(find:*)",
+      "Bash(gh api:*)",
       "Bash(gh pr diff:*)",
       "Bash(gh pr view:*)",
+      "Bash(gh search:*)",
+      "Bash(git checkout:*)",
+      "Bash(git grep:*)",
       "Bash(git log:*)",
+      "Bash(git submodule status:*)",
       "Bash(grep:*)",
       "Bash(jq:*)",
       "Bash(just check)",
@@ -21,14 +30,24 @@
       "Bash(just doc:*)",
       "Bash(just fmt:*)",
       "Bash(just test-config:*)",
+      "Bash(ls:*)",
       "Bash(mkdir:*)",
       "Bash(rg:*)",
-      "WebFetch(domain:docs.rs)"
+      "Bash(tree:*)",
+      "Bash(xargs cat:*)",
+      "WebFetch(domain:docs.rs)",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "mcp__atlassian__search"
     ],
     "deny": []
   },
-  "alwaysThinkingEnabled": false,
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754018416101
-  }
+  },
+  "model": "opus"
 }
