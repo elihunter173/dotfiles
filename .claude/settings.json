@@ -17,11 +17,13 @@
       "Bash(find:*)",
       "Bash(gh api:*)",
       "Bash(gh pr diff:*)",
+      "Bash(gh pr list:*)",
       "Bash(gh pr view:*)",
       "Bash(gh search:*)",
       "Bash(git checkout:*)",
       "Bash(git grep:*)",
       "Bash(git log:*)",
+      "Bash(git show:*)",
       "Bash(git submodule status:*)",
       "Bash(grep:*)",
       "Bash(jq:*)",
@@ -38,16 +40,17 @@
       "WebFetch(domain:docs.rs)",
       "WebFetch(domain:github.com)",
       "WebSearch",
+      "mcp__atlassian__getJiraIssue",
       "mcp__atlassian__search"
     ],
     "deny": []
   },
+  "model": "opus",
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754018416101
-  },
-  "model": "opus"
+  }
 }
