@@ -311,6 +311,27 @@ require("lazy").setup {
 
   -- TreeSitter
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
+  -- Remote development
+  {
+    "amitds1997/remote-nvim.nvim",
+    version = "*", -- Pin to GitHub releases
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- For standard functions
+      "MunifTanjim/nui.nvim", -- To build the plugin UI
+      "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+    },
+    -- config = function()
+    --   require('remote-nvim').setup {
+    --     client_callback = function(port, _)
+    --       local cmd = ("neovide --server localhost:%s"):format(port)
+    --       vim.fn.jobstart(cmd, {
+    --         detach = true,
+    --       })
+    --     end,
+    --   }
+    -- end,
+  }
 }
 
 -----------------------------

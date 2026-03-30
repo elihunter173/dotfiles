@@ -92,7 +92,7 @@ z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
 # Define aliases.
 alias k='kubectl'
-alias ls='ls --classify --color'
+alias ls='ls -F --color=auto'
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
@@ -186,5 +186,12 @@ function t() {
   pushd "$tmpdir"
 }
 
+function ws() {
+  ssh "workspace-eli-hunter-$1" -t tmux new -A -s "ws-$1"
+}
+
 # Extend PATH.
 export PATH="$HOME/bin:$PATH"
+
+[ -s ~/.luaver/luaver ] && . ~/.luaver/luaver
+

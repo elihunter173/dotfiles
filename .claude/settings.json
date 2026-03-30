@@ -21,6 +21,7 @@
       "Bash(gh pr view:*)",
       "Bash(gh search:*)",
       "Bash(git checkout:*)",
+      "Bash(git fetch:*)",
       "Bash(git grep:*)",
       "Bash(git log:*)",
       "Bash(git show:*)",
@@ -45,11 +46,15 @@
     ],
     "deny": []
   },
-  "model": "opus",
+  "model": "opus[1m]",
   "enabledPlugins": {
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "atlas@datadog-claude-plugins": true
   },
   "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754018416101
   }

@@ -2,6 +2,8 @@
 
 Write a PR title and description following the conventions below.
 
+Update the current branch's PR using `gh pr edit --title "..." --body "..."`. If the current branch doesn't have a PR, create one using `gh pr create --draft --title "..." --body "..."`.
+
 ## Title
 
 Format: `[TICKET-ID] Short imperative description`
