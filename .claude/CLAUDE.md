@@ -1,8 +1,6 @@
-## Workflow Rules
-- Use `/mkbranch` for making git branches.
-- Use `/commit` for making git commits.
-- Use `/write-pr` for making PRs.
-- When exploring a codebase to understand something, limit exploration to ~10 tool calls before synthesizing findings. If you need more context, summarize what you know so far and ask the user for direction.
+## Git Lifecycle
+- Use `/do` for the full lifecycle: plan, branch, implement in verified atomic commits, and open a draft PR.
+- Use `/mkbranch`, `/commit`, and `/mkpr` individually when needed.
 
 ## Rust Conventions
 - When fixing imports after removing re-exports or refactoring modules, NEVER add new `pub use` re-exports as a shortcut. Always fix each individual import path at the call site.

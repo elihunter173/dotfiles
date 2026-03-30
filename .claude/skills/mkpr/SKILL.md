@@ -1,8 +1,10 @@
 # Write PR
 
-Write a PR title and description following the conventions below.
+Create a **draft** PR for the current branch with a title and description following the conventions below.
 
-Update the current branch's PR using `gh pr edit --title "..." --body "..."`. If the current branch doesn't have a PR, create one using `gh pr create --draft --title "..." --body "..."`.
+```bash
+gh pr create --draft --title "..." --body "..."
+```
 
 ## Title
 
