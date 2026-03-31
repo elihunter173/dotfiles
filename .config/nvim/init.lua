@@ -779,9 +779,9 @@ vim.g.rustaceanvim = {
       ["rust-analyzer"] = {
         inlayHints = {
         },
-        server = {
-          path = "/Users/eli.hunter/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
-        },
+        -- server = {
+        --   path = "/Users/eli.hunter/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
+        -- },
         rustfmt = {
           extraArgs = { "+nightly-2025-07-02" },
         },
