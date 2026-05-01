@@ -1,6 +1,13 @@
 ---
 name: commit
 description: Verify, commit, and push changes. Runs cargo check and clippy, then creates a conventional commit. Use when the user says "commit", "commit and push", "save my work", or after completing an implementation phase.
+allowed-tools:
+  - Bash(git add *)
+  - Bash(git commit *)
+  - Bash(git diff *)
+  - Bash(git log *)
+  - Bash(git push *)
+  - Bash(git status *)
 ---
 
 # Commit

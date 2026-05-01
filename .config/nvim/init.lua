@@ -29,6 +29,7 @@ require("lazy").setup {
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
   },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   -- Markdown
   {
     "plasticboy/vim-markdown",
@@ -40,80 +41,37 @@ require("lazy").setup {
   -- Additional text objects
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
-      require("nvim-treesitter.configs").setup {
-        textobjects = {
-          select = {
-            enable = true,
-            -- Automatically jump forward to textobj, similar to targets.vim
-            lookahead = true,
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              -- TODO: In rust this is not just definition
-              ["as"] = "@class.outer",
-              ["is"] = "@class.inner",
-              ["aa"] = "@parameter.outer",
-              ["ia"] = "@parameter.inner",
-              -- You can also use captures from other query groups like `locals.scm`
-              -- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-            },
-            -- You can choose the select mode (default is charwise 'v')
-            --
-            -- Can also be a function which gets passed a table with the keys
-            -- * query_string: eg '@function.inner'
-            -- * method: eg 'v' or 'o'
-            -- and should return the mode ('v', 'V', or '<c-v>') or a table
-            -- mapping query_strings to modes.
-            selection_modes = {
-              ["@function.outer"] = "V",
-              ["@function.inner"] = "V",
-              ["@class.outer"] = "V",
-              ["@class.inner"] = "V",
-              ["@parameter.outer"] = "v",
-              ["@parameter.inner"] = "v",
-            },
-            -- If you set this to `true` (default is `false`) then any textobject is
-            -- extended to include preceding or succeeding whitespace. Succeeding
-            -- whitespace has priority in order to act similarly to eg the built-in
-            -- `ap`.
-            --
-            -- Can also be a function which gets passed a table with the keys
-            -- * query_string: eg '@function.inner'
-            -- * selection_mode: eg 'v'
-            -- and should return true of false
-            include_surrounding_whitespace = true,
-          },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              ["]f"] = "@function.outer",
-              -- ["]s"] = { query = "@class.outer", desc = "Next class start" },
-              ["]a"] = "@parameter.outer",
-              -- ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-            },
-            goto_next_end = {
-              ["]F"] = "@function.outer",
-              ["]S"] = "@class.outer",
-              ["]A"] = "@parameter.outer",
-            },
-            goto_previous_start = {
-              ["[f"] = "@function.outer",
-              -- ["[s"] = "@class.outer",
-              ["[a"] = "@parameter.outer",
-              -- ["[s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-            },
-            goto_previous_end = {
-              ["[F"] = "@function.outer",
-              ["[S"] = "@class.outer",
-              ["[A"] = "@parameter.outer",
-            },
-          },
-        },
-      }
+      local select = function(capture)
+        return function()
+          require("nvim-treesitter-textobjects.select").select_textobject(capture, "textobjects")
+        end
+      end
+      local move = function(fn, capture)
+        return function()
+          require("nvim-treesitter-textobjects.move")[fn](capture, "textobjects")
+        end
+      end
+
+      map({ "x", "o" }, "af", select("@function.outer"))
+      map({ "x", "o" }, "if", select("@function.inner"))
+      map({ "x", "o" }, "as", select("@class.outer"))
+      map({ "x", "o" }, "is", select("@class.inner"))
+      map({ "x", "o" }, "aa", select("@parameter.outer"))
+      map({ "x", "o" }, "ia", select("@parameter.inner"))
+
+      map({ "n", "x", "o" }, "]f", move("goto_next_start", "@function.outer"))
+      map({ "n", "x", "o" }, "]a", move("goto_next_start", "@parameter.outer"))
+      map({ "n", "x", "o" }, "]F", move("goto_next_end", "@function.outer"))
+      map({ "n", "x", "o" }, "]S", move("goto_next_end", "@class.outer"))
+      map({ "n", "x", "o" }, "]A", move("goto_next_end", "@parameter.outer"))
+      map({ "n", "x", "o" }, "[f", move("goto_previous_start", "@function.outer"))
+      map({ "n", "x", "o" }, "[a", move("goto_previous_start", "@parameter.outer"))
+      map({ "n", "x", "o" }, "[F", move("goto_previous_end", "@function.outer"))
+      map({ "n", "x", "o" }, "[S", move("goto_previous_end", "@class.outer"))
+      map({ "n", "x", "o" }, "[A", move("goto_previous_end", "@parameter.outer"))
     end
   },
   -- Surrounding text objects with any characte
@@ -273,7 +231,7 @@ require("lazy").setup {
   "neovim/nvim-lspconfig",
   {
     "mrcjkb/rustaceanvim",
-    version = '^5',
+    -- version = "^9",
     -- This plugin is already lazy
     lazy = false,
   },
@@ -310,7 +268,12 @@ require("lazy").setup {
   },
 
   -- TreeSitter
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
+  },
 
   -- Remote development
   {
@@ -470,7 +433,7 @@ opt.statusline = "[%{mode()}] %{v:lua.MYFILENAME()}%m%r%w%q%=%l,%c %{get(b:,'git
 
 -- Colorscheme
 opt.termguicolors = os.getenv("TERM") ~= "screen"
-opt.background = "dark"
+-- opt.background = "light"
 
 -----------------------------
 --------- Mappings ----------
@@ -557,7 +520,7 @@ gruvbox.setup {
     SignColumn = { bg = gruvbox.palette.dark0 },
   }
 }
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme catppuccin-nvim")
 
 -- EditorConfig + Fugitive
 g.EditorConfig_exclude_patterns = { "fugitive://.\\*" }
@@ -725,30 +688,30 @@ vim.lsp.config("pylsp", {
   },
 })
 
-vim.lsp.config("lua_ls", {
-  cmd = {
-    os.getenv("HOME") .. "/src/lua-language-server/bin/lua-language-server",
-  },
-  settings = {
-    Lua = {
-      runtime = { version = "LuaJIT" },
-      diagnostics = {
-        -- Vim + Busted
-        globals = { "vim", "describe", "it", "pending", "before_each" },
-      },
-      -- Configuration for love2d
-      workspace = {
-        checkThirdParty = false,
-        telemetry = { enable = false },
-        library = {
-          os.getenv("HOME") .. "/src/love2d/library",
-        },
-      },
-    },
-  },
-})
+-- vim.lsp.config("lua_ls", {
+--   cmd = {
+--     os.getenv("HOME") .. "/src/lua-language-server/bin/lua-language-server",
+--   },
+--   settings = {
+--     Lua = {
+--       runtime = { version = "LuaJIT" },
+--       diagnostics = {
+--         -- Vim + Busted
+--         globals = { "vim", "describe", "it", "pending", "before_each" },
+--       },
+--       -- Configuration for love2d
+--       workspace = {
+--         checkThirdParty = false,
+--         telemetry = { enable = false },
+--         library = {
+--           os.getenv("HOME") .. "/src/love2d/library",
+--         },
+--       },
+--     },
+--   },
+-- })
 
-vim.lsp.enable({ "bashls", "clangd", "gopls", "lua_ls", "pylsp", "zls" })
+vim.lsp.enable({ "bashls", "clangd", "gopls", "pylsp", "terraformls", "zls" })
 
 vim.g.rustaceanvim = {
   -- Plugin configuration
@@ -770,8 +733,12 @@ vim.g.rustaceanvim = {
         vim.cmd.RustLsp("codeAction")
       end)
       -- Longer errors
-      -- bufmap("n", "<leader>e", function()
-      --   vim.cmd.RustLsp("renderDiagnostic")
+      bufmap("n", "<leader>e", function()
+        vim.cmd.RustLsp("renderDiagnostic")
+      end)
+      -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+      -- bufmap("n", "K", function()
+      --   vim.cmd.RustLsp({'hover', 'actions'})
       -- end)
     end,
     default_settings = {
@@ -780,7 +747,7 @@ vim.g.rustaceanvim = {
         inlayHints = {
         },
         -- server = {
-        --   path = "/Users/eli.hunter/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
+        --   path = os.getenv("HOME") .. "/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer",
         -- },
         rustfmt = {
           extraArgs = { "+nightly-2025-07-02" },
@@ -801,11 +768,10 @@ vim.g.rustaceanvim = {
 --------------------------------
 ---------- TreeSitter ----------
 --------------------------------
-require("nvim-treesitter.configs").setup {
-  ensure_installed = { "rust", "toml", "lua", "go", "python" },
-  -- No `ensure_installed` I manually install language parsers, since verifying
-  -- is really slow on WSL
-  highlight = {
-    enable = true,
-  },
-}
+local ts_languages = { "rust", "toml", "lua", "go", "python", "hcl", "terraform" }
+require("nvim-treesitter").install(ts_languages)
+
+autocmd("FileType", {
+  pattern = ts_languages,
+  callback = function() pcall(vim.treesitter.start) end,
+})
