@@ -1,0 +1,38 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[user]
+name = "Eli W. Hunter"
+email = "eli.hunter@datadoghq.com"
+
+[ui]
+default-command = ["log", "-r", "trunk()..@"]
+
+[signing]
+# Don't sign at all when describing
+behavior = "drop"
+backend = "ssh"
+key = "~/.config/gitsign/signing-key.pub"
+
+[git]
+# Only sign on push
+sign-on-push = true
+
+[remotes.origin]
+# Automatically track all bookmarks that start with eli/
+# This limits the amount of pulling I have to do
+auto-track-bookmarks = "glob:eli/*"
+
+[revset-aliases]
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+
+[aliases]
+# Gotten from here. I found it annoying to regularly update my bookmarks:
+# https://github.com/jj-vcs/jj/discussions/5568
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+autobookmark = ["util", "exec", "--", "bash", "-c", """
+set -euo pipefail
+echo "Generating bookmark name"
+bookmark_name="$(jj log -r 'trunk()..@' | generate-branch-name)"
+echo "Chose $bookmark_name"
+jj bookmark create "eli/$bookmark_name" -r @-
+"""]
